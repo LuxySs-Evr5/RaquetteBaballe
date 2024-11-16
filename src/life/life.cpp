@@ -6,10 +6,7 @@
  *
  */
 
-#include <fstream>
-
 #include "life.hpp"
-#include "../score/score.hpp"
 
 // ### Constructor ###
 
@@ -28,34 +25,15 @@ Life::~Life() = default;
 void Life::removeOneLife() {
   nbLifes_--;
   if (nbLifes_ < 1) {
-    cout << "Game Over ! Your score is:" << getScore() << endl;
+    isGaming_ = false;
+    cout << "Game Over ! Your score is:" << score_.getScore() << endl; // from ../score/score.hpp
+    // TODO: we have to check the score in file score.txt and set the highest
+    // score between the score in the file and the current score
     // TODO: we have to choose what to do when the game is over
   }
 }
 
-void Life::saveScore() {
-  string filePath = "../../score.txt";
-
-  ifstream read(filePath, ios::in);
-
-  int fileScore = 0;
-
-  if (read.is_open()) {
-    read >> fileScore;
-    read.close();
-  }
-
-  if (getScore() > fileScore) {
-    ofstream write(filePath, ios::out | ios::trunc);
-    if (write.is_open()) {
-      write << getScore() << endl;
-      write.close();
-    }
-    else {
-      cerr << "Error: Can't open the file" << endl;
-    }
-  }
-}
+bool Life::currentlyGaming() const { return isGaming_; }
 
 ostream &operator<<(ostream &os, const Life &life) {
   os << "Numbers of Lifes: " << life.nbLifes_;
