@@ -22,12 +22,15 @@ public:
     Score();
     ~Score();
 
+    void addScore(const int score);
+    void resetScore();
+    void saveScore();
+
     void setScore(const int score);
 
     int getScore() const;
     
-    void addScore(const int score);
-    void resetScore();
+    
 
     friend ostream &operator<<(ostream &os, const Score &score);
 };
