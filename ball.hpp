@@ -1,3 +1,6 @@
+#ifndef BALL_HPP
+#define BALL_HPP
+
 #include "point.hpp"
 #include <math.h>
 
@@ -35,3 +38,5 @@ class Ball {
         }
     }
 };
+
+#endif

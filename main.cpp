@@ -12,8 +12,12 @@ int main() {
         Point coord = b.getCoordinate();
         std::cout << "(" << coord.x << ", " << coord.y << ")" << std::endl;
 
-        if (i == 10) {
+        if (i == 2) {
             b.bounce(BounceType::vertical);
+        }
+
+        if (i == 4) {
+            b.setSpeed(2);
         }
 
         b.update();
