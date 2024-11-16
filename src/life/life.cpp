@@ -6,7 +6,10 @@
  *
  */
 
+#include <fstream>
+
 #include "life.hpp"
+#include "../score/score.hpp"
 
 // ### Constructor ###
 
@@ -25,7 +28,32 @@ Life::~Life() = default;
 void Life::removeOneLife() {
   nbLifes_--;
   if (nbLifes_ < 1) {
-    nbLifes_ = 0;
+    cout << "Game Over ! Your score is:" << getScore() << endl;
+    // TODO: we have to choose what to do when the game is over
+  }
+}
+
+void Life::saveScore() {
+  string filePath = "../../score.txt";
+
+  ifstream read(filePath, ios::in);
+
+  int fileScore = 0;
+
+  if (read.is_open()) {
+    read >> fileScore;
+    read.close();
+  }
+
+  if (getScore() > fileScore) {
+    ofstream write(filePath, ios::out | ios::trunc);
+    if (write.is_open()) {
+      write << getScore() << endl;
+      write.close();
+    }
+    else {
+      cerr << "Error: Can't open the file" << endl;
+    }
   }
 }
 

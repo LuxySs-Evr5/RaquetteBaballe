@@ -25,6 +25,7 @@ public:
   ~Life();
 
   void removeOneLife();
+  void saveScore();
   
   void setNbLifes(const uint8_t nbLifes);
 
