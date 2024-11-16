@@ -1,0 +1,6 @@
+*gch
+*.out
+output
+res
+test.cpp
+tmp.cpp
