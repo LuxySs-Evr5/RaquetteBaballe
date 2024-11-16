@@ -1,3 +1,7 @@
+# build dir
+build
+
+# temp stuff
 *gch
 *.out
 output

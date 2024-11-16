@@ -3,7 +3,6 @@
 
 #include "../point/point.hpp"
 
-#include <cstdint>
 #include <memory>
 
 enum class Color : unsigned int { // Score/Point is always positive
@@ -29,7 +28,7 @@ class Brick {
 
   public:
     // factory method
-    static std::unique_ptr<Brick> makeBrick(Color color, Point coord);
+    static std::shared_ptr<Brick> makeBrick(Color color, Point coord);
 
     Brick(Color color, Point coord, uint8_t durability = 1);
 
@@ -38,6 +37,7 @@ class Brick {
     virtual void hit();
 
     virtual unsigned getScore() const;
+    virtual Point getCoordinate() const;
     virtual uint8_t getDurability() const;
     virtual bool isDestroyed() const;
 };

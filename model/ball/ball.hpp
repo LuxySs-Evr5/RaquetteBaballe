@@ -16,27 +16,16 @@ class Ball {
     unsigned speed_;
 
   public:
-    Ball(Point coord, Point direction, unsigned speed = 1)
-        : coord_{coord}, direction_{direction}, speed_{speed} {}
+    Ball(Point coord, Point direction, unsigned speed = 1);
 
     virtual ~Ball() = default;
 
-    virtual Point getCoordinate() { return coord_; }
-    virtual void setSpeed(unsigned speed) { speed_ = speed; };
-    virtual void setDirection(Point newDirection) { direction_ = newDirection; }
+    virtual Point getCoordinate();
+    virtual void setSpeed(unsigned speed);
+    virtual void setDirection(Point newDirection);
 
-    virtual void update() {
-        coord_.x += direction_.x * speed_;
-        coord_.y += direction_.y * speed_;
-    }
-
-    void bounce(BounceType bounceType) {
-        if (bounceType == BounceType::horizontal) {
-            direction_.y = -direction_.y;
-        } else if (bounceType == BounceType::vertical) {
-            direction_.x = -direction_.x;
-        }
-    }
+    virtual void update();
+    virtual void bounce(BounceType bounceType);
 };
 
 #endif

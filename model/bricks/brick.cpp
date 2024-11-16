@@ -5,7 +5,7 @@
 #include <memory>
 
 // factory method
-std::unique_ptr<Brick> Brick::makeBrick(Color color, Point coord) {
+std::shared_ptr<Brick> Brick::makeBrick(Color color, Point coord) {
     std::unique_ptr<Brick> ret;
 
     switch (color) {
@@ -35,5 +35,6 @@ void Brick::hit() { // this is default behavior
 }
 
 unsigned Brick::getScore() const { return static_cast<unsigned>(color_); }
+Point Brick::getCoordinate() const { return coord_; }
 uint8_t Brick::getDurability() const { return durability_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
