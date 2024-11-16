@@ -1,7 +1,7 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include "point.hpp"
+#include "../point/point.hpp"
 #include <math.h>
 
 // NOTE: might wanna get inspo from translation class in labs to do the

@@ -1,7 +1,7 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
-#include "../point.hpp"
+#include "../point/point.hpp"
 
 #include <cstdint>
 #include <memory>

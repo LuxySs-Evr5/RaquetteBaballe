@@ -1,4 +1,4 @@
-#include "ball.hpp"
+#include "model/ball/ball.hpp"
 #include <iostream>
 #include <unistd.h>
 
