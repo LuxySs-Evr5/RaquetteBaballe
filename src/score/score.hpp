@@ -15,6 +15,7 @@ using namespace std;
 
 class Score {
 private:
+  // TODO: verify if the score is very high, so int or long int or lon long int ?
   int score_;
 
 public:
