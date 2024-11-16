@@ -1,6 +1,6 @@
-#include "model/model.hpp"
+#include "controller/controller.hpp"
 
 int main() {
-    Model model;
-    model.run();
+    Controller controller;
+    controller.run();
 }

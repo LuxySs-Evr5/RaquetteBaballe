@@ -7,9 +7,9 @@ Point Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 void Ball::setDirection(Point newDirection) { direction_ = newDirection; }
 
-void Ball::update() {
-    coord_.x += direction_.x * speed_;
-    coord_.y += direction_.y * speed_;
+void Ball::update(double deltaTime) {
+    coord_.x += direction_.x * speed_ * deltaTime;
+    coord_.y += direction_.y * speed_ * deltaTime;
 }
 
 void Ball::bounce(BounceType bounceType) {

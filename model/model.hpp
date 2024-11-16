@@ -20,7 +20,7 @@ class Model {
     Model() = default;
     virtual ~Model() = default;
 
-    void run();
+    virtual void update(double deltaTime);
 };
 
 #endif

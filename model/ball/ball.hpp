@@ -24,7 +24,7 @@ class Ball {
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(Point newDirection);
 
-    virtual void update();
+    virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);
 };
 
