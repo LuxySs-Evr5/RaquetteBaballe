@@ -1,6 +1,6 @@
 #include "ball.hpp"
 
-Ball::Ball(Point coord, Point direction, unsigned radius, unsigned speed)
+Ball::Ball(Point coord, Point direction, double radius, double speed)
     : coord_{coord}, direction_{direction}, radius_{radius}, speed_{speed} {}
 
 Point Ball::getCoordinate() { return coord_; }

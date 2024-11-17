@@ -10,10 +10,10 @@
 class Model {
   private:
     std::vector<std::shared_ptr<Ball>> balls = {
-        std::make_shared<Ball>(Point{1, 1}, Point{0, 1})};
+        std::make_shared<Ball>(Point{0, 0}, Point{1, 0})};
 
     std::vector<std::shared_ptr<Brick>> bricks{
-        Brick::makeBrick(Color::red, Point{1, 2}),
+        Brick::makeBrick(Color::red, Point{3, 0.25}, Point{5, 1}),
     };
 
   public:

@@ -5,7 +5,8 @@
 
 class BasicBrick : public Brick {
   public:
-    BasicBrick(Color color, Point coord, uint8_t durability = 1);
+    BasicBrick(Color color, Point topLeft, Point bottomRight,
+               uint8_t durability = 1);
 };
 
 #endif

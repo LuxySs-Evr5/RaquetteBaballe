@@ -13,12 +13,11 @@ class Ball {
   private:
     Point coord_;
     Point direction_;
-    unsigned radius_;
-    unsigned speed_;
+    double radius_;
+    double speed_;
 
   public:
-    Ball(Point coord, Point direction, unsigned radius = 25,
-         unsigned speed = 1);
+    Ball(Point coord, Point direction, double radius = 1, double speed = 1);
 
     virtual ~Ball() = default;
 

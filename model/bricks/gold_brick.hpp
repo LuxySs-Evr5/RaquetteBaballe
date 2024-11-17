@@ -5,7 +5,7 @@
 
 class GoldBrick : public Brick {
   public:
-    GoldBrick(Point coord);
+    GoldBrick(Point topLeft, Point bottomRight);
 
     virtual void hit() override; // Gold bricks are never destroyed
 };

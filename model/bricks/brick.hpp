@@ -23,21 +23,25 @@ enum class Color : unsigned int { // Score/Point is always positive
 class Brick {
   protected:
     Color color_;
-    Point coord_;
+    Point topLeft_;
+    Point bottomRight_;
     uint8_t durability_;
 
   public:
     // factory method
-    static std::shared_ptr<Brick> makeBrick(Color color, Point coord);
+    static std::shared_ptr<Brick> makeBrick(Color color, Point topLeft,
+                                            Point bottomRight);
 
-    Brick(Color color, Point coord, uint8_t durability = 1);
+    Brick(Color color, Point topLeft, Point bottomRight,
+          uint8_t durability = 1);
 
     virtual ~Brick();
+
+    virtual Point getNearestPointFrom(Point point) const;
 
     virtual void hit();
 
     virtual unsigned getScore() const;
-    virtual Point getCoordinate() const;
     virtual uint8_t getDurability() const;
     virtual bool isDestroyed() const;
 };
