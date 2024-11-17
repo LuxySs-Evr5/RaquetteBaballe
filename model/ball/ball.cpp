@@ -1,7 +1,7 @@
 #include "ball.hpp"
 
-Ball::Ball(Point coord, Point direction, unsigned speed)
-    : coord_{coord}, direction_{direction}, speed_{speed} {}
+Ball::Ball(Point coord, Point direction, unsigned radius, unsigned speed)
+    : coord_{coord}, direction_{direction}, radius_{radius}, speed_{speed} {}
 
 Point Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
@@ -18,4 +18,11 @@ void Ball::bounce(BounceType bounceType) {
     } else if (bounceType == BounceType::vertical) {
         direction_.x = -direction_.x;
     }
+}
+
+bool Ball::hasReached(Point point) {
+    double deltaX = abs(point.x - coord_.x);
+    double deltaY = abs(point.y - coord_.y);
+
+    return std::sqrt(std::pow(deltaX, 2) + std::pow(deltaY, 2)) <= radius_;
 }

@@ -13,16 +13,20 @@ class Ball {
   private:
     Point coord_;
     Point direction_;
+    unsigned radius_;
     unsigned speed_;
 
   public:
-    Ball(Point coord, Point direction, unsigned speed = 1);
+    Ball(Point coord, Point direction, unsigned radius = 25,
+         unsigned speed = 1);
 
     virtual ~Ball() = default;
 
     virtual Point getCoordinate();
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(Point newDirection);
+
+    virtual bool hasReached(Point point);
 
     virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);
