@@ -24,9 +24,27 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-bool Ball::isOnThePoint(Point point) const {
+bool Ball::isOnThePoint(const Point &point) const {
     int deltaX = point.x - coord_.x;
     int deltaY = point.y - coord_.y;
 
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
+}
+
+// NOTE: This is where you stopped working last night,
+// now you have to implement the way to detect on which side it bounced
+// so that you can do the right bounce type
+bool Ball::checkInBounceArea(const Rectangle &rectangle) {
+    Point topLeft = rectangle.getTopLeft();
+    Point bottomRight = rectangle.getBottomRight();
+
+    // TODO: this is where size_t and double limitiations happen
+    Point areatopLeft{topLeft.x + static_cast<size_t>(radius_),
+                      static_cast<size_t>(topLeft.y + radius_)};
+
+    Point areaBottomRight{bottomRight.x + static_cast<size_t>(radius_),
+                          static_cast<size_t>(bottomRight.y + radius_)};
+
+    return (areatopLeft.x <= coord_.x) and (coord_.x <= areaBottomRight.x)
+           and (areaBottomRight.y <= coord_.y) and (coord_.x <= areatopLeft.y);
 }

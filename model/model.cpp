@@ -10,7 +10,7 @@ void Model::update(double deltaTime) {
         for (auto it = bricks.begin(); it != bricks.end();) {
             std::shared_ptr<Brick> brick = *it;
 
-            if (false /*ball is in brick's bouncing-area*/) {
+            if (ball->checkInBounceArea(brick->getRectangle())) {
                 if (false /* vertical bounce */) {
                     std::cout << "vertical bounce " << std::endl;
                     ball->bounce(BounceType::vertical);
