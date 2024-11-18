@@ -1,6 +1,7 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
+#include "../bricks/brick.hpp"
 #include "../point/point.hpp"
 #include "../vec2/vec2.hpp"
 
@@ -29,9 +30,11 @@ class Ball {
 
     virtual Point getCoordinate();
     virtual void setSpeed(unsigned speed);
-    virtual void setDirection(Point newDirectionVec);
+    virtual void setDirectionX(int x);
+    virtual void setDirectionY(int y);
 
-    virtual bool hasReached(Point point);
+    // this obviously works
+    virtual bool isOnThePoint(Point point) const;
 
     virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);

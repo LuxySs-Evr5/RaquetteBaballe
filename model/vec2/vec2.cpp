@@ -1,17 +1,11 @@
 #include "vec2.hpp"
 
-#include "../point/point.hpp"
-#include <math.h>
+#include <cmath>
 
-Vec2::Vec2(Point point) : x(point.x), y(point.y) {}
-
-Vec2::Vec2(double x, double y) : x{x}, y{y} {}
+Vec2::Vec2(int x, int y) : x{x}, y{y} {}
 
 double Vec2::getModule() const {
-    double xComponentLen = abs(x);
-    double yComponentLen = abs(y);
-
-    return std::sqrt(std::pow(xComponentLen, 2) + std::pow(yComponentLen, 2));
+    return std::sqrt(std::pow(abs(x), 2) + std::pow(abs(y), 2));
 }
 
 const Vec2 &Vec2::normalize() {
@@ -22,5 +16,3 @@ const Vec2 &Vec2::normalize() {
 
     return *this;
 }
-
-Point Vec2::toPoint() const { return Point(x, y); }

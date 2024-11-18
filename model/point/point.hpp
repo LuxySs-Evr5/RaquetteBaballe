@@ -1,11 +1,13 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-struct Point {
-    double x = 0;
-    double y = 0;
+#include <cstddef>
 
-    Point(double x, double y);
+struct Point {
+    size_t x = 0;
+    size_t y = 0;
+
+    Point(size_t x, size_t y);
 
     virtual bool operator==(const Point &other) const;
 };

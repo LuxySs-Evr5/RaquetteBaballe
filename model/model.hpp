@@ -14,7 +14,7 @@ class Model {
         std::make_shared<Ball>(Point{0, 0}, Vec2{1, 0})};
 
     std::vector<std::shared_ptr<Brick>> bricks{
-        Brick::makeBrick(Color::red, Point{3, 0.25}, Point{5, 1}),
+        Brick::makeBrick(Color::red, Rectangle{Point{2, 1}, Point{5, 3}}),
     };
 
   public:

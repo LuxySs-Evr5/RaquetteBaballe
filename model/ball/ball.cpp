@@ -6,7 +6,8 @@ Ball::Ball(Point coord, Vec2 directionVec, double radius, double speed)
 
 Point Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
-void Ball::setDirection(Point newDirectionVec) { dirVec_ = newDirectionVec; }
+void Ball::setDirectionX(int x) { dirVec_.x = x; }
+void Ball::setDirectionY(int y) { dirVec_.y = y; }
 
 void Ball::update(double deltaTime) {
     coord_.x += dirVec_.x * speed_ * deltaTime;
@@ -23,9 +24,9 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-bool Ball::hasReached(Point point) {
-    double deltaX = point.x - coord_.x;
-    double deltaY = point.y - coord_.y;
+bool Ball::isOnThePoint(Point point) const {
+    int deltaX = point.x - coord_.x;
+    int deltaY = point.y - coord_.y;
 
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }

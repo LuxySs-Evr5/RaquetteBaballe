@@ -1,23 +1,23 @@
 #include "brick.hpp"
+#include "../rectangle/rectangle.hpp"
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
 
 #include <memory>
 
 // factory method
-std::shared_ptr<Brick> Brick::makeBrick(Color color, Point topLeft,
-                                        Point bottomRight) {
+std::shared_ptr<Brick> Brick::makeBrick(Color color, Rectangle rectangle) {
     std::unique_ptr<Brick> ret;
 
     switch (color) {
     case Color::gold:
-        ret = std::make_unique<GoldBrick>(topLeft, bottomRight);
+        ret = std::make_unique<GoldBrick>(rectangle);
         break;
     case Color::silver: // durability = 2 for silver
-        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight,
+        ret = std::make_unique<BasicBrick>(color, rectangle,
                                            DURABILITY_SILVER_BRICK);
     default:
-        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight,
+        ret = std::make_unique<BasicBrick>(color, rectangle,
                                            DURABILITY_STANDARD_BRICK);
         break;
     }
@@ -25,18 +25,11 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, Point topLeft,
     return ret;
 }
 
-// public constructor
-Brick::Brick(Color color, Point topLeft, Point bottomRight, uint8_t durability)
-    : durability_(durability), color_{color}, topLeft_{topLeft},
-      bottomRight_{bottomRight} {}
+// protected constructor
+Brick::Brick(Color color, Rectangle rectangle, uint8_t durability)
+    : durability_(durability), color_{color}, rectangle_(rectangle) {}
 
 Brick::~Brick() = default;
-
-Point Brick::getNearestPointFrom(Point point) const {
-    double nearestX = std::max(topLeft_.x, std::min(bottomRight_.x, point.x));
-    double nearestY = std::max(bottomRight_.y, std::min(topLeft_.y, point.y));
-    return Point{nearestX, nearestY};
-}
 
 void Brick::hit() { // this is default behavior
     if (durability_ > 0) {
@@ -44,8 +37,10 @@ void Brick::hit() { // this is default behavior
     }
 }
 
-unsigned Brick::getScore() const { return static_cast<unsigned>(color_); }
+size_t Brick::getScore() const { return static_cast<unsigned>(color_); }
 uint8_t Brick::getDurability() const { return durability_; }
-Point Brick::getTopLeft() const { return topLeft_; }
-Point Brick::getBottomRight() const { return bottomRight_; }
+const Rectangle &Brick::getRectangle() const { return rectangle_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
+
+Point Brick::getTopLeft() const { return rectangle_.getTopLeft(); }
+Point Brick::getBottomRight() const { return rectangle_.getBottomRight(); }

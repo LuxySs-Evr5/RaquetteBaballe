@@ -14,10 +14,6 @@ class Rectangle {
     Point getTopLeft() const noexcept;
     Point getBottomRight() const noexcept;
     Point getCenter() const noexcept;
-
-    bool edgeContains(Point p) const;
-
-    bool areaContains(Point p) const;
 };
 
 #endif
