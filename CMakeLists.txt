@@ -12,13 +12,11 @@ file(GLOB_RECURSE SOURCES
     ${CMAKE_SOURCE_DIR}/controller/*.cpp
 )
 
-# Add all header files for IDE autocompletion (optional, useful for some IDEs)
-file(GLOB_RECURSE HEADERS
-    ${CMAKE_SOURCE_DIR}/model/*.hpp
-)
-
 # Include directories for headers
-include_directories(${CMAKE_SOURCE_DIR}/model)
+include_directories (
+    ${CMAKE_SOURCE_DIR}/model
+    ${CMAKE_SOURCE_DIR}/controller
+)
 
 # Create the executable from the source files
 add_executable(casse-briques ${SOURCES} ${HEADERS})

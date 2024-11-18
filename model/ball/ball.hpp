@@ -2,7 +2,12 @@
 #define BALL_HPP
 
 #include "../point/point.hpp"
+#include "../vec2/vec2.hpp"
+
 #include <math.h>
+
+constexpr double DEFAULT_BALL_RADIUS = 1;
+constexpr double DEFAULT_BALL_SPEED = 1;
 
 // NOTE: might wanna get inspo from translation class in labs to do the
 // increased-speed nerf
@@ -12,18 +17,19 @@ enum class BounceType { horizontal, vertical };
 class Ball {
   private:
     Point coord_;
-    Point direction_;
-    double radius_;
-    double speed_;
+    Vec2 dirVec_; // direction vector (always normalized)
+    double radius_{1};
+    double speed_{1};
 
   public:
-    Ball(Point coord, Point direction, double radius = 1, double speed = 1);
+    Ball(Point coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
+         double speed = DEFAULT_BALL_SPEED);
 
     virtual ~Ball() = default;
 
     virtual Point getCoordinate();
     virtual void setSpeed(unsigned speed);
-    virtual void setDirection(Point newDirection);
+    virtual void setDirection(Point newDirectionVec);
 
     virtual bool hasReached(Point point);
 

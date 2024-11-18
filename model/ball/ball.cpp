@@ -1,28 +1,31 @@
 #include "ball.hpp"
 
-Ball::Ball(Point coord, Point direction, double radius, double speed)
-    : coord_{coord}, direction_{direction}, radius_{radius}, speed_{speed} {}
+Ball::Ball(Point coord, Vec2 directionVec, double radius, double speed)
+    : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
+      speed_{speed} {}
 
 Point Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
-void Ball::setDirection(Point newDirection) { direction_ = newDirection; }
+void Ball::setDirection(Point newDirectionVec) { dirVec_ = newDirectionVec; }
 
 void Ball::update(double deltaTime) {
-    coord_.x += direction_.x * speed_ * deltaTime;
-    coord_.y += direction_.y * speed_ * deltaTime;
+    coord_.x += dirVec_.x * speed_ * deltaTime;
+    coord_.y += dirVec_.y * speed_ * deltaTime;
 }
 
 void Ball::bounce(BounceType bounceType) {
+    // technically could have both at once, e.g., brick corners
     if (bounceType == BounceType::horizontal) {
-        direction_.y = -direction_.y;
-    } else if (bounceType == BounceType::vertical) {
-        direction_.x = -direction_.x;
+        dirVec_.y = -dirVec_.y;
+    }
+    if (bounceType == BounceType::vertical) {
+        dirVec_.x = -dirVec_.x;
     }
 }
 
 bool Ball::hasReached(Point point) {
-    double deltaX = abs(point.x - coord_.x);
-    double deltaY = abs(point.y - coord_.y);
+    double deltaX = point.x - coord_.x;
+    double deltaY = point.y - coord_.y;
 
-    return std::sqrt(std::pow(deltaX, 2) + std::pow(deltaY, 2)) <= radius_;
+    return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }

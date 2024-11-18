@@ -3,6 +3,7 @@
 
 #include "ball/ball.hpp"
 #include "bricks/brick.hpp"
+#include "vec2/vec2.hpp"
 
 #include <memory>
 #include <vector>
@@ -10,7 +11,7 @@
 class Model {
   private:
     std::vector<std::shared_ptr<Ball>> balls = {
-        std::make_shared<Ball>(Point{0, 0}, Point{1, 0})};
+        std::make_shared<Ball>(Point{0, 0}, Vec2{1, 0})};
 
     std::vector<std::shared_ptr<Brick>> bricks{
         Brick::makeBrick(Color::red, Point{3, 0.25}, Point{5, 1}),
