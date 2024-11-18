@@ -5,6 +5,9 @@
 
 #include <memory>
 
+constexpr unsigned DURABILITY_STANDARD_BRICK = 1;
+constexpr unsigned DURABILITY_SILVER_BRICK = 2;
+
 enum class Color : unsigned int { // Score/Point is always positive
     defaultBrick = 1,
     white = 50,
@@ -33,7 +36,7 @@ class Brick {
                                             Point bottomRight);
 
     Brick(Color color, Point topLeft, Point bottomRight,
-          uint8_t durability = 1);
+          uint8_t durability = DURABILITY_STANDARD_BRICK);
 
     virtual ~Brick();
 
@@ -43,6 +46,8 @@ class Brick {
 
     virtual unsigned getScore() const;
     virtual uint8_t getDurability() const;
+    virtual Point getTopLeft() const;
+    virtual Point getBottomRight() const;
     virtual bool isDestroyed() const;
 };
 

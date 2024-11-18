@@ -14,9 +14,11 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, Point topLeft,
         ret = std::make_unique<GoldBrick>(topLeft, bottomRight);
         break;
     case Color::silver: // durability = 2 for silver
-        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight, 2);
+        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight,
+                                           DURABILITY_SILVER_BRICK);
     default:
-        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight, 1);
+        ret = std::make_unique<BasicBrick>(color, topLeft, bottomRight,
+                                           DURABILITY_STANDARD_BRICK);
         break;
     }
 
@@ -44,4 +46,6 @@ void Brick::hit() { // this is default behavior
 
 unsigned Brick::getScore() const { return static_cast<unsigned>(color_); }
 uint8_t Brick::getDurability() const { return durability_; }
+Point Brick::getTopLeft() const { return topLeft_; }
+Point Brick::getBottomRight() const { return bottomRight_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }

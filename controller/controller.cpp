@@ -13,7 +13,7 @@ void Controller::run() {
 
     time_point t_last_update = clock::now();
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         time_point t_now = clock::now();
 
         duration delta_time = t_now - t_last_update;
