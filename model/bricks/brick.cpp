@@ -27,7 +27,7 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, Rectangle rectangle) {
 
 // protected constructor
 Brick::Brick(Color color, Rectangle rectangle, uint8_t durability)
-    : durability_(durability), color_{color}, rectangle_(rectangle) {}
+    : color_{color}, rectangle_(rectangle), durability_(durability) {}
 
 Brick::~Brick() = default;
 

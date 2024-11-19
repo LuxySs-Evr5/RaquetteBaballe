@@ -26,21 +26,27 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-float clamp(float value, float min, float max) {
+double clamp(double value, double min, double max) {
     return std::max(min, std::min(max, value));
 }
 
 Point Ball::getClosestPoint(const Rectangle &rectangle) const {
-    size_t rectX = rectangle.getCenter().x;
-    size_t rectY = rectangle.getCenter().y;
+    Point rectCenter = rectangle.getCenter();
+    size_t rectCenterX = rectCenter.x;
+    size_t rectCenterY = rectCenter.y;
 
-    size_t halfWidth = rectangle.getWidth() / 2;
-    size_t halfHeight = rectangle.getHeight() / 2;
+    double halfWidth = static_cast<double>(rectangle.getWidth()) / 2;
+    double halfHeight = static_cast<double>(rectangle.getHeight()) / 2;
 
-    size_t closestX = clamp(coord_.x, rectX - halfWidth, rectX + halfWidth);
-    size_t closestY = clamp(coord_.y, rectY - halfHeight, rectY + halfHeight);
+    double closestX =
+        clamp(coord_.x, rectCenterX - halfWidth, rectCenterX + halfWidth);
+    double closestY =
+        clamp(coord_.y, rectCenterY - halfHeight, rectCenterY + halfHeight);
 
-    return Point{closestX, closestY};
+    std::cout << "closestPoint=(" << closestX << ", " << closestY << ")"
+              << std::endl;
+
+    return Point{static_cast<size_t>(closestX), static_cast<size_t>(closestY)};
 }
 
 bool Ball::hasReached(const Point &point) const {
@@ -52,9 +58,6 @@ bool Ball::hasReached(const Point &point) const {
 
 bool Ball::checkCollision(const Rectangle &rectangle) const {
     Point closestPoint = getClosestPoint(rectangle);
-
-    std::cout << "closestPoint=(" << closestPoint.x << ", " << closestPoint.y
-              << ")" << std::endl;
 
     return hasReached(closestPoint);
 }

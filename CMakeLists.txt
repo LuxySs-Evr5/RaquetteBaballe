@@ -22,4 +22,4 @@ include_directories (
 add_executable(casse-briques ${SOURCES} ${HEADERS})
 
 # Optionally, you can add additional target properties, like optimization or debug symbols
-# target_compile_options(casse-briques PRIVATE -Wall -Wextra)
+target_compile_options(casse-briques PRIVATE -Wall -Wextra -g)

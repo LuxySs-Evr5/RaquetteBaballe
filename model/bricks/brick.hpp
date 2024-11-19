@@ -1,7 +1,6 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
-#include "../point/point.hpp"
 #include "../rectangle/rectangle.hpp"
 
 #include <memory>

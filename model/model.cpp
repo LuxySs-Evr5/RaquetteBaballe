@@ -26,6 +26,7 @@ void Model::update(double deltaTime) {
                 brick->hit(); // decrement its durability
 
                 if (brick->isDestroyed()) { // erase brick if it is destroyed
+                    std::cout << "erasing rectangle " << std::endl;
                     it = bricks.erase(it);
                 }
 
