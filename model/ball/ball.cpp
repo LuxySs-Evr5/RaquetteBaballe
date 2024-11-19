@@ -29,6 +29,7 @@ double clamp(double value, double min, double max) {
 }
 
 void Ball::repositionOutsideOf(const Rectangle &rectangle) {
+    // TODO: write a comment to explain how this works
     Point closestPoint = getClosestPoint(rectangle);
 
     // TODO: find better names than vx vy (used the ones from the image)
@@ -38,8 +39,8 @@ void Ball::repositionOutsideOf(const Rectangle &rectangle) {
     double toMoveX = radius_ - vx;
     double toMoveY = radius_ - vy;
 
-    // std::cout << "toMoveX: " << toMoveX << std::endl;
-    // std::cout << "toMoveY: " << toMoveY << std::endl;
+    std::cout << "toMoveX: " << toMoveX << std::endl;
+    std::cout << "toMoveY: " << toMoveY << std::endl;
 
     coord_.x -= toMoveX;
     coord_.y -= toMoveY;
@@ -50,9 +51,16 @@ Point Ball::getClosestPoint(const Rectangle &rectangle) const {
     size_t rectCenterX = rectCenter.x;
     size_t rectCenterY = rectCenter.y;
 
+    // NOTE: this is where you stopped working last time
+    // TODO: add operator- & merge Vec2 with Point
+    Vec2 distance = coord_ - rectangle.getCenter();
+    distance.clamp(rectangle);
+
+    //
+
+    // this is wrong
     double halfWidth = static_cast<double>(rectangle.getWidth()) / 2;
     double halfHeight = static_cast<double>(rectangle.getHeight()) / 2;
-
     double closestX =
         clamp(coord_.x, rectCenterX - halfWidth, rectCenterX + halfWidth);
     double closestY =
