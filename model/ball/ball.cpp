@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-Ball::Ball(Point coord, Vec2 directionVec, double radius, double speed)
+Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
     : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
 
-Point Ball::getCoordinate() { return coord_; }
+Vec2 Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
 
@@ -30,11 +30,11 @@ double clamp(double value, double min, double max) {
 
 void Ball::repositionOutsideOf(const Rectangle &rectangle) {
     // TODO: write a comment to explain how this works
-    Point closestPoint = getClosestPoint(rectangle);
+    Vec2 closestVec2 = getClosestVec2(rectangle);
 
     // TODO: find better names than vx vy (used the ones from the image)
-    double vx = closestPoint.x - coord_.x;
-    double vy = closestPoint.y - coord_.y;
+    double vx = closestVec2.x - coord_.x;
+    double vy = closestVec2.y - coord_.y;
 
     double toMoveX = radius_ - vx;
     double toMoveY = radius_ - vy;
@@ -46,15 +46,15 @@ void Ball::repositionOutsideOf(const Rectangle &rectangle) {
     coord_.y -= toMoveY;
 }
 
-Point Ball::getClosestPoint(const Rectangle &rectangle) const {
-    Point rectCenter = rectangle.getCenter();
+Vec2 Ball::getClosestVec2(const Rectangle &rectangle) const {
+    Vec2 rectCenter = rectangle.getCenter();
     size_t rectCenterX = rectCenter.x;
     size_t rectCenterY = rectCenter.y;
 
     // NOTE: this is where you stopped working last time
-    // TODO: add operator- & merge Vec2 with Point
+    // TODO: add operator- & merge Vec2 with Vec2
     Vec2 distance = coord_ - rectangle.getCenter();
-    distance.clamp(rectangle);
+    // distance.clamp(rectangle);
 
     //
 
@@ -66,13 +66,13 @@ Point Ball::getClosestPoint(const Rectangle &rectangle) const {
     double closestY =
         clamp(coord_.y, rectCenterY - halfHeight, rectCenterY + halfHeight);
 
-    std::cout << "closestPoint=(" << closestX << ", " << closestY << ")"
+    std::cout << "closestVec2=(" << closestX << ", " << closestY << ")"
               << std::endl;
 
-    return Point{closestX, closestY};
+    return Vec2{closestX, closestY};
 }
 
-bool Ball::hasReached(const Point &point) const {
+bool Ball::hasReached(const Vec2 &point) const {
     double deltaX = point.x - coord_.x;
     double deltaY = point.y - coord_.y;
 
@@ -80,7 +80,7 @@ bool Ball::hasReached(const Point &point) const {
 }
 
 bool Ball::checkCollision(const Rectangle &rectangle) const {
-    Point closestPoint = getClosestPoint(rectangle);
+    Vec2 closestVec2 = getClosestVec2(rectangle);
 
-    return hasReached(closestPoint);
+    return hasReached(closestVec2);
 }

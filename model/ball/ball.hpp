@@ -1,7 +1,6 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include "../point/point.hpp"
 #include "../rectangle/rectangle.hpp"
 #include "../vec2/vec2.hpp"
 
@@ -17,24 +16,24 @@ enum class BounceType { horizontal, vertical };
 
 class Ball {
   private:
-    Point coord_;
+    Vec2 coord_;
     Vec2 dirVec_; // direction vector (always normalized)
     double radius_{1};
     double speed_{1};
 
   public:
-    Ball(Point coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
+    Ball(Vec2 coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
          double speed = DEFAULT_BALL_SPEED);
 
     virtual ~Ball() = default;
 
-    virtual Point getCoordinate();
+    virtual Vec2 getCoordinate();
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(const Vec2 &vec);
 
     // this obviously works
-    virtual bool hasReached(const Point &point) const;
-    virtual Point getClosestPoint(const Rectangle &rectangle) const;
+    virtual bool hasReached(const Vec2 &point) const;
+    virtual Vec2 getClosestVec2(const Rectangle &rectangle) const;
     virtual bool checkCollision(const Rectangle &rectangle) const;
 
     virtual void repositionOutsideOf(const Rectangle &rectangle);

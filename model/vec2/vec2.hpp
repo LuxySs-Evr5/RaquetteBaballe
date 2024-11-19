@@ -9,11 +9,23 @@ struct Vec2 {
 
     Vec2(double x, double y);
 
-    double getModule() const;
+    virtual double getModule() const;
 
-    const Vec2 &normalize();
+    virtual const Vec2 &normalize();
 
-    const Vec2 operator*(double scalar) const;
+    virtual bool operator==(const Vec2 &other) const;
+
+    virtual const Vec2 operator+(const Vec2 &vec) const;
+
+    virtual const Vec2 operator+=(const Vec2 &vec);
+
+    virtual const Vec2 operator-(const Vec2 &vec) const;
+
+    virtual const Vec2 operator-=(const Vec2 &vec);
+
+    virtual const Vec2 operator*(double scalar) const;
+
+    virtual const Vec2 operator*=(double scalar);
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };

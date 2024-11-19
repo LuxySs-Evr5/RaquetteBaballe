@@ -17,8 +17,32 @@ const Vec2 &Vec2::normalize() {
     return *this;
 }
 
-const Vec2 Vec2::operator*(double scalar) const {
-    return Vec2(x * scalar, y * scalar);
+bool Vec2::operator==(const Vec2 &other) const {
+    return x == other.x && y == other.y;
+}
+
+const Vec2 Vec2::operator+(const Vec2 &vec) const { return Vec2{x, y} += vec; }
+
+const Vec2 Vec2::operator+=(const Vec2 &vec) {
+    x += vec.x;
+    y += vec.y;
+    return *this;
+}
+
+const Vec2 Vec2::operator-(const Vec2 &vec) const { return Vec2{x, y} -= vec; }
+
+const Vec2 Vec2::operator-=(const Vec2 &vec) {
+    x -= vec.x;
+    y -= vec.y;
+    return *this;
+}
+
+const Vec2 Vec2::operator*(double scalar) const { return Vec2{x, y} *= scalar; }
+
+const Vec2 Vec2::operator*=(double scalar) {
+    x *= scalar;
+    y *= scalar;
+    return *this;
 }
 
 std::ostream &operator<<(std::ostream &os, const Vec2 &vec) {

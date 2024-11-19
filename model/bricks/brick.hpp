@@ -8,7 +8,7 @@
 constexpr unsigned DURABILITY_STANDARD_BRICK = 1;
 constexpr unsigned DURABILITY_SILVER_BRICK = 2;
 
-enum class Color : size_t { // Score/Point is always positive
+enum class Color : size_t { // Score/Points is always positive
     defaultBrick = 1,
     white = 50,
     orange = 60,
