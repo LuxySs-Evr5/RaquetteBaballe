@@ -6,17 +6,22 @@
 class Rectangle {
   private:
     Point center_;
-    size_t width_;
-    size_t height_;
+    double width_;
+    double height_;
 
   public:
-    Rectangle(Point center, size_t width, size_t height);
+    Rectangle(Point center, double width, double height);
+    // TODO: remove this constructor, only used for testing (easier to
+    // visualize)
+    Rectangle(Point topLeft, Point bottomRight);
 
     virtual ~Rectangle();
 
     virtual Point getCenter() const noexcept;
-    virtual size_t getWidth() const noexcept;
-    virtual size_t getHeight() const noexcept;
+    virtual double getWidth() const noexcept;
+    virtual double getHeight() const noexcept;
+    virtual Point getTopLeft() const noexcept;
+    virtual Point getBottomRight() const noexcept;
 };
 
 #endif

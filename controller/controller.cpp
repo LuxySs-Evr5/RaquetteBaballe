@@ -4,7 +4,7 @@
 #include <iostream>
 #include <thread>
 
-constexpr std::chrono::duration<float> SLEEP_TIME(1.0f);
+constexpr std::chrono::duration<double> SLEEP_TIME(1.0f);
 
 void Controller::run() {
     using clock = std::chrono::high_resolution_clock;
@@ -24,6 +24,6 @@ void Controller::run() {
         model_.update(delta_time.count());
         std::cout << "delta time= " << delta_time.count() << std::endl;
 
-        std::this_thread::sleep_for(std::chrono::duration<float>(SLEEP_TIME));
+        std::this_thread::sleep_for(std::chrono::duration<double>(SLEEP_TIME));
     }
 }

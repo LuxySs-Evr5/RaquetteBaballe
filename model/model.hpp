@@ -11,11 +11,10 @@
 class Model {
   private:
     std::vector<std::shared_ptr<Ball>> balls = {
-        std::make_shared<Ball>(Point{0, 0}, Vec2{1, 0})};
+        std::make_shared<Ball>(Point{2, 2}, Vec2{1, 0}, 2)};
 
     std::vector<std::shared_ptr<Brick>> bricks{
-        Brick::makeBrick(Color::red, Rectangle{Point{3, 1}, 1, 1}),
-    };
+        Brick::makeBrick(Color::red, Rectangle{Point{4, 0}, Point{6, 4}})};
 
   public:
     Model() = default;

@@ -8,12 +8,10 @@ Ball::Ball(Point coord, Vec2 directionVec, double radius, double speed)
 
 Point Ball::getCoordinate() { return coord_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
-void Ball::setDirectionX(int x) { dirVec_.x = x; }
-void Ball::setDirectionY(int y) { dirVec_.y = y; }
+void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
 
 void Ball::update(double deltaTime) {
-    coord_.x += dirVec_.x * speed_ * deltaTime;
-    coord_.y += dirVec_.y * speed_ * deltaTime;
+    coord_ += (dirVec_ * speed_ * deltaTime);
 }
 
 void Ball::bounce(BounceType bounceType) {
@@ -28,6 +26,23 @@ void Ball::bounce(BounceType bounceType) {
 
 double clamp(double value, double min, double max) {
     return std::max(min, std::min(max, value));
+}
+
+void Ball::repositionOutsideOf(const Rectangle &rectangle) {
+    Point closestPoint = getClosestPoint(rectangle);
+
+    // TODO: find better names than vx vy (used the ones from the image)
+    double vx = closestPoint.x - coord_.x;
+    double vy = closestPoint.y - coord_.y;
+
+    double toMoveX = radius_ - vx;
+    double toMoveY = radius_ - vy;
+
+    // std::cout << "toMoveX: " << toMoveX << std::endl;
+    // std::cout << "toMoveY: " << toMoveY << std::endl;
+
+    coord_.x -= toMoveX;
+    coord_.y -= toMoveY;
 }
 
 Point Ball::getClosestPoint(const Rectangle &rectangle) const {
@@ -46,12 +61,12 @@ Point Ball::getClosestPoint(const Rectangle &rectangle) const {
     std::cout << "closestPoint=(" << closestX << ", " << closestY << ")"
               << std::endl;
 
-    return Point{static_cast<size_t>(closestX), static_cast<size_t>(closestY)};
+    return Point{closestX, closestY};
 }
 
 bool Ball::hasReached(const Point &point) const {
-    int deltaX = point.x - coord_.x;
-    int deltaY = point.y - coord_.y;
+    double deltaX = point.x - coord_.x;
+    double deltaY = point.y - coord_.y;
 
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }

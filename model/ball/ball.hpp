@@ -1,8 +1,8 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include "../bricks/brick.hpp"
 #include "../point/point.hpp"
+#include "../rectangle/rectangle.hpp"
 #include "../vec2/vec2.hpp"
 
 #include <math.h>
@@ -30,13 +30,14 @@ class Ball {
 
     virtual Point getCoordinate();
     virtual void setSpeed(unsigned speed);
-    virtual void setDirectionX(int x);
-    virtual void setDirectionY(int y);
+    virtual void setDirection(const Vec2 &vec);
 
     // this obviously works
     virtual bool hasReached(const Point &point) const;
     virtual Point getClosestPoint(const Rectangle &rectangle) const;
     virtual bool checkCollision(const Rectangle &rectangle) const;
+
+    virtual void repositionOutsideOf(const Rectangle &rectangle);
 
     virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);
