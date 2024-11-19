@@ -5,20 +5,23 @@
 
 void Model::update(double deltaTime) {
     for (auto ball : balls) {
+        std::cout << std::endl;
         std::cout << "x = " << ball->getCoordinate().x
                   << " y =" << ball->getCoordinate().y << std::endl;
+
         for (auto it = bricks.begin(); it != bricks.end();) {
             std::shared_ptr<Brick> brick = *it;
 
-            if (ball->checkInBounceArea(brick->getRectangle())) {
-                if (false /* vertical bounce */) {
-                    std::cout << "vertical bounce " << std::endl;
-                    ball->bounce(BounceType::vertical);
-                } // could be both at once if we hit a corner?
-                if (false /* horizontal bounce */) {
-                    std::cout << "horizontal bounce " << std::endl;
-                    ball->bounce(BounceType::horizontal);
-                }
+            if (ball->checkCollision(brick->getRectangle())) {
+                std::cout << "colliding" << std::endl;
+                //     if (false /* vertical bounce */) {
+                //         std::cout << "vertical bounce " << std::endl;
+                //         ball->bounce(BounceType::vertical);
+                //     } // could be both at once if we hit a corner?
+                //     if (false /* horizontal bounce */) {
+                //         std::cout << "horizontal bounce " << std::endl;
+                //         ball->bounce(BounceType::horizontal);
+                //     }
 
                 brick->hit(); // decrement its durability
 

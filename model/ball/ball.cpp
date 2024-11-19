@@ -1,5 +1,7 @@
 #include "ball.hpp"
 
+#include <iostream>
+
 Ball::Ball(Point coord, Vec2 directionVec, double radius, double speed)
     : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
@@ -24,27 +26,35 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-bool Ball::isOnThePoint(const Point &point) const {
+float clamp(float value, float min, float max) {
+    return std::max(min, std::min(max, value));
+}
+
+Point Ball::getClosestPoint(const Rectangle &rectangle) const {
+    size_t rectX = rectangle.getCenter().x;
+    size_t rectY = rectangle.getCenter().y;
+
+    size_t halfWidth = rectangle.getWidth() / 2;
+    size_t halfHeight = rectangle.getHeight() / 2;
+
+    size_t closestX = clamp(coord_.x, rectX - halfWidth, rectX + halfWidth);
+    size_t closestY = clamp(coord_.y, rectY - halfHeight, rectY + halfHeight);
+
+    return Point{closestX, closestY};
+}
+
+bool Ball::hasReached(const Point &point) const {
     int deltaX = point.x - coord_.x;
     int deltaY = point.y - coord_.y;
 
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }
 
-// NOTE: This is where you stopped working last night,
-// now you have to implement the way to detect on which side it bounced
-// so that you can do the right bounce type
-bool Ball::checkInBounceArea(const Rectangle &rectangle) {
-    Point topLeft = rectangle.getTopLeft();
-    Point bottomRight = rectangle.getBottomRight();
+bool Ball::checkCollision(const Rectangle &rectangle) const {
+    Point closestPoint = getClosestPoint(rectangle);
 
-    // TODO: this is where size_t and double limitiations happen
-    Point areatopLeft{topLeft.x + static_cast<size_t>(radius_),
-                      static_cast<size_t>(topLeft.y + radius_)};
+    std::cout << "closestPoint=(" << closestPoint.x << ", " << closestPoint.y
+              << ")" << std::endl;
 
-    Point areaBottomRight{bottomRight.x + static_cast<size_t>(radius_),
-                          static_cast<size_t>(bottomRight.y + radius_)};
-
-    return (areatopLeft.x <= coord_.x) and (coord_.x <= areaBottomRight.x)
-           and (areaBottomRight.y <= coord_.y) and (coord_.x <= areatopLeft.y);
+    return hasReached(closestPoint);
 }

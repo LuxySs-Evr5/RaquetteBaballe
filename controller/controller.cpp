@@ -4,14 +4,15 @@
 #include <iostream>
 #include <thread>
 
-constexpr unsigned SLEEP_TIME = 1;
+constexpr std::chrono::duration<float> SLEEP_TIME(1.0f);
 
 void Controller::run() {
     using clock = std::chrono::high_resolution_clock;
     using time_point = std::chrono::time_point<clock>;
     using duration = std::chrono::duration<double>;
 
-    time_point t_last_update = clock::now();
+    time_point t_last_update =
+        clock::now() - std::chrono::duration_cast<clock::duration>(SLEEP_TIME);
 
     for (int i = 0; i < 10; i++) {
         time_point t_now = clock::now();

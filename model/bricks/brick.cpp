@@ -41,6 +41,3 @@ size_t Brick::getScore() const { return static_cast<unsigned>(color_); }
 uint8_t Brick::getDurability() const { return durability_; }
 const Rectangle &Brick::getRectangle() const { return rectangle_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
-
-Point Brick::getTopLeft() const { return rectangle_.getTopLeft(); }
-Point Brick::getBottomRight() const { return rectangle_.getBottomRight(); }

@@ -5,15 +5,18 @@
 
 class Rectangle {
   private:
-    Point topLeft_;
-    Point bottomRight_;
+    Point center_;
+    size_t width_;
+    size_t height_;
 
   public:
-    Rectangle(Point topLeft, Point bottomRight);
+    Rectangle(Point center, size_t width, size_t height);
 
-    Point getTopLeft() const noexcept;
-    Point getBottomRight() const noexcept;
-    Point getCenter() const noexcept;
+    virtual ~Rectangle();
+
+    virtual Point getCenter() const noexcept;
+    virtual size_t getWidth() const noexcept;
+    virtual size_t getHeight() const noexcept;
 };
 
 #endif

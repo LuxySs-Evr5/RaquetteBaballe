@@ -41,9 +41,6 @@ class Brick {
 
     virtual void hit();
 
-    virtual Point getTopLeft() const;
-    virtual Point getBottomRight() const;
-
     virtual size_t getScore() const;
     virtual uint8_t getDurability() const;
     virtual const Rectangle &getRectangle() const;

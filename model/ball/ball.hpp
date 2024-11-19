@@ -34,9 +34,9 @@ class Ball {
     virtual void setDirectionY(int y);
 
     // this obviously works
-    virtual bool isOnThePoint(const Point &point) const;
-
-    virtual bool checkInBounceArea(const Rectangle &rectangle);
+    virtual bool hasReached(const Point &point) const;
+    virtual Point getClosestPoint(const Rectangle &rectangle) const;
+    virtual bool checkCollision(const Rectangle &rectangle) const;
 
     virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);

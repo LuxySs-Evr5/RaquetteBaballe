@@ -1,14 +1,11 @@
 #include "rectangle.hpp"
 #include "math.h"
 
-Rectangle::Rectangle(Point topLeft, Point bottomRight)
-    : topLeft_(topLeft), bottomRight_(bottomRight) {}
+Rectangle::Rectangle(Point center, size_t width, size_t height)
+    : center_(center), width_{width}, height_{height} {}
 
-Point Rectangle::getTopLeft() const noexcept { return topLeft_; }
+Rectangle::~Rectangle() = default;
 
-Point Rectangle::getBottomRight() const noexcept { return bottomRight_; }
-
-Point Rectangle::getCenter() const noexcept {
-    return Point{topLeft_.x + bottomRight_.x / 2,
-                 topLeft_.y + bottomRight_.y / 2};
-}
+Point Rectangle::getCenter() const noexcept { return center_; }
+size_t Rectangle::getWidth() const noexcept { return width_; }
+size_t Rectangle::getHeight() const noexcept { return height_; }
