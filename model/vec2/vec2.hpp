@@ -13,6 +13,8 @@ struct Vec2 {
 
     virtual const Vec2 &normalize();
 
+    virtual Vec2 clamped(const Vec2 &min, const Vec2 &max) const;
+
     virtual bool operator==(const Vec2 &other) const;
 
     virtual const Vec2 operator+(const Vec2 &vec) const;
@@ -23,8 +25,8 @@ struct Vec2 {
 
     virtual const Vec2 operator-=(const Vec2 &vec);
 
+    virtual const Vec2 operator-() const;
     virtual const Vec2 operator*(double scalar) const;
-
     virtual const Vec2 operator*=(double scalar);
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);

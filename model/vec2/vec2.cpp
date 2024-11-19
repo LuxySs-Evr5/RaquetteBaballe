@@ -17,6 +17,14 @@ const Vec2 &Vec2::normalize() {
     return *this;
 }
 
+double clamp(double value, double min, double max) {
+    return std::max(min, std::min(max, value));
+}
+
+Vec2 Vec2::clamped(const Vec2 &min, const Vec2 &max) const {
+    return Vec2{clamp(x, min.x, max.x), clamp(y, min.y, max.y)};
+}
+
 bool Vec2::operator==(const Vec2 &other) const {
     return x == other.x && y == other.y;
 }
@@ -36,6 +44,8 @@ const Vec2 Vec2::operator-=(const Vec2 &vec) {
     y -= vec.y;
     return *this;
 }
+
+const Vec2 Vec2::operator-() const { return Vec2{-x, -y}; }
 
 const Vec2 Vec2::operator*(double scalar) const { return Vec2{x, y} *= scalar; }
 

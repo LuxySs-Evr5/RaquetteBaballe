@@ -24,10 +24,6 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-double clamp(double value, double min, double max) {
-    return std::max(min, std::min(max, value));
-}
-
 void Ball::repositionOutsideOf(const Rectangle &rectangle) {
     // TODO: write a comment to explain how this works
     Vec2 closestVec2 = getClosestVec2(rectangle);
@@ -47,29 +43,20 @@ void Ball::repositionOutsideOf(const Rectangle &rectangle) {
 }
 
 Vec2 Ball::getClosestVec2(const Rectangle &rectangle) const {
-    Vec2 rectCenter = rectangle.getCenter();
-    size_t rectCenterX = rectCenter.x;
-    size_t rectCenterY = rectCenter.y;
-
     // NOTE: this is where you stopped working last time
-    // TODO: add operator- & merge Vec2 with Vec2
+    Vec2 rectangleHalfExtents{rectangle.getWidth() / 2,
+                              rectangle.getHeight() / 2};
+
     Vec2 distance = coord_ - rectangle.getCenter();
-    // distance.clamp(rectangle);
 
-    //
+    Vec2 clamped =
+        distance.clamped(-rectangleHalfExtents, rectangleHalfExtents);
 
-    // this is wrong
-    double halfWidth = static_cast<double>(rectangle.getWidth()) / 2;
-    double halfHeight = static_cast<double>(rectangle.getHeight()) / 2;
-    double closestX =
-        clamp(coord_.x, rectCenterX - halfWidth, rectCenterX + halfWidth);
-    double closestY =
-        clamp(coord_.y, rectCenterY - halfHeight, rectCenterY + halfHeight);
+    Vec2 closestPoint = clamped + rectangle.getCenter();
 
-    std::cout << "closestVec2=(" << closestX << ", " << closestY << ")"
-              << std::endl;
+    std::cout << "closestPoint= " << closestPoint << std::endl;
 
-    return Vec2{closestX, closestY};
+    return closestPoint;
 }
 
 bool Ball::hasReached(const Vec2 &point) const {
