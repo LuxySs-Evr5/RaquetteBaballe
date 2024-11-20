@@ -1,7 +1,7 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
-#include "../rectangle/rectangle.hpp"
+#include "../bounding_box/bounding_box.hpp"
 
 #include <memory>
 
@@ -26,15 +26,16 @@ enum class Color : size_t { // Score/Points is always positive
 class Brick {
   protected:
     Color color_;
-    Rectangle rectangle_;
+    BoundingBox boundingBox_;
     uint8_t durability_;
 
-    Brick(Color color, Rectangle rectangle,
+    Brick(Color color, BoundingBox boundingBox,
           uint8_t durability = DURABILITY_STANDARD_BRICK);
 
   public:
     // factory method
-    static std::shared_ptr<Brick> makeBrick(Color color, Rectangle rectangle);
+    static std::shared_ptr<Brick> makeBrick(Color color,
+                                            BoundingBox boundingBox);
 
     virtual ~Brick();
 
@@ -42,7 +43,7 @@ class Brick {
 
     virtual size_t getScore() const;
     virtual uint8_t getDurability() const;
-    virtual const Rectangle &getRectangle() const;
+    virtual const BoundingBox &getBoundingBox() const;
     virtual bool isDestroyed() const;
 };
 

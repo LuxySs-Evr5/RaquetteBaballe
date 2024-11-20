@@ -1,7 +1,7 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include "../rectangle/rectangle.hpp"
+#include "../bounding_box/bounding_box.hpp"
 #include "../vec2/vec2.hpp"
 
 #include <math.h>
@@ -33,10 +33,10 @@ class Ball {
 
     // this obviously works
     virtual bool hasReached(const Vec2 &point) const;
-    virtual Vec2 getClosestVec2(const Rectangle &rectangle) const;
-    virtual bool checkCollision(const Rectangle &rectangle) const;
+    virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
+    virtual bool checkCollision(const BoundingBox &boundingBox) const;
 
-    virtual void repositionOutsideOf(const Rectangle &rectangle);
+    virtual void repositionOutsideOf(const BoundingBox &boundingBox);
 
     virtual void update(double deltaTime);
     virtual void bounce(BounceType bounceType);

@@ -24,9 +24,9 @@ void Ball::bounce(BounceType bounceType) {
     }
 }
 
-void Ball::repositionOutsideOf(const Rectangle &rectangle) {
+void Ball::repositionOutsideOf(const BoundingBox &boundingBox) {
     // TODO: write a comment to explain how this works
-    Vec2 closestVec2 = getClosestVec2(rectangle);
+    Vec2 closestVec2 = getClosestPoint(boundingBox);
 
     // TODO: find better names than vx vy (used the ones from the image)
     double vx = closestVec2.x - coord_.x;
@@ -42,17 +42,17 @@ void Ball::repositionOutsideOf(const Rectangle &rectangle) {
     coord_.y -= toMoveY;
 }
 
-Vec2 Ball::getClosestVec2(const Rectangle &rectangle) const {
+Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
     // NOTE: this is where you stopped working last time
-    Vec2 rectangleHalfExtents{rectangle.getWidth() / 2,
-                              rectangle.getHeight() / 2};
+    Vec2 boundingBoxHalfExtents{boundingBox.getWidth() / 2,
+                                boundingBox.getHeight() / 2};
 
-    Vec2 distance = coord_ - rectangle.getCenter();
+    Vec2 distance = coord_ - boundingBox.getCenter();
 
     Vec2 clamped =
-        distance.clamped(-rectangleHalfExtents, rectangleHalfExtents);
+        distance.clamped(-boundingBoxHalfExtents, boundingBoxHalfExtents);
 
-    Vec2 closestPoint = clamped + rectangle.getCenter();
+    Vec2 closestPoint = clamped + boundingBox.getCenter();
 
     std::cout << "closestPoint= " << closestPoint << std::endl;
 
@@ -66,8 +66,8 @@ bool Ball::hasReached(const Vec2 &point) const {
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }
 
-bool Ball::checkCollision(const Rectangle &rectangle) const {
-    Vec2 closestVec2 = getClosestVec2(rectangle);
+bool Ball::checkCollision(const BoundingBox &boundingBox) const {
+    Vec2 closestVec2 = getClosestPoint(boundingBox);
 
     return hasReached(closestVec2);
 }

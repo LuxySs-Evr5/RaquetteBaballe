@@ -1,23 +1,23 @@
 #include "brick.hpp"
-#include "../rectangle/rectangle.hpp"
+#include "../bounding_box/bounding_box.hpp"
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
 
 #include <memory>
 
 // factory method
-std::shared_ptr<Brick> Brick::makeBrick(Color color, Rectangle rectangle) {
+std::shared_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
     std::unique_ptr<Brick> ret;
 
     switch (color) {
     case Color::gold:
-        ret = std::make_unique<GoldBrick>(rectangle);
+        ret = std::make_unique<GoldBrick>(boundingBox);
         break;
     case Color::silver: // durability = 2 for silver
-        ret = std::make_unique<BasicBrick>(color, rectangle,
+        ret = std::make_unique<BasicBrick>(color, boundingBox,
                                            DURABILITY_SILVER_BRICK);
     default:
-        ret = std::make_unique<BasicBrick>(color, rectangle,
+        ret = std::make_unique<BasicBrick>(color, boundingBox,
                                            DURABILITY_STANDARD_BRICK);
         break;
     }
@@ -26,8 +26,8 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, Rectangle rectangle) {
 }
 
 // protected constructor
-Brick::Brick(Color color, Rectangle rectangle, uint8_t durability)
-    : color_{color}, rectangle_(rectangle), durability_(durability) {}
+Brick::Brick(Color color, BoundingBox boundingBox, uint8_t durability)
+    : color_{color}, boundingBox_(boundingBox), durability_(durability) {}
 
 Brick::~Brick() = default;
 
@@ -39,5 +39,5 @@ void Brick::hit() { // this is default behavior
 
 size_t Brick::getScore() const { return static_cast<unsigned>(color_); }
 uint8_t Brick::getDurability() const { return durability_; }
-const Rectangle &Brick::getRectangle() const { return rectangle_; }
+const BoundingBox &Brick::getBoundingBox() const { return boundingBox_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }

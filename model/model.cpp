@@ -11,15 +11,16 @@ void Model::update(double deltaTime) {
         for (auto it = bricks.begin(); it != bricks.end();) {
             std::shared_ptr<Brick> brick = *it;
 
-            std::cout << "brick : " << brick->getRectangle().getTopLeft() << " "
-                      << brick->getRectangle().getBottomRight() << std::endl;
+            std::cout << "brick : " << brick->getBoundingBox().getTopLeft()
+                      << " " << brick->getBoundingBox().getBottomRight()
+                      << std::endl;
 
             std::cout << "ball : " << ball->getCoordinate() << std::endl;
 
-            if (ball->checkCollision(brick->getRectangle())) {
+            if (ball->checkCollision(brick->getBoundingBox())) {
                 std::cout << "overlapping, repositionning..." << std::endl;
 
-                ball->repositionOutsideOf(brick->getRectangle());
+                ball->repositionOutsideOf(brick->getBoundingBox());
 
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;

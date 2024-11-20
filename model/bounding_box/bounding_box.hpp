@@ -3,19 +3,19 @@
 
 #include "../vec2/vec2.hpp"
 
-class Rectangle {
+class BoundingBox {
   private:
     Vec2 center_;
     double width_;
     double height_;
 
   public:
-    Rectangle(Vec2 center, double width, double height);
+    BoundingBox(Vec2 center, double width, double height);
     // TODO: remove this constructor, only used for testing (easier to
     // visualize)
-    Rectangle(Vec2 topLeft, Vec2 bottomRight);
+    BoundingBox(Vec2 topLeft, Vec2 bottomRight);
 
-    virtual ~Rectangle();
+    virtual ~BoundingBox();
 
     virtual Vec2 getCenter() const noexcept;
     virtual double getWidth() const noexcept;
