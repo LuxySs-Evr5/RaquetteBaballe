@@ -1,7 +1,13 @@
-#ifndef RECTANGLE_HPP
-#define RECTANGLE_HPP
+#ifndef BOUNDING_BOX_HPP
+#define BOUNDING_BOX_HPP
 
 #include "../vec2/vec2.hpp"
+#include <variant>
+
+enum class BoundingBoxCorner { TopLeft, TopRight, BottomLeft, BottomRight };
+enum class BoundingBoxEdge { Right, Left, Up, Down };
+
+using BoundingBoxPosition = std::variant<BoundingBoxCorner, BoundingBoxEdge>;
 
 class BoundingBox {
   private:
@@ -22,6 +28,8 @@ class BoundingBox {
     virtual double getHeight() const noexcept;
     virtual Vec2 getTopLeft() const noexcept;
     virtual Vec2 getBottomRight() const noexcept;
+
+    virtual BoundingBoxPosition getPointPosition(const Vec2 &point) const;
 };
 
 #endif

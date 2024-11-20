@@ -29,27 +29,27 @@ bool Vec2::operator==(const Vec2 &other) const {
     return x == other.x && y == other.y;
 }
 
-const Vec2 Vec2::operator+(const Vec2 &vec) const { return Vec2{x, y} += vec; }
+Vec2 Vec2::operator+(const Vec2 &vec) const { return Vec2{x, y} += vec; }
 
-const Vec2 Vec2::operator+=(const Vec2 &vec) {
+Vec2 &Vec2::operator+=(const Vec2 &vec) {
     x += vec.x;
     y += vec.y;
     return *this;
 }
 
-const Vec2 Vec2::operator-(const Vec2 &vec) const { return Vec2{x, y} -= vec; }
+Vec2 Vec2::operator-(const Vec2 &vec) const { return Vec2{x, y} -= vec; }
 
-const Vec2 Vec2::operator-=(const Vec2 &vec) {
+Vec2 &Vec2::operator-=(const Vec2 &vec) {
     x -= vec.x;
     y -= vec.y;
     return *this;
 }
 
-const Vec2 Vec2::operator-() const { return Vec2{-x, -y}; }
+Vec2 Vec2::operator-() const { return Vec2{-x, -y}; }
 
-const Vec2 Vec2::operator*(double scalar) const { return Vec2{x, y} *= scalar; }
+Vec2 Vec2::operator*(double scalar) const { return Vec2{x, y} *= scalar; }
 
-const Vec2 Vec2::operator*=(double scalar) {
+Vec2 &Vec2::operator*=(double scalar) {
     x *= scalar;
     y *= scalar;
     return *this;

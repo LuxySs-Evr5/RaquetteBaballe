@@ -17,17 +17,19 @@ struct Vec2 {
 
     virtual bool operator==(const Vec2 &other) const;
 
-    virtual const Vec2 operator+(const Vec2 &vec) const;
+    virtual Vec2 operator+(const Vec2 &vec) const;
 
-    virtual const Vec2 operator+=(const Vec2 &vec);
+    virtual Vec2 &operator+=(const Vec2 &vec);
 
-    virtual const Vec2 operator-(const Vec2 &vec) const;
+    virtual Vec2 operator-(const Vec2 &vec) const;
 
-    virtual const Vec2 operator-=(const Vec2 &vec);
+    virtual Vec2 &operator-=(const Vec2 &vec);
 
-    virtual const Vec2 operator-() const;
-    virtual const Vec2 operator*(double scalar) const;
-    virtual const Vec2 operator*=(double scalar);
+    virtual Vec2 operator-() const;
+
+    virtual Vec2 operator*(double scalar) const;
+
+    virtual Vec2 &operator*=(double scalar);
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };
