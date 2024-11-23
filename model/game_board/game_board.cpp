@@ -3,23 +3,19 @@
 #include <vector>
 
 void GameBoard::update(double deltaTime) {
-    for (auto ball : balls) {
+    for (auto ball : balls_) {
         std::cout << "coord: " << ball->getCoordinate() << std::endl;
 
-        for (auto brickIt = bricks.begin(); brickIt != bricks.end();) {
+        for (auto brickIt = bricks_.begin(); brickIt != bricks_.end();) {
 
             std::cout << "brick : " << (*brickIt)->getBoundingBox().getTopLeft()
                       << " " << (*brickIt)->getBoundingBox().getBottomRight()
                       << std::endl;
 
-            std::cout << "ball : " << ball->getCoordinate() << std::endl;
-
             if (ball->checkCollision((*brickIt)->getBoundingBox())) {
                 std::cout << "overlapping, repositionning..." << std::endl;
 
-                const BoundingBox &boundingbox = (*brickIt)->getBoundingBox();
-                std::cout << "coucou\n";
-                ball->collide(boundingbox);
+                ball->collide((*brickIt)->getBoundingBox());
 
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;
@@ -30,12 +26,23 @@ void GameBoard::update(double deltaTime) {
                         ->isDestroyed()) { // erase brick if it is destroyed
 
                     std::cout << "erasing rectangle " << std::endl;
-                    brickIt = bricks.erase(brickIt);
+                    brickIt = bricks_.erase(brickIt);
                 }
             } else {
                 brickIt++;
             }
         }
+
+        for (const BoundingBox &border : borders_) {
+            if (ball->checkCollision(border)) {
+                std::cout << "colliding map boarder" << std::endl;
+                std::cout << "overlapping, repositionning..." << std::endl;
+                ball->collide(border);
+                std::cout << "repositionned at " << ball->getCoordinate()
+                          << std::endl;
+            }
+        }
+
         ball->update(deltaTime);
         std::cout << std::endl;
     }

@@ -14,7 +14,7 @@ void Controller::run() {
     time_point t_last_update =
         clock::now() - std::chrono::duration_cast<clock::duration>(SLEEP_TIME);
 
-    for (int i = 0; i < 10; i++) {
+    while (true) {
         time_point t_now = clock::now();
 
         duration delta_time = t_now - t_last_update;

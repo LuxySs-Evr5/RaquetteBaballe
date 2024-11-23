@@ -45,20 +45,28 @@ void Ball::collide(const BoundingBox &boundingBox) {
 
     Vec2 bidirectionalPenetration;
     Vec2 changeBetweenLastUpdate{coord_ - prevCoord_};
-    std::cout << "changeBetweenLastUpdate: " << changeBetweenLastUpdate
-              << std::endl;
 
-    double penetrationRate = 1; // Default to prevent 0 division
+    double penetrationRate = 1; // Defaults to prevent 0 division
     if (bounceType == BounceType::Horizontal
         and (changeBetweenLastUpdate.y != 0)) {
         penetrationRate =
             UnidirectionalPenetration.y / changeBetweenLastUpdate.y;
 
-    } else if (bounceType == BounceType::Vertical
-               or bounceType == BounceType::Corner
-                      and changeBetweenLastUpdate.x != 0) {
+    } else if ((bounceType == BounceType::Vertical
+                or bounceType == BounceType::Corner)
+               and changeBetweenLastUpdate.x != 0) {
         penetrationRate =
             UnidirectionalPenetration.x / changeBetweenLastUpdate.x;
+    }
+
+    if (bounceType == BounceType::Horizontal) {
+        std::cout << "horizontal" << std::endl;
+    }
+    if (bounceType == BounceType::Vertical) {
+        std::cout << "vertical" << std::endl;
+    }
+    if (bounceType == BounceType::Corner) {
+        std::cout << "corner" << std::endl;
     }
 
     bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;

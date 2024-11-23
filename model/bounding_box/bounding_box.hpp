@@ -13,8 +13,6 @@ class BoundingBox {
 
   public:
     BoundingBox(Vec2 center, double width, double height);
-    // TODO: remove this constructor, only used for testing (easier to
-    // visualize)
     BoundingBox(Vec2 topLeft, Vec2 bottomRight);
 
     virtual ~BoundingBox();
