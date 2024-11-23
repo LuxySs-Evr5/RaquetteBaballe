@@ -12,8 +12,6 @@ constexpr double DEFAULT_BALL_SPEED = 1;
 // NOTE: might wanna get inspo from translation class in labs to do the
 // increased-speed nerf
 
-enum class BounceType { horizontal, vertical };
-
 class Ball {
   private:
     Vec2 coord_;
@@ -39,7 +37,7 @@ class Ball {
     virtual void repositionOutsideOf(const BoundingBox &boundingBox);
 
     virtual void update(double deltaTime);
-    virtual void bounce(BounceType bounceType);
+    virtual void bounce(BoundingBox boundingBox);
 };
 
 #endif

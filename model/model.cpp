@@ -4,10 +4,9 @@
 #include <memory>
 
 void Model::update(double deltaTime) {
-    // auto brick = Brick::makeBrick(Color::red, Rectangle{Point{2, 1}, 4, 2});
-    // auto brick = Brick::makeBrick(Color::red, Rectangle{{4, 0}, {6, 4}});
-
     for (auto ball : balls) {
+        std::cout << "coord: " << ball->getCoordinate() << std::endl;
+
         for (auto it = bricks.begin(); it != bricks.end();) {
             std::shared_ptr<Brick> brick = *it;
 
@@ -25,14 +24,7 @@ void Model::update(double deltaTime) {
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;
 
-                // if (false /* vertical bounce */) {
-                //     std::cout << "vertical bounce " << std::endl;
-                //     ball->bounce(BounceType::vertical);
-                // } // could be both at once if we hit a corner?
-                // if (false /* horizontal bounce */) {
-                //     std::cout << "horizontal bounce " << std::endl;
-                //     ball->bounce(BounceType::horizontal);
-                // }
+                ball->bounce(brick->getBoundingBox());
 
                 brick->hit(); // decrement its durability
 

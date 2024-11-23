@@ -22,7 +22,7 @@ double BoundingBox::getHeight() const noexcept { return height_; }
 Vec2 BoundingBox::getTopLeft() const noexcept {
     return Vec2{
         center_.x - width_ / 2,
-        center_.y - height_ / 2,
+        center_.y + height_ / 2,
     };
 }
 
@@ -33,31 +33,28 @@ Vec2 BoundingBox::getBottomRight() const noexcept {
     };
 }
 
-BoundingBoxPosition BoundingBox::getPointPosition(const Vec2 &point) const {
-    if (point == getTopLeft()) {
-        return BoundingBoxCorner::TopLeft;
+Vec2 BoundingBox::getTopRight() const noexcept {
+    return Vec2{
+        center_.x + width_ / 2,
+        center_.y + height_ / 2,
+    };
+}
+Vec2 BoundingBox::getBottomLeft() const noexcept {
+    return Vec2{
+        center_.x - width_ / 2,
+        center_.y - height_ / 2,
+    };
+}
 
-    } else if (point == getTopLeft()) {
-        return BoundingBoxCorner::BottomLeft;
+BounceType BoundingBox::getBounceType(const Vec2 &point) const {
+    if (point == getTopLeft() || point == getTopRight()
+        || point == getBottomLeft() || point == getBottomRight()) {
 
-    } else if (point == getBottomRight()) {
-        return BoundingBoxCorner::TopRight;
-
-    } else if (point == getBottomRight()) {
-        return BoundingBoxCorner::BottomRight;
-
-    } else if (point.x == getBottomRight().x) {
-        return BoundingBoxEdge::Right;
-
-    } else if (point.x == getTopLeft().x) {
-        return BoundingBoxEdge::Left;
-
-    } else if (point.y == getTopLeft().y) {
-        return BoundingBoxEdge::Up;
-
-    } else if (point.y == getBottomRight().y) {
-        return BoundingBoxEdge::Down;
-
+        return BounceType::Corner;
+    } else if (point.x == getBottomRight().x || point.x == getTopLeft().x) {
+        return BounceType::Vertical;
+    } else if (point.y == getBottomRight().y || point.x == getTopLeft().y) {
+        return BounceType::Horizontal;
     } else {
         throw std::runtime_error{
             "point is not on a the Bounding Box's perimeter"};

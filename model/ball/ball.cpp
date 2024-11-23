@@ -1,5 +1,7 @@
 #include "ball.hpp"
 
+#include "../bounding_box/bounding_box.hpp"
+
 #include <cmath>
 #include <iostream>
 
@@ -17,12 +19,17 @@ void Ball::update(double deltaTime) {
     coord_ += (dirVec_ * speed_ * deltaTime);
 }
 
-void Ball::bounce(BounceType bounceType) {
-    // technically could have both at once, e.g., brick corners
-    if (bounceType == BounceType::horizontal) {
+void Ball::bounce(BoundingBox boundingBox) {
+    Point closestPoint = getClosestPoint(boundingBox);
+    BounceType bounceType = boundingBox.getBounceType(closestPoint);
+
+    if (bounceType == BounceType::Horizontal) {
         dirVec_.y = -dirVec_.y;
     }
-    if (bounceType == BounceType::vertical) {
+    if (bounceType == BounceType::Vertical) {
+        dirVec_.x = -dirVec_.x;
+    } else if (bounceType == BounceType::Corner) {
+        dirVec_.y = -dirVec_.y;
         dirVec_.x = -dirVec_.x;
     }
 }
@@ -51,8 +58,6 @@ void Ball::repositionOutsideOf(const BoundingBox &boundingBox) {
     Vec2 penetrationVec = coordToPointInRectangle - coordToClosestPoint;
 
     coord_ -= penetrationVec;
-
-    std::cout << "moved to " << coord_ << std::endl;
 }
 
 Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
