@@ -7,6 +7,7 @@ struct Vec2 {
     double x;
     double y;
 
+    Vec2();
     Vec2(double x, double y);
 
     virtual double getModule() const;

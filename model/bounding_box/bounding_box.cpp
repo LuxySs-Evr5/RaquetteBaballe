@@ -53,7 +53,7 @@ BounceType BoundingBox::getBounceType(const Vec2 &point) const {
         return BounceType::Corner;
     } else if (point.x == getBottomRight().x || point.x == getTopLeft().x) {
         return BounceType::Vertical;
-    } else if (point.y == getBottomRight().y || point.x == getTopLeft().y) {
+    } else if (point.y == getBottomRight().y || point.y == getTopLeft().y) {
         return BounceType::Horizontal;
     } else {
         throw std::runtime_error{

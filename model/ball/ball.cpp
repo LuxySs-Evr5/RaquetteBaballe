@@ -16,10 +16,13 @@ void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
 
 void Ball::update(double deltaTime) {
+    prevCoord_ = coord_;
     coord_ += (dirVec_ * speed_ * deltaTime);
 }
 
-void Ball::bounce(BoundingBox boundingBox) {
+// NOTE: this only does the direction vector part of the bounce
+// actual bounce logic is in collide function
+void Ball::bounce(const BoundingBox &boundingBox) {
     Point closestPoint = getClosestPoint(boundingBox);
     BounceType bounceType = boundingBox.getBounceType(closestPoint);
 
@@ -34,7 +37,42 @@ void Ball::bounce(BoundingBox boundingBox) {
     }
 }
 
-void Ball::repositionOutsideOf(const BoundingBox &boundingBox) {
+void Ball::collide(const BoundingBox &boundingBox) {
+    Vec2 UnidirectionalPenetration = getUnidirectionalPenetration(boundingBox);
+
+    Point closestPoint = getClosestPoint(boundingBox);
+    BounceType bounceType = boundingBox.getBounceType(closestPoint);
+
+    Vec2 bidirectionalPenetration;
+    Vec2 changeBetweenLastUpdate{coord_ - prevCoord_};
+    std::cout << "changeBetweenLastUpdate: " << changeBetweenLastUpdate
+              << std::endl;
+
+    double penetrationRate = 1; // Default to prevent 0 division
+    if (bounceType == BounceType::Horizontal
+        and (changeBetweenLastUpdate.y != 0)) {
+        penetrationRate =
+            UnidirectionalPenetration.y / changeBetweenLastUpdate.y;
+
+    } else if (bounceType == BounceType::Vertical
+               or bounceType == BounceType::Corner
+                      and changeBetweenLastUpdate.x != 0) {
+        penetrationRate =
+            UnidirectionalPenetration.x / changeBetweenLastUpdate.x;
+    }
+
+    bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;
+
+    coord_ -= bidirectionalPenetration;
+
+    bounce(boundingBox);
+
+    // add back what the distance that the ball should have gone while it was
+    // going inside the rectangle
+    coord_ += dirVec_ * bidirectionalPenetration.getModule();
+}
+
+Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     // TODO: write a comment to explain how this works
     Point closestPoint = getClosestPoint(
         boundingBox); // Closest point from the ball's center on the rectangle
@@ -54,10 +92,12 @@ void Ball::repositionOutsideOf(const BoundingBox &boundingBox) {
     // Vector between from ball's center to pointInRectangle
     Vec2 coordToPointInRectangle = pointInRectangle - coord_;
 
-    // Vector between from closestPoint to pointInRectangle (penetration vector)
-    Vec2 penetrationVec = coordToPointInRectangle - coordToClosestPoint;
+    // Vector from closestPoint to pointInRectangle (monodirectional penetration
+    // vector)
+    Vec2 MonoDirectionalPenetrationVec =
+        coordToPointInRectangle - coordToClosestPoint;
 
-    coord_ -= penetrationVec;
+    return MonoDirectionalPenetrationVec;
 }
 
 Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
@@ -70,8 +110,6 @@ Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
         distance.clamped(-boundingBoxHalfExtents, boundingBoxHalfExtents);
 
     Vec2 closestPoint = clamped + boundingBox.getCenter();
-
-    std::cout << "closestPoint= " << closestPoint << std::endl;
 
     return closestPoint;
 }

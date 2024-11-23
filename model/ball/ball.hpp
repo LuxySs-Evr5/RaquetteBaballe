@@ -15,7 +15,8 @@ constexpr double DEFAULT_BALL_SPEED = 1;
 class Ball {
   private:
     Vec2 coord_;
-    Vec2 dirVec_; // direction vector (always normalized)
+    Vec2 prevCoord_; // coordinate at the previous update
+    Vec2 dirVec_;    // direction vector (always normalized)
     double radius_{1};
     double speed_{1};
 
@@ -28,16 +29,18 @@ class Ball {
     virtual Vec2 getCoordinate();
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(const Vec2 &vec);
+    // virtual void move(double distance);
 
-    // this obviously works
-    virtual bool hasReached(const Vec2 &point) const;
     virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
+    virtual bool hasReached(const Vec2 &point) const;
     virtual bool checkCollision(const BoundingBox &boundingBox) const;
+    virtual Vec2
+    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
-    virtual void repositionOutsideOf(const BoundingBox &boundingBox);
+    virtual void bounce(const BoundingBox &boundingBox);
+    virtual void collide(const BoundingBox &boundingBox);
 
     virtual void update(double deltaTime);
-    virtual void bounce(BoundingBox boundingBox);
 };
 
 #endif

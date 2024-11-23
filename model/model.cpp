@@ -1,42 +1,32 @@
 #include "model.hpp"
+#include "bounding_box/bounding_box.hpp"
 
 #include <iostream>
-#include <memory>
 
 void Model::update(double deltaTime) {
     for (auto ball : balls) {
-        std::cout << "coord: " << ball->getCoordinate() << std::endl;
+        for (auto brickIt = bricks.begin(); brickIt != bricks.end();) {
+            std::cout << "ball: " << ball->getCoordinate() << std::endl;
 
-        for (auto it = bricks.begin(); it != bricks.end();) {
-            std::shared_ptr<Brick> brick = *it;
-
-            std::cout << "brick : " << brick->getBoundingBox().getTopLeft()
-                      << " " << brick->getBoundingBox().getBottomRight()
-                      << std::endl;
-
-            std::cout << "ball : " << ball->getCoordinate() << std::endl;
-
-            if (ball->checkCollision(brick->getBoundingBox())) {
+            if (ball->checkCollision((*brickIt)->getBoundingBox())) {
                 std::cout << "overlapping, repositionning..." << std::endl;
 
-                ball->repositionOutsideOf(brick->getBoundingBox());
+                const BoundingBox &bd = (*brickIt)->getBoundingBox();
+                ball->collide(bd);
 
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;
 
-                ball->bounce(brick->getBoundingBox());
+                (*brickIt)->hit(); // decrement its durability
 
-                brick->hit(); // decrement its durability
+                if ((*brickIt)
+                        ->isDestroyed()) { // erase brick if it is destroyed
 
-                if (brick->isDestroyed()) { // erase brick if it is destroyed
                     std::cout << "erasing rectangle " << std::endl;
-                    it = bricks.erase(it);
+                    brickIt = bricks.erase(brickIt);
                 }
-
-                // break; // we don't have to check for other bricks if we
-                // have already found the one we have hit
             } else {
-                it++;
+                brickIt++;
             }
         }
         ball->update(deltaTime);
