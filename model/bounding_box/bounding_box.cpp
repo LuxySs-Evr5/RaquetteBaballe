@@ -29,7 +29,7 @@ Vec2 BoundingBox::getTopLeft() const noexcept {
 Vec2 BoundingBox::getBottomRight() const noexcept {
     return Vec2{
         center_.x + width_ / 2,
-        center_.y + height_ / 2,
+        center_.y - height_ / 2,
     };
 }
 

@@ -1,5 +1,6 @@
 #include "ball.hpp"
 
+#include <cmath>
 #include <iostream>
 
 Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
@@ -26,24 +27,79 @@ void Ball::bounce(BounceType bounceType) {
 
 void Ball::repositionOutsideOf(const BoundingBox &boundingBox) {
     // TODO: write a comment to explain how this works
-    Vec2 closestVec2 = getClosestPoint(boundingBox);
+    Vec2 closestPoint = getClosestPoint(boundingBox); // F position
 
-    // TODO: find better names than vx vy (used the ones from the image)
-    double vx = closestVec2.x - coord_.x;
-    double vy = closestVec2.y - coord_.y;
+    Vec2 coordToClosestPoint{closestPoint - coord_}; // E to F
 
-    double toMoveX = radius_ - vx;
-    double toMoveY = radius_ - vy;
+    double angleRad =
+        atan2(closestPoint.y - coord_.y, closestPoint.x - coord_.x);
 
-    std::cout << "toMoveX: " << toMoveX << std::endl;
-    std::cout << "toMoveY: " << toMoveY << std::endl;
+    std::cout << "angle: " << angleRad << std::endl;
 
-    coord_.x -= toMoveX;
-    coord_.y -= toMoveY;
+    Vec2 radiusVec{coord_.x + radius_ * cos(angleRad), // G position
+                   coord_.y + radius_ * sin(angleRad)};
+
+    std::cout << "coordToClosestPoint: " << coordToClosestPoint << std::endl;
+
+    std::cout << "radius vec : " << radiusVec << std::endl;
+
+    Vec2 coordToRadiusVec = radiusVec - coord_;
+    std::cout << "coordToRadiusVec: " << coordToRadiusVec << std::endl;
+
+    // how much the ball is already inside the boundingBox
+    Vec2 penetrationVec = coordToRadiusVec - coordToClosestPoint;
+
+    std::cout << "penetrationVec: " << penetrationVec << std::endl;
+
+    // BoundingBoxPosition boundingBoxPos =
+    //     boundingBox.getPointPosition(closestPoint);
+
+    // if (std::holds_alternative<BoundingBoxCorner>(boundingBoxPos)) {
+    //     BoundingBoxCorner corner =
+    //     std::get<BoundingBoxCorner>(boundingBoxPos); switch (corner) { case
+    //     BoundingBoxCorner::TopLeft:
+    //         std::cout << "TopLeft corner\n";
+    //         coord_.x -= penetrationVec.x;
+    //         coord_.y += penetrationVec.y;
+    //         break;
+    //     case BoundingBoxCorner::BottomLeft:
+    //         coord_ -= penetrationVec;
+    //         std::cout << "BottomLeft corner\n";
+    //         break;
+    //     case BoundingBoxCorner::TopRight:
+    //         coord_ += (penetrationVec);
+    //         std::cout << "TopRight corner\n";
+    //         break;
+    //     case BoundingBoxCorner::BottomRight:
+    //         coord_.x += penetrationVec.x;
+    //         coord_.y -= penetrationVec.y;
+    //         std::cout << "BottomRight corner\n";
+    //         break;
+    //     }
+    // } else if (std::holds_alternative<BoundingBoxEdge>(boundingBoxPos)) {
+    //     BoundingBoxEdge edge = std::get<BoundingBoxEdge>(boundingBoxPos);
+    //     switch (edge) {
+    //     case BoundingBoxEdge::Right:
+    //         coord_.x += penetrationVec.x;
+    //         std::cout << "Right edge\n";
+    //         break;
+    //     case BoundingBoxEdge::Left:
+    //         coord_.x -= penetrationVec.x;
+    //         std::cout << "Left edge\n";
+    //         break;
+    //     case BoundingBoxEdge::Up:
+    //         coord_.y += penetrationVec.y;
+    //         std::cout << "Up edge\n";
+    //         break;
+    //     case BoundingBoxEdge::Down:
+    //         coord_.y -= penetrationVec.y;
+    //         std::cout << "Down edge\n";
+    //         break;
+    //     }
+    // }
 }
 
 Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
-    // NOTE: this is where you stopped working last time
     Vec2 boundingBoxHalfExtents{boundingBox.getWidth() / 2,
                                 boundingBox.getHeight() / 2};
 
