@@ -20,7 +20,8 @@ class Racket : public Bounceable {
     // (dirVec is not necessary for the ball's bounce against the racket since
     // it doesn't use the previous dirVec)
     virtual Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
-                                      const Vec2 & = {0, 0}) const override;
+                                      const Vec2 &dirVec = {0,
+                                                            0}) const override;
 };
 
 #endif

@@ -26,7 +26,7 @@ constexpr double racketVerticalPos =
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{7, 5}, Vec2{0, -1}, 1)};
+        std::make_shared<Ball>(Vec2{9, 3}, Vec2{-1, -1}, 1)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
         // Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),

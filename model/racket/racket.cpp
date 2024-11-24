@@ -17,28 +17,32 @@ void Racket::setCoordinate(const Vec2 &coordinate) {
 }
 
 Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
-                                  const Vec2 &) const {
-    // TODO: add logic for bounces against the edges and corners != top edge
+                                  const Vec2 &dirVec) const {
+    BounceType bounceType = getBounceType(closestPoint);
 
-    Vec2 leftSide =
-        boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
+    // make sure we hit the top edge to decide to bounce the racket way
+    if (bounceType == BounceType::Horizontal
+        and closestPoint.y == boundingBox_.getTopLeft().y) {
 
-    double distFromLeftSide = closestPoint.x - leftSide.x;
-    std::cout << "distFromLeftSide : " << distFromLeftSide << std::endl;
+        Vec2 leftSide =
+            boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
 
-    double bounceAngle =
-        30 + 120 * (1 - (distFromLeftSide / boundingBox_.getWidth()));
-    std::cout << "bounceAngle : " << bounceAngle << std::endl;
+        double distFromLeftSide = closestPoint.x - leftSide.x;
+        std::cout << "distFromLeftSide : " << distFromLeftSide << std::endl;
 
-    // Convert bounceAngle to radians
-    double bounceAngleRad = bounceAngle * M_PI / 180.0;
+        double bounceAngle =
+            30 + 120 * (1 - (distFromLeftSide / boundingBox_.getWidth()));
+        std::cout << "bounceAngle : " << bounceAngle << std::endl;
 
-    double verticalComponent = sin(bounceAngleRad);
-    double horizontalComponent = cos(bounceAngleRad);
+        // Convert bounceAngle to radians
+        double bounceAngleRad = bounceAngle * M_PI / 180.0;
 
-    std::cout << "dirvec is now "
-              << Vec2{horizontalComponent, verticalComponent}.normalize()
-              << std::endl;
+        double verticalComponent = sin(bounceAngleRad);
+        double horizontalComponent = cos(bounceAngleRad);
 
-    return Vec2{horizontalComponent, verticalComponent}.normalize();
+        return Vec2{horizontalComponent, verticalComponent}.normalize();
+    } else { // bounce on the side as if it was a usual bounceable like a Brick
+        std::cout << "doing normal bounce on the racket's side" << std::endl;
+        return Bounceable::getDirVecAfterBounce(closestPoint, dirVec);
+    }
 }
