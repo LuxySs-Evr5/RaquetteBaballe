@@ -4,23 +4,33 @@
 #include "../ball/ball.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
+#include "../racket/racket.hpp"
 
 #include <memory>
+#include <optional>
 #include <variant>
 #include <vector>
 
-constexpr double boardHeight = 15;
-constexpr double boardWidth = 15;
+using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
+using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
+using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
+
+constexpr double boardHeight = 14;
+constexpr double boardWidth = 14;
 constexpr double boardBoundingsThickness = 10;
+constexpr double racketWidth = 2;
+constexpr double racketHeight = 1;
+constexpr double racketVerticalPos =
+    1.5; // how high the racket is sitting on the board
 
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{3, 3}, Vec2{1, 0}, 1)};
+        std::make_shared<Ball>(Vec2{7, 5}, Vec2{0, -1}, 1)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
-        Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
-        Brick::makeBrick(Color::red, BoundingBox{Vec2{10, 5}, Vec2{13, 2}}),
+        // Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
+        // Brick::makeBrick(Color::red, BoundingBox{Vec2{10, 5}, Vec2{13, 2}}),
     };
 
     // with T=thickness, H=height, W=width
@@ -40,9 +50,12 @@ class GameBoard {
                         Vec2{boardWidth + boardBoundingsThickness, 0}})};
 
     // Racket racket;
+    // NOTE: doing this to get an iterator without having to rewrite it myself
+    std::vector<std::shared_ptr<Racket>> rackets_{std::make_shared<Racket>(
+        BoundingBox{Vec2{boardWidth / 2, racketVerticalPos}, racketWidth,
+                    racketHeight})};
 
-    std::variant<std::vector<std::shared_ptr<Brick>>::const_iterator,
-                 std::vector<std::shared_ptr<Border>>::const_iterator>
+    std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
 
   public:

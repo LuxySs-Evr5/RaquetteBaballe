@@ -4,7 +4,6 @@
 #include "../bounding_box/bounding_box.hpp"
 
 #include <cmath>
-#include <limits>
 
 using Point = Vec2;
 

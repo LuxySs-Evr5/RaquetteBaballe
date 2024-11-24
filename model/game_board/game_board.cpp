@@ -1,13 +1,11 @@
 #include "game_board.hpp"
 #include <memory>
+#include <optional>
 #include <variant>
 
-using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
-using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
-
-std::variant<BrickIt, BorderIt> GameBoard::findNextCollision(Ball &ball) {
-
-    std::variant<BrickIt, BorderIt> closestCollision = bricks_.end();
+std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
+GameBoard::findNextCollision(Ball &ball) {
+    std::optional<std::variant<BrickIt, BorderIt, RacketIt>> closestCollision;
     double distanceClosestCollision = std::numeric_limits<double>::max();
 
     // Helper lambda function
@@ -28,54 +26,56 @@ std::variant<BrickIt, BorderIt> GameBoard::findNextCollision(Ball &ball) {
 
     checkCollisions(bricks_, closestCollision);
     checkCollisions(borders_, closestCollision);
-
-    // TODO: add the same for racket here
+    checkCollisions(rackets_, closestCollision);
 
     return closestCollision;
 }
 
 void GameBoard::update(double deltaTime) {
+    // std::cout << "racket at " << rackets_[0]->getBoundingBox().getCenter();
+    // std::cout << " top left " << rackets_[0]->getBoundingBox().getTopLeft();
+    // std::cout << " bottom right "
+    //           << rackets_[0]->getBoundingBox().getBottomRight() << std::endl;
+
     for (auto ball : balls_) {
         std::cout << "coord: " << ball->getCoordinate() << std::endl;
 
-        // collide with racket
-
-        bool collided;
+        bool collided = true;
         do {
-            auto collidingObject = findNextCollision(*ball);
+            auto collidingObject = (findNextCollision(*ball));
 
-            // Check if collision with brick
-            if (std::holds_alternative<BrickIt>(collidingObject)) {
-                auto brickIt = std::get<BrickIt>(collidingObject);
-                if (brickIt != bricks_.end()) {
-                    std::cout << "Collision with a brick!" << std::endl;
-
-                    ball->collide(*brickIt->get());
-                    (*brickIt)->hit(); // decrement its durability
-
-                    if ((*brickIt)->isDestroyed()) { // erase it if destroyed
-                        std::cout << "erasing brick " << std::endl;
-                        bricks_.erase(brickIt);
-                    }
-                } else {
-                    std::cout << "No collision found." << std::endl;
-                    break;
-                }
-            } // Check if collision with border
-            else if (std::holds_alternative<BorderIt>(collidingObject)) {
-                auto borderIt = std::get<BorderIt>(collidingObject);
-                if (borderIt != borders_.end()) {
-                    std::cout << "Collision with a border!" << std::endl;
-                    ball->collide(*borderIt->get());
-                }
+            collided = collidingObject.has_value();
+            if (!collided) {
+                std::cout << "No collision detected!" << std::endl;
+                break;
             }
 
-            collided = true;
+            // Check if collision with racket
+            if (std::holds_alternative<RacketIt>(collidingObject.value())) {
+                std::cout << "Collision with racket!" << std::endl;
+                RacketIt racketIt = std::get<RacketIt>(*collidingObject);
+                ball->collide(*racketIt->get());
+            } // Check if collision with brick
+            else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
+                std::cout << "Collision with a brick!" << std::endl;
+                BrickIt brickIt = std::get<BrickIt>(*collidingObject);
+                ball->collide(*brickIt->get());
+                (*brickIt)->hit();               // decrement its durability
+                if ((*brickIt)->isDestroyed()) { // erase it if destroyed
+                    std::cout << "erasing brick " << std::endl;
+                    bricks_.erase(brickIt);
+                }
+            } // Check if collision with border
+            else if (std::holds_alternative<BorderIt>(
+                         collidingObject.value())) {
+                std::cout << "Collision with a border!" << std::endl;
+                BorderIt borderIt = std::get<BorderIt>(*collidingObject);
+                ball->collide(*borderIt->get());
+            }
 
             std::cout << "repositionned at " << ball->getCoordinate()
                       << std::endl;
 
-            std::cout << "hitting the brick" << std::endl;
         } while (collided);
 
         ball->update(deltaTime);
