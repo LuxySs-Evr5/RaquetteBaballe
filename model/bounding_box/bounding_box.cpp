@@ -47,8 +47,8 @@ Vec2 BoundingBox::getBottomLeft() const noexcept {
 }
 
 BounceType BoundingBox::getBounceType(const Vec2 &point) const {
-    if (point == getTopLeft() || point == getTopRight()
-        || point == getBottomLeft() || point == getBottomRight()) {
+    if (point == getTopLeft() or point == getTopRight()
+        or point == getBottomLeft() or point == getBottomRight()) {
 
         return BounceType::Corner;
     } else if (point.x == getBottomRight().x || point.x == getTopLeft().x) {

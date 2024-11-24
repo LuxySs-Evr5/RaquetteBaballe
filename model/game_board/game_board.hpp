@@ -8,17 +8,18 @@
 #include <memory>
 #include <vector>
 
-constexpr double boardHeight = 10;
-constexpr double boardWidth = 10;
+constexpr double boardHeight = 15;
+constexpr double boardWidth = 15;
 constexpr double boardBoundingsThickness = 10;
 
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{5, 5}, Vec2{1, 1}, 1)};
+        std::make_shared<Ball>(Vec2{3, 3}, Vec2{1, 0}, 1)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
-        // Brick::makeBrick(Color::red, BoundingBox{Vec2{6, 6}, Vec2{11, 2}})
+        Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
+        Brick::makeBrick(Color::red, BoundingBox{Vec2{10, 5}, Vec2{13, 2}}),
     };
 
     // with T=thickness, H=height, W=width

@@ -1,42 +1,44 @@
 #include "game_board.hpp"
 
-#include <vector>
-
 void GameBoard::update(double deltaTime) {
     for (auto ball : balls_) {
         std::cout << "coord: " << ball->getCoordinate() << std::endl;
 
-        for (auto brickIt = bricks_.begin(); brickIt != bricks_.end();) {
+        bool colliding;
+        do {
+            auto closestBrickIt = ball->findClosestBrick(bricks_);
 
-            std::cout << "brick : " << (*brickIt)->getBoundingBox().getTopLeft()
-                      << " " << (*brickIt)->getBoundingBox().getBottomRight()
-                      << std::endl;
+            if (closestBrickIt == bricks_.end()) {
+                std::cerr << "No bricks left to check" << std::endl;
+                break;
+            }
 
-            if (ball->checkCollision((*brickIt)->getBoundingBox())) {
-                std::cout << "overlapping, repositionning..." << std::endl;
+            colliding =
+                ball->checkCollision((*closestBrickIt)->getBoundingBox());
 
-                ball->collide((*brickIt)->getBoundingBox());
+            if (colliding) {
+                std::cout << "collision detected..." << std::endl;
+
+                ball->collide((*closestBrickIt)->getBoundingBox());
 
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;
 
-                (*brickIt)->hit(); // decrement its durability
+                (*closestBrickIt)->hit(); // decrement its durability
 
-                if ((*brickIt)
+                std::cout << "hitting the brick" << std::endl;
+                if ((*closestBrickIt)
                         ->isDestroyed()) { // erase brick if it is destroyed
 
-                    std::cout << "erasing rectangle " << std::endl;
-                    brickIt = bricks_.erase(brickIt);
+                    std::cout << "erasing brick " << std::endl;
+                    bricks_.erase(closestBrickIt);
                 }
-            } else {
-                brickIt++;
             }
-        }
+        } while (colliding);
 
         for (const BoundingBox &border : borders_) {
             if (ball->checkCollision(border)) {
                 std::cout << "colliding map boarder" << std::endl;
-                std::cout << "overlapping, repositionning..." << std::endl;
                 ball->collide(border);
                 std::cout << "repositionned at " << ball->getCoordinate()
                           << std::endl;

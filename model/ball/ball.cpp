@@ -2,6 +2,7 @@
 
 #include "../bounding_box/bounding_box.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 
@@ -76,14 +77,15 @@ void Ball::collide(const BoundingBox &boundingBox) {
     bounce(boundingBox);
 
     // add back what the distance that the ball should have gone while it was
-    // going inside the rectangle
+    // going inside the bounding-box
     coord_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 
 Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     // TODO: write a comment to explain how this works
-    Point closestPoint = getClosestPoint(
-        boundingBox); // Closest point from the ball's center on the rectangle
+    Point closestPoint =
+        getClosestPoint(boundingBox); // Closest point from the ball's center,
+                                      // on the bounding-box's edge
 
     Vec2 coordToClosestPoint{
         closestPoint - coord_}; // Vector from ball's center to closest point
@@ -93,17 +95,17 @@ Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
               closestPoint.x - coord_.x); // Angle between closestPoint and the
                                           // 0 degree from the circle's center
 
-    // The point of the circle that is most inscribed in the rectangle
-    Point pointInRectangle{coord_.x + radius_ * cos(angleRad),
-                           coord_.y + radius_ * sin(angleRad)};
+    // The point of the circle that is most inscribed in the bounding-box
+    Point pointInBoundingBox{coord_.x + radius_ * cos(angleRad),
+                             coord_.y + radius_ * sin(angleRad)};
 
-    // Vector between from ball's center to pointInRectangle
-    Vec2 coordToPointInRectangle = pointInRectangle - coord_;
+    // Vector between from ball's center to pointInBoundingBox
+    Vec2 coordToPointInBoundingBox = pointInBoundingBox - coord_;
 
-    // Vector from closestPoint to pointInRectangle (monodirectional penetration
-    // vector)
+    // Vector from closestPoint to pointInBoundingBox (monodirectional
+    // penetration vector)
     Vec2 MonoDirectionalPenetrationVec =
-        coordToPointInRectangle - coordToClosestPoint;
+        coordToPointInBoundingBox - coordToClosestPoint;
 
     return MonoDirectionalPenetrationVec;
 }
@@ -125,7 +127,6 @@ Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
 bool Ball::hasReached(const Vec2 &point) const {
     double deltaX = point.x - coord_.x;
     double deltaY = point.y - coord_.y;
-
     return Vec2{deltaX, deltaY}.getModule() <= radius_;
 }
 
@@ -133,4 +134,16 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
     Vec2 closestVec2 = getClosestPoint(boundingBox);
 
     return hasReached(closestVec2);
+}
+
+std::vector<std::shared_ptr<Brick>>::const_iterator
+Ball::findClosestBrick(const std::vector<std::shared_ptr<Brick>> &bricks) {
+    return std::min_element(
+        bricks.begin(), bricks.end(),
+        [&](const std::shared_ptr<Brick> &a, const std::shared_ptr<Brick> &b) {
+            return (Vec2(coord_) - Vec2(a->getBoundingBox().getCenter()))
+                       .getModule()
+                   < (Vec2(coord_) - Vec2(b->getBoundingBox().getCenter()))
+                         .getModule();
+        });
 }

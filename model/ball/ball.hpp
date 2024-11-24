@@ -2,9 +2,11 @@
 #define BALL_HPP
 
 #include "../bounding_box/bounding_box.hpp"
+#include "../brick/brick.hpp"
 #include "../vec2/vec2.hpp"
 
 #include <math.h>
+#include <vector>
 
 constexpr double DEFAULT_BALL_RADIUS = 1;
 constexpr double DEFAULT_BALL_SPEED = 1;
@@ -20,6 +22,12 @@ class Ball {
     double radius_{1};
     double speed_{1};
 
+    virtual bool hasReached(const Vec2 &point) const;
+    virtual void bounce(const BoundingBox &boundingBox);
+    virtual Vec2
+    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
+    virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
+
   public:
     Ball(Vec2 coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
          double speed = DEFAULT_BALL_SPEED);
@@ -29,18 +37,15 @@ class Ball {
     virtual Vec2 getCoordinate();
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(const Vec2 &vec);
-    // virtual void move(double distance);
 
-    virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
-    virtual bool hasReached(const Vec2 &point) const;
     virtual bool checkCollision(const BoundingBox &boundingBox) const;
-    virtual Vec2
-    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
-    virtual void bounce(const BoundingBox &boundingBox);
     virtual void collide(const BoundingBox &boundingBox);
 
     virtual void update(double deltaTime);
+
+    virtual std::vector<std::shared_ptr<Brick>>::const_iterator
+    findClosestBrick(const std::vector<std::shared_ptr<Brick>> &bricks);
 };
 
 #endif
