@@ -9,10 +9,23 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
+#include <iostream>
+
 struct Point {
   float x = 0, y = 0;
+
   Point(float x, float y) : x(x), y(y) {}
+
   ~Point() = default;
+
+  float getX() const { return x; }
+
+  float getY() const { return y; }
+
+  friend std::ostream &operator<<(std::ostream &os, const Point &point) {
+    os << "(" << point.x << ", " << point.y << ")";
+    return os;
+  }
 };
 
 #endif // POINT_HPP

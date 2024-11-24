@@ -21,6 +21,8 @@ class Forme {
         Forme(Point center, ALLEGRO_COLOR color = COLOR_BLACK);
         virtual ~Forme() = default;
 
+        virtual void move(const float x, const float y);
+
         virtual void setColor(const ALLEGRO_COLOR &color);
         virtual void setCenter(const Point center);
 
@@ -42,6 +44,8 @@ class Rectangle : public virtual Forme {
 
         virtual void draw() override;
 
+        virtual void moveHorizontally(float x);
+
         virtual void setWidth(const float width);
         virtual void setHeight(const float height);
 
@@ -61,7 +65,7 @@ class Circle : public virtual Forme {
 
         virtual void draw() override;
 
-        virtual void move(const int x, const int y);
+        virtual void move(const float x, const float y) override;
 
         virtual void setSpeedX(const float speedX);
 

@@ -19,15 +19,17 @@ class Canvas {
     private:
         vector<Circle> balls_;
         vector<Rectangle> briks_;
-        vector<Rectangle> racket_;
+        Rectangle racket_;
 
     public:
-        Canvas();
+        Canvas(Rectangle racket = Rectangle(Point(500, 940), 100, 20, COLOR_BLACK));
         ~Canvas() = default;
 
         void draw();
 
-        void moveBall(const int x, const int y);
+        Rectangle getRacket() const { return racket_; }
+
+        void moveRacket(float x);
 };
 
 #endif // CANVAS_HPP

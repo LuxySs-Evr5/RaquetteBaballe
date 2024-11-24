@@ -6,10 +6,16 @@
  *
  */
 
+#include "../global_variables.hpp"
 #include "canvas.hpp"
 
+#include <iostream>
+
+using namespace std;
+
+
 // ### Constructor ###
-Canvas::Canvas() {
+Canvas::Canvas(Rectangle racket) : racket_(racket) {
     int startX = 100; // Position initiale de X
     int startY = 300;      // Position initiale de Y (pour j = 0)
     int step = 60;        // Décalage à chaque itération
@@ -20,7 +26,6 @@ Canvas::Canvas() {
         }
     }
     balls_.push_back(Circle(Point(500, 900), 20, COLOR_BLUE));
-    racket_.push_back(Rectangle(Point(500, 940), 100, 20, COLOR_BLACK));
 };
 
 // ### Public methods ###
@@ -33,12 +38,16 @@ void Canvas::draw() {
         brik.draw();
     }
 
-    for (auto &racket : racket_) {
-        racket.draw();
-    }
+    racket_.draw();
 }
 
-void Canvas::moveBall(const int x, const int y) {
-    Circle ball = balls_[0];
-    ball.move(x, y);
+void Canvas::moveRacket(float x) {
+    Rectangle newRacketPosition = racket_;
+    newRacketPosition.moveHorizontally(x);
+    float newX = newRacketPosition.getCenter().getX();
+
+    // Check if the racket is in the grid
+    if (newX - racket_.getWidth() / 2 >= WALL_THICKNESS && newX + racket_.getWidth() / 2 <= SCREEN_WIDTH - WALL_THICKNESS) {
+        racket_ = newRacketPosition;
+    }
 }

@@ -22,6 +22,7 @@
 
 #include <iostream>
 
+#include "global_variables.hpp"
 #include "canvas/canvas.hpp"
 #include "figures/point.hpp"
 #include "init_allegro/initialize_allegro.hpp"
@@ -30,10 +31,6 @@
 
 
 using namespace std;
-
-static const int SCREEN_WIDTH = 1000;
-static const int SCREEN_HEIGHT = 1000;
-const double FPS = 60;
 
 void drawWallGame(){
     // draw the walls of the game
@@ -82,7 +79,7 @@ int main(int /* argc */, char ** /* argv */){
     bool draw = false;
     ALLEGRO_EVENT event;
     Canvas canvas;
-
+    bool key[ALLEGRO_KEY_MAX] = {false};
 
     al_start_timer(timer);
     while (!done){
@@ -90,28 +87,26 @@ int main(int /* argc */, char ** /* argv */){
         while (al_get_next_event(queue, &event)) { // get the next event
             if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
                 done = true;
-            } 
+            }
             else if (event.type == ALLEGRO_EVENT_TIMER) {
                 draw = true;
                 al_stop_timer(timer);
-            }
-            else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                switch (event.keyboard.keycode) {
-                    case ALLEGRO_KEY_UP:
-                        canvas.moveBall(0, -10);
-                        break;
-                    case ALLEGRO_KEY_DOWN:
-                        canvas.moveBall(0, 10);
-                        break;
-                    case ALLEGRO_KEY_LEFT:
-                        canvas.moveBall(-10, 0);
-                        break;
-                    case ALLEGRO_KEY_RIGHT: 
-                        canvas.moveBall(10, 0);
-                        break;
-                }
 
-            }
+                if (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_Q]) {
+
+                    canvas.moveRacket(-20);
+                } 
+                if (key[ALLEGRO_KEY_D] || key[ALLEGRO_KEY_P]) {
+                    canvas.moveRacket(20);
+                }
+            } 
+            else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+                key[event.keyboard.keycode] = true;
+            } 
+            else if (event.type == ALLEGRO_EVENT_KEY_UP) {
+                key[event.keyboard.keycode] = false;
+        }
+    
         }
 
         if (draw){
@@ -129,4 +124,5 @@ int main(int /* argc */, char ** /* argv */){
     al_destroy_event_queue(queue);
     al_destroy_timer(timer);
     return 0;
+
 }

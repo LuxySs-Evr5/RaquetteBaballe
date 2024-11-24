@@ -7,6 +7,7 @@
  */
 
 #include <allegro5/allegro_primitives.h>
+#include <iostream>
 #include "forme.hpp"
 
 // ### class Forme ###
@@ -23,6 +24,12 @@ ALLEGRO_COLOR Forme::getColor() const { return color_; }
 void Forme::setCenter(const Point center) { center_ = center; }
 
 void Forme::setColor(const ALLEGRO_COLOR &color) { color_ = color; }
+
+// # Public Methods #
+void Forme::move(const float x, const float y) {
+  center_.x += x;
+  center_.y += y;
+}
 
 
 // ### class Rectangle ###
@@ -50,6 +57,10 @@ void Rectangle::draw() {
   al_draw_rectangle(x1, y1, x2, y2, color_, 1);
 }
 
+void Rectangle::moveHorizontally(float x) {
+  center_.x += x;
+}
+
 // ### class Circle ###
 // # Constructors #
 Circle::Circle(Point center, float radius, ALLEGRO_COLOR color)
@@ -71,7 +82,7 @@ void Circle::draw() {
   al_draw_circle(center_.x, center_.y, radius_, color_, 1);
 }
 
-void Circle::move(const int x, const int y) {
+void Circle::move(const float x, const float y) {
   center_.x += x;
   center_.y += y;
 }
