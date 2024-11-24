@@ -1,10 +1,12 @@
 #include "ball.hpp"
 
+#include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <limits>
 
 using Point = Vec2;
 
@@ -23,9 +25,13 @@ void Ball::update(double deltaTime) {
 
 // NOTE: this only does the direction vector part of the bounce
 // actual bounce logic is in collide function
-void Ball::bounce(const BoundingBox &boundingBox) {
-    Point closestPoint = getClosestPoint(boundingBox);
-    BounceType bounceType = boundingBox.getBounceType(closestPoint);
+void Ball::bounce(const Bounceable &bounceable) {
+    Point closestPoint = getClosestPoint(bounceable.getBoundingBox());
+
+    // TODO: ball should bounce against a bounceable,
+    // not a boundingBox
+    BounceType bounceType =
+        bounceable.getBoundingBox().getBounceType(closestPoint);
 
     if (bounceType == BounceType::Horizontal) {
         dirVec_.y = -dirVec_.y;
@@ -137,13 +143,23 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
 }
 
 std::vector<std::shared_ptr<Brick>>::const_iterator
-Ball::findClosestBrick(const std::vector<std::shared_ptr<Brick>> &bricks) {
-    return std::min_element(
-        bricks.begin(), bricks.end(),
-        [&](const std::shared_ptr<Brick> &a, const std::shared_ptr<Brick> &b) {
-            return (Vec2(coord_) - Vec2(a->getBoundingBox().getCenter()))
-                       .getModule()
-                   < (Vec2(coord_) - Vec2(b->getBoundingBox().getCenter()))
-                         .getModule();
-        });
+Ball::findNextCollision(const std::vector<std::shared_ptr<Brick>> &bricks) {
+    auto closestCollision = bricks.end();
+    double distanceClosestCollision = std::numeric_limits<double>::max();
+
+    for (auto brickIt = bricks.begin(); brickIt != bricks.end(); ++brickIt) {
+        if (checkCollision((*brickIt)->getBoundingBox())) {
+
+            double distanceCurrentCollision =
+                getUnidirectionalPenetration((*brickIt)->getBoundingBox())
+                    .getModule();
+
+            if (distanceCurrentCollision < distanceClosestCollision) {
+                closestCollision = brickIt;
+                distanceClosestCollision = distanceCurrentCollision;
+            }
+        };
+    }
+
+    return closestCollision;
 }

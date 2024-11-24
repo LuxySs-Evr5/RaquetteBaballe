@@ -1,6 +1,7 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
+#include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 #include "../brick/brick.hpp"
 #include "../vec2/vec2.hpp"
@@ -23,7 +24,7 @@ class Ball {
     double speed_{1};
 
     virtual bool hasReached(const Vec2 &point) const;
-    virtual void bounce(const BoundingBox &boundingBox);
+    virtual void bounce(const Bounceable &bounceable);
     virtual Vec2
     getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
     virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
@@ -45,7 +46,7 @@ class Ball {
     virtual void update(double deltaTime);
 
     virtual std::vector<std::shared_ptr<Brick>>::const_iterator
-    findClosestBrick(const std::vector<std::shared_ptr<Brick>> &bricks);
+    findNextCollision(const std::vector<std::shared_ptr<Brick>> &bricks);
 };
 
 #endif

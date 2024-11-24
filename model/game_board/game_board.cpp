@@ -4,37 +4,32 @@ void GameBoard::update(double deltaTime) {
     for (auto ball : balls_) {
         std::cout << "coord: " << ball->getCoordinate() << std::endl;
 
-        bool colliding;
+        bool collided;
         do {
-            auto closestBrickIt = ball->findClosestBrick(bricks_);
+            auto closestBrickIt = ball->findNextCollision(bricks_);
 
             if (closestBrickIt == bricks_.end()) {
-                std::cerr << "No bricks left to check" << std::endl;
+                std::cerr << "is no collision" << std::endl;
                 break;
             }
 
-            colliding =
-                ball->checkCollision((*closestBrickIt)->getBoundingBox());
+            std::cout << "collision detected..." << std::endl;
 
-            if (colliding) {
-                std::cout << "collision detected..." << std::endl;
+            ball->collide((*closestBrickIt)->getBoundingBox());
 
-                ball->collide((*closestBrickIt)->getBoundingBox());
+            std::cout << "repositionned at " << ball->getCoordinate()
+                      << std::endl;
 
-                std::cout << "repositionned at " << ball->getCoordinate()
-                          << std::endl;
+            (*closestBrickIt)->hit(); // decrement its durability
 
-                (*closestBrickIt)->hit(); // decrement its durability
+            std::cout << "hitting the brick" << std::endl;
+            if ((*closestBrickIt)
+                    ->isDestroyed()) { // erase brick if it is destroyed
 
-                std::cout << "hitting the brick" << std::endl;
-                if ((*closestBrickIt)
-                        ->isDestroyed()) { // erase brick if it is destroyed
-
-                    std::cout << "erasing brick " << std::endl;
-                    bricks_.erase(closestBrickIt);
-                }
+                std::cout << "erasing brick " << std::endl;
+                bricks_.erase(closestBrickIt);
             }
-        } while (colliding);
+        } while (collided);
 
         for (const BoundingBox &border : borders_) {
             if (ball->checkCollision(border)) {
