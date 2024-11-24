@@ -20,7 +20,8 @@ Canvas::Canvas() {
         }
     }
     balls_.push_back(Circle(Point(500, 900), 20, COLOR_BLUE));
-}
+    racket_.push_back(Rectangle(Point(500, 940), 100, 20, COLOR_BLACK));
+};
 
 // ### Public methods ###
 void Canvas::draw() {
@@ -30,6 +31,10 @@ void Canvas::draw() {
 
     for (auto &brik : briks_) {
         brik.draw();
+    }
+
+    for (auto &racket : racket_) {
+        racket.draw();
     }
 }
 

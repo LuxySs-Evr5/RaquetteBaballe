@@ -52,6 +52,7 @@ class Rectangle : public virtual Forme {
 class Circle : public virtual Forme {
     private:
         float radius_;
+        float speedX_, speedY_;
 
     public:
         Circle(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLACK);
@@ -61,6 +62,10 @@ class Circle : public virtual Forme {
         virtual void draw() override;
 
         virtual void move(const int x, const int y);
+
+        virtual void setSpeedX(const float speedX);
+
+        virtual void setSpeedY(const float speedY);
         
         virtual void setRadius(const float radius);
 

@@ -19,6 +19,7 @@ class Canvas {
     private:
         vector<Circle> balls_;
         vector<Rectangle> briks_;
+        vector<Rectangle> racket_;
 
     public:
         Canvas();

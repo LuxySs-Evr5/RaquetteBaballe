@@ -59,6 +59,10 @@ Circle::Circle(Point center, float radius, ALLEGRO_COLOR color)
 float Circle::getRadius() const { return radius_; }
 
 // # Setters #
+void Circle::setSpeedX(const float speedX) { speedX_ = speedX; }
+
+void Circle::setSpeedY(const float speedY) { speedY_ = speedY; }
+
 void Circle::setRadius(const float radius) { radius_ = radius; }
 
 // # Public Methods #
