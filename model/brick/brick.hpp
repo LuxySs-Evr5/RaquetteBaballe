@@ -1,6 +1,7 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
+#include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
 #include <memory>
@@ -22,14 +23,12 @@ enum class Color : size_t { // Score/Points is always positive
     gold
 };
 
-// Abstract class for bricks
-class Brick {
+class Brick : public Bounceable {
   protected:
     Color color_;
-    BoundingBox boundingBox_;
     uint8_t durability_;
 
-    Brick(Color color, BoundingBox boundingBox,
+    Brick(Color color, const BoundingBox &boundingBox,
           uint8_t durability = DURABILITY_STANDARD_BRICK);
 
   public:
@@ -43,7 +42,6 @@ class Brick {
 
     virtual size_t getScore() const;
     virtual uint8_t getDurability() const;
-    virtual const BoundingBox &getBoundingBox() const;
     virtual bool isDestroyed() const;
 };
 

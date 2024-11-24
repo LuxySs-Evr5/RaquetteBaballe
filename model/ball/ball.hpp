@@ -25,8 +25,6 @@ class Ball {
 
     virtual bool hasReached(const Vec2 &point) const;
     virtual void bounce(const Bounceable &bounceable);
-    virtual Vec2
-    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
     virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
 
   public:
@@ -35,18 +33,18 @@ class Ball {
 
     virtual ~Ball() = default;
 
+    virtual Vec2
+    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
+
     virtual Vec2 getCoordinate();
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(const Vec2 &vec);
 
     virtual bool checkCollision(const BoundingBox &boundingBox) const;
 
-    virtual void collide(const BoundingBox &boundingBox);
+    virtual void collide(const Bounceable &bounceable);
 
     virtual void update(double deltaTime);
-
-    virtual std::vector<std::shared_ptr<Brick>>::const_iterator
-    findNextCollision(const std::vector<std::shared_ptr<Brick>> &bricks);
 };
 
 #endif

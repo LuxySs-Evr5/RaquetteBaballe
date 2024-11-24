@@ -2,10 +2,11 @@
 #define GAME_BOARD_HPP
 
 #include "../ball/ball.hpp"
+#include "../border/border.hpp"
 #include "../brick/brick.hpp"
 
-#include <array>
 #include <memory>
+#include <variant>
 #include <vector>
 
 constexpr double boardHeight = 15;
@@ -23,27 +24,32 @@ class GameBoard {
     };
 
     // with T=thickness, H=height, W=width
-    std::array<BoundingBox, 3> borders_ = {
+    const std::vector<std::shared_ptr<Border>> borders_ = {
         // (-T, H + T) -> (0,0)
-        BoundingBox{Vec2{-boardBoundingsThickness,
-                         boardHeight + boardBoundingsThickness},
-                    Vec2{0, 0}},
-
+        std::make_shared<Border>(
+            Border{BoundingBox{Vec2{-boardBoundingsThickness,
+                                    boardHeight + boardBoundingsThickness},
+                               Vec2{0, 0}}}),
         // (0, H + T) -> (W,H)
-        BoundingBox{Vec2{0, boardHeight + boardBoundingsThickness},
-                    Vec2{boardWidth, boardHeight}},
-
+        std::make_shared<Border>(
+            BoundingBox{Vec2{0, boardHeight + boardBoundingsThickness},
+                        Vec2{boardWidth, boardHeight}}),
         // (W, H + T) -> (W + T, 0)
-        BoundingBox{Vec2{boardWidth, boardHeight + boardBoundingsThickness},
-                    Vec2{boardWidth + boardBoundingsThickness, 0}}};
+        std::make_shared<Border>(
+            BoundingBox{Vec2{boardWidth, boardHeight + boardBoundingsThickness},
+                        Vec2{boardWidth + boardBoundingsThickness, 0}})};
 
     // Racket racket;
+
+    std::variant<std::vector<std::shared_ptr<Brick>>::const_iterator,
+                 std::vector<std::shared_ptr<Border>>::const_iterator>
+    findNextCollision(Ball &ball);
 
   public:
     GameBoard() = default;
     virtual ~GameBoard() = default;
 
-    void update(double deltaTime);
+    virtual void update(double deltaTime);
 };
 
 #endif

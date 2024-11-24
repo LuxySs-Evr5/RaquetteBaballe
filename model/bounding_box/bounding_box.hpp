@@ -17,6 +17,8 @@ class BoundingBox {
 
     virtual ~BoundingBox();
 
+    virtual void setCenter(Vec2 coordinate);
+
     virtual Vec2 getCenter() const noexcept;
     virtual double getWidth() const noexcept;
     virtual double getHeight() const noexcept;
@@ -24,8 +26,6 @@ class BoundingBox {
     virtual Vec2 getTopRight() const noexcept;
     virtual Vec2 getBottomRight() const noexcept;
     virtual Vec2 getBottomLeft() const noexcept;
-
-    virtual BounceType getBounceType(const Vec2 &point) const;
 };
 
 #endif

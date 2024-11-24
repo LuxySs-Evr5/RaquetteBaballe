@@ -26,8 +26,8 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
 }
 
 // protected constructor
-Brick::Brick(Color color, BoundingBox boundingBox, uint8_t durability)
-    : color_{color}, boundingBox_(boundingBox), durability_(durability) {}
+Brick::Brick(Color color, const BoundingBox &boundingBox, uint8_t durability)
+    : color_{color}, Bounceable(boundingBox), durability_(durability) {}
 
 Brick::~Brick() = default;
 
@@ -39,5 +39,4 @@ void Brick::hit() { // this is default behavior
 
 size_t Brick::getScore() const { return static_cast<unsigned>(color_); }
 uint8_t Brick::getDurability() const { return durability_; }
-const BoundingBox &Brick::getBoundingBox() const { return boundingBox_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
