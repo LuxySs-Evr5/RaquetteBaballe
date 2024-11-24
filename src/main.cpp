@@ -18,17 +18,30 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/timer.h>
+#include <allegro5/keycodes.h>
 
 #include <iostream>
 
-#include "initialize_allegro.hpp"
-#include "../includes/colors.hpp"
+#include "canvas/canvas.hpp"
+#include "figures/point.hpp"
+#include "init_allegro/initialize_allegro.hpp"
+#include "colors/colors.hpp"
+#include "figures/forme.hpp"
+
 
 using namespace std;
 
 static const int SCREEN_WIDTH = 1000;
 static const int SCREEN_HEIGHT = 1000;
 const double FPS = 60;
+
+void drawWallGame(){
+    // draw the walls of the game
+    al_draw_filled_rectangle(20, 100, SCREEN_WIDTH-20, 110, COLOR_BLACK); // upper wall
+    al_draw_filled_rectangle(20, 100, 30, SCREEN_HEIGHT-20, COLOR_BLACK); // left wall
+    al_draw_filled_rectangle(SCREEN_WIDTH - 30, 100, SCREEN_WIDTH-20, SCREEN_HEIGHT-20, COLOR_BLACK); // right wall
+    al_draw_filled_rectangle(20, SCREEN_HEIGHT - 30, SCREEN_WIDTH-20, SCREEN_HEIGHT-20, COLOR_BLACK); // bottom wall
+}
 
 int main(int /* argc */, char ** /* argv */){
 
@@ -68,18 +81,36 @@ int main(int /* argc */, char ** /* argv */){
     bool done = false;
     bool draw = false;
     ALLEGRO_EVENT event;
+    Canvas canvas;
 
 
     al_start_timer(timer);
     while (!done){
         al_wait_for_event(queue, nullptr); // wait for an event
         while (al_get_next_event(queue, &event)) { // get the next event
-            if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){ // if the display is closed
+            if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
                 done = true;
             } 
             else if (event.type == ALLEGRO_EVENT_TIMER) {
                 draw = true;
                 al_stop_timer(timer);
+            }
+            else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+                switch (event.keyboard.keycode) {
+                    case ALLEGRO_KEY_UP:
+                        canvas.moveBall(0, -10);
+                        break;
+                    case ALLEGRO_KEY_DOWN:
+                        canvas.moveBall(0, 10);
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                        canvas.moveBall(-10, 0);
+                        break;
+                    case ALLEGRO_KEY_RIGHT: 
+                        canvas.moveBall(10, 0);
+                        break;
+                }
+
             }
         }
 
@@ -87,7 +118,9 @@ int main(int /* argc */, char ** /* argv */){
             draw = false;
             al_start_timer(timer);
             al_clear_to_color(COLOR_WHITE);
-            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2, 50, ALLEGRO_ALIGN_CENTER, "Arkanoid");
+            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,50, ALLEGRO_ALIGN_CENTER, "Arkanoid");
+            drawWallGame();
+            canvas.draw();
             al_flip_display(); // update the window display
         }
     }

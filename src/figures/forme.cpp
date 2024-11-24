@@ -66,3 +66,8 @@ void Circle::draw() {
   al_draw_filled_circle(center_.x, center_.y, radius_, color_);
   al_draw_circle(center_.x, center_.y, radius_, color_, 1);
 }
+
+void Circle::move(const int x, const int y) {
+  center_.x += x;
+  center_.y += y;
+}

@@ -30,7 +30,7 @@ class Forme {
         virtual void draw() = 0;
 };
 
-class Rectangle final : public Forme {
+class Rectangle : public virtual Forme {
     private:
         float width_, height_;
 
@@ -38,31 +38,33 @@ class Rectangle final : public Forme {
         Rectangle(Point center, float width, float height,
                   ALLEGRO_COLOR color = COLOR_BLACK);
         
-        ~Rectangle() = default;
+        virtual ~Rectangle() = default;
 
-        void draw() override;
+        virtual void draw() override;
 
-        void setWidth(const float width);
-        void setHeight(const float height);
+        virtual void setWidth(const float width);
+        virtual void setHeight(const float height);
 
-        float getWidth() const;
-        float getHeight() const;
+        virtual float getWidth() const;
+        virtual float getHeight() const;
 };
 
-class Circle final : public Forme {
+class Circle : public virtual Forme {
     private:
         float radius_;
 
     public:
         Circle(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLACK);
 
-        ~Circle() = default;
+        virtual ~Circle() = default;
 
-        void draw() override;
+        virtual void draw() override;
 
-        void setRadius(const float radius);
+        virtual void move(const int x, const int y);
+        
+        virtual void setRadius(const float radius);
 
-        float getRadius() const;
+        virtual float getRadius() const;
 };
 
 #endif // FORME_HPP
