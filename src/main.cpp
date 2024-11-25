@@ -21,8 +21,8 @@
 #include <allegro5/timer.h>
 #include <allegro5/keycodes.h>
 
+
 #include <iostream>
-#include <limits>
 
 #include "global_variables.hpp"
 #include "canvas/canvas.hpp"
