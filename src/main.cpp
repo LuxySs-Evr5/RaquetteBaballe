@@ -115,7 +115,9 @@ int main(int /* argc */, char ** /* argv */){
             draw = false;
             al_start_timer(timer);
             al_clear_to_color(COLOR_WHITE);
-            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,50, ALLEGRO_ALIGN_CENTER, "Arkanoid");
+            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid");
+            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 4,50, ALLEGRO_ALIGN_CENTER, "Life :");
+            al_draw_text(font, COLOR_BLACK, 3 * SCREEN_WIDTH / 4,50, ALLEGRO_ALIGN_CENTER, "Score :");
             drawWallGame();
             canvas.draw();
             al_flip_display(); // update the window display

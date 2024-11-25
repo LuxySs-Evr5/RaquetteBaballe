@@ -9,6 +9,10 @@
 #ifndef GLOBAL_VARIABLES_HPP
 #define GLOBAL_VARIABLES_HPP
 
+#include <string>
+
+using namespace std;
+
 // ### Screen ###
 extern const float SCREEN_WIDTH;
 extern const float SCREEN_HEIGHT;
@@ -43,6 +47,10 @@ extern const float BOTTOM_WALL_X_START;
 extern const float BOTTOM_WALL_Y_START;
 
 extern const float SPACE_BTW_START_SCREEN_WALL;
+
+
+// ### Strings ###
+extern const string HEART_TEXT;
 
 
 #endif // GLOBAL_VARIABLES_HPP
