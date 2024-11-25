@@ -34,18 +34,11 @@
 #include "colors/colors.hpp"
 #include "life/life.hpp"
 #include "score/score.hpp"
+#include "wall/wall_game.hpp"
 
 
 using namespace std;
 
-
-void drawWallGame(){
-    // draw the walls of the game
-    al_draw_filled_rectangle(UPPER_WALL_X_START, UPPER_WALL_Y_START, SCREEN_WIDTH - SPACE_BTW_START_SCREEN_WALL, UPPER_WALL_Y_START + WALL_THICKNESS, COLOR_BLACK); // upper wall
-    al_draw_filled_rectangle(LEFT_WALL_X_START, LEFT_WALL_Y_START, LEFT_WALL_X_START + WALL_THICKNESS, SCREEN_HEIGHT - SPACE_BTW_START_SCREEN_WALL, COLOR_BLACK); // left wall
-    al_draw_filled_rectangle(RIGHT_WALL_X_START, RIGHT_WALL_Y_START, RIGHT_WALL_X_START + WALL_THICKNESS, SCREEN_HEIGHT - SPACE_BTW_START_SCREEN_WALL, COLOR_BLACK); // right wall
-    al_draw_filled_rectangle(BOTTOM_WALL_X_START, BOTTOM_WALL_Y_START, SCREEN_WIDTH - SPACE_BTW_START_SCREEN_WALL, BOTTOM_WALL_Y_START + WALL_THICKNESS, COLOR_BLACK); // bottom wall
-}
 
 int main(int /* argc */, char ** /* argv */){
 
@@ -93,10 +86,13 @@ int main(int /* argc */, char ** /* argv */){
 
     bool done = false;
     bool draw = false;
+
     ALLEGRO_EVENT event;
+
     Canvas canvas;
     Life life;
     Score score;
+
     bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false 
 
     al_start_timer(timer);
@@ -133,18 +129,7 @@ int main(int /* argc */, char ** /* argv */){
             
             al_clear_to_color(COLOR_WHITE);
 
-            int heartWidth = al_get_bitmap_width(heartImage);
-            int heartHeight = al_get_bitmap_height(heartImage);
-
-            float scaleHeartWidth = HEART_IMAGE_SIZE;
-            float scaleHeartHeight = HEART_IMAGE_SIZE;
-
-            float heartX = SCREEN_WIDTH / 4 + 40; // space between the text and the heart image
-            
-            for (float i = 0; i < life.getNbLifes(); ++i) {
-                // draw the heart image at the right of the text Life
-                al_draw_scaled_bitmap(heartImage, 0, 0, static_cast<float>(heartWidth), static_cast<float>(heartHeight), heartX + i * (scaleHeartWidth + 5), 50, scaleHeartWidth, scaleHeartHeight, 0);
-            }
+            life.drawLife(heartImage);
 
             al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid");
             al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : ");
