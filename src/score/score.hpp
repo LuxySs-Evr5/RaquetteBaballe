@@ -10,6 +10,7 @@
 #define SCORE_HPP
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ public:
     void setScore(const int score);
 
     int getScore() const;
+    string getScoreString() const;
     
     
 

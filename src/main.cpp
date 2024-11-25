@@ -8,6 +8,7 @@
  */
 
 #include <allegro5/allegro.h>
+#include <allegro5/bitmap.h>
 #include <allegro5/display.h>
 #include <allegro5/drawing.h>
 #include <allegro5/events.h>
@@ -20,19 +21,22 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/timer.h>
 #include <allegro5/keycodes.h>
-
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include <iostream>
+#include <string>
 
 #include "global_variables.hpp"
 #include "canvas/canvas.hpp"
-#include "figures/point.hpp"
 #include "init_allegro/initialize_allegro.hpp"
 #include "colors/colors.hpp"
-#include "figures/forme.hpp"
+#include "life/life.hpp"
+#include "score/score.hpp"
 
 
 using namespace std;
+
 
 void drawWallGame(){
     // draw the walls of the game
@@ -48,7 +52,7 @@ int main(int /* argc */, char ** /* argv */){
         return -1;
     }
         
-    ALLEGRO_FONT *font = al_load_ttf_font("/usr/share/fonts/TTF/Arial.TTF", 24, 0); // load the font
+    ALLEGRO_FONT *font = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
     if (!font){
         cerr << "Failed to load the font" << endl;
         return -1;
@@ -72,15 +76,47 @@ int main(int /* argc */, char ** /* argv */){
         return -1;
     }
 
+    ALLEGRO_BITMAP *heartImage = al_load_bitmap("images/heart.png"); // the directory that allegro looks is the main directory
+    if (!heartImage){
+        cerr << "Failed to load the image" << endl;
+        return -1;
+    }
+
+    ALLEGRO_SAMPLE *music = al_load_sample("music/arkanoid.wav");
+    if (!music) {
+        cerr << "Failed to load the music" << endl;
+        return -1;
+    }
+
+    ALLEGRO_SAMPLE_INSTANCE *instanceMusic = al_create_sample_instance(music);
+    if (!instanceMusic) {
+        cerr << "Failed to create the sample instance" << endl;
+        return -1;
+    }
+
+    if (!al_attach_sample_instance_to_mixer(instanceMusic, al_get_default_mixer())) {
+        cerr << "Failed to attach sample instance to mixer." << endl;
+        al_destroy_sample_instance(instanceMusic);
+        al_destroy_sample(music);
+        return -1;
+    }
+
+
     al_register_event_source(queue, al_get_display_event_source(display)); // register the display event source
     al_register_event_source(queue, al_get_keyboard_event_source()); // register the keyboard event source
     al_register_event_source(queue, al_get_mouse_event_source()); // register the mouse event source
     al_register_event_source(queue, al_get_timer_event_source(timer)); // register the timer event source
 
+    al_set_sample_instance_playmode(instanceMusic, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
+
+    al_play_sample_instance(instanceMusic); // play the music
+
     bool done = false;
     bool draw = false;
     ALLEGRO_EVENT event;
     Canvas canvas;
+    Life life;
+    Score score;
     bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false 
 
     al_start_timer(timer);
@@ -114,12 +150,29 @@ int main(int /* argc */, char ** /* argv */){
         if (draw){
             draw = false;
             al_start_timer(timer);
+            
             al_clear_to_color(COLOR_WHITE);
+
+            int heartWidth = al_get_bitmap_width(heartImage);
+            int heartHeight = al_get_bitmap_height(heartImage);
+
+            float scaleHeartWidth = HEART_IMAGE_SIZE;
+            float scaleHeartHeight = HEART_IMAGE_SIZE;
+
+            float heartX = SCREEN_WIDTH / 4 + 40; // space between the text and the heart image
+            
+            for (float i = 0; i < life.getNbLifes(); ++i) {
+                // draw the heart image at the right of the text Life
+                al_draw_scaled_bitmap(heartImage, 0, 0, static_cast<float>(heartWidth), static_cast<float>(heartHeight), heartX + i * (scaleHeartWidth + 5), 50, scaleHeartWidth, scaleHeartHeight, 0);
+            }
+
             al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid");
-            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 4,50, ALLEGRO_ALIGN_CENTER, "Life :");
-            al_draw_text(font, COLOR_BLACK, 3 * SCREEN_WIDTH / 4,50, ALLEGRO_ALIGN_CENTER, "Score :");
+            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : ");
+            al_draw_text(font, COLOR_BLACK, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score.getScoreString().c_str());
+            
             drawWallGame();
             canvas.draw();
+            
             al_flip_display(); // update the window display
         }
     }

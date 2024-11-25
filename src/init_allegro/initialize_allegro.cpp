@@ -12,6 +12,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/timer.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include <iostream>
 
@@ -39,10 +41,25 @@ int initialize_allegro() {
         return -1;
     }; 
 
+    if (!al_install_audio()){ // install the audio
+        cerr << "Failed to install audio" << endl;
+        return -1;
+    }
+
+    if (!al_init_acodec_addon()) {
+        cerr << "Failed to initialize the acodec addon" << endl;
+        return -1;
+    }
+
+    if (!al_reserve_samples(1)) { // reserve the number of samples to play the sound
+        cerr << "Failed to reserve samples" << endl;
+        return -1;
+    }
+
     if (!al_init_image_addon()) {
         cerr << "Failed to initialize the image addon" << endl;
         return -1;
-    }
+    }  
 
     if (!al_init_font_addon()) { // initialize the police for the text
         cerr << "Failed to initialize the font addon" << endl;

@@ -8,6 +8,7 @@
 
 #include "score.hpp"
 #include <fstream>
+#include <string>
 
 // ### Constructor ###
 
@@ -60,6 +61,8 @@ void Score::setScore(const int score) { score_ = score; }
 
 
 // ### Getters ###
-
 int Score::getScore() const { return score_; }
 
+string Score::getScoreString() const { 
+  return "Score : " + to_string(score_);
+}

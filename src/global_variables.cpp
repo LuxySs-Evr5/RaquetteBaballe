@@ -44,5 +44,5 @@ const float BOTTOM_WALL_Y_START = 960;
 const float SPACE_BTW_START_SCREEN_WALL = 20;
 
 
-// ### Strings ###
-const string HEART_TEXT = "\u2764";
+// ### Size of image heart ###
+const float HEART_IMAGE_SIZE = 24; // because the font size is 24

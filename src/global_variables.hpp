@@ -49,8 +49,8 @@ extern const float BOTTOM_WALL_Y_START;
 extern const float SPACE_BTW_START_SCREEN_WALL;
 
 
-// ### Strings ###
-extern const string HEART_TEXT;
+// ### Size of image heart ###
+extern const float HEART_IMAGE_SIZE;
 
 
 #endif // GLOBAL_VARIABLES_HPP

@@ -6,6 +6,8 @@
  *
  */
 
+#include "../global_variables.hpp"
+#include <iostream>
 #include "life.hpp"
 
 // ### Constructor ###
@@ -36,7 +38,9 @@ void Life::removeOneLife() {
 bool Life::currentlyGaming() const { return isGaming_; }
 
 ostream &operator<<(ostream &os, const Life &life) {
-  os << "Numbers of Lifes: " << life.nbLifes_;
+  for (int i = 0; i < life.nbLifes_; i++) {
+    os << "Number of lifes: " << life.nbLifes_ << endl;
+  }
   return os;
 }
 
