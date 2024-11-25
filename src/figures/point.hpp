@@ -11,21 +11,16 @@
 
 #include <iostream>
 
+using namespace std;
+
 struct Point {
   float x = 0, y = 0;
 
-  Point(float x, float y) : x(x), y(y) {}
+  Point(float valX, float valY);
 
   ~Point() = default;
 
-  float getX() const { return x; }
-
-  float getY() const { return y; }
-
-  friend std::ostream &operator<<(std::ostream &os, const Point &point) {
-    os << "(" << point.x << ", " << point.y << ")";
-    return os;
-  }
+  friend ostream &operator<<(ostream &os, const Point &point);
 };
 
 #endif // POINT_HPP
