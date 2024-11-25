@@ -30,6 +30,7 @@
 #include "global_variables.hpp"
 #include "canvas/canvas.hpp"
 #include "init_allegro/initialize_allegro.hpp"
+#include "init_allegro/check_init.hpp"
 #include "colors/colors.hpp"
 #include "life/life.hpp"
 #include "score/score.hpp"
@@ -53,49 +54,28 @@ int main(int /* argc */, char ** /* argv */){
     }
         
     ALLEGRO_FONT *font = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
-    if (!font){
-        cerr << "Failed to load the font" << endl;
-        return -1;
-    }
+    checkInit(font, "font");
 
     ALLEGRO_DISPLAY *display = al_create_display(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT));
-    if (!display){
-        cerr << "Failed to create a display" << endl;
-        return -1;
-    }
+    checkInit(display, "display");
 
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS); 
-    if (!timer){
-        cerr << "Failed to create a timer" << endl;
-        return -1;
-    }
+    checkInit(timer, "timer");
 
     ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
-    if (!queue){
-        cerr << "Failed to create an event queue" << endl;
-        return -1;
-    }
+    checkInit(queue, "event queue");
 
     ALLEGRO_BITMAP *heartImage = al_load_bitmap("images/heart.png"); // the directory that allegro looks is the main directory
-    if (!heartImage){
-        cerr << "Failed to load the image" << endl;
-        return -1;
-    }
+    checkInit(heartImage, "heart image");
 
     ALLEGRO_SAMPLE *music = al_load_sample("music/arkanoid.wav");
-    if (!music) {
-        cerr << "Failed to load the music" << endl;
-        return -1;
-    }
+    checkInit(music, "music");
 
     ALLEGRO_SAMPLE_INSTANCE *instanceMusic = al_create_sample_instance(music);
-    if (!instanceMusic) {
-        cerr << "Failed to create the sample instance" << endl;
-        return -1;
-    }
+    checkInit(instanceMusic, "instanceMusic");
 
-    if (!al_attach_sample_instance_to_mixer(instanceMusic, al_get_default_mixer())) {
-        cerr << "Failed to attach sample instance to mixer." << endl;
+    if (!al_attach_sample_instance_to_mixer(instanceMusic, al_get_default_mixer())) { // attach the sample instance to the mixer
+        cerr << "Failed to attach sample instance to mixer" << endl;
         al_destroy_sample_instance(instanceMusic);
         al_destroy_sample(music);
         return -1;
@@ -177,9 +157,14 @@ int main(int /* argc */, char ** /* argv */){
         }
     }
 
+    // destroy all
     al_destroy_display(display);
+    al_destroy_font(font);
+    al_destroy_bitmap(heartImage);
     al_destroy_event_queue(queue);
     al_destroy_timer(timer);
+    al_destroy_sample_instance(instanceMusic);
+    al_destroy_sample(music);
     return 0;
 
 }
