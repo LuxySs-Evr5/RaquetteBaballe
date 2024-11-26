@@ -7,12 +7,18 @@
  */
 
 #include "canvas.hpp"
+#include <iostream>
+#include <memory>
 
 using namespace std;
 
 
 // ### Constructor ###
-Canvas::Canvas(Rectangle racket) : racket_(racket) {
+Canvas::Canvas() {
+    lazer_ = nullptr;
+    racket_ = Racket();
+    balls_.push_back(Ball());
+
     float startX = 100; // Position of the first brik on X
     float startY = 300; // Position of the first brik on Y
     float step = 60; // Space between briks
@@ -22,7 +28,6 @@ Canvas::Canvas(Rectangle racket) : racket_(racket) {
             briks_.push_back(Rectangle(Point(startX + j * step, startY + i * step), BRIK_WIDTH, BRIK_HEIGHT, COLOR_RED));
         }
     }
-    balls_.push_back(Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE));
 };
 
 // ### Public methods ###
@@ -36,10 +41,17 @@ void Canvas::draw() {
     }
 
     racket_.draw();
+
+    if (lazer_ != nullptr && lazer_->getY() > 0) {
+        lazer_->draw();
+        lazer_->moveUp();
+    } else if (lazer_ != nullptr) {
+        lazer_ = nullptr;
+    }
 }
 
-void Canvas::moveRacket(const float x) {
-    Rectangle newRacketPosition = racket_;
+void Canvas::moveRacket(float x) {
+    Racket newRacketPosition = racket_;
     newRacketPosition.moveHorizontally(x);
     float newX = newRacketPosition.getCenter().x;
 
@@ -47,4 +59,16 @@ void Canvas::moveRacket(const float x) {
     if ((newX - (racket_.getWidth() / 2) >= LEFT_WALL_X_START + WALL_THICKNESS) && (newX + (racket_.getWidth() / 2) <= RIGHT_WALL_X_START)) {
         racket_ = newRacketPosition;
     }
+}
+
+void Canvas::addLazer(const Lazer &lazer) {
+    if (lazer_ == nullptr) {
+        lazer_ = new Lazer(lazer);
+    }
+}
+
+
+// ### Getters ###
+Racket Canvas::getRacket() const {
+    return racket_;
 }

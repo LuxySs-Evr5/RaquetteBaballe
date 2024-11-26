@@ -11,26 +11,33 @@
 
 #include <vector>
 
+#include <memory>
 #include "../global_variables.hpp"
 #include "../figures/forme.hpp"
+#include "../piece/racket.hpp"
+#include "../piece/ball.hpp"
+#include "../piece/lazer.hpp"
 
 using namespace std;
 
 class Canvas {
     private:
-        vector<Circle> balls_;
+        vector<Ball> balls_;
         vector<Rectangle> briks_;
-        Rectangle racket_;
+        Racket racket_;
+        Lazer *lazer_;
 
     public:
-        Canvas(Rectangle racket = Rectangle(Point(500, 940), RACKET_WIDTH, RACKET_HEIGHT, COLOR_WHITE));
+        Canvas();
         ~Canvas() = default;
 
         void draw();
 
-        Rectangle getRacket() const { return racket_; }
+        Racket getRacket() const;
 
         void moveRacket(const float x);
+
+        void addLazer(const Lazer &lazer);
 };
 
 #endif // CANVAS_HPP

@@ -13,6 +13,7 @@
 
 #include "../init_allegro/initialize_allegro.hpp"
 #include "../game_over/draw_game_over.hpp"
+#include "../piece/lazer.hpp"
 
 // ### Constructor ###
 InGame::InGame() {
@@ -122,6 +123,11 @@ void InGame::gameOver(){
 
 void InGame::moveRacket(const float x){
     canvas_.moveRacket(x);
+}
+
+void InGame::shootLazer(){
+    Lazer lazer = Lazer(canvas_.getRacket());
+    canvas_.addLazer(lazer);
 }
 
 

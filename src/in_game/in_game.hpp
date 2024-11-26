@@ -47,6 +47,8 @@ class InGame{
 
         void moveRacket(const float x);
 
+        void shootLazer();
+
         // ### Getters ###
         bool getDone() const;
         bool getDraw() const;

@@ -7,6 +7,7 @@
  *
  */
 
+#include <allegro5/keycodes.h>
 #include <string>
 
 #include "global_variables.hpp"
@@ -48,6 +49,9 @@ int main(int /* argc */, char ** /* argv */){
                 if (inGame.getKey()[ALLEGRO_KEY_D] || inGame.getKey()[ALLEGRO_KEY_P]) { // if the key pressed is D or P
                     inGame.moveRacket(RACKET_SPEED); // speed of the racket is 20 to the right
                 }
+                if (inGame.getKey()[ALLEGRO_KEY_SPACE]) {
+                    inGame.shootLazer();
+            }
             } 
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_DOWN) {
