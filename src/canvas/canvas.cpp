@@ -38,7 +38,7 @@ void Canvas::draw() {
     racket_.draw();
 }
 
-void Canvas::moveRacket(float x) {
+void Canvas::moveRacket(const float x) {
     Rectangle newRacketPosition = racket_;
     newRacketPosition.moveHorizontally(x);
     float newX = newRacketPosition.getCenter().x;

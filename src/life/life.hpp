@@ -10,7 +10,6 @@
 #define LIFE_HPP
 
 #include <allegro5/bitmap.h>
-#include <cstdint>
 #include <iostream>
 
 #include "../score/score.hpp"
@@ -20,7 +19,6 @@ using namespace std;
 class Life {
 private:
   uint8_t nbLifes_; // uint8_t is the lowest integer type that can hold 0 to 3 lifes
-  bool isGaming_;
   Score score_;
 
 public:
@@ -30,15 +28,14 @@ public:
   ~Life();
 
   void removeOneLife();
+  void resetLife();
   void saveScore();
 
   void drawLife(ALLEGRO_BITMAP *heartImage);
   
   void setNbLifes(const uint8_t nbLifes);
-  void setGaming(const bool isGaming);
 
   uint8_t getNbLifes() const;
-  bool currentlyGaming() const;
 
   friend ostream &operator<<(ostream &os, const Life &life);
 };

@@ -10,7 +10,6 @@
 #include "../global_variables.hpp"
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro5/color.h>
 
 void drawWallGame(ALLEGRO_COLOR color){
     // draw the walls of the game

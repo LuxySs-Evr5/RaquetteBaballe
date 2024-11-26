@@ -7,20 +7,15 @@
  */
 
 #include "../global_variables.hpp"
-#include <iostream>
 #include "life.hpp"
 
 #include <allegro5/allegro_primitives.h>
 
 // ### Constructor ###
 
-Life::Life() : nbLifes_(3) {
-  isGaming_ = true;
-}
+Life::Life() : nbLifes_(3) {}
 
-Life::Life(uint8_t nbLifes) : nbLifes_(nbLifes) {
-  isGaming_ = true;
-}
+Life::Life(uint8_t nbLifes) : nbLifes_(nbLifes) {}
 
 
 // ### Destructor ###
@@ -32,15 +27,14 @@ Life::~Life() = default;
 
 void Life::removeOneLife() {
   nbLifes_--;
-  if (nbLifes_ < 1) {
-    isGaming_ = false;
     // TODO: we have to check the score in file score.txt and set the highest
     // score between the score in the file and the current score
     // TODO: we have to choose what to do when the game is over
-  }
 }
 
-bool Life::currentlyGaming() const { return isGaming_; }
+void Life::resetLife() {
+  nbLifes_ = 3;
+}
 
 void Life::drawLife(ALLEGRO_BITMAP *heartImage) {
   int heartWidth = al_get_bitmap_width(heartImage);
@@ -70,4 +64,3 @@ uint8_t Life::getNbLifes() const { return nbLifes_; }
 
 // ### Setters ###
 void Life::setNbLifes(const uint8_t nbLifes) { nbLifes_ = nbLifes; }
-void Life::setGaming(const bool isGaming) { isGaming_ = isGaming; }

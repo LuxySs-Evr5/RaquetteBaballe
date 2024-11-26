@@ -1,19 +1,12 @@
 #include "initialize_allegro.hpp"
 
 #include <allegro5/allegro.h>
-#include <allegro5/display.h>
-#include <allegro5/drawing.h>
-#include <allegro5/events.h>
-#include <allegro5/keyboard.h>
-#include <allegro5/mouse.h>
-#include <allegro5/system.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include <allegro5/timer.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
 
 #include <iostream>
 

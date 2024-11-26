@@ -7,24 +7,21 @@
 #ifndef IN_GAME_HPP
 #define IN_GAME_HPP
 
-#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/bitmap.h>
-#include <allegro5/events.h>
-#include <allegro5/keycodes.h>
-#include <allegro5/timer.h>
-#include <ctime>
+#include <allegro5/allegro_audio.h>
 
 #include "../canvas/canvas.hpp"
 #include "../life/life.hpp"
 
 class InGame{
     private:
+
+        bool isGaming_ = true;
+
         bool done_ = false;
         bool draw_ = false;
         ALLEGRO_DISPLAY *display_;
-        ALLEGRO_EVENT_QUEUE *queue_;
-        ALLEGRO_EVENT event_;
         ALLEGRO_BITMAP *heartImage_;
         ALLEGRO_SAMPLE *music_;
         ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
@@ -33,10 +30,14 @@ class InGame{
         Canvas canvas_;
         Life life_;
         Score score_;
-        ALLEGRO_TIMER *timer_;
         bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false
 
     public:
+        // ### Public Variables ###
+        ALLEGRO_TIMER *timer;
+        ALLEGRO_EVENT_QUEUE *queue;
+        ALLEGRO_EVENT event;
+
         InGame();
 
         ~InGame();
@@ -45,12 +46,16 @@ class InGame{
 
         void gaming();
 
-        ALLEGRO_TIMER *getTimer() const;
+        void moveRacket(const float x);
+        void resetLife();
+        void resetScore();
+
+        // ### Getters ###
         bool getDone() const;
         bool getDraw() const;
+        bool getIsGaming() const;
+
         ALLEGRO_DISPLAY *getDisplay() const;
-        ALLEGRO_EVENT_QUEUE *getQueue() const;
-        ALLEGRO_EVENT getEvent() const;
         ALLEGRO_BITMAP *getHeartImage() const;
         ALLEGRO_SAMPLE *getMusic() const;
         ALLEGRO_SAMPLE_INSTANCE *getInstanceMusic() const;
@@ -60,6 +65,22 @@ class InGame{
         Life getLife() const;
         Score getScore() const;
         bool *getKey();
+
+        // ### Setters ###
+        void setDone(const bool done);
+        void setDraw(const bool draw);
+        void setIsGaming(const bool isGaming);
+
+        void setDisplay(ALLEGRO_DISPLAY *display);
+        void setHeartImage(ALLEGRO_BITMAP *heartImage);
+        void setMusic(ALLEGRO_SAMPLE *music);
+        void setInstanceMusic(ALLEGRO_SAMPLE_INSTANCE *instanceMusic);
+        void setFont24(ALLEGRO_FONT *font24);
+        void setFont50(ALLEGRO_FONT *font50);
+        void setCanvas(const Canvas canvas);
+        void setLife(const Life life);
+        void setScore(const Score score);
+        void setKey(const bool key[ALLEGRO_KEY_MAX]);
 
 };
 #endif // IN_GAME_HPP

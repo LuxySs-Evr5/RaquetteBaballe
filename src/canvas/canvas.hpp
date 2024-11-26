@@ -30,7 +30,7 @@ class Canvas {
 
         Rectangle getRacket() const { return racket_; }
 
-        void moveRacket(float x);
+        void moveRacket(const float x);
 };
 
 #endif // CANVAS_HPP

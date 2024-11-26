@@ -5,19 +5,21 @@
  */
 
 #include "in_game.hpp"
-#include <allegro5/timer.h>
-#include <allegro5/display.h>
-#include <allegro5/events.h>
-#include <allegro5/keyboard.h>
-#include <allegro5/mouse.h>
-#include <allegro5/allegro.h>
+#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
+
+
+
+#include "../init_allegro/initialize_allegro.hpp"
 
 // ### Constructor ###
 InGame::InGame() {
+
+    if (initialize_allegro() != 0){
+        //TODO: verifier le exit
+        exit(-1);
+    }
     
     font24_ = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
     checkInit(font24_, "font24");
@@ -28,11 +30,11 @@ InGame::InGame() {
     display_ = al_create_display(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
-    timer_ = al_create_timer(1.0 / FPS); 
-    checkInit(timer_, "timer");
+    timer = al_create_timer(1.0 / FPS); 
+    checkInit(timer, "timer");
 
-    queue_ = al_create_event_queue();
-    checkInit(queue_, "event queue");
+    queue = al_create_event_queue();
+    checkInit(queue, "event queue");
 
     heartImage_ = al_load_bitmap("images/heart.png"); // the directory that allegro looks is the main directory
     checkInit(heartImage_, "heart image");
@@ -51,10 +53,10 @@ InGame::InGame() {
         exit(-1);
     }
 
-    al_register_event_source(queue_, al_get_display_event_source(display_)); // register the display event source
-    al_register_event_source(queue_, al_get_keyboard_event_source()); // register the keyboard event source
-    al_register_event_source(queue_, al_get_mouse_event_source()); // register the mouse event source
-    al_register_event_source(queue_, al_get_timer_event_source(timer_)); // register the timer event source
+    al_register_event_source(queue, al_get_display_event_source(display_)); // register the display event source
+    al_register_event_source(queue, al_get_keyboard_event_source()); // register the keyboard event source
+    al_register_event_source(queue, al_get_mouse_event_source()); // register the mouse event source
+    al_register_event_source(queue, al_get_timer_event_source(timer)); // register the timer event source
 
     al_set_sample_instance_playmode(instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
 
@@ -62,7 +64,7 @@ InGame::InGame() {
 
     done_ = false;
     draw_ = false;
-    event_ = ALLEGRO_EVENT();
+    event = ALLEGRO_EVENT();
     canvas_ = Canvas();
     life_ = Life();
     score_ = Score();
@@ -76,8 +78,8 @@ InGame::~InGame(){
     al_destroy_font(font24_);
     al_destroy_font(font50_);
     al_destroy_bitmap(heartImage_);
-    al_destroy_event_queue(queue_);
-    al_destroy_timer(timer_);
+    al_destroy_event_queue(queue);
+    al_destroy_timer(timer);
     al_destroy_sample_instance(instanceMusic_);
     al_destroy_sample(music_);
     al_uninstall_audio();
@@ -99,12 +101,20 @@ void InGame::checkInit(void *test,string type){
     }
 }
 
-
-// ### Getters ###
-ALLEGRO_TIMER *InGame::getTimer() const {
-    return timer_;
+void InGame::moveRacket(const float x){
+    canvas_.moveRacket(x);
 }
 
+void InGame::resetLife(){
+    life_.resetLife();
+}
+
+void InGame::resetScore(){
+    score_.resetScore();
+}
+
+
+// ### Getters ###
 bool InGame::getDone() const {
     return done_;
 }
@@ -113,16 +123,12 @@ bool InGame::getDraw() const {
     return draw_;
 }
 
+bool InGame::getIsGaming() const {
+    return isGaming_;
+}
+
 ALLEGRO_DISPLAY *InGame::getDisplay() const {
     return display_;
-}
-
-ALLEGRO_EVENT_QUEUE *InGame::getQueue() const {
-    return queue_;
-}
-
-ALLEGRO_EVENT InGame::getEvent() const {
-    return event_;
 }
 
 ALLEGRO_BITMAP *InGame::getHeartImage() const {
@@ -159,5 +165,47 @@ Score InGame::getScore() const {
 
 bool *InGame::getKey() {
     return key;
+}
+
+
+// ### Setters ###
+void InGame::setDone(const bool done) {
+    done_ = done;
+}
+
+void InGame::setDraw(const bool draw) {
+    draw_ = draw;
+}
+
+void InGame::setIsGaming(const bool isGaming) {
+    isGaming_ = isGaming;
+}
+
+void InGame::setDisplay(ALLEGRO_DISPLAY *display) {
+    display_ = display;
+}
+
+void InGame::setHeartImage(ALLEGRO_BITMAP *heartImage) {
+    heartImage_ = heartImage;
+}
+
+void InGame::setMusic(ALLEGRO_SAMPLE *music) {
+    music_ = music;
+}
+
+void InGame::setInstanceMusic(ALLEGRO_SAMPLE_INSTANCE *instanceMusic) {
+    instanceMusic_ = instanceMusic;
+}
+
+void InGame::setFont24(ALLEGRO_FONT *font24) {
+    font24_ = font24;
+}
+
+void InGame::setFont50(ALLEGRO_FONT *font50) {
+    font50_ = font50;
+}
+
+void InGame::setCanvas(const Canvas canvas) {
+    canvas_ = canvas;
 }
 

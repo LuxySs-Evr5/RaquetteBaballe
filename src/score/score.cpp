@@ -8,9 +8,6 @@
 
 #include "score.hpp"
 #include <fstream>
-#include <iostream>
-#include <string>
-
 
 // ### Constructor ###
 
