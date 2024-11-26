@@ -120,6 +120,11 @@ int main(int /* argc */, char ** /* argv */){
             } 
             else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 key[event.keyboard.keycode] = true; // set the key pressed to true
+                if (!life.currentlyGaming()){
+                    life.setGaming(true);
+                    life.setNbLifes(3);
+                    score.setScore(0);
+                }
             } 
             else if (event.type == ALLEGRO_EVENT_KEY_UP) {
                 key[event.keyboard.keycode] = false; // set the key that is no longer pressed to false
@@ -144,11 +149,6 @@ int main(int /* argc */, char ** /* argv */){
 
             if (life.currentlyGaming() == false) { // the game is over because no more lifes
                 drawGameOver(50, font50);
-                al_flip_display();
-                while (event.type != ALLEGRO_EVENT_KEY_DOWN) {
-                }
-                life.setNbLifes(3);
-                life.setGaming(true);
             }
             al_flip_display(); // update the window display
         }

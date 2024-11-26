@@ -15,11 +15,11 @@
 // ### Constructor ###
 
 Life::Life() : nbLifes_(3) {
-  isGaming_ = true;
+  isGaming_ = false;
 }
 
 Life::Life(uint8_t nbLifes) : nbLifes_(nbLifes) {
-  isGaming_ = true;
+  isGaming_ = false;
 }
 
 
