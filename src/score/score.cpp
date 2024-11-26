@@ -27,6 +27,7 @@ void Score::addScore(const int score) { score_ += score; }
 void Score::resetScore() { score_ = 0; }
 
 void Score::saveScore() {
+  cout << "Saving the score..." << endl;
   string filePath = "../../score.txt";
 
   ifstream read(filePath, ios::in);
@@ -36,6 +37,8 @@ void Score::saveScore() {
   if (read.is_open()) {
     read >> fileScore;
     read.close();
+  } else {
+    cerr << "Error: Can't open the file" << endl;
   }
 
   if (getScore() > fileScore) {

@@ -123,7 +123,7 @@ int main(int /* argc */, char ** /* argv */){
                 if (!life.currentlyGaming()){
                     life.setGaming(true);
                     life.setNbLifes(3);
-                    score.setScore(0);
+                    score.resetScore();
                 }
             } 
             else if (event.type == ALLEGRO_EVENT_KEY_UP) {
@@ -148,7 +148,9 @@ int main(int /* argc */, char ** /* argv */){
             canvas.draw();
 
             if (life.currentlyGaming() == false) { // the game is over because no more lifes
-                drawGameOver(50, font50);
+                //TODO: il fut que saveScore qui sauve dans le fichier score.txt fonctionne !
+                score.saveScore();
+                drawGameOver(score.getScore(), font50);
             }
             al_flip_display(); // update the window display
         }

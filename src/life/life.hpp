@@ -12,7 +12,6 @@
 #include <allegro5/bitmap.h>
 #include <cstdint>
 #include <iostream>
-#include <string>
 
 #include "../score/score.hpp"
 
