@@ -50,8 +50,8 @@ int main(int /* argc */, char ** /* argv */){
                     inGame.moveRacket(RACKET_SPEED); // speed of the racket is 20 to the right
                 }
                 if (inGame.getKey()[ALLEGRO_KEY_SPACE]) {
-                    inGame.shootLazer();
-            }
+                        inGame.shootLazer();
+                }
             } 
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_DOWN) {

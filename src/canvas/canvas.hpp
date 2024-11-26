@@ -9,6 +9,7 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
+#include <optional>
 #include <vector>
 
 #include <memory>
@@ -25,7 +26,7 @@ class Canvas {
         vector<Ball> balls_;
         vector<Rectangle> briks_;
         Racket racket_;
-        Lazer *lazer_;
+        shared_ptr<Lazer> lazer_ = nullptr;
 
     public:
         Canvas();
@@ -37,7 +38,7 @@ class Canvas {
 
         void moveRacket(const float x);
 
-        void addLazer(const Lazer &lazer);
+        void addLazer();
 };
 
 #endif // CANVAS_HPP

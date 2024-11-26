@@ -15,7 +15,6 @@ using namespace std;
 
 // ### Constructor ###
 Canvas::Canvas() {
-    lazer_ = nullptr;
     racket_ = Racket();
     balls_.push_back(Ball());
 
@@ -42,12 +41,15 @@ void Canvas::draw() {
 
     racket_.draw();
 
-    if (lazer_ != nullptr && lazer_->getY() > 0) {
-        lazer_->draw();
+    if (lazer_ != nullptr) {
         lazer_->moveUp();
-    } else if (lazer_ != nullptr) {
-        lazer_ = nullptr;
+        if (lazer_->getY() < 0) {
+            lazer_ = nullptr;
+        } else {
+            lazer_->draw();
+        }
     }
+
 }
 
 void Canvas::moveRacket(float x) {
@@ -61,10 +63,11 @@ void Canvas::moveRacket(float x) {
     }
 }
 
-void Canvas::addLazer(const Lazer &lazer) {
+void Canvas::addLazer() {
     //TODO: lazer check
     if (lazer_ == nullptr) {
-        lazer_ = new Lazer(lazer);
+    Lazer lazer(racket_);
+    lazer_ = make_shared<Lazer>(lazer);
     }
 }
 

@@ -126,8 +126,7 @@ void InGame::moveRacket(const float x){
 }
 
 void InGame::shootLazer(){
-    Lazer lazer = Lazer(canvas_.getRacket());
-    canvas_.addLazer(lazer);
+    canvas_.addLazer();
 }
 
 
