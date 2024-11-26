@@ -28,9 +28,9 @@
 #include <string>
 
 #include "global_variables.hpp"
+#include "in_game/in_game.hpp"
 #include "canvas/canvas.hpp"
 #include "init_allegro/initialize_allegro.hpp"
-#include "init_allegro/check_init.hpp"
 #include "colors/colors.hpp"
 #include "life/life.hpp"
 #include "score/score.hpp"
@@ -46,60 +46,10 @@ int main(int /* argc */, char ** /* argv */){
     if (initialize_allegro() != 0){
         return -1;
     }
-        
-    ALLEGRO_FONT *font24 = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
-    checkInit(font24, "font24");
 
-    ALLEGRO_FONT *font50 = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 50, 0); // the directory that allegro looks is the main directory
-    checkInit(font50, "font50");
+    InGame inGame;  
 
-    ALLEGRO_DISPLAY *display = al_create_display(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT));
-    checkInit(display, "display");
-
-    ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS); 
-    checkInit(timer, "timer");
-
-    ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
-    checkInit(queue, "event queue");
-
-    ALLEGRO_BITMAP *heartImage = al_load_bitmap("images/heart.png"); // the directory that allegro looks is the main directory
-    checkInit(heartImage, "heart image");
-
-    ALLEGRO_SAMPLE *music = al_load_sample("music/arkanoid.wav");
-    checkInit(music, "music");
-
-    ALLEGRO_SAMPLE_INSTANCE *instanceMusic = al_create_sample_instance(music);
-    checkInit(instanceMusic, "instanceMusic");
-
-    if (!al_attach_sample_instance_to_mixer(instanceMusic, al_get_default_mixer())) { // attach the sample instance to the mixer
-        cerr << "Failed to attach sample instance to mixer" << endl;
-        al_destroy_sample_instance(instanceMusic);
-        al_destroy_sample(music);
-        return -1;
-    }
-
-
-    al_register_event_source(queue, al_get_display_event_source(display)); // register the display event source
-    al_register_event_source(queue, al_get_keyboard_event_source()); // register the keyboard event source
-    al_register_event_source(queue, al_get_mouse_event_source()); // register the mouse event source
-    al_register_event_source(queue, al_get_timer_event_source(timer)); // register the timer event source
-
-    al_set_sample_instance_playmode(instanceMusic, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
-
-    al_play_sample_instance(instanceMusic); // play the music
-
-    bool done = false;
-    bool draw = false;
-
-    ALLEGRO_EVENT event;
-
-    Canvas canvas;
-    Life life;
-    Score score;
-
-    bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false 
-
-    al_start_timer(timer);
+    al_start_timer(inGame.getTimer());
     while (!done){
         al_wait_for_event(queue, nullptr); // wait for an event
         while (al_get_next_event(queue, &event)) { // get the next event
@@ -151,20 +101,14 @@ int main(int /* argc */, char ** /* argv */){
                 //TODO: il fut que saveScore qui sauve dans le fichier score.txt fonctionne !
                 score.saveScore();
                 drawGameOver(score.getScore(), font50);
+                al_flip_display();
+                while (event.type != ALLEGRO_EVENT_KEY_DOWN) {               
+                }
             }
             al_flip_display(); // update the window display
         }
     }
-
-    // destroy all
-    al_destroy_display(display);
-    al_destroy_font(font24);
-    al_destroy_font(font50);
-    al_destroy_bitmap(heartImage);
-    al_destroy_event_queue(queue);
-    al_destroy_timer(timer);
-    al_destroy_sample_instance(instanceMusic);
-    al_destroy_sample(music);
+    
     return 0;
 
 }
