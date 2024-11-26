@@ -62,6 +62,7 @@ void Canvas::moveRacket(float x) {
 }
 
 void Canvas::addLazer(const Lazer &lazer) {
+    //TODO: lazer check
     if (lazer_ == nullptr) {
         lazer_ = new Lazer(lazer);
     }
