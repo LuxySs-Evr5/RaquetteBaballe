@@ -12,6 +12,7 @@
 
 
 #include "../init_allegro/initialize_allegro.hpp"
+#include "../game_over/draw_game_over.hpp"
 
 // ### Constructor ###
 InGame::InGame() {
@@ -101,16 +102,26 @@ void InGame::checkInit(void *test,string type){
     }
 }
 
+void InGame::gameOver(){
+    //TODO: il faut que saveScore qui sauve dans le fichier score.txt fonctionne !
+    score_.saveScore();
+    drawGameOver(score_.getScore(), font50_);
+    al_flip_display();
+
+    while (true) {
+        al_wait_for_event(queue, &event);                                
+
+        if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            break;
+        }       
+    }
+    isGaming_ = true;
+    life_.resetLife();
+    score_.resetScore();
+}
+
 void InGame::moveRacket(const float x){
     canvas_.moveRacket(x);
-}
-
-void InGame::resetLife(){
-    life_.resetLife();
-}
-
-void InGame::resetScore(){
-    score_.resetScore();
 }
 
 

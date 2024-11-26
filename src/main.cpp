@@ -52,11 +52,6 @@ int main(int /* argc */, char ** /* argv */){
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_DOWN) {
                 inGame.getKey()[inGame.event.keyboard.keycode] = true; // set the key pressed to true
-                if (inGame.getIsGaming() == false){
-                    inGame.setIsGaming(true);
-                    inGame.resetLife();
-                    inGame.resetScore();
-                }
             } 
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_UP) {
@@ -79,14 +74,9 @@ int main(int /* argc */, char ** /* argv */){
             inGame.getLife().drawLife(inGame.getHeartImage()); // draw the hearts for the remaining lifes
             
             inGame.getCanvas().draw(); // draw the pieces 
-
+            
             if (inGame.getIsGaming() == false) { // the game is over because no more lifes
-                //TODO: il fut que saveScore qui sauve dans le fichier score.txt fonctionne !
-                inGame.getScore().saveScore();
-                drawGameOver(inGame.getScore().getScore(), inGame.getFont50());
-                al_flip_display();
-                while (inGame.event.type != ALLEGRO_EVENT_KEY_DOWN) {               
-                }
+                inGame.gameOver(); // display the game over screen
             }
             al_flip_display(); // update the window display
         }

@@ -16,11 +16,10 @@
 
 class InGame{
     private:
-
         bool isGaming_ = true;
-
         bool done_ = false;
         bool draw_ = false;
+
         ALLEGRO_DISPLAY *display_;
         ALLEGRO_BITMAP *heartImage_;
         ALLEGRO_SAMPLE *music_;
@@ -44,11 +43,9 @@ class InGame{
 
         void checkInit(void *test,string type);
 
-        void gaming();
+        void gameOver();
 
         void moveRacket(const float x);
-        void resetLife();
-        void resetScore();
 
         // ### Getters ###
         bool getDone() const;
