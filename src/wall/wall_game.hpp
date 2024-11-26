@@ -6,4 +6,5 @@
  *
  */
 
-void drawWallGame();
+#include <allegro5/color.h>
+void drawWallGame(ALLEGRO_COLOR color);

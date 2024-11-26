@@ -6,11 +6,7 @@
  *
  */
 
-#include "../global_variables.hpp"
 #include "canvas.hpp"
-
-#include <iostream>
-#include <limits>
 
 using namespace std;
 

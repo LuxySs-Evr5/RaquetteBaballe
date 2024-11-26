@@ -23,7 +23,7 @@ class Canvas {
         Rectangle racket_;
 
     public:
-        Canvas(Rectangle racket = Rectangle(Point(500, 940), RACKET_WIDTH, RACKET_HEIGHT, COLOR_GREY));
+        Canvas(Rectangle racket = Rectangle(Point(500, 940), RACKET_WIDTH, RACKET_HEIGHT, COLOR_WHITE));
         ~Canvas() = default;
 
         void draw();

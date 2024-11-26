@@ -35,6 +35,7 @@
 #include "life/life.hpp"
 #include "score/score.hpp"
 #include "wall/wall_game.hpp"
+#include "game_over/draw_game_over.hpp"
 
 
 using namespace std;
@@ -46,8 +47,11 @@ int main(int /* argc */, char ** /* argv */){
         return -1;
     }
         
-    ALLEGRO_FONT *font = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
-    checkInit(font, "font");
+    ALLEGRO_FONT *font24 = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
+    checkInit(font24, "font24");
+
+    ALLEGRO_FONT *font50 = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 50, 0); // the directory that allegro looks is the main directory
+    checkInit(font50, "font50");
 
     ALLEGRO_DISPLAY *display = al_create_display(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT));
     checkInit(display, "display");
@@ -127,24 +131,33 @@ int main(int /* argc */, char ** /* argv */){
             draw = false;
             al_start_timer(timer);
             
-            al_clear_to_color(COLOR_WHITE);
+            al_clear_to_color(COLOR_BLACK);
 
             life.drawLife(heartImage);
 
-            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid");
-            al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : ");
-            al_draw_text(font, COLOR_BLACK, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score.getScoreString().c_str());
+            al_draw_text(font24, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid");
+            al_draw_text(font24, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : ");
+            al_draw_text(font24, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score.getScoreString().c_str());
             
-            drawWallGame();
+            drawWallGame(COLOR_DARK_GREY);
             canvas.draw();
-            
+
+            if (life.currentlyGaming() == false) { // the game is over because no more lifes
+                drawGameOver(50, font50);
+                al_flip_display();
+                while (event.type != ALLEGRO_EVENT_KEY_DOWN) {
+                }
+                life.setNbLifes(3);
+                life.setGaming(true);
+            }
             al_flip_display(); // update the window display
         }
     }
 
     // destroy all
     al_destroy_display(display);
-    al_destroy_font(font);
+    al_destroy_font(font24);
+    al_destroy_font(font50);
     al_destroy_bitmap(heartImage);
     al_destroy_event_queue(queue);
     al_destroy_timer(timer);

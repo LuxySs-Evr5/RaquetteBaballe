@@ -36,6 +36,7 @@ public:
   void drawLife(ALLEGRO_BITMAP *heartImage);
   
   void setNbLifes(const uint8_t nbLifes);
+  void setGaming(const bool isGaming);
 
   uint8_t getNbLifes() const;
   bool currentlyGaming() const;
