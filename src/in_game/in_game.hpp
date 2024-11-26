@@ -41,9 +41,9 @@ class InGame{
 
         ~InGame();
 
-        void checkInit(void *test,string type);
+        void checkInit(void *test,string type); // check if the initialization is done correctly
 
-        void gameOver();
+        void gameOver(); // draw the game over screen
 
         void moveRacket(const float x);
 
@@ -52,32 +52,22 @@ class InGame{
         bool getDraw() const;
         bool getIsGaming() const;
 
-        ALLEGRO_DISPLAY *getDisplay() const;
+        Life getLife() const;
+        Canvas getCanvas() const;
+        Score getScore() const;
+
         ALLEGRO_BITMAP *getHeartImage() const;
-        ALLEGRO_SAMPLE *getMusic() const;
-        ALLEGRO_SAMPLE_INSTANCE *getInstanceMusic() const;
+
+        bool *getKey();
+
         ALLEGRO_FONT *getFont24() const;
         ALLEGRO_FONT *getFont50() const;
-        Canvas getCanvas() const;
-        Life getLife() const;
-        Score getScore() const;
-        bool *getKey();
+
 
         // ### Setters ###
         void setDone(const bool done);
         void setDraw(const bool draw);
         void setIsGaming(const bool isGaming);
-
-        void setDisplay(ALLEGRO_DISPLAY *display);
-        void setHeartImage(ALLEGRO_BITMAP *heartImage);
-        void setMusic(ALLEGRO_SAMPLE *music);
-        void setInstanceMusic(ALLEGRO_SAMPLE_INSTANCE *instanceMusic);
-        void setFont24(ALLEGRO_FONT *font24);
-        void setFont50(ALLEGRO_FONT *font50);
-        void setCanvas(const Canvas canvas);
-        void setLife(const Life life);
-        void setScore(const Score score);
-        void setKey(const bool key[ALLEGRO_KEY_MAX]);
 
 };
 #endif // IN_GAME_HPP

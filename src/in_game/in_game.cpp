@@ -138,20 +138,24 @@ bool InGame::getIsGaming() const {
     return isGaming_;
 }
 
-ALLEGRO_DISPLAY *InGame::getDisplay() const {
-    return display_;
+Life InGame::getLife() const {
+    return life_;
+}
+
+Canvas InGame::getCanvas() const {
+    return canvas_;
+}
+
+Score InGame::getScore() const {
+    return score_;
 }
 
 ALLEGRO_BITMAP *InGame::getHeartImage() const {
     return heartImage_;
 }
 
-ALLEGRO_SAMPLE *InGame::getMusic() const {
-    return music_;
-}
-
-ALLEGRO_SAMPLE_INSTANCE *InGame::getInstanceMusic() const {
-    return instanceMusic_;
+bool *InGame::getKey() {
+    return key;
 }
 
 ALLEGRO_FONT *InGame::getFont24() const {
@@ -160,22 +164,6 @@ ALLEGRO_FONT *InGame::getFont24() const {
 
 ALLEGRO_FONT *InGame::getFont50() const {
     return font50_;
-}
-
-Canvas InGame::getCanvas() const {
-    return canvas_;
-}
-
-Life InGame::getLife() const {
-    return life_;
-}
-
-Score InGame::getScore() const {
-    return score_;
-}
-
-bool *InGame::getKey() {
-    return key;
 }
 
 
@@ -190,33 +178,5 @@ void InGame::setDraw(const bool draw) {
 
 void InGame::setIsGaming(const bool isGaming) {
     isGaming_ = isGaming;
-}
-
-void InGame::setDisplay(ALLEGRO_DISPLAY *display) {
-    display_ = display;
-}
-
-void InGame::setHeartImage(ALLEGRO_BITMAP *heartImage) {
-    heartImage_ = heartImage;
-}
-
-void InGame::setMusic(ALLEGRO_SAMPLE *music) {
-    music_ = music;
-}
-
-void InGame::setInstanceMusic(ALLEGRO_SAMPLE_INSTANCE *instanceMusic) {
-    instanceMusic_ = instanceMusic;
-}
-
-void InGame::setFont24(ALLEGRO_FONT *font24) {
-    font24_ = font24;
-}
-
-void InGame::setFont50(ALLEGRO_FONT *font50) {
-    font50_ = font50;
-}
-
-void InGame::setCanvas(const Canvas canvas) {
-    canvas_ = canvas;
 }
 

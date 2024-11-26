@@ -32,8 +32,6 @@ public:
     int getScore() const;
     string getScoreString() const;
     
-    
-
     friend ostream &operator<<(ostream &os, const Score &score);
 };
 
