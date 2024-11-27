@@ -9,12 +9,10 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
-#include <optional>
 #include <vector>
 
 #include <memory>
-#include "../global_variables.hpp"
-#include "../figures/forme.hpp"
+#include "../piece/brik.hpp"
 #include "../piece/racket.hpp"
 #include "../piece/ball.hpp"
 #include "../piece/lazer.hpp"
@@ -24,7 +22,7 @@ using namespace std;
 class Canvas {
     private:
         vector<Ball> balls_;
-        vector<Rectangle> briks_;
+        vector<Brik> briks_;
         Racket racket_;
         unique_ptr<Lazer> lazer_;
 

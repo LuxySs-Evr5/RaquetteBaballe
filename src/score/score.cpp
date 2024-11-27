@@ -49,15 +49,6 @@ void Score::saveScore() {
   }
 }
 
-ostream &operator<<(ostream &os, const Score &score) {
-    os << "Score: " << score.score_;
-    return os;
-}
-
-
-// ### Setters ###
-void Score::setScore(const int score) { score_ = score; }
-
 
 // ### Getters ###
 int Score::getScore() const { return score_; }

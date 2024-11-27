@@ -8,9 +8,13 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
+#include <fstream>
+#include <string>
+#include <vector>
 
 
 
+#include "../global_variables.hpp"
 #include "../init_allegro/initialize_allegro.hpp"
 #include "../game_over/draw_game_over.hpp"
 #include "../wall/wall_game.hpp"

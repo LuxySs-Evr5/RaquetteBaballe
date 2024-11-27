@@ -27,12 +27,8 @@ public:
     void resetScore();
     void saveScore();
 
-    void setScore(const int score);
-
     int getScore() const;
     string getScoreString() const;
-    
-    friend ostream &operator<<(ostream &os, const Score &score);
 };
 
 

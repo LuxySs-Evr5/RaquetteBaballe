@@ -48,6 +48,7 @@ class InGame{
         void moveRacket(const float x);
         void shootLazer();
         void drawGame();
+        void loadLevel(const string &filepath);
 
         // ### Getters ###
         bool getDone() const;

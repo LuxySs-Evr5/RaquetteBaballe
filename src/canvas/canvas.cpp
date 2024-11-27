@@ -7,8 +7,7 @@
  */
 
 #include "canvas.hpp"
-#include <iostream>
-#include <memory>
+#include "../global_variables.hpp"
 
 using namespace std;
 
@@ -24,10 +23,11 @@ Canvas::Canvas() {
 
     for (float i = 0; i < 8; i++) {
         for (float j = 0; j < 14; j++) {
-            briks_.push_back(Rectangle(Point(startX + j * step, startY + i * step), BRIK_WIDTH, BRIK_HEIGHT, COLOR_RED));
+            briks_.push_back(Brik(Point(startX + (j * step), startY + (i * step)), BRIK_WIDTH, BRIK_HEIGHT, 1, 10, COLOR_RED));
         }
     }
 };
+
 
 // ### Public methods ###
 void Canvas::draw() {
