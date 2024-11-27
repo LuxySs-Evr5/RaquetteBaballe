@@ -19,9 +19,11 @@ class Racket final: public Rectangle{
         Racket();
         ~Racket() = default;
 
-        void draw();
+        void draw() override;
 
-        Point getCenter() const;
+        void moveHorizontally(const float x) override;
+
+        Point getCenter() const override;
 
         float getX() const;
         float getY() const;

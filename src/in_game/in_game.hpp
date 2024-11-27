@@ -10,6 +10,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/mouse.h>
 
 #include "../canvas/canvas.hpp"
 #include "../life/life.hpp"
@@ -26,6 +27,8 @@ class InGame{
         ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
         ALLEGRO_FONT *font24_;
         ALLEGRO_FONT *font50_;
+
+        ALLEGRO_MOUSE_STATE mouseState_;
 
         Canvas canvas_;
         Life life_;
@@ -55,6 +58,7 @@ class InGame{
         bool getDraw() const;
         bool getIsGaming() const;
         bool *getKey();
+        ALLEGRO_MOUSE_STATE &getMouseState();
 
         // ### Setters ###
         void setDone(const bool done);

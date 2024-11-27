@@ -8,8 +8,6 @@
  */
 
 #include <allegro5/keycodes.h>
-
-#include "global_variables.hpp"
 #include "in_game/in_game.hpp"
 
 using namespace std;
@@ -25,6 +23,8 @@ int main(int /* argc */, char ** /* argv */){
 
         al_wait_for_event(inGame.queue, nullptr); // wait for an event
 
+        al_get_mouse_state(&inGame.getMouseState()); // get the mouse state
+
         while (al_get_next_event(inGame.queue, &inGame.event)) { // get the next event
             
             if (inGame.event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
@@ -34,14 +34,6 @@ int main(int /* argc */, char ** /* argv */){
             else if (inGame.event.type == ALLEGRO_EVENT_TIMER) {
                 inGame.setDraw(true);
                 al_stop_timer(inGame.timer);
-                
-                if (inGame.getKey()[ALLEGRO_KEY_A] || inGame.getKey()[ALLEGRO_KEY_Q]) { // if the key pressed is A or Q
-
-                    inGame.moveRacket(-RACKET_SPEED); // speed of the racket is 20 but "-" because to the left
-                } 
-                if (inGame.getKey()[ALLEGRO_KEY_D] || inGame.getKey()[ALLEGRO_KEY_P]) { // if the key pressed is D or P
-                    inGame.moveRacket(RACKET_SPEED); // speed of the racket is 20 to the right
-                }
                 if (inGame.getKey()[ALLEGRO_KEY_SPACE]) {
                         inGame.shootLazer();
                 }

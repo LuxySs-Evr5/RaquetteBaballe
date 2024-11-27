@@ -18,6 +18,10 @@ void Racket::draw() {
     Rectangle::draw();
 }
 
+void Racket::moveHorizontally(const float x) {
+    center_.x = x;
+}
+
 // ### Getters ###  
 Point Racket::getCenter() const { return center_; }
 

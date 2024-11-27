@@ -8,11 +8,8 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
-#include <fstream>
+
 #include <string>
-#include <vector>
-
-
 
 #include "../global_variables.hpp"
 #include "../init_allegro/initialize_allegro.hpp"
@@ -139,6 +136,8 @@ void InGame::drawGame(){
     
     life_.drawLife(heartImage_); // draw the hearts for the remaining lifes
     
+    canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse
+
     canvas_.draw(); // draw the pieces 
     
     if (isGaming_ == false) { // the game is over because no more lifes
@@ -163,6 +162,10 @@ bool InGame::getIsGaming() const {
 
 bool *InGame::getKey() {
     return key;
+}
+
+ALLEGRO_MOUSE_STATE &InGame::getMouseState() {
+    return mouseState_;
 }
 
 
