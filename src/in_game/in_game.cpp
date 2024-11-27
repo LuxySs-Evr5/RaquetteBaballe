@@ -13,7 +13,7 @@
 
 #include "../init_allegro/initialize_allegro.hpp"
 #include "../game_over/draw_game_over.hpp"
-#include "../piece/lazer.hpp"
+#include "../wall/wall_game.hpp"
 
 // ### Constructor ###
 InGame::InGame() {
@@ -121,6 +121,28 @@ void InGame::shootLazer(){
     canvas_.addLazer();
 }
 
+void InGame::drawGame(){
+    draw_ = false;
+    al_start_timer(timer);
+    
+    al_clear_to_color(COLOR_BLACK); // set the color of the window to black
+
+    drawWallGame(COLOR_DARK_GREY);
+
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right
+    al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score_.getScoreString().c_str()); // draw the score
+    
+    life_.drawLife(heartImage_); // draw the hearts for the remaining lifes
+    
+    canvas_.draw(); // draw the pieces 
+    
+    if (isGaming_ == false) { // the game is over because no more lifes
+        gameOver(); // display the game over screen
+    }
+    al_flip_display(); // update the window display
+}
+
 
 // ### Getters ###
 bool InGame::getDone() const {
@@ -135,32 +157,8 @@ bool InGame::getIsGaming() const {
     return isGaming_;
 }
 
-Life InGame::getLife() const {
-    return life_;
-}
-
-Canvas &InGame::getCanvas() { // no const because we modify the canvas by adding a lazer
-    return canvas_;
-}
-
-Score InGame::getScore() const {
-    return score_;
-}
-
-ALLEGRO_BITMAP *InGame::getHeartImage() const {
-    return heartImage_;
-}
-
 bool *InGame::getKey() {
     return key;
-}
-
-ALLEGRO_FONT *InGame::getFont24() const {
-    return font24_;
-}
-
-ALLEGRO_FONT *InGame::getFont50() const {
-    return font50_;
 }
 
 

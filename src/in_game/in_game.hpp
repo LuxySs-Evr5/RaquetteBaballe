@@ -26,9 +26,11 @@ class InGame{
         ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
         ALLEGRO_FONT *font24_;
         ALLEGRO_FONT *font50_;
+
         Canvas canvas_;
         Life life_;
         Score score_;
+        
         bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false
 
     public:
@@ -38,33 +40,20 @@ class InGame{
         ALLEGRO_EVENT event;
 
         InGame();
-
         ~InGame();
 
+        // ### Public Methods ###
         void checkInit(void *test,string type); // check if the initialization is done correctly
-
         void gameOver(); // draw the game over screen
-
         void moveRacket(const float x);
-
         void shootLazer();
+        void drawGame();
 
         // ### Getters ###
         bool getDone() const;
         bool getDraw() const;
         bool getIsGaming() const;
-
-        Life getLife() const;
-        Canvas &getCanvas();
-        Score getScore() const;
-
-        ALLEGRO_BITMAP *getHeartImage() const;
-
         bool *getKey();
-
-        ALLEGRO_FONT *getFont24() const;
-        ALLEGRO_FONT *getFont50() const;
-
 
         // ### Setters ###
         void setDone(const bool done);

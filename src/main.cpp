@@ -8,17 +8,9 @@
  */
 
 #include <allegro5/keycodes.h>
-#include <string>
 
 #include "global_variables.hpp"
 #include "in_game/in_game.hpp"
-#include "canvas/canvas.hpp"
-#include "colors/colors.hpp"
-#include "life/life.hpp"
-#include "score/score.hpp"
-#include "wall/wall_game.hpp"
-#include "game_over/draw_game_over.hpp"
-
 
 using namespace std;
 
@@ -28,6 +20,7 @@ int main(int /* argc */, char ** /* argv */){
     InGame inGame;
 
     al_start_timer(inGame.timer);
+    
     while (inGame.getDone() == false) { // while the game is not done
 
         al_wait_for_event(inGame.queue, nullptr); // wait for an event
@@ -64,25 +57,7 @@ int main(int /* argc */, char ** /* argv */){
         }
 
         if (inGame.getDraw() == true) { // if the game have to be drawn
-            inGame.setDraw(false);
-            al_start_timer(inGame.timer);
-            
-            al_clear_to_color(COLOR_BLACK); // set the color of the window to black
-
-            drawWallGame(COLOR_DARK_GREY);
-
-            al_draw_text(inGame.getFont24(), COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
-            al_draw_text(inGame.getFont24(), COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right
-            al_draw_text(inGame.getFont24(), COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, inGame.getScore().getScoreString().c_str()); // draw the score
-            
-            inGame.getLife().drawLife(inGame.getHeartImage()); // draw the hearts for the remaining lifes
-            
-            inGame.getCanvas().draw(); // draw the pieces 
-            
-            if (inGame.getIsGaming() == false) { // the game is over because no more lifes
-                inGame.gameOver(); // display the game over screen
-            }
-            al_flip_display(); // update the window display
+            inGame.drawGame(); // draw the game
         }
     }
     return 0;
