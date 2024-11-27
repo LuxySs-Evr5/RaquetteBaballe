@@ -15,7 +15,6 @@
 class Lazer final: public Rectangle{
     private:
         //TODO: Maybe remove the racket from the lazer
-        Racket racket_;
         float speed_;
         
     public:

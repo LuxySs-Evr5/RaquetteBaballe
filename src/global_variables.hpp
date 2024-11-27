@@ -16,10 +16,12 @@ extern const double FPS;
 
 
 // ### Racket ###
+extern const float RACKET_THIKNESS;
 extern const float RACKET_SPEED;
 extern const float RACKET_WIDTH;
 extern const float RACKET_HEIGHT;
-
+extern const float RACKET_X_START;
+extern const float RACKET_Y_START;
 
 // ### Brik ###
 extern const float BRIK_WIDTH;
@@ -48,6 +50,13 @@ extern const float RIGHT_WALL_X_START;
 extern const float RIGHT_WALL_Y_START;
 extern const float BOTTOM_WALL_X_START;
 extern const float BOTTOM_WALL_Y_START;
+
+
+// ### Lazer size ###
+extern const float LAZER_WIDTH;
+extern const float LAZER_HEIGHT;
+extern const float LAZER_SPEED;
+extern const float LAZER_Y_CENTER;
 
 
 // ### Game Over message ###

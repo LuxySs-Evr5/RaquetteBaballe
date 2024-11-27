@@ -42,11 +42,11 @@ void Canvas::draw() {
     racket_.draw();
 
     if (lazer_ != nullptr) {
-        lazer_->moveUp();
         if (lazer_->getY() < 0) {
-            lazer_ = nullptr;
+            lazer_.reset(nullptr);
         } else {
             lazer_->draw();
+            lazer_->moveUp();
         }
     }
 
@@ -64,10 +64,8 @@ void Canvas::moveRacket(float x) {
 }
 
 void Canvas::addLazer() {
-    //TODO: lazer check
     if (lazer_ == nullptr) {
-    Lazer lazer(racket_);
-    lazer_ = make_shared<Lazer>(lazer);
+        lazer_ = make_unique<Lazer>(Lazer(racket_));
     }
 }
 

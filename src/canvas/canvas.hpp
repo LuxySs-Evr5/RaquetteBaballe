@@ -26,7 +26,7 @@ class Canvas {
         vector<Ball> balls_;
         vector<Rectangle> briks_;
         Racket racket_;
-        shared_ptr<Lazer> lazer_ = nullptr;
+        unique_ptr<Lazer> lazer_;
 
     public:
         Canvas();

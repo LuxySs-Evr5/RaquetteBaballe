@@ -63,13 +63,6 @@ InGame::InGame() {
     al_set_sample_instance_playmode(instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
 
     al_play_sample_instance(instanceMusic_); // play the music
-
-    done_ = false;
-    draw_ = false;
-    event = ALLEGRO_EVENT();
-    canvas_ = Canvas();
-    life_ = Life();
-    score_ = Score();
 }
 
 
@@ -104,7 +97,6 @@ void InGame::checkInit(void *test,string type){
 }
 
 void InGame::gameOver(){
-    //TODO: il faut que saveScore qui sauve dans le fichier score.txt fonctionne !
     score_.saveScore();
     drawGameOver(score_.getScore(), font50_);
     al_flip_display();
@@ -147,7 +139,7 @@ Life InGame::getLife() const {
     return life_;
 }
 
-Canvas InGame::getCanvas() const {
+Canvas &InGame::getCanvas() { // no const because we modify the canvas by adding a lazer
     return canvas_;
 }
 

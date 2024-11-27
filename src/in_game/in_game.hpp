@@ -55,7 +55,7 @@ class InGame{
         bool getIsGaming() const;
 
         Life getLife() const;
-        Canvas getCanvas() const;
+        Canvas &getCanvas();
         Score getScore() const;
 
         ALLEGRO_BITMAP *getHeartImage() const;

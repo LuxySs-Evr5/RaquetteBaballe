@@ -21,6 +21,8 @@ class Racket final: public Rectangle{
 
         void draw();
 
+        Point getCenter() const;
+
         float getX() const;
         float getY() const;
         float getSpeed() const;

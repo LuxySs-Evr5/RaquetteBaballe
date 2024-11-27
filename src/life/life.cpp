@@ -27,9 +27,6 @@ Life::~Life() = default;
 
 void Life::removeOneLife() {
   nbLifes_--;
-    // TODO: we have to check the score in file score.txt and set the highest
-    // score between the score in the file and the current score
-    // TODO: we have to choose what to do when the game is over
 }
 
 void Life::resetLife() {

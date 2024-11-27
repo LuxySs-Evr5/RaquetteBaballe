@@ -11,8 +11,7 @@
 #include "racket.hpp"
 
 // ### Constructor ###
-Lazer::Lazer(Racket racket) : Forme(racket.getCenter(), COLOR_RED), Rectangle(racket.getCenter(), 10, 20, COLOR_RED), racket_(racket), speed_(10) {}
-
+Lazer::Lazer(Racket racket) : Forme(Point(racket.getX(), LAZER_Y_CENTER), COLOR_ORANGE), Rectangle(Point(racket.getX(), LAZER_Y_CENTER), LAZER_WIDTH, LAZER_HEIGHT, COLOR_ORANGE), speed_(LAZER_SPEED) {}
 
 // ### Public methods ###
 void Lazer::draw() {

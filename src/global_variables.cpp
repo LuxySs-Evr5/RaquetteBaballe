@@ -14,10 +14,18 @@ const float SCREEN_HEIGHT = 1000;
 const double FPS = 60;
 
 
+// ### Board ###
+const float BOARD_WIDTH = 900;
+const float BOARD_HEIGHT = 900;
+
+
 // ### Racket ###
+const float RACKET_THIKNESS = 20;
 const float RACKET_SPEED = 20;
 const float RACKET_WIDTH = 100;
 const float RACKET_HEIGHT = 20;
+const float RACKET_X_START = SCREEN_WIDTH / 2;
+const float RACKET_Y_START = BOTTOM_WALL_Y_START - RACKET_THIKNESS; // is the space between the wall and the racket
 
 
 // ### Brik ###
@@ -29,13 +37,8 @@ const float BRIK_HEIGHT = 25;
 const float BALL_RADIUS = 20;
 
 
-// ### Board ###
-const float BOARD_WIDTH = 900;
-const float BOARD_HEIGHT = 900;
-
-
 // ### Walls ###
-const float WALL_THICKNESS = 20;
+const float WALL_THICKNESS = RACKET_THIKNESS;
 const float SPACE_BTW_START_SCREEN_WALL = 20;
 const float SPACE_FOR_TEXT_UPPER = 100;
 
@@ -47,6 +50,13 @@ const float RIGHT_WALL_X_START = SCREEN_WIDTH - WALL_THICKNESS - SPACE_BTW_START
 const float RIGHT_WALL_Y_START = SPACE_FOR_TEXT_UPPER;
 const float BOTTOM_WALL_X_START = SPACE_BTW_START_SCREEN_WALL;
 const float BOTTOM_WALL_Y_START = SCREEN_HEIGHT - WALL_THICKNESS - SPACE_BTW_START_SCREEN_WALL;
+
+
+// ### Lazer size ###
+const float LAZER_WIDTH = RACKET_WIDTH / 5;
+const float LAZER_HEIGHT = 2 * LAZER_WIDTH;
+const float LAZER_SPEED = 10;
+const float LAZER_Y_CENTER = RACKET_Y_START - LAZER_HEIGHT / 2;
 
 
 // ### Game Over message ###
