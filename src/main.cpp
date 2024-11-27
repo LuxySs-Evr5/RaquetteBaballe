@@ -23,8 +23,6 @@ int main(int /* argc */, char ** /* argv */){
 
         al_wait_for_event(inGame.queue, nullptr); // wait for an event
 
-        al_get_mouse_state(&inGame.getMouseState()); // get the mouse state
-
         while (al_get_next_event(inGame.queue, &inGame.event)) { // get the next event
             
             if (inGame.event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed

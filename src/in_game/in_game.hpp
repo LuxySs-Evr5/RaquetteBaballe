@@ -58,7 +58,6 @@ class InGame{
         bool getDraw() const;
         bool getIsGaming() const;
         bool *getKey();
-        ALLEGRO_MOUSE_STATE &getMouseState();
 
         // ### Setters ###
         void setDone(const bool done);

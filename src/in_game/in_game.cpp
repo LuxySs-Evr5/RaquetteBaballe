@@ -9,6 +9,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
+#include <allegro5/mouse.h>
 #include <string>
 
 #include "../global_variables.hpp"
@@ -125,6 +126,8 @@ void InGame::shootLazer(){
 void InGame::drawGame(){
     draw_ = false;
     al_start_timer(timer);
+
+    al_get_mouse_state(&mouseState_); // get the mouse state
     
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
@@ -142,6 +145,7 @@ void InGame::drawGame(){
     
     if (isGaming_ == false) { // the game is over because no more lifes
         gameOver(); // display the game over screen
+        // TODO: launch a new level
     }
     al_flip_display(); // update the window display
 }
@@ -162,10 +166,6 @@ bool InGame::getIsGaming() const {
 
 bool *InGame::getKey() {
     return key;
-}
-
-ALLEGRO_MOUSE_STATE &InGame::getMouseState() {
-    return mouseState_;
 }
 
 

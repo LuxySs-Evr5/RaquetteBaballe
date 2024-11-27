@@ -52,14 +52,10 @@ void Canvas::draw() {
 
 }
 
-void Canvas::moveRacket(float x) {
-    Racket newRacketPosition = racket_;
-    newRacketPosition.moveHorizontally(x);
-    float newX = newRacketPosition.getCenter().x;
-
+void Canvas::moveRacket(const float x) {
     // Check if the racket is in the grid
-    if ((newX - (racket_.getWidth() / 2) >= LEFT_WALL_X_START + WALL_THICKNESS) && (newX + (racket_.getWidth() / 2) <= RIGHT_WALL_X_START)) {
-        racket_ = newRacketPosition;
+    if ((x - (racket_.getWidth() / 2) >= LEFT_WALL_X_START + WALL_THICKNESS) && (x + (racket_.getWidth() / 2) <= RIGHT_WALL_X_START)) {
+        racket_.moveHorizontally(x);
     }
 }
 
