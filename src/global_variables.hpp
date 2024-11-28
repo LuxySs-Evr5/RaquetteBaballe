@@ -48,8 +48,6 @@ extern const float LEFT_WALL_X_START;
 extern const float LEFT_WALL_Y_START;
 extern const float RIGHT_WALL_X_START;
 extern const float RIGHT_WALL_Y_START;
-extern const float BOTTOM_WALL_X_START;
-extern const float BOTTOM_WALL_Y_START;
 
 
 // ### Lazer size ###

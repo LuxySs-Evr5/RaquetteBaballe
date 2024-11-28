@@ -10,6 +10,7 @@
 #include <allegro5/allegro_image.h>
 
 #include <allegro5/mouse.h>
+#include <iostream>
 #include <string>
 
 #include "../global_variables.hpp"
@@ -129,6 +130,13 @@ void InGame::drawGame(){
 
     al_get_mouse_state(&mouseState_); // get the mouse state
     
+    // check if the mouse is in the window
+    if (mouseState_.x < 0){
+        mouseState_.x = 0;
+    } else if (mouseState_.x > static_cast<int>(SCREEN_WIDTH)) {
+        mouseState_.x = static_cast<int>(SCREEN_WIDTH);    
+    }
+
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
     drawWallGame(COLOR_DARK_GREY);

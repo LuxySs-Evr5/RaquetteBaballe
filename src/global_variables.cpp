@@ -25,7 +25,7 @@ const float RACKET_SPEED = 20;
 const float RACKET_WIDTH = 100;
 const float RACKET_HEIGHT = 20;
 const float RACKET_X_START = SCREEN_WIDTH / 2;
-const float RACKET_Y_START = BOTTOM_WALL_Y_START - RACKET_THIKNESS; // is the space between the wall and the racket
+const float RACKET_Y_START = SCREEN_HEIGHT - 50; // 50 is the space between the end of the screen and the racket
 
 
 // ### Brik ###
@@ -48,8 +48,6 @@ const float LEFT_WALL_X_START = SPACE_BTW_START_SCREEN_WALL;
 const float LEFT_WALL_Y_START = SPACE_FOR_TEXT_UPPER;
 const float RIGHT_WALL_X_START = SCREEN_WIDTH - WALL_THICKNESS - SPACE_BTW_START_SCREEN_WALL;
 const float RIGHT_WALL_Y_START = SPACE_FOR_TEXT_UPPER;
-const float BOTTOM_WALL_X_START = SPACE_BTW_START_SCREEN_WALL;
-const float BOTTOM_WALL_Y_START = SCREEN_HEIGHT - WALL_THICKNESS - SPACE_BTW_START_SCREEN_WALL;
 
 
 // ### Lazer size ###

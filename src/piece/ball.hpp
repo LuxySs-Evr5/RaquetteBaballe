@@ -21,6 +21,8 @@ class Ball final: public Circle{
 
         virtual void draw();
 
+        void moveBall(const float x = 0, const float y = 0);
+
         float getSpeedX() const;
         float getSpeedY() const;
 

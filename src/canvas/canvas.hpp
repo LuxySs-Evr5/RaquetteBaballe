@@ -35,6 +35,7 @@ class Canvas {
         Racket getRacket() const;
 
         void moveRacket(const float x);
+        void moveBall(const float x = 0, const float y = 0);
 
         void addLazer();
 };

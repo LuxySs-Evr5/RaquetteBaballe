@@ -17,6 +17,10 @@ void Ball::draw(){
     Circle::draw();
 }
 
+void Ball::moveBall(const float x, const float y){
+    center_.x += x;
+    center_.y += y;
+};
 
 // ### Getters ###
 float Ball::getSpeedX() const { return speedX_; }
