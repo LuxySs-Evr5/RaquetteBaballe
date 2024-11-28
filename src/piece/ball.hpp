@@ -19,15 +19,15 @@ class Ball final: public Circle{
         Ball();
         ~Ball() = default;
 
-        virtual void draw();
+        virtual void draw() override;
 
         void moveBall(const float x = 0, const float y = 0);
 
         float getSpeedX() const;
         float getSpeedY() const;
 
-        void setSpeedX(const float speedX);
-        void setSpeedY(const float speedY);
+        void setSpeedX(const float speedX) override;
+        void setSpeedY(const float speedY) override;
 
 };
 

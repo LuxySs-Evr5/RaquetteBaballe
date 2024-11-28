@@ -172,8 +172,8 @@ bool InGame::getIsGaming() const {
     return isGaming_;
 }
 
-bool *InGame::getKey() {
-    return key;
+const array<bool, ALLEGRO_KEY_MAX> &InGame::getKeys() const {
+    return key_;
 }
 
 
@@ -190,3 +190,10 @@ void InGame::setIsGaming(const bool isGaming) {
     isGaming_ = isGaming;
 }
 
+void InGame::setKeyTrue(const int keyCode){
+    key_[keyCode] = true;
+}
+
+void InGame::setKeyFalse(const int keyCode){
+    key_[keyCode] = false;
+}

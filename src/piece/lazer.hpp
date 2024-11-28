@@ -22,7 +22,7 @@ class Lazer final: public Rectangle{
         ~Lazer() = default;
 
         void moveUp();
-        void draw();
+        void draw() override;
 
         float getX() const;
         float getY() const;

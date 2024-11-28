@@ -32,17 +32,17 @@ int main(int /* argc */, char ** /* argv */){
             else if (inGame.event.type == ALLEGRO_EVENT_TIMER) {
                 inGame.setDraw(true);
                 al_stop_timer(inGame.timer);
-                if (inGame.getKey()[ALLEGRO_KEY_SPACE]) {
+                if (inGame.getKeys()[ALLEGRO_KEY_SPACE]) {
                         inGame.shootLazer();
                 }
             } 
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                inGame.getKey()[inGame.event.keyboard.keycode] = true; // set the key pressed to true
+                inGame.setKeyTrue(inGame.event.keyboard.keycode); // set the key pressed to true
             } 
 
             else if (inGame.event.type == ALLEGRO_EVENT_KEY_UP) {
-                inGame.getKey()[inGame.event.keyboard.keycode] = false; // set the key that is no longer pressed to false
+                inGame.setKeyFalse(inGame.event.keyboard.keycode); // set the key that is no longer pressed to false
             }
         }
 

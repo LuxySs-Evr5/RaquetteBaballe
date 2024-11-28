@@ -10,7 +10,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/keycodes.h>
 #include <allegro5/mouse.h>
+#include <array>
 
 #include "../canvas/canvas.hpp"
 #include "../life/life.hpp"
@@ -34,7 +36,8 @@ class InGame{
         Life life_;
         Score score_;
         
-        bool key[ALLEGRO_KEY_MAX] = {false}; // table of all keyboard keys set to false
+        array<bool, ALLEGRO_KEY_MAX> key_ = {}; // table of all keyboard keys set to false
+
 
     public:
         // ### Public Variables ###
@@ -57,12 +60,14 @@ class InGame{
         bool getDone() const;
         bool getDraw() const;
         bool getIsGaming() const;
-        bool *getKey();
+        const array<bool, ALLEGRO_KEY_MAX> &getKeys() const ;
 
         // ### Setters ###
         void setDone(const bool done);
         void setDraw(const bool draw);
         void setIsGaming(const bool isGaming);
+        void setKeyTrue(const int keyCode);
+        void setKeyFalse(const int keyCode);
 
 };
 #endif // IN_GAME_HPP

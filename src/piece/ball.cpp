@@ -13,7 +13,7 @@
 Ball::Ball() : Forme(Point(500, 900), COLOR_BLUE), Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE), speedX_(5), speedY_(5) {}
 
 // ### Public methods ###
-void Ball::draw(){
+void Ball::draw() {
     Circle::draw();
 }
 
