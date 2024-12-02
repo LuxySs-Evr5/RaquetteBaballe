@@ -37,17 +37,20 @@ class ControllerGame{
         
         array<bool, ALLEGRO_KEY_MAX> key_ = {}; // table of all keyboard keys set to false
 
-
+        // ### Private Methods ###
+        void checkEventType();
+        void waitSpaceToRestart();
+        
     public:
         ControllerGame();
         ~ControllerGame();
 
         // ### Public Methods ###
         void process();
-
+        void drawGame();
+        
         void moveRacket(const float x);
         void shootLazer();
-        void drawGame();
         void loadLevel(const string &filepath);
 
 };

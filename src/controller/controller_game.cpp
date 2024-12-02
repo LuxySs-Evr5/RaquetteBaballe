@@ -70,27 +70,7 @@ void ControllerGame::process() {
         al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
-            
-            if (event_.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
-                done_ = true;
-            }
-
-            else if (event_.type == ALLEGRO_EVENT_TIMER) {
-                al_stop_timer(timer_);
-                draw_ = true;
-                
-                if (key_[ALLEGRO_KEY_SPACE]) {
-                        shootLazer();
-                }
-            } 
-
-            else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
-                key_[event_.keyboard.keycode] = true; // set the key pressed to true
-            } 
-
-            else if (event_.type == ALLEGRO_EVENT_KEY_UP) {
-                key_[event_.keyboard.keycode] = false; // set the key that is no longer pressed to false
-            }
+            checkEventType();
         }
 
         if (draw_ == true) { // if the game have to be drawn
@@ -101,8 +81,10 @@ void ControllerGame::process() {
 
 
 void ControllerGame::drawGame() {
-    draw_ = false;
-    al_start_timer(timer_);
+  al_start_timer(timer_);
+  draw_ = false;
+  
+  if (isGaming_ == true) { // if the game is running
     al_get_mouse_state(&mouseState_); // get the mouse state
     
     // check if the mouse is in the window
@@ -115,21 +97,44 @@ void ControllerGame::drawGame() {
     gameBoard_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse
 
     displayGame_.draw(); // draw the pieces
+  }
 
     if (isGaming_ == false) { // the game is over because no more lifes
-        while (isGaming_ == false) { // the game is over because no more lifes
         displayGame_.gameOver(); // display the game over screen
-        al_wait_for_event(queue_, &event_);                                
+    }
+}
 
-        if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
-            break;
-            }
-        }
-        isGaming_ = true;
-        gameBoard_.life_.resetLife();
-        gameBoard_.score_.resetScore();
-        // TODO: launch a new level
 
+void ControllerGame::checkEventType() {
+    if (event_.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
+        done_ = true;
     }
 
+    else if (event_.type == ALLEGRO_EVENT_TIMER) {
+        al_stop_timer(timer_);
+        draw_ = true;
+        
+        if (key_[ALLEGRO_KEY_SPACE]) {
+            shootLazer();
+        }
+    } 
+
+    else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
+        key_[event_.keyboard.keycode] = true; // set the key pressed to true
+    } 
+
+    else if (event_.type == ALLEGRO_EVENT_KEY_UP) {
+        key_[event_.keyboard.keycode] = false; // set the key that is no longer pressed to false
+    }
+}
+
+
+void ControllerGame::waitSpaceToRestart() {
+  while (key_[ALLEGRO_KEY_SPACE] == false) {
+    checkEventType();
+  }
+  isGaming_ = true;
+  gameBoard_.life_.resetLife();
+  gameBoard_.score_.resetScore();
+  // TODO: launch a new level
 }
