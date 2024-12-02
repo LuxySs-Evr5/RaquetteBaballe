@@ -10,7 +10,6 @@
 #define LIFE_HPP
 
 #include <allegro5/bitmap.h>
-#include <iostream>
 
 #include "../score/score.hpp"
 
@@ -30,14 +29,11 @@ public:
   void removeOneLife();
   void resetLife();
   void saveScore();
-
-  void drawLife(ALLEGRO_BITMAP *heartImage);
   
   void setNbLifes(const uint8_t nbLifes);
 
   uint8_t getNbLifes() const;
 
-  friend ostream &operator<<(ostream &os, const Life &life);
 };
 
 #endif // LIFE_HPP

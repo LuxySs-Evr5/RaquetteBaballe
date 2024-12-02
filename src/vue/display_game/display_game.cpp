@@ -7,15 +7,15 @@
  */
 
 #include "display_game.hpp"
-#include "../init_allegro/initialize_allegro.hpp"
 #include "../../global_variables.hpp"
 #include "../wall/wall_game.hpp"
+#include "../game_over/draw_game_over.hpp"
+#include "../game_win/draw_game_win.hpp"
 
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_acodec.h>
-#include <cstdlib>
 
 // ### Constructor ###
 DisplayGame::DisplayGame() {
@@ -142,9 +142,15 @@ void DisplayGame::draw(){
 
 void DisplayGame::gameOver() {
   // TODO: verifier avec gameBoard
+  // TODO: vérifier si saveScore est appelé ou doit etre appelé autre part
     gameBoard_.score_.saveScore();
     drawGameOver(gameBoard_.score_.getScore(), font50_);
     al_flip_display();
+}
+
+void DisplayGame::gameWin() {
+  drawGameWin(gameBoard_.getScore(), font50_);
+  al_flip_display();
 }
 
 

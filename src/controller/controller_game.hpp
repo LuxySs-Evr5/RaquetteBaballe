@@ -13,8 +13,8 @@
 #include <allegro5/events.h>
 #include <allegro5/keycodes.h>
 #include <allegro5/mouse.h>
-#include <array>
 
+#include <bitset>
 #include <string>
 
 #include "../vue/display_game/display_game.hpp"
@@ -24,6 +24,7 @@ using namespace std;
 class ControllerGame{
     private:
         bool isGaming_ = true;
+        bool win_ = false;
         bool done_ = false;
         bool draw_ = false;
 
@@ -35,11 +36,11 @@ class ControllerGame{
         ALLEGRO_EVENT event_;
         ALLEGRO_MOUSE_STATE mouseState_;
         
-        array<bool, ALLEGRO_KEY_MAX> key_ = {}; // table of all keyboard keys set to false
+        bitset<ALLEGRO_KEY_MAX> key_; // table of bit for all keyboard keys set to false
 
         // ### Private Methods ###
         void checkEventType();
-        void waitSpaceToRestart();
+        void waitKeyToRestart();
         
     public:
         ControllerGame();
@@ -48,6 +49,7 @@ class ControllerGame{
         // ### Public Methods ###
         void process();
         void drawGame();
+        void checkLife();
         
         void moveRacket(const float x);
         void shootLazer();

@@ -99,11 +99,24 @@ void ControllerGame::drawGame() {
     displayGame_.draw(); // draw the pieces
   }
 
-    if (isGaming_ == false) { // the game is over because no more lifes
-        displayGame_.gameOver(); // display the game over screen
-    }
+  else if (isGaming_ == false) { // the game is over because no more lifes
+    displayGame_.gameOver(); // display the game over screen
+  }
+    
+  else if (win_ == true) { // the game is won
+    displayGame_.gameWin(); // display the game win screen
+  }
 }
 
+void ControllerGame::checkLife() {
+  if (gameBoard_.getLife().getNbLifes() == 0) {
+    isGaming_ = false;
+    gameBoard_.getLife().saveScore();
+  }
+}
+
+
+// ### Private methods ###
 
 void ControllerGame::checkEventType() {
     if (event_.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
@@ -120,19 +133,20 @@ void ControllerGame::checkEventType() {
     } 
 
     else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
-        key_[event_.keyboard.keycode] = true; // set the key pressed to true
+        key_.set(event_.keyboard.keycode, true); // set the key pressed to true
     } 
 
     else if (event_.type == ALLEGRO_EVENT_KEY_UP) {
-        key_[event_.keyboard.keycode] = false; // set the key that is no longer pressed to false
+        key_.reset(event_.keyboard.keycode); // set the key that is no longer pressed to false
     }
 }
 
 
-void ControllerGame::waitSpaceToRestart() {
-  while (key_[ALLEGRO_KEY_SPACE] == false) {
+void ControllerGame::waitKeyToRestart() {
+  while (key_.none()) {
     checkEventType();
   }
+  
   isGaming_ = true;
   gameBoard_.life_.resetLife();
   gameBoard_.score_.resetScore();

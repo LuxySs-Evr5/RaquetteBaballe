@@ -42,6 +42,7 @@ public:
   // ### Public Methods ###
   void draw();
   void gameOver();
+  void gameWin();
 
   // ### Getters ###
   ALLEGRO_DISPLAY *getDisplay() const;
