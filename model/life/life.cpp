@@ -8,8 +8,6 @@
 
 #include "life.hpp"
 
-#include <allegro5/allegro_primitives.h>
-
 // ### Constructor ###
 
 Life::Life() : nbLifes_(3) {}
