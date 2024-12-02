@@ -100,11 +100,14 @@ void ControllerGame::drawGame() {
   }
 
   else if (isGaming_ == false) { // the game is over because no more lifes
-    displayGame_.gameOver(); // display the game over screen
+    displayGame_.gameOver();     // display the game over screen
+    waitKeyToRestart();
   }
     
   else if (win_ == true) { // the game is won
     displayGame_.gameWin(); // display the game win screen
+    waitKeyToRestart();
+    // TODO: launch a new level
   }
 }
 
@@ -146,9 +149,8 @@ void ControllerGame::waitKeyToRestart() {
   while (key_.none()) {
     checkEventType();
   }
-  
+
   isGaming_ = true;
   gameBoard_.life_.resetLife();
   gameBoard_.score_.resetScore();
-  // TODO: launch a new level
 }
