@@ -7,7 +7,7 @@
  */
 
 #include "lazer.hpp"
-#include "../global_variables.hpp"
+#include "../../global_variables.hpp"
 #include "racket.hpp"
 
 // ### Constructor ###

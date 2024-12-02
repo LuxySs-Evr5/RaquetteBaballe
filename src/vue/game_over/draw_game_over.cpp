@@ -7,7 +7,7 @@
  */
 
 #include "draw_game_over.hpp"
-#include "../global_variables.hpp"
+#include "../../global_variables.hpp"
 #include "../colors/colors.hpp"
 
 #include <allegro5/allegro_primitives.h>

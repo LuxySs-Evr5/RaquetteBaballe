@@ -7,7 +7,7 @@
  */
 
 #include "wall_game.hpp"
-#include "../global_variables.hpp"
+#include "../../global_variables.hpp"
 
 #include <allegro5/allegro_primitives.h>
 

@@ -7,11 +7,7 @@
  */
 
 #include "canvas.hpp"
-#include "../global_variables.hpp"
-#include <iostream>
-
-using namespace std;
-
+#include "../../global_variables.hpp"
 
 // ### Constructor ###
 Canvas::Canvas() {

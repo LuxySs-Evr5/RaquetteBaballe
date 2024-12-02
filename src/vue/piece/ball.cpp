@@ -7,7 +7,7 @@
  */
 
 #include "ball.hpp"
-#include "../global_variables.hpp"
+#include "../../global_variables.hpp"
 
 // ### Constructor ###
 Ball::Ball() : Forme(Point(500, 900), COLOR_BLUE), Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE), speedX_(5), speedY_(5) {}

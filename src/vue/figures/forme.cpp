@@ -7,7 +7,6 @@
  */
 
 #include <allegro5/allegro_primitives.h>
-#include <iostream>
 #include "forme.hpp"
 
 // ### class Forme ###
