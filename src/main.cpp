@@ -14,7 +14,6 @@ using namespace std;
 
 
 int main(int /* argc */, char ** /* argv */){
-
   ControllerGame controllerGame;
   controllerGame.process();
   return 0;
