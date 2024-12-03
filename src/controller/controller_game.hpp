@@ -39,6 +39,8 @@ class ControllerGame{
         bitset<ALLEGRO_KEY_MAX> key_; // table of bit for all keyboard keys set to false
 
         // ### Private Methods ###
+        void drawGame();
+        void checkLife();
         void checkEventType();
         void waitKeyToRestart();
         
@@ -48,8 +50,6 @@ class ControllerGame{
 
         // ### Public Methods ###
         void process();
-        void drawGame();
-        void checkLife();
         
         void moveRacket(const float x);
         void shootLazer();

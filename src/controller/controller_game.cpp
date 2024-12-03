@@ -67,6 +67,8 @@ void ControllerGame::process() {
     
     while (done_ == false) { // while the game is not done
 
+        // TODO: check if the game is lost because no more lifes
+
         al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
@@ -80,6 +82,7 @@ void ControllerGame::process() {
 }
 
 
+// ### Private methods ###
 void ControllerGame::drawGame() {
   al_start_timer(timer_);
   draw_ = false;
@@ -117,9 +120,6 @@ void ControllerGame::checkLife() {
     gameBoard_.getLife().saveScore();
   }
 }
-
-
-// ### Private methods ###
 
 void ControllerGame::checkEventType() {
     if (event_.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
