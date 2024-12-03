@@ -5,8 +5,6 @@
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
 #include "../racket/racket.hpp"
-#include "../life/life.hpp"
-#include "../score/score.hpp"
 
 #include <memory>
 #include <optional>
@@ -59,10 +57,6 @@ class GameBoard {
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
-
-    Score score_;
-
-    Life life_;
 
   public:
     GameBoard() = default;

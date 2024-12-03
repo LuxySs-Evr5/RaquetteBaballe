@@ -25,7 +25,7 @@ void Score::addScore(const int score) { score_ += score; }
 
 void Score::resetScore() { score_ = 0; }
 
-void Score::saveScore() {
+void Score::save() {
   string filePath = "score.txt";
 
   ifstream read(filePath, ios::in);

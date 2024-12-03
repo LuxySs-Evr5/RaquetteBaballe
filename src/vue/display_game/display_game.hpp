@@ -16,7 +16,7 @@
 #include <allegro5/display.h>
 #include <string>
 
-#include "../../model/game_board.hpp"
+#include "../../model/game_board/game_board.hpp"
 #include "../canvas/canvas.hpp"
 
 class DisplayGame {

@@ -25,7 +25,7 @@ public:
 
     void addScore(const int score);
     void resetScore();
-    void saveScore();
+    void save();
 
     int getScore() const;
     string getScoreString() const;

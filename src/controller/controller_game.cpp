@@ -122,9 +122,9 @@ void ControllerGame::drawGame() {
 }
 
 void ControllerGame::checkLife() {
-    if (gameBoard_.getLife().getNbLifes() == 0) { // TODO: GameBoard or Model ?
+    if (model_.getNumberOfLifes() == 0) { // TODO: GameBoard or Model ?
         isGaming_ = false;
-        gameBoard_.getLife().saveScore();
+        model_.saveScore();
     }
 }
 
