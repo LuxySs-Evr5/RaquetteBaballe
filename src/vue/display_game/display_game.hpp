@@ -16,12 +16,12 @@
 #include <allegro5/display.h>
 #include <string>
 
-#include "../../model/game_board/game_board.hpp"
+#include "../../model/model.hpp"
 #include "../canvas/canvas.hpp"
 
 class DisplayGame {
 private:
-  GameBoard gameBoard_;
+  Model model_;
   Canvas canvas_;
 
   ALLEGRO_DISPLAY *display_;
@@ -34,6 +34,7 @@ private:
   // ### Private Methods ###
   void checkInit(void *test, string type);
   void initialize_allegro();
+  void drawLifes();
 
 public:
   DisplayGame();

@@ -121,6 +121,13 @@ void DisplayGame::initialize_allegro() {
 }
 
 
+void DisplayGame::drawLifes() {
+    for (int i = 0; i < model_.getLifeObject().getNbLifes(); i++) { // draw the hearts for the remaining lifes
+        al_draw_bitmap(heartImage_, 3 * SCREEN_WIDTH / 4 + i * 30, 50, 0);
+    }
+}
+
+
 // ### Public Methods ###
 void DisplayGame::draw(){
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
@@ -128,11 +135,11 @@ void DisplayGame::draw(){
 
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right
-    al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score_.getScoreString().c_str()); // draw the score
+    al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, model_.getScoreObject().getScoreString().c_str()); // draw the score
+
+    drawLifes(); // draw the hearts
     
-    life_.drawLife(heartImage_); // draw the hearts for the remaining lifes
-    
-    canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse
+    //TODO: remove ? -> canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse
 
     canvas_.draw(); // draw the pieces 
     
@@ -143,13 +150,14 @@ void DisplayGame::draw(){
 void DisplayGame::gameOver() {
   // TODO: verifier avec gameBoard
   // TODO: vérifier si saveScore est appelé ou doit etre appelé autre part
-    gameBoard_.score_.saveScore();
-    drawGameOver(gameBoard_.score_.getScore(), font50_);
+  // TODO: vérifier si le score doit etre sauvegardé quand on perd, on gagne, les 2, ou autre chose
+
+    drawGameOver(model_.getScoreObject().getScore(), font50_);
     al_flip_display();
 }
 
 void DisplayGame::gameWin() {
-  drawGameWin(gameBoard_.getScore(), font50_);
+  drawGameWin(model_.getScoreObject().getScore(), font50_);
   al_flip_display();
 }
 

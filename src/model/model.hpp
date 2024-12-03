@@ -20,6 +20,9 @@ class Model {
     int getNumberOfLifes() const;
 
     void saveScore();
+
+    Score getScoreObject() const;
+    Life getLifeObject() const;
 };
 
 #endif
