@@ -28,7 +28,7 @@ constexpr double racketVerticalPos =
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{9, 3}, Vec2{-1, -1}, 1)};
+        std::make_shared<Ball>(Vec2{11, 11}, Vec2{1, 1}, 1)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
         // Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
@@ -37,19 +37,19 @@ class GameBoard {
 
     // with T=thickness, H=height, W=width
     const std::vector<std::shared_ptr<Border>> borders_ = {
-        // (-T, H + T) -> (0,0)
+        // (-T, H-1 + T) -> (0,0)
         std::make_shared<Border>(
             Border{BoundingBox{Vec2{-boardBoundingsThickness,
-                                    boardHeight + boardBoundingsThickness},
-                               Vec2{0, 0}}}),
-        // (0, H + T) -> (W,H)
+                                    boardHeight - 1 + boardBoundingsThickness},
+                              Vec2{0, 0}}}),
+        // (0, H-1 + T) -> (W-1,H-1)
         std::make_shared<Border>(
-            BoundingBox{Vec2{0, boardHeight + boardBoundingsThickness},
-                        Vec2{boardWidth, boardHeight}}),
-        // (W, H + T) -> (W + T, 0)
+            BoundingBox{Vec2{0, boardHeight -1 + boardBoundingsThickness},
+                        Vec2{boardWidth-1, boardHeight-1}}),
+        // (W-1, H-1 + T) -> (W-1 + T, 0)
         std::make_shared<Border>(
-            BoundingBox{Vec2{boardWidth, boardHeight + boardBoundingsThickness},
-                        Vec2{boardWidth + boardBoundingsThickness, 0}})};
+            BoundingBox{Vec2{boardWidth-1, boardHeight-1 + boardBoundingsThickness},
+                        Vec2{boardWidth-1 + boardBoundingsThickness, 0}})};
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself

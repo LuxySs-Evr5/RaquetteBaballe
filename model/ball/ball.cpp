@@ -4,6 +4,8 @@
 #include "../bounding_box/bounding_box.hpp"
 
 #include <cmath>
+#include <iostream>
+#include <ostream>
 
 using Point = Vec2;
 
@@ -57,9 +59,10 @@ void Ball::collide(const Bounceable &bounceable) {
 
     bounce(bounceable);
 
+
     // add back what the distance that the ball should have gone while it was
     // going inside the bounding-box
-    coord_ += dirVec_ * bidirectionalPenetration.getModule();
+   // coord_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 
 Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
@@ -106,9 +109,10 @@ Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
 }
 
 bool Ball::hasReached(const Vec2 &point) const {
-    double deltaX = point.x - coord_.x;
-    double deltaY = point.y - coord_.y;
-    return Vec2{deltaX, deltaY}.getModule() <= radius_;
+    float deltaX = point.x - coord_.x;
+    float deltaY = point.y - coord_.y;
+    std::cout << "delta X : " <<deltaX << std::endl;
+    return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
 bool Ball::checkCollision(const BoundingBox &boundingBox) const {

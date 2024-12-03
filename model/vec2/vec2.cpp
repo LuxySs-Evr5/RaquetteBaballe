@@ -1,11 +1,13 @@
 #include "vec2.hpp"
 
 #include <cmath>
+#include <ostream>
 
 Vec2::Vec2() : x{0}, y{0} {}
 Vec2::Vec2(double x, double y) : x{x}, y{y} {}
 
 double Vec2::getModule() const {
+    std::cout << "power : " << std::pow(x, 2) << std::endl;
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 }
 
