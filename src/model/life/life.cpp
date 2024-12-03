@@ -1,5 +1,5 @@
 /**
- * @file life.hpp
+ * @file life.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the Life class
  * @date 16/11/2024
@@ -7,8 +7,6 @@
  */
 
 #include "life.hpp"
-
-#include <allegro5/allegro_primitives.h>
 
 // ### Constructor ###
 
@@ -31,7 +29,6 @@ void Life::removeOneLife() {
 void Life::resetLife() {
   nbLifes_ = 3;
 }
-
 
 // ### Getters ###
 uint8_t Life::getNbLifes() const { return nbLifes_; }

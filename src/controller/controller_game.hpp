@@ -8,8 +8,8 @@
 #define IN_GAME_HPP
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_font.h>
 #include <allegro5/events.h>
 #include <allegro5/keycodes.h>
 #include <allegro5/mouse.h>
@@ -17,43 +17,43 @@
 #include <bitset>
 #include <string>
 
+#include "../model/model.hpp"
 #include "../vue/display_game/display_game.hpp"
 
 using namespace std;
 
-class ControllerGame{
-    private:
-        bool isGaming_ = true;
-        bool win_ = false;
-        bool done_ = false;
-        bool draw_ = false;
+class ControllerGame {
+  private:
+    bool isGaming_ = true;
+    bool win_ = false;
+    bool done_ = false;
+    bool draw_ = false;
 
-        DisplayGame displayGame_;
-        GameBoard gameBoard_;
+    DisplayGame displayGame_;
+    Model model_;
 
-        ALLEGRO_TIMER *timer_;
-        ALLEGRO_EVENT_QUEUE *queue_;
-        ALLEGRO_EVENT event_;
-        ALLEGRO_MOUSE_STATE mouseState_;
-        
-        bitset<ALLEGRO_KEY_MAX> key_; // table of bit for all keyboard keys set to false
+    ALLEGRO_TIMER *timer_;
+    ALLEGRO_EVENT_QUEUE *queue_;
+    ALLEGRO_EVENT event_;
+    ALLEGRO_MOUSE_STATE mouseState_;
 
-        // ### Private Methods ###
-        void drawGame();
-        void checkLife();
-        void checkEventType();
-        void waitKeyToRestart();
-        
-    public:
-        ControllerGame();
-        ~ControllerGame();
+    bitset<ALLEGRO_KEY_MAX>
+        key_; // table of bit for all keyboard keys set to false
 
-        // ### Public Methods ###
-        void process();
-        
-        void moveRacket(const float x);
-        void shootLazer();
-        void loadLevel(const string &filepath);
+    // ### Private Methods ###
+    void drawGame();
+    void checkLife();
+    void checkEventType();
+    void waitKeyToRestart();
 
+  public:
+    ControllerGame();
+    ~ControllerGame();
+
+    // ### Public Methods ###
+    void process();
+
+    void shootLazer();
+    void loadLevel(const string &filepath);
 };
 #endif // IN_GAME_HPP

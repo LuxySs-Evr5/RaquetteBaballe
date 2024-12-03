@@ -1,5 +1,5 @@
 /**
- * @file score.hpp
+ * @file score.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the score class
  * @date 16/11/2024
@@ -56,3 +56,4 @@ int Score::getScore() const { return score_; }
 string Score::getScoreString() const { 
   return "Score : " + to_string(score_);
 }
+

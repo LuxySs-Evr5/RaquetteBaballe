@@ -33,7 +33,6 @@ public:
   void setNbLifes(const uint8_t nbLifes);
 
   uint8_t getNbLifes() const;
-
 };
 
 #endif // LIFE_HPP
