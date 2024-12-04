@@ -14,6 +14,7 @@
 #include <allegro5/allegro_audio.h>
 
 #include <allegro5/display.h>
+#include <memory>
 #include <string>
 
 #include "../../model/model.hpp"
@@ -22,7 +23,7 @@
 class DisplayGame {
 private:
   Model model_;
-  Canvas canvas_;
+  shared_ptr<Canvas> canvas_;
 
   ALLEGRO_DISPLAY *display_;
   ALLEGRO_BITMAP *heartImage_;
@@ -37,7 +38,7 @@ private:
   void drawLifes();
 
 public:
-  DisplayGame();
+  DisplayGame(Model model);
   ~DisplayGame();
 
   // ### Public Methods ###

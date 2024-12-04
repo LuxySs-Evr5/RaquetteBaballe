@@ -29,8 +29,8 @@ const float RACKET_Y_START = SCREEN_HEIGHT - 50; // 50 is the space between the 
 
 
 // ### Brik ###
-const float BRIK_WIDTH = 50;
-const float BRIK_HEIGHT = 25;
+const float BRIK_WIDTH = 75;
+const float BRIK_HEIGHT = 20;
 
 
 // ### Ball ###

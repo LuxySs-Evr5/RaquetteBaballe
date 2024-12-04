@@ -46,4 +46,4 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
     }
 }
 
-void Racket::setHorizontal(double x) { boundingBox_.getCenter().setX(x); }
+void Racket::setHorizontal(const double x) { boundingBox_.getCenter().setX(x); }

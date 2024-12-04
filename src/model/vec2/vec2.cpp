@@ -12,7 +12,7 @@ double Vec2::getModule() const {
 }
 
 double Vec2::getX() const noexcept { return x_; }
-Vec2::getY() const noexcept { return y_; }
+double Vec2::getY() const noexcept { return y_; }
 
 void Vec2::setX(double x) { x_ = x; }
 void Vec2::setY(double y) { y_ = y; };

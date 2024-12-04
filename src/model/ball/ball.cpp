@@ -120,3 +120,8 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
 
     return hasReached(closestVec2);
 }
+
+
+// ### Getters ###
+double Ball::getRadius() const { return radius_; }
+double Ball::getSpeed() const { return speed_; }

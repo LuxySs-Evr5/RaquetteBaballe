@@ -25,13 +25,9 @@ constexpr double racketVerticalPos =
 
 class GameBoard {
   private:
-    std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{11, 11}, Vec2{1, 1}, 1)};
+    std::vector<std::shared_ptr<Ball>> balls_;
 
-    std::vector<std::shared_ptr<Brick>> bricks_{
-        // Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
-        // Brick::makeBrick(Color::red, BoundingBox{Vec2{10, 5}, Vec2{13, 2}}),
-    };
+    std::vector<std::shared_ptr<Brick>> bricks_;
 
     // with T=thickness, H=height, W=width
     const std::vector<std::shared_ptr<Border>> borders_ = {
@@ -51,18 +47,25 @@ class GameBoard {
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
-    std::vector<std::shared_ptr<Racket>> rackets_{std::make_shared<Racket>(
-        BoundingBox{Vec2{boardWidth / 2, racketVerticalPos}, racketWidth,
-                    racketHeight})};
+    Racket racket_;
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
 
   public:
-    GameBoard() = default;
+    GameBoard(std::vector<std::shared_ptr<Ball>> balls,
+              std::vector<std::shared_ptr<Brick>> bricks, Racket racket);
+    
     virtual ~GameBoard() = default;
 
     virtual void update(double deltaTime);
+
+    // ### Getters ###
+    std::vector<std::shared_ptr<Ball>> getBalls() const;
+    std::vector<std::shared_ptr<Brick>> getBricks() const;
+    Racket getRackets() const;
+
+    virtual void moveRacketHorizontal(const double x);
 };
 
 #endif

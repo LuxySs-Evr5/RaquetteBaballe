@@ -7,22 +7,22 @@
  */
 
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/color.h>
 #include "forme.hpp"
 
 // ### class Forme ###
 // # Constructors #
-Forme::Forme(Point center, ALLEGRO_COLOR color)
-    : center_(center), color_(color) {}
+Forme::Forme(Point center, ALLEGRO_COLOR fillColor, ALLEGRO_COLOR frameColor) : center_(center), fillColor_(fillColor), frameColor_(frameColor) {}
 
 // # Getters #
 Point Forme::getCenter() const { return center_; }
 
-ALLEGRO_COLOR Forme::getColor() const { return color_; }
-
 // # Setters #
 void Forme::setCenter(const Point center) { center_ = center; }
 
-void Forme::setColor(const ALLEGRO_COLOR &color) { color_ = color; }
+void Forme::setFillColor(const ALLEGRO_COLOR &color) { fillColor_ = color; }
+
+void Forme::setFrameColor(const ALLEGRO_COLOR &color) { frameColor_ = color; }
 
 // # Public Methods #
 void Forme::move(const float x, const float y) {
@@ -52,8 +52,8 @@ void Rectangle::draw() {
   const float y1 = center_.y - height_ / 2;
   const float x2 = center_.x + width_ / 2;
   const float y2 = center_.y + height_ / 2;
-  al_draw_filled_rectangle(x1, y1, x2, y2, color_);
-  al_draw_rectangle(x1, y1, x2, y2, color_, 1);
+  al_draw_filled_rectangle(x1, y1, x2, y2, fillColor_);
+  al_draw_rectangle(x1, y1, x2, y2, frameColor_, 1);
 }
 
 void Rectangle::moveHorizontally(float x) {
@@ -77,8 +77,8 @@ void Circle::setRadius(const float radius) { radius_ = radius; }
 
 // # Public Methods #
 void Circle::draw() {
-  al_draw_filled_circle(center_.x, center_.y, radius_, color_);
-  al_draw_circle(center_.x, center_.y, radius_, color_, 1);
+  al_draw_filled_circle(center_.x, center_.y, radius_, fillColor_);
+  al_draw_circle(center_.x, center_.y, radius_, frameColor_, 1);
 }
 
 void Circle::move(const float x, const float y) {

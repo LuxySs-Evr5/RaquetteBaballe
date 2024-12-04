@@ -1,25 +1,25 @@
 /**
- * @file lazer.hpp
+ * @file gui_lazer.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the lazer class
  * @date 26/11/2024
  *
  */
 
-#ifndef LAZER_HPP
-#define LAZER_HPP
+#ifndef GUI_LAZER_HPP
+#define GUI_LAZER_HPP
 
 #include "../figures/forme.hpp"
-#include "racket.hpp"
+#include "gui_racket.hpp"
 
-class Lazer final: public Rectangle{
+class GuiLazer final: public Rectangle{
     private:
         //TODO: Maybe remove the racket from the lazer
         float speed_;
         
     public:
-        Lazer(Racket racket);
-        ~Lazer() = default;
+        GuiLazer(GuiRacket racket);
+        ~GuiLazer() = default;
 
         void moveUp();
         void draw() override;
@@ -34,4 +34,4 @@ class Lazer final: public Rectangle{
 
 };
 
-#endif // LAZER_HPP
+#endif // GUI_LAZER_HPP

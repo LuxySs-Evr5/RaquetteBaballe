@@ -3,30 +3,45 @@
 #include <optional>
 #include <variant>
 
+
+GameBoard::GameBoard(std::vector<std::shared_ptr<Ball>> balls,
+                     std::vector<std::shared_ptr<Brick>> bricks, Racket racket)
+    : balls_(balls), bricks_(bricks), racket_(racket) {}
+
 std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
 GameBoard::findNextCollision(Ball &ball) {
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>> closestCollision;
     double distanceClosestCollision = std::numeric_limits<double>::max();
 
     // Helper lambda function
-    auto checkCollisions = [&](auto &elements, auto &closestCollision) {
-        for (auto it = elements.begin(); it != elements.end(); ++it) {
+    auto checkCollisions =
+        [&](auto &elements, auto &closestCollision) {
+          for (auto it = elements.begin(); it != elements.end(); ++it) {
             if (ball.checkCollision((*it)->getBoundingBox())) {
-                double distanceCurrentCollision =
-                    ball.getUnidirectionalPenetration((*it)->getBoundingBox())
-                        .getModule();
+              double distanceCurrentCollision =
+                  ball.getUnidirectionalPenetration((*it)->getBoundingBox())
+                      .getModule();
 
-                if (distanceCurrentCollision < distanceClosestCollision) {
-                    closestCollision = it;
-                    distanceClosestCollision = distanceCurrentCollision;
-                }
+              if (distanceCurrentCollision < distanceClosestCollision) {
+                closestCollision = it;
+                distanceClosestCollision = distanceCurrentCollision;
+              }
             }
-        }
-    };
+          }
+        };
+
+    auto checkRacketCollision = [&](auto &racket, auto &closestCollision) {
+        if (ball.checkCollision(racket.getBoundingBox())) {
+            double distanceCurrentCollision =
+                ball.getUnidirectionalPenetration(racket.getBoundingBox())
+                    .getModule();
+                distanceClosestCollision = distanceCurrentCollision;
+            }
+        };
 
     checkCollisions(bricks_, closestCollision);
     checkCollisions(borders_, closestCollision);
-    checkCollisions(rackets_, closestCollision);
+    checkRacketCollision(racket_, closestCollision);
 
     return closestCollision;
 }
@@ -81,4 +96,20 @@ void GameBoard::update(double deltaTime) {
         ball->update(deltaTime);
         std::cout << std::endl;
     }
+}
+
+
+// ### Getters ###
+std::vector<std::shared_ptr<Ball>> GameBoard::getBalls() const {
+  return balls_;
+}
+std::vector<std::shared_ptr<Brick>> GameBoard::getBricks() const {
+  return bricks_;
+}
+Racket GameBoard::getRackets() const {
+  return racket_;
+}
+
+void GameBoard::moveRacketHorizontal(const double x) {
+    racket_.setHorizontal(x);
 }

@@ -7,23 +7,20 @@
  */
 
 #include "canvas.hpp"
-#include "../../global_variables.hpp"
+#include <vector>
 
 // ### Constructor ###
-Canvas::Canvas() {
-    racket_ = Racket();
-    balls_.push_back(Ball());
+Canvas::Canvas(Model model) : model_(model) {
+  for (auto &ball : model_.getGameBoard().getBalls()) {   
+    balls_.push_back(GuiBall(Point(ball->getCoordinate().getX(), ball->getCoordinate().getY()), static_cast<float>(ball->getRadius()), COLOR_BLUE));
+  }
 
-    float startX = 100; // Position of the first brik on X
-    float startY = 300; // Position of the first brik on Y
-    float step = 60; // Space between briks
+  for (auto &brick : model_.getGameBoard().getBricks()) {
+    briks_.push_back(GuiBrik(Point(brick->getBoundingBox().getCenter().getX(), brick->getBoundingBox().getCenter().getY()), brick->getBoundingBox().getWidth(), brick->getBoundingBox().getHeight(), COLOR_RED));
 
-    for (float i = 0; i < 8; i++) {
-        for (float j = 0; j < 14; j++) {
-            briks_.push_back(Brik(Point(startX + (j * step), startY + (i * step)), BRIK_WIDTH, BRIK_HEIGHT, 1, 10, COLOR_RED));
-        }
-    }
-};
+  racket_.push_back(GuiRacket(Point(model_.getGameBoard().getRackets().getBoundingBox().getCenter().getX(), model_.getGameBoard().getRackets().getBoundingBox().getCenter().getY()), model_.getGameBoard().getRackets().getBoundingBox().getWidth(), model_.getGameBoard().getRackets().getBoundingBox().getHeight(), COLOR_GREEN));
+  }
+}
 
 
 // ### Public methods ###
@@ -36,43 +33,7 @@ void Canvas::draw() {
         brik.draw();
     }
 
-    racket_.draw();
-
-    if (lazer_ != nullptr) {
-        if (lazer_->getY() < 0) {
-            lazer_.reset(nullptr);
-        } else {
-            lazer_->draw();
-            lazer_->moveUp();
-        }
+    for (auto &racket : racket_) {
+        racket.draw();
     }
-
-}
-
-void Canvas::moveRacket(const float x) {
-    // Check if the racket is in the grid
-    if ((x - (RACKET_WIDTH / 2) >= LEFT_WALL_X_START + WALL_THICKNESS) && (x + (RACKET_WIDTH / 2) <= RIGHT_WALL_X_START)) {
-        racket_.moveHorizontally(x);
-    } else if ((x <= LEFT_WALL_X_START + WALL_THICKNESS)) {
-        racket_.moveHorizontally(LEFT_WALL_X_START + WALL_THICKNESS + RACKET_WIDTH / 2);
-   } else if ((x >= RIGHT_WALL_X_START)) {
-        racket_.moveHorizontally(RIGHT_WALL_X_START - RACKET_WIDTH / 2);
-   }
-}
-
-void Canvas::moveBall(const float x, const float y){
-    //TODO: revoir le déplacement des balles car c'est un vecteur de balles
-    balls_[0].moveBall(x, y);
-}
-
-void Canvas::addLazer() {
-    if (lazer_ == nullptr) {
-        lazer_ = make_unique<Lazer>(Lazer(racket_));
-    }
-}
-
-
-// ### Getters ###
-Racket Canvas::getRacket() const {
-    return racket_;
 }

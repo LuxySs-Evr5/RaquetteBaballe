@@ -15,19 +15,21 @@
 class Forme {
     protected:
         Point center_;
-        ALLEGRO_COLOR color_;
+        ALLEGRO_COLOR frameColor_;
+        ALLEGRO_COLOR fillColor_;
 
     public:
-        Forme(Point center, ALLEGRO_COLOR color = COLOR_BLACK);
+        Forme(Point center, ALLEGRO_COLOR fillColor = COLOR_BLACK, ALLEGRO_COLOR frameColor = COLOR_BLACK);
         virtual ~Forme() = default;
 
         virtual void move(const float x, const float y);
 
-        virtual void setColor(const ALLEGRO_COLOR &color);
+        virtual void setFillColor(const ALLEGRO_COLOR &color);
+        virtual void setFrameColor(const ALLEGRO_COLOR &color);
+
         virtual void setCenter(const Point center);
 
         virtual Point getCenter() const;
-        virtual ALLEGRO_COLOR getColor() const;
 
         virtual void draw() = 0;
 };

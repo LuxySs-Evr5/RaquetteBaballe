@@ -16,9 +16,10 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_acodec.h>
+#include <memory>
 
 // ### Constructor ###
-DisplayGame::DisplayGame() {
+DisplayGame::DisplayGame(Model model) : model_(model) {
   //TODO: verifier le exit
   initialize_allegro();
 
@@ -50,6 +51,9 @@ DisplayGame::DisplayGame() {
 
   al_set_sample_instance_playmode(instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
   al_play_sample_instance(instanceMusic_); // play the music
+
+    canvas_ = make_shared<Canvas>(model_);
+
 }
 
 
@@ -141,7 +145,7 @@ void DisplayGame::draw(){
     
     //TODO: remove ? -> canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse
 
-    canvas_.draw(); // draw the pieces 
+    canvas_->draw(); // draw the pieces 
     
     al_flip_display(); // update the window display
 }

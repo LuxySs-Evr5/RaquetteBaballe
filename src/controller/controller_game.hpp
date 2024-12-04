@@ -15,6 +15,7 @@
 #include <allegro5/mouse.h>
 
 #include <bitset>
+#include <memory>
 #include <string>
 
 #include "../model/model.hpp"
@@ -29,8 +30,8 @@ class ControllerGame {
     bool done_ = false;
     bool draw_ = false;
 
-    DisplayGame displayGame_;
-    Model model_;
+    shared_ptr<DisplayGame> displayGame_;
+    shared_ptr<Model> model_;
 
     ALLEGRO_TIMER *timer_;
     ALLEGRO_EVENT_QUEUE *queue_;

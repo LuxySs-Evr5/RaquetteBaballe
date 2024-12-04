@@ -23,7 +23,7 @@ class Racket : public Bounceable {
                                       const Vec2 &dirVec = {0,
                                                             0}) const override;
 
-    virtual void setHorizontal(double x);
+    virtual void setHorizontal(const double x);
 };
 
 #endif

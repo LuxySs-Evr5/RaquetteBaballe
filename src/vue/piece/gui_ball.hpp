@@ -1,27 +1,30 @@
 /**
- * @file ball.hpp
+ * @file gui_ball.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the class Ball
  * @date 26/11/2024
  *
  */
 
-#ifndef BALL_HPP
-#define BALL_HPP
+#ifndef GUI_BALL_HPP
+#define GUI_BALL_HPP
 
 #include "../figures/forme.hpp"
 
-class Ball final: public Circle{
+class GuiBall final: public Circle{
     private:
         float speedX_, speedY_;
 
     public:
-        Ball();
-        ~Ball() = default;
+      GuiBall();
+      GuiBall(Point center, float radius, ALLEGRO_COLOR color);
+        ~GuiBall() = default;
 
         virtual void draw() override;
 
         void moveBall(const float x = 0, const float y = 0);
+
+        void setCenter(const int x, const int y);
 
         float getSpeedX() const;
         float getSpeedY() const;
@@ -31,4 +34,4 @@ class Ball final: public Circle{
 
 };
 
-#endif // BALL_HPP
+#endif // GUI_BALL_HPP

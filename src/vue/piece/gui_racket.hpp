@@ -1,23 +1,23 @@
 /**
- * @file racket.hpp
+ * @file gui_racket.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the racket class
  * @date 26/11/2024
  *
  */
 
-#ifndef RACKET_HPP
-#define RACKET_HPP
+#ifndef GUI_RACKET_HPP
+#define GUI_RACKET_HPP
 
 #include "../figures/forme.hpp"
 
-class Racket final: public Rectangle{
+class GuiRacket final: public Rectangle{
     private:
         float speed_;        
     
     public:
-        Racket();
-        ~Racket() = default;
+        GuiRacket(Point center, float width, float height, ALLEGRO_COLOR color);
+        ~GuiRacket() = default;
 
         void draw() override;
 
@@ -35,4 +35,4 @@ class Racket final: public Rectangle{
 
 };
 
-#endif // RACKET_HPP
+#endif // GUI_RACKET_HPP
