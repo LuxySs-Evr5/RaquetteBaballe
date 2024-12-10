@@ -7,7 +7,9 @@
 #ifndef CONTROLLER_GAME_HPP
 #define CONTROLLER_GAME_HPP
 
+#include <allegro5/events.h>
 #include <memory>
+#include <bitset>
 
 #include "../model/game_board/game_board.hpp"
 #include "../vue/display_game/display_game.hpp"
@@ -29,7 +31,10 @@ class ControllerGame {
 
     ALLEGRO_TIMER* timer_;
     ALLEGRO_EVENT_QUEUE* queue_;
+    ALLEGRO_EVENT event_;
+    ALLEGRO_MOUSE_STATE mouseState_;
 
+    bitset<ALLEGRO_KEY_MAX> key_; // table of bit for all keyboard keys set to false
 
 
     // ### Private Methods ###

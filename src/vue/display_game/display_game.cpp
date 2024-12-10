@@ -9,6 +9,10 @@
 #include "display_game.hpp"
 #include "../color/colors.hpp"
 #include "../../global_variables.hpp"
+#include "../game_over/draw_game_over.hpp"
+#include "../game_win/draw_game_win.hpp"
+#include "../wall/wall_game.hpp"
+
 
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
@@ -123,9 +127,34 @@ void DisplayGame::initialize_allegro() {
 
 // ### Public Methods ###
 void DisplayGame::draw(){
-    al_clear_to_color(COLOR_WHITE); // set the color of the window to black
+al_clear_to_color(COLOR_BLACK); // set the color of the window to black
+    drawWallGame(COLOR_DARK_GREY);
+
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right
+    //al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score_.getScoreString().c_str()); // draw the score TODO: check to print score
+    
+    //life_.drawLife(heartImage_); // draw the hearts for the remaining lifes TODO: check to print life image
+    
+    //canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse TODO: check to move racket
+
+    canvas_.draw(); // draw the pieces 
     
     al_flip_display(); // update the window display
+}
+
+
+void DisplayGame::gameOver() {
+  // TODO: verifier avec gameBoard
+  // TODO: vérifier si saveScore est appelé ou doit etre appelé autre part
+    //gameBoard_.score_.saveScore(); // TODO : implémenter getscore dans gameboard
+    //drawGameOver(gameBoard_.score_.getScore(), font50_);
+    al_flip_display();
+}
+
+void DisplayGame::gameWin() {
+  //drawGameWin(gameBoard_.getScore(), font50_); // TODO : implémenter getscore dans gameboard
+  al_flip_display();
 }
 
 // ### Getters ###
