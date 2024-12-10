@@ -11,6 +11,7 @@
 
 
 #include "../../model/game_board/game_board.hpp"
+#include "../canvas/canvas.hpp"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -19,6 +20,8 @@
 class DisplayGame {
 private:
   std::shared_ptr<GameBoard> gameBoard_;
+  Canvas canvas_;
+
 
   ALLEGRO_DISPLAY *display_;
   ALLEGRO_BITMAP *heartImage_;

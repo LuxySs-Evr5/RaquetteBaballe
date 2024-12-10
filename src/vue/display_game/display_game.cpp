@@ -8,6 +8,7 @@
 
 #include "display_game.hpp"
 #include "../color/colors.hpp"
+#include "../../global_variables.hpp"
 
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
@@ -16,13 +17,40 @@
 #include <memory>
 
 // ### Constructor ###
-DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard) {
-    //TODO: verifier le exit
+DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {
+  //TODO: verifier le exit
   initialize_allegro();
 
-  display_ = al_create_display(static_cast<int>(1000), static_cast<int>(1000));
+  font24_ = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24, 0); // the directory that allegro looks is the main directory
+    checkInit(font24_, "font24");
+
+  font50_ = al_load_ttf_font("fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 50, 0); // the directory that allegro looks is the main directory
+  checkInit(font50_, "font50");
+
+  display_ = al_create_display(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT));
   checkInit(display_, "display");
+
+  heartImage_ = al_load_bitmap("images/heart.png"); // the directory that allegro looks is the main directory
+  checkInit(heartImage_, "heart image");
+
+  music_ = al_load_sample("music/arkanoid.wav");
+  checkInit(music_, "music");
+
+  instanceMusic_ = al_create_sample_instance(music_);
+  checkInit(instanceMusic_, "instanceMusic");
+
+  if (!al_attach_sample_instance_to_mixer(instanceMusic_, al_get_default_mixer())) { // attach the sample instance to the mixer
+    cerr << "Failed to attach sample instance to mixer" << endl;
+    al_destroy_sample_instance(instanceMusic_);
+    al_destroy_sample(music_);
+    //TODO: verifier le exit
+    exit(-1);
+  }
+
+  al_set_sample_instance_playmode(instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
+  al_play_sample_instance(instanceMusic_); // play the music
 }
+
 
 
 // ### Destructor ###
