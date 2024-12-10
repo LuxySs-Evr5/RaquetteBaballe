@@ -8,3 +8,4 @@ output
 res
 test.cpp
 tmp.cpp
+build/
