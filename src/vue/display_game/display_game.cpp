@@ -9,9 +9,9 @@
 #include "display_game.hpp"
 #include "../color/colors.hpp"
 #include "../../global_variables.hpp"
+#include "../wall/wall_game.hpp"
 #include "../game_over/draw_game_over.hpp"
 #include "../game_win/draw_game_win.hpp"
-#include "../wall/wall_game.hpp"
 
 
 #include <allegro5/allegro_ttf.h>
@@ -53,6 +53,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard
 
   al_set_sample_instance_playmode(instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
   al_play_sample_instance(instanceMusic_); // play the music
+
 }
 
 
@@ -127,7 +128,7 @@ void DisplayGame::initialize_allegro() {
 
 // ### Public Methods ###
 void DisplayGame::draw(){
-al_clear_to_color(COLOR_BLACK); // set the color of the window to black
+    al_clear_to_color(COLOR_BLACK); // set the color of the window to black
     drawWallGame(COLOR_DARK_GREY);
 
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title

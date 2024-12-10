@@ -6,19 +6,19 @@
  *
  */
 
-#ifndef BRIK_HPP
-#define BRIK_HPP
+#ifndef BRIKUI_HPP
+#define BRIKUI_HPP
 
 #include "../figures/forme.hpp"
 
-class Brik final : public Rectangle {
+class BrikUi final : public Rectangle {
     private:
         int life_;
         int scoreDestroy_;
 
     public:
-        Brik(Point center, float width, float height, int life, int scoreDestroy, ALLEGRO_COLOR color);
-        virtual ~Brik() = default;
+        BrikUi(Point center, float width, float height, int life, int scoreDestroy, ALLEGRO_COLOR color);
+        virtual ~BrikUi() = default;
 
         void draw() override;
 
@@ -29,4 +29,4 @@ class Brik final : public Rectangle {
 };
 
 
-#endif // BRIK_HPP
+#endif // BRIKUI_HPP

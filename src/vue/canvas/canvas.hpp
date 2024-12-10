@@ -9,19 +9,19 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
-#include <vector>
+#include "../piece/brik_ui.hpp"
+#include "../piece/racket_ui.hpp"
+#include "../piece/ball_ui.hpp"
 
-#include "../piece/brik.hpp"
-#include "../piece/racket.hpp"
-#include "../piece/ball.hpp"
+#include <vector>
 
 using namespace std;
 
 class Canvas {
     private:
-        vector<Ball> balls_;
-        vector<Brik> briks_;
-        Racket racket_;
+        vector<BallUi> balls_;
+        vector<BrikUi> briks_;
+        RacketUi racket_;
 
     public:
         Canvas();
@@ -29,7 +29,7 @@ class Canvas {
 
         void draw();
 
-        Racket getRacket() const;
+        RacketUi getRacket() const;
 
         void moveRacket(const float x);
         void moveBall(const float x = 0, const float y = 0);

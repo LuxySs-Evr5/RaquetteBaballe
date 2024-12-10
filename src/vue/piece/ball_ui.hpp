@@ -6,26 +6,20 @@
  *
  */
 
-#ifndef BALL_HPP
-#define BALL_HPP
+#ifndef BALLUI_HPP
+#define BALLUI_HPP
 
 #include "../figures/forme.hpp"
 
-class Ball final: public Circle{
-    private:
-        float speedX_, speedY_;
-
+class BallUi final: public Circle{
     public:
-        Ball();
-        virtual ~Ball() = default;
+        BallUi();
+        virtual ~BallUi() = default;
 
         virtual void draw() override;
 
         void moveBall(const float x = 0, const float y = 0);
 
-        float getSpeedX() const;
-        float getSpeedY() const;
-
 };
 
-#endif // BALL_HPP
+#endif // BALLUI_HPP

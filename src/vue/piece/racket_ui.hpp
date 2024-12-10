@@ -6,18 +6,18 @@
  *
  */
 
-#ifndef RACKET_HPP
-#define RACKET_HPP
+#ifndef RACKET_UI_HPP
+#define RACKET_UI_HPP
 
 #include "../figures/forme.hpp"
 
-class Racket final: public Rectangle{
+class RacketUi final: public Rectangle{
     private:
         float speed_;        
     
     public:
-        Racket();
-        virtual ~Racket() = default;
+        RacketUi();
+        virtual ~RacketUi() = default;
 
         void draw() override;
 

@@ -107,9 +107,9 @@ void ControllerGame::drawGame() {
     } else if (mouseState_.x > static_cast<int>(SCREEN_WIDTH)) {
         mouseState_.x = static_cast<int>(SCREEN_WIDTH);    
     }
-    
-    //gameBoard_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse TODO: move the racket in model
 
+    gameBoard_->setRacketAtX(static_cast<double>(mouseState_.x)); // move the racket with the mouse
+    
     displayGame_->draw(); // draw the pieces
   }
 

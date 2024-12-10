@@ -48,6 +48,6 @@ void Canvas::moveBall(const float x, const float y){
 
 
 // ### Getters ###
-Racket Canvas::getRacket() const {
+RacketUi Canvas::getRacket() const {
     return racket_;
 }
