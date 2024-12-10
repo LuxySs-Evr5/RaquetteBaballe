@@ -7,9 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add all source files in the model subdirectory
 file(GLOB_RECURSE SOURCES
-    ${CMAKE_SOURCE_DIR}/main.cpp
-    ${CMAKE_SOURCE_DIR}/model/*.cpp
-    ${CMAKE_SOURCE_DIR}/controller/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
 )
 
 # Include directories for headers
