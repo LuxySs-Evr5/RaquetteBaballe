@@ -4,8 +4,8 @@
 #include "../ball/ball.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
-#include "../racket/racket.hpp"
 #include "../life/life.hpp"
+#include "../racket/racket.hpp"
 #include "../score/score.hpp"
 
 #include <memory>
@@ -41,15 +41,15 @@ class GameBoard {
         std::make_shared<Border>(
             Border{BoundingBox{Vec2{-boardBoundingsThickness,
                                     boardHeight - 1 + boardBoundingsThickness},
-                              Vec2{0, 0}}}),
+                               Vec2{0, 0}}}),
         // (0, H-1 + T) -> (W-1,H-1)
         std::make_shared<Border>(
-            BoundingBox{Vec2{0, boardHeight -1 + boardBoundingsThickness},
-                        Vec2{boardWidth-1, boardHeight-1}}),
+            BoundingBox{Vec2{0, boardHeight - 1 + boardBoundingsThickness},
+                        Vec2{boardWidth - 1, boardHeight - 1}}),
         // (W-1, H-1 + T) -> (W-1 + T, 0)
-        std::make_shared<Border>(
-            BoundingBox{Vec2{boardWidth-1, boardHeight-1 + boardBoundingsThickness},
-                        Vec2{boardWidth-1 + boardBoundingsThickness, 0}})};
+        std::make_shared<Border>(BoundingBox{
+            Vec2{boardWidth - 1, boardHeight - 1 + boardBoundingsThickness},
+            Vec2{boardWidth - 1 + boardBoundingsThickness, 0}})};
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
@@ -73,6 +73,8 @@ class GameBoard {
     virtual string getStringScore();
     virtual int getIntScore();
     virtual int getLife();
+
+    virtual void setRacketAtX(double posX);
 };
 
 #endif

@@ -46,3 +46,7 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
         return Bounceable::getDirVecAfterBounce(closestPoint, dirVec);
     }
 }
+
+void Racket::setPosX(double posX) {
+    boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
+}

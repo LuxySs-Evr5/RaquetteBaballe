@@ -83,19 +83,12 @@ void GameBoard::update(double deltaTime) {
     }
 }
 
+void GameBoard::saveCurrentScore() { score_.saveScore(); }
 
-void GameBoard::saveCurrentScore() {
-    score_.saveScore();
-}
+string GameBoard::getStringScore() { return score_.getScoreString(); }
 
-string GameBoard::getStringScore() {
-    return score_.getScoreString();
-}
+int GameBoard::getIntScore() { return score_.getScore(); }
 
-int GameBoard::getIntScore() {
-    return score_.getScore();
-}
+int GameBoard::getLife() { return life_.getNbLifes(); }
 
-int GameBoard::getLife() {
-    return life_.getNbLifes();
-}
+void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }

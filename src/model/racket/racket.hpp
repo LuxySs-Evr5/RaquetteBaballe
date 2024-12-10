@@ -22,6 +22,8 @@ class Racket : public Bounceable {
     virtual Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
                                       const Vec2 &dirVec = {0,
                                                             0}) const override;
+
+    virtual void setPosX(double posX);
 };
 
 #endif
