@@ -132,9 +132,9 @@ al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right
-    //al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, score_.getScoreString().c_str()); // draw the score TODO: check to print score
+    al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, gameBoard_->getStringScore().c_str()); // draw the score
     
-    //life_.drawLife(heartImage_); // draw the hearts for the remaining lifes TODO: check to print life image
+    drawLife(); // draw the hearts for the remaining lifes
     
     //canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket with the mouse TODO: check to move racket
 
@@ -145,19 +145,34 @@ al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
 
 void DisplayGame::gameOver() {
-  // TODO: verifier avec gameBoard
-  // TODO: vérifier si saveScore est appelé ou doit etre appelé autre part
-    //gameBoard_.score_.saveScore(); // TODO : implémenter getscore dans gameboard
-    //drawGameOver(gameBoard_.score_.getScore(), font50_);
+  // TODO: verifier avec gameBoard  
+    drawGameOver(gameBoard_->getIntScore(), font50_);
     al_flip_display();
 }
 
 void DisplayGame::gameWin() {
-  //drawGameWin(gameBoard_.getScore(), font50_); // TODO : implémenter getscore dans gameboard
+  drawGameWin(gameBoard_->getIntScore(), font50_);
   al_flip_display();
 }
 
 // ### Getters ###
 ALLEGRO_DISPLAY *DisplayGame::getDisplay() const {
   return display_;
+}
+
+
+//### Private Methods ###
+void DisplayGame::drawLife() {
+  int heartWidth = al_get_bitmap_width(heartImage_);
+  int heartHeight = al_get_bitmap_height(heartImage_);
+
+  float scaleHeartWidth = HEART_IMAGE_SIZE;
+  float scaleHeartHeight = HEART_IMAGE_SIZE;
+
+  float heartX = SCREEN_WIDTH / 4 + 40; // space between the text and the heart image
+
+  for (int i = 0; i < gameBoard_->getLife(); i++) {
+
+    al_draw_scaled_bitmap(heartImage_, 0, 0, static_cast<float>(heartWidth), static_cast<float>(heartHeight), heartX + i * (scaleHeartWidth + 5), 50, scaleHeartWidth, scaleHeartHeight, 0); // Affiche les cœurs en haut à gauche
+  }
 }

@@ -82,3 +82,20 @@ void GameBoard::update(double deltaTime) {
         std::cout << std::endl;
     }
 }
+
+
+void GameBoard::saveCurrentScore() {
+    score_.saveScore();
+}
+
+string GameBoard::getStringScore() {
+    return score_.getScoreString();
+}
+
+int GameBoard::getIntScore() {
+    return score_.getScore();
+}
+
+int GameBoard::getLife() {
+    return life_.getNbLifes();
+}

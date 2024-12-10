@@ -69,6 +69,10 @@ class GameBoard {
     virtual ~GameBoard() = default;
 
     virtual void update(double deltaTime);
+    virtual void saveCurrentScore();
+    virtual string getStringScore();
+    virtual int getIntScore();
+    virtual int getLife();
 };
 
 #endif

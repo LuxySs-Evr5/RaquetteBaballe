@@ -114,6 +114,7 @@ void ControllerGame::drawGame() {
   }
 
   else if (isGaming_ == false) { // the game is over because no more lifes
+    gameBoard_->saveCurrentScore();
     displayGame_->gameOver();     // display the game over screen
     waitKeyToRestart();
   }

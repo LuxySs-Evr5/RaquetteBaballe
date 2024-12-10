@@ -34,6 +34,7 @@ private:
   // ### Private Methods ###
   void checkInit(void *test, string type);
   void initialize_allegro();
+  void drawLife();
 
 public:
   DisplayGame(shared_ptr<GameBoard> gameBoard);
