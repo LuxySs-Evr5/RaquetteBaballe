@@ -18,7 +18,7 @@ class Brik final : public Rectangle {
 
     public:
         Brik(Point center, float width, float height, int life, int scoreDestroy, ALLEGRO_COLOR color);
-        ~Brik() = default;
+        virtual ~Brik() = default;
 
         void draw() override;
 

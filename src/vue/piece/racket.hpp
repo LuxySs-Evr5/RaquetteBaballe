@@ -11,19 +11,19 @@
 
 #include "../figures/forme.hpp"
 
-class Racket : public Rectangle{
+class Racket final: public Rectangle{
     private:
         float speed_;        
     
     public:
         Racket();
-        ~Racket() = default;
+        virtual ~Racket() = default;
 
         void draw() override;
 
         void moveHorizontally(const float x) override;
 
-        Point getCenter() const override;
+        Point getCenter() const;
 
         float getX() const;
         float getY() const;

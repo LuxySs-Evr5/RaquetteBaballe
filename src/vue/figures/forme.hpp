@@ -12,29 +12,11 @@
 #include "point.hpp"
 #include "../color/colors.hpp"
 
-class Forme {
-    protected:
-        Point center_;
-        ALLEGRO_COLOR color_;
-
-    public:
-        Forme(Point center, ALLEGRO_COLOR color = COLOR_BLACK);
-        virtual ~Forme() = default;
-
-        virtual void move(const float x, const float y);
-
-        virtual void setColor(const ALLEGRO_COLOR &color);
-        virtual void setCenter(const Point center);
-
-        virtual Point getCenter() const;
-        virtual ALLEGRO_COLOR getColor() const;
-
-        virtual void draw() = 0;
-};
-
-class Rectangle : public virtual Forme {
+class Rectangle {
     protected:
         float width_, height_;
+        Point center_;
+        ALLEGRO_COLOR color_;
 
     public:
         Rectangle(Point center, float width, float height,
@@ -42,7 +24,7 @@ class Rectangle : public virtual Forme {
         
         virtual ~Rectangle() = default;
 
-        virtual void draw() override;
+        virtual void draw();
 
         virtual void moveHorizontally(float x);
 
@@ -53,23 +35,20 @@ class Rectangle : public virtual Forme {
         virtual float getHeight() const;
 };
 
-class Circle : public virtual Forme {
+class Circle {
     protected:
         float radius_;
-        float speedX_, speedY_;
+        Point center_;
+        ALLEGRO_COLOR color_;
 
     public:
         Circle(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLACK);
 
         virtual ~Circle() = default;
 
-        virtual void draw() override;
+        virtual void draw();
 
-        virtual void move(const float x, const float y) override;
-
-        virtual void setSpeedX(const float speedX);
-
-        virtual void setSpeedY(const float speedY);
+        virtual void move(const float x, const float y);
         
         virtual void setRadius(const float radius);
 

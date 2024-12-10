@@ -11,13 +11,13 @@
 
 #include "../figures/forme.hpp"
 
-class Ball : public Circle{
+class Ball final: public Circle{
     private:
         float speedX_, speedY_;
 
     public:
         Ball();
-        ~Ball() = default;
+        virtual ~Ball() = default;
 
         virtual void draw() override;
 
@@ -25,9 +25,6 @@ class Ball : public Circle{
 
         float getSpeedX() const;
         float getSpeedY() const;
-
-        void setSpeedX(const float speedX) override;
-        void setSpeedY(const float speedY) override;
 
 };
 

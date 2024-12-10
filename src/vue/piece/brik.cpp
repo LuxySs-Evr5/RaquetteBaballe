@@ -9,7 +9,7 @@
 #include "brik.hpp"
 
 // ### Constructor ###
-Brik::Brik(Point center, float width, float height, int life, int scoreDestroy, ALLEGRO_COLOR color) : Forme(center, color), Rectangle(center, width, height, color), life_(life), scoreDestroy_(scoreDestroy) {}
+Brik::Brik(Point center, float width, float height, int life, int scoreDestroy, ALLEGRO_COLOR color) : Rectangle(center, width, height, color), life_(life), scoreDestroy_(scoreDestroy) {}
 
 
 // ### Public methods ###

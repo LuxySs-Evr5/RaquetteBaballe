@@ -9,32 +9,10 @@
 #include <allegro5/allegro_primitives.h>
 #include "forme.hpp"
 
-// ### class Forme ###
-// # Constructors #
-Forme::Forme(Point center, ALLEGRO_COLOR color)
-    : center_(center), color_(color) {}
-
-// # Getters #
-Point Forme::getCenter() const { return center_; }
-
-ALLEGRO_COLOR Forme::getColor() const { return color_; }
-
-// # Setters #
-void Forme::setCenter(const Point center) { center_ = center; }
-
-void Forme::setColor(const ALLEGRO_COLOR &color) { color_ = color; }
-
-// # Public Methods #
-void Forme::move(const float x, const float y) {
-  center_.x += x;
-  center_.y += y;
-}
-
 
 // ### class Rectangle ###
 // # Constructors #
-Rectangle::Rectangle(Point center, float width, float height, ALLEGRO_COLOR color)
-    : Forme(center, color), width_(width), height_(height) {}
+Rectangle::Rectangle(Point center, float width, float height, ALLEGRO_COLOR color) : center_(center),  width_(width), height_(height), color_(color) {}
 
 // # Getters #
 float Rectangle::getWidth() const { return width_; }
@@ -62,17 +40,12 @@ void Rectangle::moveHorizontally(float x) {
 
 // ### class Circle ###
 // # Constructors #
-Circle::Circle(Point center, float radius, ALLEGRO_COLOR color)
-    : Forme(center, color), radius_(radius) {}
+Circle::Circle(Point center, float radius, ALLEGRO_COLOR color) : center_(center), radius_(radius), color_(color) {}
 
 // # Getters #
 float Circle::getRadius() const { return radius_; }
 
 // # Setters #
-void Circle::setSpeedX(const float speedX) { speedX_ = speedX; }
-
-void Circle::setSpeedY(const float speedY) { speedY_ = speedY; }
-
 void Circle::setRadius(const float radius) { radius_ = radius; }
 
 // # Public Methods #

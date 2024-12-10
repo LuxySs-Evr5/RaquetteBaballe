@@ -10,7 +10,7 @@
 #include "../../global_variables.hpp"
 
 // ### Constructor ###
-Ball::Ball() : Forme(Point(500, 900), COLOR_BLUE), Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE), speedX_(5), speedY_(5) {}
+Ball::Ball() : Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE), speedX_(5), speedY_(5) {}
 
 // ### Public methods ###
 void Ball::draw() {
@@ -26,8 +26,3 @@ void Ball::moveBall(const float x, const float y){
 float Ball::getSpeedX() const { return speedX_; }
 
 float Ball::getSpeedY() const { return speedY_; }
-
-// ### Setters ###
-void Ball::setSpeedX(const float speedX) { speedX_ = speedX; }
-
-void Ball::setSpeedY(const float speedY) { speedY_ = speedY; }
