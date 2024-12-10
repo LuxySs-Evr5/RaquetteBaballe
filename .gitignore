@@ -9,3 +9,6 @@ res
 test.cpp
 tmp.cpp
 build/
+
+arkanoid
+.vscode

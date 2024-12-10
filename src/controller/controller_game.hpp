@@ -10,6 +10,10 @@
 #include <memory>
 
 #include "../model/game_board/game_board.hpp"
+#include "../vue/display_game/display_game.hpp"
+
+#include <allegro5/allegro.h>
+
 
 using namespace std;
 
@@ -21,6 +25,12 @@ class ControllerGame {
     bool draw_ = false;
 
     shared_ptr<GameBoard> gameBoard_;
+    shared_ptr<DisplayGame> displayGame_;
+
+    ALLEGRO_TIMER* timer_;
+    ALLEGRO_EVENT_QUEUE* queue_;
+
+
 
     // ### Private Methods ###
     void drawGame();
