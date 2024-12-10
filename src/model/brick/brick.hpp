@@ -4,6 +4,8 @@
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
+class BrikUi;
+
 #include <memory>
 
 constexpr unsigned DURABILITY_STANDARD_BRICK = 1;
@@ -43,6 +45,10 @@ class Brick : public Bounceable {
     virtual size_t getScore() const;
     virtual uint8_t getDurability() const;
     virtual bool isDestroyed() const;
+
+    virtual BrikUi toBrickUi() const;
+
+    virtual Color getColor() const;
 };
 
 #endif

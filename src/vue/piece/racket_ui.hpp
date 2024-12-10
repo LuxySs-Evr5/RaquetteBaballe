@@ -10,29 +10,31 @@
 #define RACKET_UI_HPP
 
 #include "../figures/forme.hpp"
+#include <allegro5/color.h>
 
-class RacketUi final: public Rectangle{
-    private:
-        float speed_;        
-    
-    public:
-        RacketUi();
-        virtual ~RacketUi() = default;
+class RacketUi final : public Rectangle {
+  private:
+    float speed_;
 
-        void draw() override;
+  public:
+    RacketUi();
 
-        void moveHorizontally(const float x) override;
+    RacketUi(Point center, float width, float height, Color = Color::white);
+    virtual ~RacketUi() = default;
 
-        Point getCenter() const;
+    void draw() override;
 
-        float getX() const;
-        float getY() const;
-        float getSpeed() const;
+    void moveHorizontally(const float x) override;
 
-        void setX(const float x);
-        void setY(const float y);
-        void setSpeed(const float speed);
+    Point getCenter() const;
 
+    float getX() const;
+    float getY() const;
+    float getSpeed() const;
+
+    void setX(const float x);
+    void setY(const float y);
+    void setSpeed(const float speed);
 };
 
 #endif // RACKET_HPP

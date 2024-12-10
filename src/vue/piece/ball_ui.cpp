@@ -7,17 +7,15 @@
  */
 
 #include "ball_ui.hpp"
-#include "../../global_variables.hpp"
 
 // ### Constructor ###
-BallUi::BallUi() : Circle(Point(500, 900), BALL_RADIUS, COLOR_BLUE){}
+BallUi::BallUi(Point center, float radius, ALLEGRO_COLOR color)
+    : Circle(center, radius, color) {}
 
 // ### Public methods ###
-void BallUi::draw() {
-    Circle::draw();
-}
+void BallUi::draw() { Circle::draw(); }
 
-void BallUi::moveBall(const float x, const float y){
+void BallUi::moveBall(const float x, const float y) {
     center_.x += x;
     center_.y += y;
 };

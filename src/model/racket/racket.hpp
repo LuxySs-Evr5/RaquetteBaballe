@@ -1,12 +1,14 @@
 #ifndef RACKET_HPP
 #define RACKET_HPP
 
+#include "../../vue/piece/racket_ui.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../vec2/vec2.hpp"
 
 class Racket : public Bounceable {
   private:
     virtual double getWidth() const;
+    virtual double getHeight() const;
 
     virtual Vec2 getCoordinate() const;
 
@@ -24,6 +26,8 @@ class Racket : public Bounceable {
                                                             0}) const override;
 
     virtual void setPosX(double posX);
+
+    RacketUi toRaketUi();
 };
 
 #endif

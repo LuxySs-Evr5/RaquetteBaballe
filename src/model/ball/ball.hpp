@@ -1,6 +1,7 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
+#include "../../vue/piece/ball_ui.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 #include "../brick/brick.hpp"
@@ -45,6 +46,8 @@ class Ball {
     virtual void collide(const Bounceable &bounceable);
 
     virtual void update(double deltaTime);
+
+    virtual BallUi toBallUi();
 };
 
 #endif

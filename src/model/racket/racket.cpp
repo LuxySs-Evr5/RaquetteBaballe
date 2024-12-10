@@ -9,6 +9,7 @@ Racket::Racket(const Vec2 &center, double width, double height)
                  center + Vec2{width / 2, height / 2}} {}
 
 double Racket::getWidth() const { return boundingBox_.getWidth(); }
+double Racket::getHeight() const { return boundingBox_.getHeight(); }
 
 Vec2 Racket::getCoordinate() const { return boundingBox_.getCenter(); }
 
@@ -49,4 +50,9 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
 
 void Racket::setPosX(double posX) {
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
+}
+
+RacketUi Racket::toRaketUi() {
+    return RacketUi{boundingBox_.getCenter().toPoint(), getWidth(),
+                    getHeight()};
 }

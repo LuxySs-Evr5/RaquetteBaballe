@@ -58,6 +58,10 @@ Vec2 &Vec2::operator*=(double scalar) {
     return *this;
 }
 
+Point Vec2::toPoint() {
+    return Point{static_cast<float>(x), static_cast<float>(y)};
+}
+
 std::ostream &operator<<(std::ostream &os, const Vec2 &vec) {
     os << "Vec2(" << vec.x << ", " << vec.y << ")";
     return os;

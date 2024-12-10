@@ -7,8 +7,6 @@
 #include <iostream>
 #include <ostream>
 
-using Point = Vec2;
-
 Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
     : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
@@ -25,7 +23,7 @@ void Ball::update(double deltaTime) {
 // NOTE: this only does the direction vector part of the bounce
 // actual bounce logic is in collide function
 void Ball::bounce(const Bounceable &bounceable) {
-    Point closestPoint = getClosestPoint(bounceable.getBoundingBox());
+    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
 
     dirVec_ = bounceable.getDirVecAfterBounce(closestPoint, dirVec_);
 }
@@ -34,7 +32,7 @@ void Ball::collide(const Bounceable &bounceable) {
     Vec2 UnidirectionalPenetration =
         getUnidirectionalPenetration(bounceable.getBoundingBox());
 
-    Point closestPoint = getClosestPoint(bounceable.getBoundingBox());
+    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
     BounceType bounceType = bounceable.getBounceType(closestPoint);
 
     Vec2 bidirectionalPenetration;
@@ -59,15 +57,14 @@ void Ball::collide(const Bounceable &bounceable) {
 
     bounce(bounceable);
 
-
     // add back what the distance that the ball should have gone while it was
     // going inside the bounding-box
-   // coord_ += dirVec_ * bidirectionalPenetration.getModule();
+    // coord_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 
 Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     // TODO: write a comment to explain how this works
-    Point closestPoint =
+    Vec2 closestPoint =
         getClosestPoint(boundingBox); // Closest point from the ball's center,
                                       // on the bounding-box's edge
 
@@ -80,8 +77,8 @@ Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
                                           // 0 degree from the circle's center
 
     // The point of the circle that is most inscribed in the bounding-box
-    Point pointInBoundingBox{coord_.x + radius_ * cos(angleRad),
-                             coord_.y + radius_ * sin(angleRad)};
+    Vec2 pointInBoundingBox{coord_.x + radius_ * cos(angleRad),
+                            coord_.y + radius_ * sin(angleRad)};
 
     // Vector between from ball's center to pointInBoundingBox
     Vec2 coordToPointInBoundingBox = pointInBoundingBox - coord_;
@@ -111,7 +108,7 @@ Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
 bool Ball::hasReached(const Vec2 &point) const {
     float deltaX = point.x - coord_.x;
     float deltaY = point.y - coord_.y;
-    std::cout << "delta X : " <<deltaX << std::endl;
+    std::cout << "delta X : " << deltaX << std::endl;
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
@@ -119,4 +116,8 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
     Vec2 closestVec2 = getClosestPoint(boundingBox);
 
     return hasReached(closestVec2);
+}
+
+BallUi Ball::toBallUi() {
+    return BallUi{coord_.toPoint(), static_cast<float>(radius_)};
 }

@@ -1,6 +1,8 @@
 #ifndef VEC2_HPP
 #define VEC2_HPP
 
+#include "../../vue/figures/point.hpp"
+
 #include <iostream>
 
 struct Vec2 {
@@ -31,6 +33,8 @@ struct Vec2 {
     virtual Vec2 operator*(double scalar) const;
 
     virtual Vec2 &operator*=(double scalar);
+
+    virtual Point toPoint();
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };
