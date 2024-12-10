@@ -47,7 +47,7 @@ class Ball {
 
     virtual void update(double deltaTime);
 
-    virtual BallUi toBallUi();
+    virtual BallUi toBallUi() const;
 };
 
 #endif

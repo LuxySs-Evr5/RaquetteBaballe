@@ -58,7 +58,7 @@ Vec2 &Vec2::operator*=(double scalar) {
     return *this;
 }
 
-Point Vec2::toPoint() {
+Point Vec2::toPoint() const {
     return Point{static_cast<float>(x), static_cast<float>(y)};
 }
 

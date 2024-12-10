@@ -118,6 +118,6 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
     return hasReached(closestVec2);
 }
 
-BallUi Ball::toBallUi() {
+BallUi Ball::toBallUi() const {
     return BallUi{coord_.toPoint(), static_cast<float>(radius_)};
 }

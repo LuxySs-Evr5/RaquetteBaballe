@@ -34,7 +34,7 @@ struct Vec2 {
 
     virtual Vec2 &operator*=(double scalar);
 
-    virtual Point toPoint();
+    virtual Point toPoint() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };
