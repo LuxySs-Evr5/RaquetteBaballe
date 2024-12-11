@@ -9,7 +9,6 @@
 #include "display_game.hpp"
 #include "../color/colors.hpp"
 #include "../../global_variables.hpp"
-#include "../wall/wall_game.hpp"
 #include "../game_over/draw_game_over.hpp"
 #include "../game_win/draw_game_win.hpp"
 
@@ -129,7 +128,6 @@ void DisplayGame::initialize_allegro() {
 // ### Public Methods ###
 void DisplayGame::draw(){
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
-    drawWallGame(COLOR_DARK_GREY);
 
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2,30, ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50, ALLEGRO_ALIGN_CENTER, "Life : "); // draw the text "Life : ", the hearts will be drawn at the right

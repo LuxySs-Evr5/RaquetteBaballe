@@ -13,10 +13,6 @@ BallUi::BallUi(Point center, float radius, ALLEGRO_COLOR color)
     : Circle(center, radius, color) {}
 
 // ### Public methods ###
-void BallUi::draw() { Circle::draw(); }
-
-// this isn't needed anymore
-// void BallUi::moveBall(const float x, const float y) {
-//     center_.x += x;
-//     center_.y += y;
-// };
+void BallUi::draw() { 
+    center_.y = 1000 - center_.y; // Invert the y axis to match the screen with the backend
+    Circle::draw(); }

@@ -1,7 +1,6 @@
 #ifndef RACKET_HPP
 #define RACKET_HPP
 
-#include "../../vue/piece/racket_ui.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../vec2/vec2.hpp"
 

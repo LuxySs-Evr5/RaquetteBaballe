@@ -101,3 +101,6 @@ std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() {
     return bricks_; }
 
 std::shared_ptr<Racket> &GameBoard::getRacket() { return rackets_.at(0); }
+
+const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const { return borders_; }
+

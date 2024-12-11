@@ -2,8 +2,7 @@
 #define RACKET_RENDERER_HPP
 
 #include "../../model/racket/racket.hpp"
-#include <allegro5/color.h>
-
+#include "../color/colors.hpp"
 const ALLEGRO_COLOR alRacketColor = COLOR_RED;
 
 class RacketRenderer {

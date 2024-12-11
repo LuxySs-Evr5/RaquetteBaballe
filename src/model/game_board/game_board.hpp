@@ -17,8 +17,8 @@ using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
-constexpr double boardHeight = 900;
-constexpr double boardWidth = 900;
+constexpr double boardHeight = 1000 - 50;
+constexpr double boardWidth = 1000 - 25;
 constexpr double boardBoundingsThickness = 25;
 constexpr double racketWidth = 50;
 constexpr double racketHeight = 20;
@@ -28,7 +28,7 @@ constexpr double racketVerticalPos =
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{500, 800}, Vec2{0, -1}, 10, 100)};
+        std::make_shared<Ball>(Vec2{450, 50}, Vec2{0, 1}, 10, 100)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
         Brick::makeBrick(Color::red, BoundingBox{Vec2{400, 400}, Vec2{500, 475}}),
@@ -54,7 +54,7 @@ class GameBoard {
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
     std::vector<std::shared_ptr<Racket>> rackets_{std::make_shared<Racket>(
-        BoundingBox{Vec2{500, 850}, 100,
+        BoundingBox{Vec2{450, 25}, 100,
                     25})};
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
@@ -81,6 +81,8 @@ class GameBoard {
     virtual std::vector<std::shared_ptr<Ball>> &getBalls();
     virtual std::vector<std::shared_ptr<Brick>> &getBricks();
     virtual std::shared_ptr<Racket> &getRacket();
+    virtual const std::vector<std::shared_ptr<Border>> &getBorders() const ;
+
 };
 
 #endif

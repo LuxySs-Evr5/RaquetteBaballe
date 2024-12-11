@@ -1,14 +1,11 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include "../../vue/piece/ball_ui.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
-#include "../brick/brick.hpp"
 #include "../vec2/vec2.hpp"
 
 #include <math.h>
-#include <vector>
 
 constexpr double DEFAULT_BALL_RADIUS = 1;
 constexpr double DEFAULT_BALL_SPEED = 1;

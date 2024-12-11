@@ -15,6 +15,7 @@
 #include "../racket_renderer/racket_renderer.hpp"
 #include "../ball_renderer/ball_renderer.hpp"
 #include "../brick_renderer/brick_renderer.hpp"
+#include "../wall_renderer/wall_renderer.hpp"
 
 
 #include <memory>
@@ -30,9 +31,11 @@ class Canvas {
     shared_ptr<Racket> &racket_;
     vector<shared_ptr<Brick>> &bricks_;
     vector<shared_ptr<Ball>> &balls_;
+    const vector<shared_ptr<Border>> &borders_;
     BallRenderer ballRenderer_;
     BrickRenderer brickRenderer_;
     RacketRenderer racketRenderer_;
+    WallRenderer wallRenderer_;
     
 
   public:

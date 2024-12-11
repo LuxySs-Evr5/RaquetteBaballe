@@ -1,4 +1,5 @@
 #include "racket_renderer.hpp"
+#include "../piece/racket_ui.hpp"
 
 void RacketRenderer::render(const Racket &racket) const {
     RacketUi racketUi(racket.getBoundingBox().getCenter().toPoint(),

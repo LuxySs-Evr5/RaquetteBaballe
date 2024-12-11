@@ -1,30 +1,30 @@
 /**
- * @file racket.hpp
+ * @file wall_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the racket class
  * @date 26/11/2024
  *
  */
 
-#ifndef RACKET_UI_HPP
-#define RACKET_UI_HPP
+#ifndef WALL_UI_HPP
+#define WALL_UI_HPP
 
 #include "../figures/forme.hpp"
 #include <allegro5/color.h>
 
-class RacketUi final : public Rectangle {
+class WallUi final : public Rectangle {
   private:
     float speed_;
 
   public:
-    RacketUi();
+    WallUi();
 
-    RacketUi(Point center, float width, float height,
+    WallUi(Point center, float width, float height,
              ALLEGRO_COLOR = COLOR_WHITE);
-    virtual ~RacketUi() = default;
+    virtual ~WallUi() = default;
 
     void draw() override;
 
 };
 
-#endif // RACKET_HPP
+#endif // WALL_UI_HPP
