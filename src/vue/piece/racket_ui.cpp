@@ -10,9 +10,10 @@
 #include <allegro5/color.h>
 
 // ### Constructor ###
-RacketUi::RacketUi() : Rectangle(Point(0, 0), 0, 0, Color::white) {}
+// TODO: do we still need the default constructor ?
+RacketUi::RacketUi() : Rectangle(Point(0, 0), 0, 0, COLOR_WHITE) {}
 
-RacketUi::RacketUi(Point center, float width, float height, Color color)
+RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###

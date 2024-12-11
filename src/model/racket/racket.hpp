@@ -26,8 +26,6 @@ class Racket : public Bounceable {
                                                             0}) const override;
 
     virtual void setPosX(double posX);
-
-    RacketUi toRaketUi() const;
 };
 
 #endif

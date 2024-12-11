@@ -12,6 +12,8 @@
 #include "../figures/forme.hpp"
 #include <allegro5/color.h>
 
+// TODO: can we just move all of this to the BallRenderer ?
+
 class BallUi final : public Circle {
   public:
     BallUi(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLUE);
@@ -19,7 +21,8 @@ class BallUi final : public Circle {
 
     virtual void draw() override;
 
-    void moveBall(const float x = 0, const float y = 0);
+    // this isn't be needed anymore
+    // void moveBall(const float x = 0, const float y = 0);
 };
 
 #endif // BALLUI_HPP

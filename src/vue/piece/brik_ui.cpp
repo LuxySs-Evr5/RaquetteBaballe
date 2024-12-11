@@ -9,7 +9,7 @@
 #include "brik_ui.hpp"
 
 // ### Constructor ###
-BrikUi::BrikUi(Point center, float width, float height, Color color)
+BrikUi::BrikUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###

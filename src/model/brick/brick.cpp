@@ -44,9 +44,3 @@ uint8_t Brick::getDurability() const { return durability_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
 
 Color Brick::getColor() const { return color_; }
-
-BrikUi Brick::toBrickUi() const {
-    return BrikUi{boundingBox_.getCenter().toPoint(),
-                  static_cast<float>(boundingBox_.getWidth()),
-                  static_cast<float>(boundingBox_.getHeight()), color_};
-}

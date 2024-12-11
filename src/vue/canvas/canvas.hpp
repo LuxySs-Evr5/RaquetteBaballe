@@ -33,7 +33,7 @@ class Canvas {
     RacketUi getRacket() const;
 
     void moveRacket(const float x);
-    void moveBall(const float x = 0, const float y = 0);
+    // void moveBall(const float x = 0, const float y = 0);
 };
 
 #endif // CANVAS_HPP

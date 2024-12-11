@@ -46,8 +46,6 @@ class Brick : public Bounceable {
     virtual uint8_t getDurability() const;
     virtual bool isDestroyed() const;
 
-    virtual BrikUi toBrickUi() const;
-
     virtual Color getColor() const;
 };
 

@@ -34,10 +34,12 @@ class Ball {
 
     virtual ~Ball() = default;
 
+    virtual double getRadius() const;
+
     virtual Vec2
     getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
-    virtual Vec2 getCoordinate();
+    virtual Vec2 getCoordinate() const noexcept;
     virtual void setSpeed(unsigned speed);
     virtual void setDirection(const Vec2 &vec);
 
@@ -46,8 +48,6 @@ class Ball {
     virtual void collide(const Bounceable &bounceable);
 
     virtual void update(double deltaTime);
-
-    virtual BallUi toBallUi() const;
 };
 
 #endif

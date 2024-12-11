@@ -11,6 +11,7 @@
 
 #include "../color/colors.hpp"
 #include "point.hpp"
+#include <allegro5/color.h>
 
 class Rectangle {
   protected:
@@ -20,7 +21,7 @@ class Rectangle {
 
   public:
     Rectangle(Point center, float width, float height,
-              Color color = Color::white);
+              ALLEGRO_COLOR color = COLOR_WHITE);
 
     virtual ~Rectangle() = default;
 

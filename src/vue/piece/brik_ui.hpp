@@ -13,7 +13,7 @@
 
 class BrikUi final : public Rectangle {
   public:
-    BrikUi(Point center, float width, float height, Color color);
+    BrikUi(Point center, float width, float height, ALLEGRO_COLOR color);
     virtual ~BrikUi() = default;
 
     void draw() override;

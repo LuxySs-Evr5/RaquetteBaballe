@@ -51,9 +51,3 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
 void Racket::setPosX(double posX) {
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
 }
-
-RacketUi Racket::toRaketUi() const {
-    return RacketUi{boundingBox_.getCenter().toPoint(),
-                    static_cast<float>(getWidth()),
-                    static_cast<float>(getHeight())};
-}

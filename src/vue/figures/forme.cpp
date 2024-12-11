@@ -11,10 +11,9 @@
 
 // ### class Rectangle ###
 // # Constructors #
-Rectangle::Rectangle(Point center, float width, float height, Color color)
-    : center_(center), width_(width), height_(height) {
-    color_ = colorToAllegroColor(color);
-}
+Rectangle::Rectangle(Point center, float width, float height,
+                     ALLEGRO_COLOR color)
+    : center_(center), width_(width), height_(height), color_(color) {}
 
 // # Getters #
 float Rectangle::getWidth() const { return width_; }

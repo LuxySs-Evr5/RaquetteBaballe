@@ -41,10 +41,10 @@ void Canvas::moveRacket(const float x) {
     }
 }
 
-void Canvas::moveBall(const float x, const float y) {
-    // TODO: revoir le déplacement des balles car c'est un vecteur de balles
-    balls_[0].moveBall(x, y);
-}
+// void Canvas::moveBall(const float x, const float y) {
+//     // TODO: revoir le déplacement des balles car c'est un vecteur de balles
+//     balls_[0].moveBall(x, y);
+// }
 
 // ### Getters ###
 RacketUi Canvas::getRacket() const { return racket_; }
