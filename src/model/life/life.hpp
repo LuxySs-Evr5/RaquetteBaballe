@@ -16,23 +16,24 @@
 using namespace std;
 
 class Life {
-private:
-  uint8_t nbLifes_; // uint8_t is the lowest integer type that can hold 0 to 3 lifes
-  Score score_;
+  private:
+    uint8_t nbLifes_; // uint8_t is the lowest integer type that can hold 0 to 3
+                      // lifes
+    Score score_;
 
-public:
-  Life();
-  Life(uint8_t nbLifes);
+  public:
+    Life();
+    Life(uint8_t nbLifes);
 
-  ~Life();
+    ~Life();
 
-  void removeOneLife();
-  void resetLife();
-  void saveScore();
-  
-  void setNbLifes(const uint8_t nbLifes);
+    void removeOneLife();
+    void resetLife();
+    void saveScore();
 
-  uint8_t getNbLifes() const;
+    void setNbLifes(const uint8_t nbLifes);
+
+    uint8_t getNbLifes() const;
 };
 
 #endif // LIFE_HPP

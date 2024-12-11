@@ -31,8 +31,10 @@ class GameBoard {
         std::make_shared<Ball>(Vec2{450, 50}, Vec2{0, 1}, 10, 100)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
-        Brick::makeBrick(Color::red, BoundingBox{Vec2{400, 400}, Vec2{500, 475}}),
-        Brick::makeBrick(Color::red, BoundingBox{Vec2{550, 600}, Vec2{650, 675}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{400, 400}, Vec2{500, 475}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{550, 600}, Vec2{650, 675}}),
     };
 
     // with T=thickness, H=height, W=width
@@ -53,9 +55,8 @@ class GameBoard {
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
-    std::vector<std::shared_ptr<Racket>> rackets_{std::make_shared<Racket>(
-        BoundingBox{Vec2{450, 25}, 100,
-                    25})};
+    std::vector<std::shared_ptr<Racket>> rackets_{
+        std::make_shared<Racket>(BoundingBox{Vec2{450, 25}, 100, 25})};
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
@@ -81,8 +82,7 @@ class GameBoard {
     virtual std::vector<std::shared_ptr<Ball>> &getBalls();
     virtual std::vector<std::shared_ptr<Brick>> &getBricks();
     virtual std::shared_ptr<Racket> &getRacket();
-    virtual const std::vector<std::shared_ptr<Border>> &getBorders() const ;
-
+    virtual const std::vector<std::shared_ptr<Border>> &getBorders() const;
 };
 
 #endif

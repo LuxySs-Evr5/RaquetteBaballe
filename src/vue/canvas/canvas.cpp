@@ -11,8 +11,10 @@
 #include <memory>
 
 // ### Constructor ###
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_{gameBoard}, racket_(gameBoard->getRacket()), bricks_(gameBoard->getBricks()), balls_(gameBoard->getBalls()), borders_(gameBoard->getBorders()) {
-};
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard)
+    : gameBoard_{gameBoard}, racket_(gameBoard->getRacket()),
+      bricks_(gameBoard->getBricks()), balls_(gameBoard->getBalls()),
+      borders_(gameBoard->getBorders()){};
 
 // ### Public methods ###
 void Canvas::draw() {

@@ -20,11 +20,10 @@ class WallUi final : public Rectangle {
     WallUi();
 
     WallUi(Point center, float width, float height,
-             ALLEGRO_COLOR = COLOR_WHITE);
+           ALLEGRO_COLOR = COLOR_WHITE);
     virtual ~WallUi() = default;
 
     void draw() override;
-
 };
 
 #endif // WALL_UI_HPP

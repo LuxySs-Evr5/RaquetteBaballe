@@ -44,6 +44,6 @@ void BrickRenderer::render(const Brick &brick) const {
                    static_cast<float>(brick.getBoundingBox().getWidth()),
                    static_cast<float>(brick.getBoundingBox().getHeight()),
                    alBrickColor};
-                
+
     brickUi.draw();
 }

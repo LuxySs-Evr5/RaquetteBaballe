@@ -19,6 +19,9 @@ RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###
-void RacketUi::draw() { 
-    center_.y = 1000 - center_.y; // Invert the y axis to match the screen with the backend
-    Rectangle::draw(); }
+void RacketUi::draw() {
+    center_.y =
+        1000
+        - center_.y; // Invert the y axis to match the screen with the backend
+    Rectangle::draw();
+}

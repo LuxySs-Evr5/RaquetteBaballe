@@ -10,13 +10,11 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
-
 #include "../../model/game_board/game_board.hpp"
-#include "../racket_renderer/racket_renderer.hpp"
 #include "../ball_renderer/ball_renderer.hpp"
 #include "../brick_renderer/brick_renderer.hpp"
+#include "../racket_renderer/racket_renderer.hpp"
 #include "../wall_renderer/wall_renderer.hpp"
-
 
 #include <memory>
 #include <vector>
@@ -36,14 +34,12 @@ class Canvas {
     BrickRenderer brickRenderer_;
     RacketRenderer racketRenderer_;
     WallRenderer wallRenderer_;
-    
 
   public:
     Canvas(shared_ptr<GameBoard> gameBoard);
     ~Canvas() = default;
 
     void draw();
-
 };
 
 #endif // CANVAS_HPP

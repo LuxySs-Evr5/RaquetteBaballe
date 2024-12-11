@@ -6,10 +6,10 @@
  *
  */
 
- #include "point.hpp"
+#include "point.hpp"
 
 // ### Constructors ###
- Point::Point(float valX, float valY) : x(valX), y(valY) {}
+Point::Point(float valX, float valY) : x(valX), y(valY) {}
 
 // ### Overloaded operators ###
 ostream &operator<<(ostream &os, const Point &point) {

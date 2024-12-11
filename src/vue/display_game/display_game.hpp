@@ -9,46 +9,42 @@
 #ifndef DISPLAY_GAME_HPP
 #define DISPLAY_GAME_HPP
 
-
 #include "../../model/game_board/game_board.hpp"
 #include "../canvas/canvas.hpp"
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_font.h>
 #include <allegro5/events.h>
 
 class DisplayGame {
-private:
-  Canvas canvas_;
-  shared_ptr<GameBoard> gameBoard_;
+  private:
+    Canvas canvas_;
+    shared_ptr<GameBoard> gameBoard_;
 
+    ALLEGRO_DISPLAY *display_;
+    ALLEGRO_BITMAP *heartImage_;
+    ALLEGRO_SAMPLE *music_;
+    ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
+    ALLEGRO_FONT *font24_;
+    ALLEGRO_FONT *font50_;
 
-  ALLEGRO_DISPLAY *display_;
-  ALLEGRO_BITMAP *heartImage_;
-  ALLEGRO_SAMPLE *music_;
-  ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
-  ALLEGRO_FONT *font24_;
-  ALLEGRO_FONT *font50_;
+    // ### Private Methods ###
+    void checkInit(void *test, string type);
+    void initialize_allegro();
+    void drawLife();
 
-  // ### Private Methods ###
-  void checkInit(void *test, string type);
-  void initialize_allegro();
-  void drawLife();
+  public:
+    DisplayGame(shared_ptr<GameBoard> gameBoard);
+    ~DisplayGame();
 
-public:
-  DisplayGame(shared_ptr<GameBoard> gameBoard);
-  ~DisplayGame();
+    // ### Public Methods ###
+    void draw();
+    void gameOver();
+    void gameWin();
 
-  // ### Public Methods ###
-  void draw();
-  void gameOver();
-  void gameWin();
-
-  // ### Getters ###
-  ALLEGRO_DISPLAY *getDisplay() const;
-  
+    // ### Getters ###
+    ALLEGRO_DISPLAY *getDisplay() const;
 };
-
 
 #endif // DISPLAY_GAME_HPP

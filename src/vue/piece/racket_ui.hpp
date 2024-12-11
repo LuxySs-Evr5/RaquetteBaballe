@@ -24,7 +24,6 @@ class RacketUi final : public Rectangle {
     virtual ~RacketUi() = default;
 
     void draw() override;
-
 };
 
 #endif // RACKET_HPP

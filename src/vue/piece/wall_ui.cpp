@@ -19,7 +19,11 @@ WallUi::WallUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###
-void WallUi::draw() { 
-    center_.x = 25 + center_.x; // Add the offset to match the screen with the backend (thickness of the wall)
-    center_.y = 1000 - center_.y; // Invert the y axis to match the screen with the backend
-    Rectangle::draw(); }
+void WallUi::draw() {
+    center_.x = 25 + center_.x; // Add the offset to match the screen with the
+                                // backend (thickness of the wall)
+    center_.y =
+        1000
+        - center_.y; // Invert the y axis to match the screen with the backend
+    Rectangle::draw();
+}

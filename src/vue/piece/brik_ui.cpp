@@ -13,6 +13,9 @@ BrikUi::BrikUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###
-void BrikUi::draw() { 
-    center_.y = 1000 - center_.y; // Invert the y axis to match the screen with the backend
-    Rectangle::draw(); }
+void BrikUi::draw() {
+    center_.y =
+        1000
+        - center_.y; // Invert the y axis to match the screen with the backend
+    Rectangle::draw();
+}

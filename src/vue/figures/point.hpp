@@ -14,13 +14,13 @@
 using namespace std;
 
 struct Point {
-  float x = 0, y = 0;
+    float x = 0, y = 0;
 
-  Point(float valX, float valY);
+    Point(float valX, float valY);
 
-  ~Point() = default;
+    ~Point() = default;
 
-  friend ostream &operator<<(ostream &os, const Point &point);
+    friend ostream &operator<<(ostream &os, const Point &point);
 };
 
 #endif // POINT_HPP
