@@ -41,11 +41,14 @@ Vec2 Bounceable::getDirVecAfterBounce(const Vec2 &closestPoint,
 
     Vec2 ret = dirVec; // copy dirVec then change its components
     if (bounceType == BounceType::Horizontal) {
+        std::cout << "horizontal";
         ret.y = -ret.y;
     }
     if (bounceType == BounceType::Vertical) {
+        std::cout << "vertical" << std::endl;
         ret.x = -ret.x;
     } else if (bounceType == BounceType::Corner) {
+        std::cout << "corner" << std::endl;
         ret.y = -ret.y;
         ret.x = -ret.x;
     }

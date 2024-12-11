@@ -53,9 +53,15 @@ void Ball::collide(const Bounceable &bounceable) {
 
     bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;
 
+    std::cout << "bidirectional: " << bidirectionalPenetration << std::endl;
+
     coord_ -= bidirectionalPenetration;
 
+    std::cout << "applied bidirectional: " << coord_ << std::endl;
+
     bounce(bounceable);
+
+    std::cout << "dirvec after bounce" << dirVec_ << std::endl;
 
     // add back what the distance that the ball should have gone while it was
     // going inside the bounding-box

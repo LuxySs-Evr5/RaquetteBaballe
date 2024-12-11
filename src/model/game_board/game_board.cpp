@@ -97,10 +97,10 @@ void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
 // TODO: make the balls pointers const
 std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() { return balls_; }
 
-std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() { 
-    return bricks_; }
+std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() { return bricks_; }
 
 std::shared_ptr<Racket> &GameBoard::getRacket() { return rackets_.at(0); }
 
-const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const { return borders_; }
-
+const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
+    return borders_;
+}

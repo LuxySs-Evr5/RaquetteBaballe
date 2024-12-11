@@ -21,9 +21,11 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
                                   const Vec2 &dirVec) const {
     BounceType bounceType = getBounceType(closestPoint);
 
-    // make sure we hit the top edge to decide to bounce the racket way
+    // make sure that if we hit the top edge or corner, the bounce happens the
+    // racket way
     if (bounceType == BounceType::Horizontal
-        and closestPoint.y == boundingBox_.getTopLeft().y) {
+        or bounceType == BounceType::Corner
+               and closestPoint.y == boundingBox_.getTopLeft().y) {
 
         Vec2 leftSide =
             boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
@@ -42,7 +44,8 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
         double horizontalComponent = cos(bounceAngleRad);
 
         return Vec2{horizontalComponent, verticalComponent}.normalize();
-    } else { // bounce on the side as if it was a usual bounceable like a Brick
+    } else { // bounce on the side as if it was a usual bounceable (e.g. a
+             // Brick)
         std::cout << "doing normal bounce on the racket's side" << std::endl;
         return Bounceable::getDirVecAfterBounce(closestPoint, dirVec);
     }
