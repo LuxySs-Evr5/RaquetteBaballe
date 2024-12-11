@@ -14,7 +14,7 @@
 
 using namespace std;
 
-constexpr std::chrono::duration<double> SLEEP_TIME(1.0f);
+constexpr std::chrono::duration<double> SLEEP_TIME(0.001);
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {

@@ -21,7 +21,7 @@
 #include <memory>
 
 // ### Constructor ###
-DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {
+DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard) : canvas_(gameBoard), gameBoard_(gameBoard) {
   //TODO: verifier le exit
   initialize_allegro();
 

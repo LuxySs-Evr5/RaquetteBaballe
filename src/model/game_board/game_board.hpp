@@ -17,22 +17,22 @@ using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
-constexpr double boardHeight = 14;
-constexpr double boardWidth = 14;
-constexpr double boardBoundingsThickness = 10;
-constexpr double racketWidth = 2;
-constexpr double racketHeight = 1;
+constexpr double boardHeight = 900;
+constexpr double boardWidth = 900;
+constexpr double boardBoundingsThickness = 25;
+constexpr double racketWidth = 50;
+constexpr double racketHeight = 20;
 constexpr double racketVerticalPos =
     1.5; // how high the racket is sitting on the board
 
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{11, 11}, Vec2{1, 1}, 1)};
+        std::make_shared<Ball>(Vec2{500, 800}, Vec2{0, -1}, 10, 100)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
-        // Brick::makeBrick(Color::red, BoundingBox{Vec2{7, 5}, Vec2{10, 2}}),
-        // Brick::makeBrick(Color::red, BoundingBox{Vec2{10, 5}, Vec2{13, 2}}),
+        Brick::makeBrick(Color::red, BoundingBox{Vec2{400, 400}, Vec2{500, 475}}),
+        Brick::makeBrick(Color::red, BoundingBox{Vec2{550, 600}, Vec2{650, 675}}),
     };
 
     // with T=thickness, H=height, W=width
@@ -54,8 +54,8 @@ class GameBoard {
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
     std::vector<std::shared_ptr<Racket>> rackets_{std::make_shared<Racket>(
-        BoundingBox{Vec2{boardWidth / 2, racketVerticalPos}, racketWidth,
-                    racketHeight})};
+        BoundingBox{Vec2{500, 850}, 100,
+                    25})};
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
@@ -78,9 +78,9 @@ class GameBoard {
 
     // #### getters meant to be used by the View ####
 
-    virtual std::vector<std::shared_ptr<Ball>> getBalls();
-    virtual std::vector<std::shared_ptr<Brick>> getBricks();
-    virtual std::shared_ptr<Racket> getRacket();
+    virtual std::vector<std::shared_ptr<Ball>> &getBalls();
+    virtual std::vector<std::shared_ptr<Brick>> &getBricks();
+    virtual std::shared_ptr<Racket> &getRacket();
 };
 
 #endif

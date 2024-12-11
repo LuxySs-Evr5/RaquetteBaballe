@@ -20,8 +20,8 @@
 
 class DisplayGame {
 private:
-  std::shared_ptr<GameBoard> gameBoard_;
   Canvas canvas_;
+  shared_ptr<GameBoard> gameBoard_;
 
 
   ALLEGRO_DISPLAY *display_;

@@ -8,43 +8,21 @@
  */
 
 #include "canvas.hpp"
-#include "../../global_variables.hpp"
+#include <memory>
 
 // ### Constructor ###
-Canvas::Canvas() {
-    // TODO: implémenter constructeur de canvas ?
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_{gameBoard}, racket_(gameBoard->getRacket()), bricks_(gameBoard->getBricks()), balls_(gameBoard->getBalls()) {
 };
 
 // ### Public methods ###
 void Canvas::draw() {
     for (auto &ball : balls_) {
-        ball.draw();
+        ballRenderer_.render(*ball);
     }
 
-    for (auto &brik : briks_) {
-        brik.draw();
+    for (auto &brick : bricks_) {
+        brickRenderer_.render(*brick);
     }
 
-    racket_.draw();
+    racketRenderer_.render(*racket_);
 }
-
-void Canvas::moveRacket(const float x) {
-    // Check if the racket is in the grid
-    if ((x - (RACKET_WIDTH / 2) >= LEFT_WALL_X_START + WALL_THICKNESS)
-        && (x + (RACKET_WIDTH / 2) <= RIGHT_WALL_X_START)) {
-        racket_.moveHorizontally(x);
-    } else if ((x <= LEFT_WALL_X_START + WALL_THICKNESS)) {
-        racket_.moveHorizontally(LEFT_WALL_X_START + WALL_THICKNESS
-                                 + RACKET_WIDTH / 2);
-    } else if ((x >= RIGHT_WALL_X_START)) {
-        racket_.moveHorizontally(RIGHT_WALL_X_START - RACKET_WIDTH / 2);
-    }
-}
-
-// void Canvas::moveBall(const float x, const float y) {
-//     // TODO: revoir le déplacement des balles car c'est un vecteur de balles
-//     balls_[0].moveBall(x, y);
-// }
-
-// ### Getters ###
-RacketUi Canvas::getRacket() const { return racket_; }

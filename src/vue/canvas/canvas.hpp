@@ -10,30 +10,37 @@
 #ifndef CANVAS_HPP
 #define CANVAS_HPP
 
-#include "../piece/ball_ui.hpp"
-#include "../piece/brik_ui.hpp"
-#include "../piece/racket_ui.hpp"
 
+#include "../../model/game_board/game_board.hpp"
+#include "../racket_renderer/racket_renderer.hpp"
+#include "../ball_renderer/ball_renderer.hpp"
+#include "../brick_renderer/brick_renderer.hpp"
+
+
+#include <memory>
 #include <vector>
 
 using namespace std;
 
+// TODO: mettre const
+
 class Canvas {
   private:
-    vector<BallUi> balls_;
-    vector<BrikUi> briks_;
-    RacketUi racket_;
+    shared_ptr<GameBoard> gameBoard_;
+    shared_ptr<Racket> &racket_;
+    vector<shared_ptr<Brick>> &bricks_;
+    vector<shared_ptr<Ball>> &balls_;
+    BallRenderer ballRenderer_;
+    BrickRenderer brickRenderer_;
+    RacketRenderer racketRenderer_;
+    
 
   public:
-    Canvas();
+    Canvas(shared_ptr<GameBoard> gameBoard);
     ~Canvas() = default;
 
     void draw();
 
-    RacketUi getRacket() const;
-
-    void moveRacket(const float x);
-    // void moveBall(const float x = 0, const float y = 0);
 };
 
 #endif // CANVAS_HPP

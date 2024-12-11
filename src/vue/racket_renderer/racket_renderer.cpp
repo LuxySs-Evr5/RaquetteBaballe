@@ -5,4 +5,6 @@ void RacketRenderer::render(const Racket &racket) const {
                       static_cast<float>(racket.getBoundingBox().getWidth()),
                       static_cast<float>(racket.getBoundingBox().getHeight()),
                       alRacketColor);
+
+    racketUi.draw();
 }
