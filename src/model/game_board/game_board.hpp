@@ -75,6 +75,12 @@ class GameBoard {
     virtual int getLife();
 
     virtual void setRacketAtX(double posX);
+
+    // #### getters meant to be used by the View ####
+
+    virtual std::vector<std::shared_ptr<Ball>> getBalls();
+    virtual std::vector<std::shared_ptr<Brick>> getBricks();
+    virtual std::shared_ptr<Racket> getRacket();
 };
 
 #endif

@@ -75,7 +75,6 @@ void GameBoard::update(double deltaTime) {
 
             std::cout << "repositionned at " << ball->getCoordinate()
                       << std::endl;
-
         } while (collided);
 
         ball->update(deltaTime);
@@ -92,3 +91,12 @@ int GameBoard::getIntScore() { return score_.getScore(); }
 int GameBoard::getLife() { return life_.getNbLifes(); }
 
 void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
+
+// #### getters meant to be used by the View ####
+
+// TODO: make the balls pointers const
+std::vector<std::shared_ptr<Ball>> GameBoard::getBalls() { return balls_; }
+
+std::vector<std::shared_ptr<Brick>> GameBoard::getBricks() { return bricks_; }
+
+std::shared_ptr<Racket> GameBoard::getRacket() { return rackets_.at(0); }
