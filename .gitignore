@@ -13,3 +13,4 @@ build/
 arkanoid
 .vscode
 .cache
+score.txt

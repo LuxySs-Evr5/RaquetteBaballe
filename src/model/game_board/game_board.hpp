@@ -27,6 +27,7 @@ constexpr double racketVerticalPos =
 
 class GameBoard {
   private:
+
     std::vector<std::shared_ptr<Ball>> balls_ = {
         std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500)};
 
@@ -255,6 +256,8 @@ class GameBoard {
     virtual string getStringScore();
     virtual int getIntScore();
     virtual int getLife();
+
+    virtual void addScore(); // add 1 to the score if a brick is destroyed
 
     virtual void setRacketAtX(double posX);
 

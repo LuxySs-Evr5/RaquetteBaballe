@@ -1,4 +1,5 @@
 #include "game_board.hpp"
+#include <algorithm>
 #include <memory>
 #include <optional>
 #include <variant>
@@ -64,6 +65,7 @@ void GameBoard::update(double deltaTime) {
                 if ((*brickIt)->isDestroyed()) { // erase it if destroyed
                     std::cout << "erasing brick " << std::endl;
                     bricks_.erase(brickIt);
+                    addScore(); // add 1 to the score because a brick is destroyed
                 }
             } // Check if collision with border
             else if (std::holds_alternative<BorderIt>(
@@ -76,6 +78,14 @@ void GameBoard::update(double deltaTime) {
             std::cout << "repositionned at " << ball->getCoordinate()
                       << std::endl;
         } while (collided);
+
+        if (ball->getCoordinate().y < - 5) { // if the ball is out of the screen (-5 because the ball is 10px wide)
+            balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
+            life_.removeOneLife();
+            if (life_.getNbLifes() > 0) { // TODO : check si on fait ca ici ? y a un check de vie dans le controller
+            balls_.push_back(std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
+            }
+        }
 
         ball->update(deltaTime);
         std::cout << std::endl;
@@ -104,3 +114,5 @@ std::shared_ptr<Racket> &GameBoard::getRacket() { return rackets_.at(0); }
 const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
+
+void GameBoard::addScore() { score_.addScore(1); } // add 1 to the score if a brick is destroyed

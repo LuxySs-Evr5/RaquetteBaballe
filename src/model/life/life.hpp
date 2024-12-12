@@ -29,7 +29,6 @@ class Life {
 
     void removeOneLife();
     void resetLife();
-    void saveScore();
 
     void setNbLifes(const uint8_t nbLifes);
 

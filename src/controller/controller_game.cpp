@@ -14,6 +14,8 @@
 
 using namespace std;
 
+// TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de win (autres affichages allegro et le backend) 
+
 constexpr std::chrono::duration<double> SLEEP_TIME(0.001);
 
 // ### Constructor ###
@@ -105,7 +107,10 @@ void ControllerGame::drawGame() {
     al_start_timer(timer_);
     draw_ = false;
 
-    if (isGaming_ == true) {              // if the game is running
+    if (isGaming_ == true) { // if the game is running
+
+        checkLife(); // check if the player has lifes
+
         al_get_mouse_state(&mouseState_); // get the mouse state
 
         // check if the mouse is in the window
@@ -134,7 +139,11 @@ void ControllerGame::drawGame() {
     }
 }
 
-void ControllerGame::checkLife() {}
+void ControllerGame::checkLife() {
+    if (gameBoard_->getLife() == 0) {
+        isGaming_ = false;
+    }   
+}
 
 // ### Private methods ###
 

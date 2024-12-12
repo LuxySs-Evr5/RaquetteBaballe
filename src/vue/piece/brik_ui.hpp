@@ -18,10 +18,6 @@ class BrikUi final : public Rectangle {
 
     void draw() override;
 
-    int getLife() const;
-    int getScoreDestroy() const;
-
-    void setLife(const int life);
 };
 
 #endif // BRIKUI_HPP
