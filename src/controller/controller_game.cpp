@@ -39,7 +39,7 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
         exit(-1);
     }
 
-    timer_ = al_create_timer(1.0 / 60);
+    timer_ = al_create_timer(1.0 / 144); // TODO: check the FPS we want for allegro
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);
@@ -82,9 +82,8 @@ void ControllerGame::process() {
 
         checkLife(); // check if the player has lifes // TODO : check if it's the right place to do that
 
-        if (gameBoard_->getNbBricks() == 0) { // if there is no more bricks
-            win_ = true;
-            isGaming_ = false;
+        if (gameBoard_->getNbBricks() == 0) { // if there is no more bricks // TODO: not working
+            win_ = true; 
         }
 
         time_point t_now = clock::now();
