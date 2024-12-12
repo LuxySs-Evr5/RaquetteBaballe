@@ -9,15 +9,12 @@
 
 #include <allegro5/allegro.h>
 
-#include <allegro5/timer.h>
 #include <iostream>
-#include <thread>
 
 using namespace std;
 
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de win (autres affichages allegro et le backend) 
 
-constexpr std::chrono::duration<double> SLEEP_TIME(0.001);
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
@@ -39,7 +36,7 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
         exit(-1);
     }
 
-    timer_ = al_create_timer(1.0 / 144); // TODO: check the FPS we want for allegro
+    timer_ = al_create_timer(1.0 / 360); // TODO: check the FPS we want for allegro
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);
@@ -71,14 +68,14 @@ ControllerGame::~ControllerGame() {}
 // ### Public methods ###
 void ControllerGame::process() {
     al_start_timer(timer_);
-    using clock = std::chrono::high_resolution_clock;
-    using time_point = std::chrono::time_point<clock>;
-    using duration = std::chrono::duration<double>;
 
-    time_point t_last_update =
-        clock::now() - std::chrono::duration_cast<clock::duration>(SLEEP_TIME);
+    double lastTime = al_get_time(); // get the time at the beginning of the game
 
     while (!done_) {
+
+        double currentTime = al_get_time(); // Actual time
+        double deltaTime = currentTime - lastTime; // Time between two frames
+        lastTime = currentTime; // Update the last time
 
         checkLife(); // check if the player has lifes // TODO : check if it's the right place to do that
 
@@ -86,17 +83,8 @@ void ControllerGame::process() {
             win_ = true; 
         }
 
-        time_point t_now = clock::now();
 
-        duration delta_time = t_now - t_last_update;
-
-        t_last_update = t_now;
-
-        gameBoard_->update(delta_time.count());
-
-        // Gestion du temps
-        std::cout << "delta time= " << delta_time.count() << std::endl;
-        std::this_thread::sleep_for(std::chrono::duration<double>(SLEEP_TIME));
+        gameBoard_->update(deltaTime);
 
         al_wait_for_event(queue_, nullptr);
 

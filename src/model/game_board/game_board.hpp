@@ -29,7 +29,7 @@ class GameBoard {
   private:
 
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500)};
+        std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 1000)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
         Brick::makeBrick(Color::red,
