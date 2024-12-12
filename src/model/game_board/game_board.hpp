@@ -261,6 +261,11 @@ class GameBoard {
 
     virtual void setRacketAtX(double posX);
 
+    virtual int getNbBricks() const;
+
+    virtual void resetTheLife();
+    virtual void resetTheScore();
+
     // #### getters meant to be used by the View ####
 
     virtual std::vector<std::shared_ptr<Ball>> &getBalls();

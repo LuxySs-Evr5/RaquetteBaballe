@@ -10,6 +10,7 @@
 #include <allegro5/allegro.h>
 
 #include <allegro5/timer.h>
+#include <iostream>
 #include <thread>
 
 using namespace std;
@@ -79,6 +80,13 @@ void ControllerGame::process() {
 
     while (!done_) {
 
+        checkLife(); // check if the player has lifes // TODO : check if it's the right place to do that
+
+        if (gameBoard_->getNbBricks() == 0) { // if there is no more bricks
+            win_ = true;
+            isGaming_ = false;
+        }
+
         time_point t_now = clock::now();
 
         duration delta_time = t_now - t_last_update;
@@ -108,8 +116,6 @@ void ControllerGame::drawGame() {
     draw_ = false;
 
     if (isGaming_ == true) { // if the game is running
-
-        checkLife(); // check if the player has lifes
 
         al_get_mouse_state(&mouseState_); // get the mouse state
 
@@ -173,4 +179,15 @@ void ControllerGame::checkEventType() {
     }
 }
 
-void ControllerGame::waitKeyToRestart() {}
+void ControllerGame::waitKeyToRestart() {
+    while (key_.none()) { // while any key is not pressed
+        while (al_get_next_event(queue_, &event_)) { // get the next event
+            checkEventType();
+        }
+  }
+    gameBoard_->resetTheLife();
+    gameBoard_->resetTheScore();
+    isGaming_ = true;
+    win_ = false;
+}
+

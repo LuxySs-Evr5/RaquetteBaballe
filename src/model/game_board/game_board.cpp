@@ -116,3 +116,9 @@ const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
 }
 
 void GameBoard::addScore() { score_.addScore(1); } // add 1 to the score if a brick is destroyed
+
+int GameBoard::getNbBricks() const { return bricks_.size(); } // get the number of bricks
+
+void GameBoard::resetTheLife() { life_.resetLife(); } // reset the life
+
+void GameBoard::resetTheScore() { score_.resetScore(); } // reset the score
