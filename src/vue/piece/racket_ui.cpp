@@ -20,6 +20,7 @@ RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
 
 // ### Public methods ###
 void RacketUi::draw() {
+    center_.x = center_.x + 50; // Move from 50 because the screen is 100 larger so it is centered
     center_.y =
         1000
         - center_.y; // Invert the y axis to match the screen with the backend

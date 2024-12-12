@@ -12,3 +12,4 @@ build/
 
 arkanoid
 .vscode
+.cache

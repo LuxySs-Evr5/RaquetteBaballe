@@ -17,9 +17,9 @@ using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
-constexpr double boardHeight = 1000 - 50;
-constexpr double boardWidth = 1000 - 25;
-constexpr double boardBoundingsThickness = 25;
+constexpr double boardHeight = 900;
+constexpr double boardWidth = 900;
+constexpr double boardBoundingsThickness = 20;
 constexpr double racketWidth = 50;
 constexpr double racketHeight = 20;
 constexpr double racketVerticalPos =
@@ -28,35 +28,32 @@ constexpr double racketVerticalPos =
 class GameBoard {
   private:
     std::vector<std::shared_ptr<Ball>> balls_ = {
-        std::make_shared<Ball>(Vec2{450, 50}, Vec2{0, 1}, 10, 100)};
+        std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500)};
 
     std::vector<std::shared_ptr<Brick>> bricks_{
         Brick::makeBrick(Color::red,
-                         BoundingBox{Vec2{400, 400}, Vec2{500, 475}}),
-        Brick::makeBrick(Color::red,
-                         BoundingBox{Vec2{550, 600}, Vec2{650, 675}}),
-    };
+                         BoundingBox{Vec2{400, 800}, Vec2{500, 750}})};
 
     // with T=thickness, H=height, W=width
     const std::vector<std::shared_ptr<Border>> borders_ = {
-        // (-T, H-1 + T) -> (0,0)
+        // TODO: Lucas doit voir : Les murs font partie de la grille
+        // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left wall
         std::make_shared<Border>(
-            Border{BoundingBox{Vec2{-boardBoundingsThickness,
-                                    boardHeight - 1 + boardBoundingsThickness},
-                               Vec2{0, 0}}}),
-        // (0, H-1 + T) -> (W-1,H-1)
+            Border{BoundingBox{Vec2{0, 0},
+                               Vec2{boardBoundingsThickness - 1, boardHeight -1 }}}),
+        // (0, boardHeight - 1) -> (boardWidth - 1, boardHeight - boardBoundingsThickness - 1) // upper wall
         std::make_shared<Border>(
-            BoundingBox{Vec2{0, boardHeight - 1 + boardBoundingsThickness},
-                        Vec2{boardWidth - 1, boardHeight - 1}}),
-        // (W-1, H-1 + T) -> (W-1 + T, 0)
+            BoundingBox{Vec2{0, boardHeight - 1},
+                        Vec2{boardWidth -1 , boardHeight - boardBoundingsThickness - 1}}),
+        // (boardWidth - boardBoundingsThickness - 1, 0) -> (boardWidth - 1, boardHeight - 1) // right wall
         std::make_shared<Border>(BoundingBox{
-            Vec2{boardWidth - 1, boardHeight - 1 + boardBoundingsThickness},
-            Vec2{boardWidth - 1 + boardBoundingsThickness, 0}})};
+            Vec2{boardWidth - boardBoundingsThickness -1 , 0},
+            Vec2{boardWidth - 1, boardHeight - 1}})};
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
     std::vector<std::shared_ptr<Racket>> rackets_{
-        std::make_shared<Racket>(BoundingBox{Vec2{450, 25}, 100, 25})};
+        std::make_shared<Racket>(BoundingBox{Vec2{450, 50}, 100, 25})};
 
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
     findNextCollision(Ball &ball);
