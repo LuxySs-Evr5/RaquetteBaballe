@@ -68,10 +68,6 @@ ControllerGame::~ControllerGame() {}
 
 // ### Public methods ###
 void ControllerGame::process() {
-    al_start_timer(timer_);
-
-    lastTime_ = al_get_time(); // get the time at the beginning of the game
-
     while (!done_) {
 
         currentTime_ = al_get_time(); // Actual time
@@ -93,7 +89,7 @@ void ControllerGame::process() {
         gameBoard_->update(deltaTime);
 
 
-        checkLife(); // check if the player has lifes // TODO : check if it's
+        checkGameOver(); // check if the player has lifes // TODO : check if it's
                      // the right place to do that
         checkWin();  // check if the player has won
         
@@ -116,34 +112,30 @@ void ControllerGame::drawGame() {
     al_start_timer(timer_);
     draw_ = false;
 
-    if (isGaming_) { // if the game is running
-        displayGame_->draw(); // draw the pieces
-    }
-
-    else if (!isGaming_) { // the game is over because no more lifes
-        displayGame_->gameOver(); // display the game over screen
-        // TODO: wait and oaleval mus be in process not in drawGame
-        waitKeyToRestart();
-    }
-
-    else if (win_ == true) {     // the game is won
-        displayGame_->gameWin(); // display the game win screen
-        waitKeyToRestart(); // TODO: check if it's the right place to do that
-        // TODO: launch a new level
-    }
+    displayGame_->draw(); // draw the pieces
 }
 
-void ControllerGame::checkLife() {
+void ControllerGame::checkGameOver() {
     if (gameBoard_->getLife() == 0) {
-        isGaming_ = false;
+        al_stop_timer(timer_);
+        gameBoard_->saveCurrentScore();
+        gameBoard_->clearVectors(); // TODO: check if we do that ?
+        gameBoard_->resetTheLife();
+        gameBoard_->resetTheScore();
+        displayGame_->gameOver();
+        waitKeyToRestart();
     }   
 }
 void ControllerGame::checkWin() {
     if (gameBoard_->getNbBricks()
         == 0) { // if there is no more bricks // TODO: not working
+        al_stop_timer(timer_);
         gameBoard_->saveCurrentScore();
-        isGaming_ = false;
-        win_ = true;
+        gameBoard_->clearVectors(); // TODO: check if we do that ?
+        gameBoard_->resetTheLife();
+        gameBoard_->resetTheScore();
+        displayGame_->gameWin();
+        waitKeyToRestart();
     }
 }
 
@@ -174,19 +166,19 @@ void ControllerGame::checkEventType() {
 }
 
 void ControllerGame::waitKeyToRestart() {
-    while (key_.none()) { // while any key is not pressed
-        while (al_get_next_event(queue_, &event_)) { // get the next event
-            checkEventType();
+    al_wait_for_event(queue_, nullptr);
+    while (!(event_.type == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
+        al_get_next_event(queue_, &event_);
+        if (event_.type
+        == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
+            done_ = true;
+            break;
         }
     }
     loadLevel(); // TODO: check if it's the right place to do that
 }
 
 void ControllerGame::loadLevel() {
-    gameBoard_->clearVectors(); // TODO: check if we do that ?
-    gameBoard_->resetTheLife();
-    gameBoard_->resetTheScore();
-
     const std::vector<std::shared_ptr<Ball>> balls = {
         std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500)};
 
@@ -241,8 +233,8 @@ void ControllerGame::loadLevel() {
     gameBoard_->setBorders(borders);
     gameBoard_->setBricks(bricks);
 
-    isGaming_ = true;
-    win_ = false;
+    al_start_timer(timer_);
+    lastTime_ = al_get_time(); // get the time at the beginning of the game
 
 }
 

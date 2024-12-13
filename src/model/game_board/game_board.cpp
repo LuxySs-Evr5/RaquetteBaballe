@@ -4,6 +4,7 @@
 #include <optional>
 #include <variant>
 
+
 std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
 GameBoard::findNextCollision(Ball &ball) {
     std::optional<std::variant<BrickIt, BorderIt, RacketIt>> closestCollision;
@@ -94,7 +95,7 @@ void GameBoard::update(double deltaTime) {
 
 void GameBoard::saveCurrentScore() { score_.saveScore(); }
 
-string GameBoard::getStringScore() { return score_.getScoreString(); }
+std::string GameBoard::getStringScore() { return score_.getScoreString(); }
 
 int GameBoard::getIntScore() { return score_.getScore(); }
 
@@ -105,19 +106,19 @@ void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
 // #### getters meant to be used by the View ####
 
 // TODO: make the balls pointers const
-std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() { return balls_; }
+const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const { return balls_; }
 
-std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() { return bricks_; }
+const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const { return bricks_; }
 
-std::vector<std::shared_ptr<Racket>> &GameBoard::getRackets() { return rackets_; }
+const std::vector<std::shared_ptr<Racket>> &GameBoard::getRackets() const { return rackets_; }
 
-std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() { // TODO/ drop the const because need the object to change in the view
+const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const { // TODO: drop the const because need the object to change in the view
     return borders_;
 }
 
 void GameBoard::addScore() { score_.addScore(1); } // add 1 to the score if a brick is destroyed
 
-int GameBoard::getNbBricks() const { return bricks_.size(); } // get the number of bricks
+long unsigned int GameBoard::getNbBricks() const { return bricks_.size(); } // get the number of bricks
 
 void GameBoard::resetTheLife() { life_.resetLife(); } // reset the life
 

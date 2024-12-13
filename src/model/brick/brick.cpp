@@ -1,14 +1,12 @@
 #include "brick.hpp"
-#include "../../vue/piece/brik_ui.hpp"
 #include "../bounding_box/bounding_box.hpp"
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
 
-#include <allegro5/color.h>
 #include <memory>
 
 // factory method
-std::shared_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
+std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
     std::unique_ptr<Brick> ret;
 
     switch (color) {
@@ -16,10 +14,11 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
         ret = std::make_unique<GoldBrick>(boundingBox);
         break;
     case Color::silver: // durability = 2 for silver
-        ret = std::make_unique<BasicBrick>(color, boundingBox,
+        ret = std::make_unique<BasicBrick>(boundingBox, color,
                                            DURABILITY_SILVER_BRICK);
+        break;
     default:
-        ret = std::make_unique<BasicBrick>(color, boundingBox,
+        ret = std::make_unique<BasicBrick>(boundingBox, color,
                                            DURABILITY_STANDARD_BRICK);
         break;
     }
@@ -28,8 +27,8 @@ std::shared_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
 }
 
 // protected constructor
-Brick::Brick(Color color, const BoundingBox &boundingBox, uint8_t durability)
-    : color_{color}, Bounceable(boundingBox), durability_(durability) {}
+Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability)
+    : Bounceable{boundingBox}, color_{color}, durability_{durability} {}
 
 Brick::~Brick() = default;
 

@@ -185,7 +185,7 @@ void DisplayGame::drawLife() {
 
         al_draw_scaled_bitmap(heartImage_, 0, 0, static_cast<float>(heartWidth),
                               static_cast<float>(heartHeight),
-                              heartX + i * (scaleHeartWidth + 5), 50,
+                              heartX + static_cast<float>(i) * (scaleHeartWidth + 5), 50,
                               scaleHeartWidth, scaleHeartHeight,
                               0); // Affiche les cœurs en haut à gauche
     }

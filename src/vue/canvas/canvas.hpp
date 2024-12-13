@@ -26,10 +26,11 @@ using namespace std;
 class Canvas {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    vector<shared_ptr<Racket>> &rackets_ = gameBoard_->getRackets();
-    vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
-    vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
-    vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
+    // TODO: check si on fait ca dans le hpp
+    const vector<shared_ptr<Racket>> &rackets_ = gameBoard_->getRackets();
+    const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
+    const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
+    const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
     BallRenderer ballRenderer_;
     BrickRenderer brickRenderer_;
     RacketRenderer racketRenderer_;

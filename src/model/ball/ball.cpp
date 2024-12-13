@@ -112,9 +112,8 @@ Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
 }
 
 bool Ball::hasReached(const Vec2 &point) const {
-    float deltaX = point.x - coord_.x;
-    float deltaY = point.y - coord_.y;
-    std::cout << "delta X : " << deltaX << std::endl;
+    double deltaX = point.x - coord_.x;
+    double deltaY = point.y - coord_.y;
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 

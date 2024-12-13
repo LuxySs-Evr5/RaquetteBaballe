@@ -40,38 +40,38 @@ class GameBoard {
 
   public:
     GameBoard() = default;
-    virtual ~GameBoard() = default;
+    ~GameBoard() = default;
 
-    virtual void update(double deltaTime);
-    virtual void saveCurrentScore();
-    virtual string getStringScore();
-    virtual int getIntScore();
-    virtual int getLife();
+    void update(double deltaTime);
+    void saveCurrentScore();
+    std::string getStringScore();
+    int getIntScore();
+    int getLife();
 
-    virtual void addScore(); // add 1 to the score if a brick is destroyed
+    void addScore(); // add 1 to the score if a brick is destroyed
 
-    virtual void setRacketAtX(double posX);
+    void setRacketAtX(double posX);
 
-    virtual int getNbBricks() const;
+    long unsigned int getNbBricks() const;
 
-    virtual void resetTheLife();
-    virtual void resetTheScore();
+    void resetTheLife();
+    void resetTheScore();
 
     // #### getters meant to be used by the View ####
 
-    virtual std::vector<std::shared_ptr<Ball>> &getBalls();
-    virtual std::vector<std::shared_ptr<Brick>> &getBricks();
-    virtual std::vector<std::shared_ptr<Racket>> &getRackets(); // TODO: set a racket and not a vector ?
-    virtual std::vector<std::shared_ptr<Border>> &getBorders();
+    const std::vector<std::shared_ptr<Ball>> &getBalls() const;
+    const std::vector<std::shared_ptr<Brick>> &getBricks() const;
+    const std::vector<std::shared_ptr<Racket>> &getRackets() const; // TODO: set a racket and not a vector ?
+    const std::vector<std::shared_ptr<Border>> &getBorders() const;
 
     // ### Setters to be use in controller to load a level // TODO: check
-    virtual void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
-    virtual void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
-    virtual void setRacket(const std::vector<std::shared_ptr<Racket>> rackets); // TODO: set a racket and not a vector
-    virtual void setBorders(const std::vector<std::shared_ptr<Border>> borders);
+    void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
+    void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
+    void setRacket(const std::vector<std::shared_ptr<Racket>> rackets); // TODO: set a racket and not a vector
+    void setBorders(const std::vector<std::shared_ptr<Border>> borders);
 
     // ### clear the vectors of the game board ###
-    virtual void clearVectors();
+    void clearVectors();
 
 };
 

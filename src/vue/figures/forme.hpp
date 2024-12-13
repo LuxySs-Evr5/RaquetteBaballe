@@ -15,8 +15,8 @@
 
 class Rectangle {
   protected:
-    float width_, height_;
     Point center_;
+    float width_, height_;
     ALLEGRO_COLOR fillColor_;
     ALLEGRO_COLOR frameColor_;
 
@@ -39,8 +39,8 @@ class Rectangle {
 
 class Circle {
   protected:
-    float radius_;
     Point center_;
+    float radius_;
     ALLEGRO_COLOR fillColor_;
     ALLEGRO_COLOR frameColor_;
 

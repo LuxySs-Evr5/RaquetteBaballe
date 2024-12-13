@@ -8,6 +8,7 @@
 
 #include "score.hpp"
 #include <fstream>
+#include <iostream>
 
 // ### Constructor ###
 
@@ -43,7 +44,7 @@ void Score::saveScore() {
             write << getScore() << endl;
             write.close();
         } else {
-            cerr << "Error: Can't open the file" << endl;
+            std::cerr << "Error: Can't open the file" << std::endl;
         }
     }
 }

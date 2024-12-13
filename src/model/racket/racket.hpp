@@ -4,7 +4,7 @@
 #include "../bounceable/bounceable.hpp"
 #include "../vec2/vec2.hpp"
 
-class Racket : public Bounceable {
+class Racket final : public Bounceable {
   private:
     virtual double getWidth() const;
     virtual double getHeight() const;

@@ -4,7 +4,7 @@
 #include <ostream>
 
 Vec2::Vec2() : x{0}, y{0} {}
-Vec2::Vec2(double x, double y) : x{x}, y{y} {}
+Vec2::Vec2(double X, double Y) : x{X}, y{Y} {}
 
 double Vec2::getModule() const {
     std::cout << "power : " << std::pow(x, 2) << std::endl;
@@ -20,7 +20,7 @@ const Vec2 &Vec2::normalize() {
     return *this;
 }
 
-double clamp(double value, double min, double max) {
+const double clamp(const double value, const double min, const double max) {
     return std::max(min, std::min(max, value));
 }
 

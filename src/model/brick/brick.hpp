@@ -29,13 +29,12 @@ class Brick : public Bounceable {
   protected:
     Color color_;
     uint8_t durability_;
-
-    Brick(Color color, const BoundingBox &boundingBox,
-          uint8_t durability = DURABILITY_STANDARD_BRICK);
+    
+    Brick(const BoundingBox &boundingBox, Color color,uint8_t durability = DURABILITY_STANDARD_BRICK);
 
   public:
     // factory method
-    static std::shared_ptr<Brick> makeBrick(Color color,
+    static std::unique_ptr<Brick> makeBrick(Color color,
                                             BoundingBox boundingBox);
 
     virtual ~Brick();

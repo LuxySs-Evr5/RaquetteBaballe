@@ -20,8 +20,6 @@ using namespace std;
 
 class ControllerGame {
   private:
-    bool isGaming_ = true;
-    bool win_ = false;
     bool done_ = false;
     bool draw_ = false;
     double lastTime_;
@@ -40,7 +38,7 @@ class ControllerGame {
 
     // ### Private Methods ###
     void drawGame();
-    void checkLife();
+    void checkGameOver();
     void checkWin();
     void checkEventType();
     void waitKeyToRestart();

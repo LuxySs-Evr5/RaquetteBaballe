@@ -16,18 +16,18 @@ Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
 // ### Public methods ###
 void Canvas::draw() {
 
-    for (auto &ball : balls_) {
-        ballRenderer_.render(*ball);
+    for (auto &border : borders_) {
+        wallRenderer_.render(*border);
     }
 
     for (auto &brick : bricks_) {
         brickRenderer_.render(*brick);
     }
 
+    for (auto &ball : balls_) {
+        ballRenderer_.render(*ball);
+    }
+
     for (auto &racket : rackets_)
         racketRenderer_.render(*racket);
-
-    for (auto &border : borders_) {
-        wallRenderer_.render(*border);
-    }
 }
