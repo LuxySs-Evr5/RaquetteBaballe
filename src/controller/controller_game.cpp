@@ -15,7 +15,7 @@
 using namespace std;
 
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de win (autres affichages allegro et le backend) 
-
+// TODO : Problème lors du chargement d'un niveau
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
@@ -70,23 +70,33 @@ ControllerGame::~ControllerGame() {}
 void ControllerGame::process() {
     al_start_timer(timer_);
 
-    double lastTime = al_get_time(); // get the time at the beginning of the game
+    lastTime_ = al_get_time(); // get the time at the beginning of the game
 
     while (!done_) {
 
-        double currentTime = al_get_time(); // Actual time
-        double deltaTime = currentTime - lastTime; // Time between two frames
-        lastTime = currentTime; // Update the last time
+        currentTime_ = al_get_time(); // Actual time
+        double deltaTime = currentTime_ - lastTime_; // Time between two frames
+        lastTime_ = currentTime_;                    // Update the last time
 
-        checkLife(); // check if the player has lifes // TODO : check if it's the right place to do that
+        al_get_mouse_state(&mouseState_); // get the mouse state
 
-        if (gameBoard_->getNbBricks() == 0) { // if there is no more bricks // TODO: not working
-            win_ = true; 
+        // check if the mouse is in the window // TODO: check si c'est utile
+        if (mouseState_.x < 0) {
+            mouseState_.x = 0;
+        } else if (mouseState_.x > static_cast<int>(SCREEN_WIDTH)) {
+            mouseState_.x = static_cast<int>(SCREEN_WIDTH);
         }
 
+        gameBoard_->setRacketAtX(static_cast<double>(
+            mouseState_.x)); // move the racket with the mouse
 
         gameBoard_->update(deltaTime);
 
+
+        checkLife(); // check if the player has lifes // TODO : check if it's
+                     // the right place to do that
+        checkWin();  // check if the player has won
+        
         al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
@@ -99,40 +109,27 @@ void ControllerGame::process() {
     }
 }
 
+
+// ### Private methods ###
+
 void ControllerGame::drawGame() {
     al_start_timer(timer_);
     draw_ = false;
 
-    if (isGaming_ == true) { // if the game is running
-
-        al_get_mouse_state(&mouseState_); // get the mouse state
-
-        // check if the mouse is in the window
-        if (mouseState_.x < 0) {
-            mouseState_.x = 0;
-        } else if (mouseState_.x > static_cast<int>(SCREEN_WIDTH)) {
-            mouseState_.x = static_cast<int>(SCREEN_WIDTH);
-        }
-
-        gameBoard_->setRacketAtX(static_cast<double>(
-            mouseState_.x)); // move the racket with the mouse
-
+    if (isGaming_) { // if the game is running
         displayGame_->draw(); // draw the pieces
     }
 
-    else if (isGaming_ == false) { // the game is over because no more lifes
-        gameBoard_->saveCurrentScore();
+    else if (!isGaming_) { // the game is over because no more lifes
         displayGame_->gameOver(); // display the game over screen
         // TODO: wait and oaleval mus be in process not in drawGame
         waitKeyToRestart();
-        loadLevel();
     }
 
     else if (win_ == true) {     // the game is won
         displayGame_->gameWin(); // display the game win screen
-        waitKeyToRestart();
+        waitKeyToRestart(); // TODO: check if it's the right place to do that
         // TODO: launch a new level
-        loadLevel();
     }
 }
 
@@ -141,8 +138,14 @@ void ControllerGame::checkLife() {
         isGaming_ = false;
     }   
 }
-
-// ### Private methods ###
+void ControllerGame::checkWin() {
+    if (gameBoard_->getNbBricks()
+        == 0) { // if there is no more bricks // TODO: not working
+        gameBoard_->saveCurrentScore();
+        isGaming_ = false;
+        win_ = true;
+    }
+}
 
 void ControllerGame::checkEventType() {
     if (event_.type
@@ -175,7 +178,8 @@ void ControllerGame::waitKeyToRestart() {
         while (al_get_next_event(queue_, &event_)) { // get the next event
             checkEventType();
         }
-  }
+    }
+    loadLevel(); // TODO: check if it's the right place to do that
 }
 
 void ControllerGame::loadLevel() {
@@ -239,9 +243,6 @@ void ControllerGame::loadLevel() {
 
     isGaming_ = true;
     win_ = false;
-
-    // TODO: lastTime_ = al_get_time();
-
 
 }
 

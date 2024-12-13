@@ -24,6 +24,8 @@ class ControllerGame {
     bool win_ = false;
     bool done_ = false;
     bool draw_ = false;
+    double lastTime_;
+    double currentTime_;
 
     shared_ptr<GameBoard> gameBoard_;
     shared_ptr<DisplayGame> displayGame_;
@@ -39,6 +41,7 @@ class ControllerGame {
     // ### Private Methods ###
     void drawGame();
     void checkLife();
+    void checkWin();
     void checkEventType();
     void waitKeyToRestart();
     void loadLevel();
