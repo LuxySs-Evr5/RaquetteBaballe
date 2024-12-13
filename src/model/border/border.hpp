@@ -4,7 +4,7 @@
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
-class Border : public Bounceable {
+class Border final : public Bounceable {
   public:
     Border(const BoundingBox &boundingBox);
     virtual ~Border();

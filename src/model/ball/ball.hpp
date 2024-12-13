@@ -21,30 +21,30 @@ class Ball {
     double radius_{1};
     double speed_{1};
 
-    virtual bool hasReached(const Vec2 &point) const;
-    virtual void bounce(const Bounceable &bounceable);
-    virtual Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
+    bool hasReached(const Vec2 &point) const;
+    void bounce(const Bounceable &bounceable);
+    Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
 
   public:
     Ball(Vec2 coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
          double speed = DEFAULT_BALL_SPEED);
 
-    virtual ~Ball() = default;
+    ~Ball() = default;
 
-    virtual double getRadius() const;
+    double getRadius() const;
 
-    virtual Vec2
+    Vec2
     getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
-    virtual Vec2 getCoordinate() const noexcept;
-    virtual void setSpeed(unsigned speed);
-    virtual void setDirection(const Vec2 &vec);
+    Vec2 getCoordinate() const noexcept;
+    void setSpeed(unsigned speed);
+    void setDirection(const Vec2 &vec);
 
-    virtual bool checkCollision(const BoundingBox &boundingBox) const;
+    bool checkCollision(const BoundingBox &boundingBox) const;
 
-    virtual void collide(const Bounceable &bounceable);
+    void collide(const Bounceable &bounceable);
 
-    virtual void update(double deltaTime);
+    void update(double deltaTime);
 };
 
 #endif

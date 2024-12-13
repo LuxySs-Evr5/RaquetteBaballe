@@ -35,8 +35,11 @@ ALLEGRO_COLOR colorToAllegroColor(Color color) {
     case Color::gold:
         alColor = COLOR_GOLD;
         break;
+    case Color::defaultBrick:
+        alColor = COLOR_RED; // We chose red as the default color
+        break;
     default:
-        alColor = COLOR_RED;
+        alColor = COLOR_RED; // We chose red as the default color
         break;
     }
 

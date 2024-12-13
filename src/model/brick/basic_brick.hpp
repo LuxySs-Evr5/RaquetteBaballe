@@ -3,7 +3,7 @@
 
 #include "brick.hpp"
 
-class BasicBrick : public Brick {
+class BasicBrick final : public Brick {
   public:
     BasicBrick(BoundingBox boundingBox, Color color, uint8_t durability);
 };

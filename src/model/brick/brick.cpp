@@ -7,23 +7,16 @@
 
 // factory method
 std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox) {
-    std::unique_ptr<Brick> ret;
 
-    switch (color) {
-    case Color::gold:
-        ret = std::make_unique<GoldBrick>(boundingBox);
-        break;
-    case Color::silver: // durability = 2 for silver
-        ret = std::make_unique<BasicBrick>(boundingBox, color,
+    if(color == Color::gold) {
+        return std::make_unique<GoldBrick>(boundingBox);
+    } else if (color == Color::silver) {
+        return std::make_unique<BasicBrick>(boundingBox, color,
                                            DURABILITY_SILVER_BRICK);
-        break;
-    default:
-        ret = std::make_unique<BasicBrick>(boundingBox, color,
-                                           DURABILITY_STANDARD_BRICK);
-        break;
+    
     }
-
-    return ret;
+    return std::make_unique<BasicBrick>(boundingBox, color,
+                                            DURABILITY_STANDARD_BRICK);
 }
 
 // protected constructor

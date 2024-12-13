@@ -3,7 +3,7 @@
 
 #include "brick.hpp"
 
-class GoldBrick : public Brick {
+class GoldBrick final : public Brick {
   public:
     GoldBrick(BoundingBox boundingBox);
 

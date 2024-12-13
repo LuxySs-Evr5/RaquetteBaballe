@@ -5,7 +5,7 @@
 
 enum class BounceType { Vertical, Horizontal, Corner };
 
-class BoundingBox {
+class BoundingBox final {
   private:
     Vec2 center_;
     double width_;
