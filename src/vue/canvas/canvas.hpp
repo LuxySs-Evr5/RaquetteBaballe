@@ -26,17 +26,17 @@ using namespace std;
 class Canvas {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    shared_ptr<Racket> &racket_;
-    vector<shared_ptr<Brick>> &bricks_;
-    vector<shared_ptr<Ball>> &balls_;
-    const vector<shared_ptr<Border>> &borders_;
+    vector<shared_ptr<Racket>> &rackets_ = gameBoard_->getRackets();
+    vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
+    vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
+    vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
     BallRenderer ballRenderer_;
     BrickRenderer brickRenderer_;
     RacketRenderer racketRenderer_;
     WallRenderer wallRenderer_;
 
   public:
-    Canvas(shared_ptr<GameBoard> gameBoard);
+    Canvas(shared_ptr<GameBoard> gameBoard); // TODO: set a reference ? ask Lucas
     ~Canvas() = default;
 
     void draw();

@@ -41,6 +41,7 @@ class ControllerGame {
     void checkLife();
     void checkEventType();
     void waitKeyToRestart();
+    void loadLevel();
 
   public:
     ControllerGame();

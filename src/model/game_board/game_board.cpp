@@ -83,7 +83,7 @@ void GameBoard::update(double deltaTime) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             life_.removeOneLife();
             if (life_.getNbLifes() > 0) { // TODO : check si on fait ca ici ? y a un check de vie dans le controller
-            balls_.push_back(std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
+                balls_.push_back(std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
             }
         }
 
@@ -109,9 +109,9 @@ std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() { return balls_; }
 
 std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() { return bricks_; }
 
-std::shared_ptr<Racket> &GameBoard::getRacket() { return rackets_.at(0); }
+std::vector<std::shared_ptr<Racket>> &GameBoard::getRackets() { return rackets_; }
 
-const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
+std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() { // TODO/ drop the const because need the object to change in the view
     return borders_;
 }
 
@@ -122,3 +122,30 @@ int GameBoard::getNbBricks() const { return bricks_.size(); } // get the number 
 void GameBoard::resetTheLife() { life_.resetLife(); } // reset the life
 
 void GameBoard::resetTheScore() { score_.resetScore(); } // reset the score
+
+
+// ### Setters ###
+void GameBoard::setBalls(const std::vector<std::shared_ptr<Ball>> balls){
+    balls_ = balls;
+}
+
+void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> bricks){
+    bricks_ = bricks;
+}
+
+void GameBoard::setRacket(const std::vector<std::shared_ptr<Racket>> rackets) {
+    rackets_ = rackets;
+}
+
+void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders){
+    borders_ = borders;
+}
+
+
+// ### clear the vectors of the game board ###
+void GameBoard::clearVectors() {
+    balls_.clear();
+    bricks_.clear();
+    rackets_.clear();
+    borders_.clear();
+}

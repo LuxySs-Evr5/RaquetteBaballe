@@ -11,13 +11,11 @@
 #include <memory>
 
 // ### Constructor ###
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard)
-    : gameBoard_{gameBoard}, racket_(gameBoard->getRacket()),
-      bricks_(gameBoard->getBricks()), balls_(gameBoard->getBalls()),
-      borders_(gameBoard->getBorders()){};
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
 
 // ### Public methods ###
 void Canvas::draw() {
+
     for (auto &ball : balls_) {
         ballRenderer_.render(*ball);
     }
@@ -26,7 +24,8 @@ void Canvas::draw() {
         brickRenderer_.render(*brick);
     }
 
-    racketRenderer_.render(*racket_);
+    for (auto &racket : rackets_)
+        racketRenderer_.render(*racket);
 
     for (auto &border : borders_) {
         wallRenderer_.render(*border);

@@ -10,6 +10,7 @@
 #include <allegro5/allegro.h>
 
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 
@@ -18,9 +19,7 @@ using namespace std;
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
-
     displayGame_ = make_shared<DisplayGame>(gameBoard_);
-
     if (!al_init()) { // initialize allegro
         cerr << "Failed to initialize Allegro" << endl;
         exit(-1);
@@ -60,6 +59,8 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
     al_register_event_source(
         queue_,
         al_get_timer_event_source(timer_)); // register the timer event source
+
+    loadLevel(); // at the start of the game we start a level // TODO: check if good
 }
 
 // ### Destructor ###
@@ -122,13 +123,16 @@ void ControllerGame::drawGame() {
     else if (isGaming_ == false) { // the game is over because no more lifes
         gameBoard_->saveCurrentScore();
         displayGame_->gameOver(); // display the game over screen
+        // TODO: wait and oaleval mus be in process not in drawGame
         waitKeyToRestart();
+        loadLevel();
     }
 
     else if (win_ == true) {     // the game is won
         displayGame_->gameWin(); // display the game win screen
         waitKeyToRestart();
         // TODO: launch a new level
+        loadLevel();
     }
 }
 
@@ -172,9 +176,72 @@ void ControllerGame::waitKeyToRestart() {
             checkEventType();
         }
   }
+}
+
+void ControllerGame::loadLevel() {
+    gameBoard_->clearVectors(); // TODO: check if we do that ?
     gameBoard_->resetTheLife();
     gameBoard_->resetTheScore();
+
+    const std::vector<std::shared_ptr<Ball>> balls = {
+        std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500)};
+
+    const std::vector<std::shared_ptr<Brick>> bricks{
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{50, 800}, Vec2{100, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{100, 800}, Vec2{150, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{150, 800}, Vec2{200, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{200, 800}, Vec2{250, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{250, 800}, Vec2{300, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{300, 800}, Vec2{350, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{350, 800}, Vec2{400, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{400, 800}, Vec2{450, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{450, 800}, Vec2{500, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{500, 800}, Vec2{550, 775}}),
+        Brick::makeBrick(Color::red,
+                         BoundingBox{Vec2{550, 800}, Vec2{600, 775}})};    
+
+
+    // with T=thickness, H=height, W=width
+    const std::vector<std::shared_ptr<Border>> borders = {
+        // TODO: Lucas doit voir : Les murs font partie de la grille
+        // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left wall
+        std::make_shared<Border>(
+            Border{BoundingBox{Vec2{0, 0},
+                               Vec2{boardBoundingsThickness - 1, boardHeight -1 }}}),
+        // (0, boardHeight - 1) -> (boardWidth - 1, boardHeight - boardBoundingsThickness - 1) // upper wall
+        std::make_shared<Border>(
+            BoundingBox{Vec2{0, boardHeight - 1},
+                        Vec2{boardWidth -1 , boardHeight - boardBoundingsThickness - 1}}),
+        // (boardWidth - boardBoundingsThickness - 1, 0) -> (boardWidth - 1, boardHeight - 1) // right wall
+        std::make_shared<Border>(BoundingBox{
+            Vec2{boardWidth - boardBoundingsThickness -1 , 0},
+            Vec2{boardWidth - 1, boardHeight - 1}})};
+
+    // Racket racket;
+    // NOTE: doing this to get an iterator without having to rewrite it myself
+    const std::vector<std::shared_ptr<Racket>> rackets{
+        std::make_shared<Racket>(BoundingBox{Vec2{450, 50}, 100, 25})};
+
+    gameBoard_->setRacket(rackets);
+    gameBoard_->setBalls(balls);
+    gameBoard_->setBorders(borders);
+    gameBoard_->setBricks(bricks);
+
     isGaming_ = true;
     win_ = false;
+
+    // TODO: lastTime_ = al_get_time();
+
+
 }
 
