@@ -16,22 +16,24 @@
 
 using namespace std;
 
+constexpr uint8_t MAX_NUM_LIFES = 3;
+
 class Life {
   private:
-    uint8_t nbLifes_; // uint8_t is the lowest integer type that can hold 0 to 3
-                      // lifes
+    uint8_t numLifes_; // uint8_t is the lowest integer type that can hold 0 to
+                       // 3 lifes
     Score score_;
 
   public:
     Life();
-    Life(uint8_t nbLifes);
+    Life(uint8_t numLifes);
 
     ~Life();
 
     void removeOneLife(); // TODO: use operator--()
     void resetLife();     // TODO: rename to reset
 
-    void setNbLifes(const uint8_t nbLifes);
+    void setNumLifes(const uint8_t numLifes);
 
     operator uint8_t() const; // Operator uint8_t
 };
