@@ -11,10 +11,6 @@
 
 #include <allegro5/bitmap.h>
 
-#include <sys/types.h>
-
-#include "../score/score.hpp"
-
 using namespace std;
 
 constexpr unsigned INITIAL_NUM_LIFES = 3;
@@ -22,7 +18,6 @@ constexpr unsigned INITIAL_NUM_LIFES = 3;
 class LifeCounter {
   private:
     unsigned numLifes_;
-    Score score_;
 
   public:
     // ### Constructors ###

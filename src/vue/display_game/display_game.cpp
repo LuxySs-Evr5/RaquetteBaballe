@@ -17,6 +17,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include <memory>
+#include <string>
 
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
@@ -144,8 +145,7 @@ void DisplayGame::draw() {
                              // drawn at the right
     al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50,
                  ALLEGRO_ALIGN_CENTER,
-                 static_cast<std::string>(gameBoard_->getScore())
-                     .c_str()); // draw the score
+                 to_string(gameBoard_->getScore()).c_str()); // draw the score
 
     drawLife(); // draw the hearts for the remaining lifes
 

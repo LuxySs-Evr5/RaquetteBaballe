@@ -63,7 +63,7 @@ void GameBoard::update(double deltaTime) {
                 (*brickIt)->hit();               // decrement its durability
                 if ((*brickIt)->isDestroyed()) { // erase it if destroyed
                     std::cout << "erasing brick " << std::endl;
-                    score_ += (*brickIt)->getScore();
+                    scoreManager_.increaseScore((*brickIt)->getScore());
                     bricks_.erase(brickIt);
                 }
             } else if (std::holds_alternative<BorderIt>(
@@ -95,9 +95,9 @@ void GameBoard::update(double deltaTime) {
     }
 }
 
-void GameBoard::saveCurrentScore() { score_.saveScore(); }
+void GameBoard::saveRecordScore() { scoreManager_.saveScore(); }
 
-const Score &GameBoard::getScore() const { return score_; }
+int GameBoard::getScore() const { return scoreManager_.getCurrentScore(); }
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
@@ -126,7 +126,7 @@ long unsigned int GameBoard::getNumBricks() const { return bricks_.size(); }
 
 void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 
-void GameBoard::resetScore() { score_.resetScore(); } // reset the score
+void GameBoard::resetScore() { scoreManager_.resetScore(); } // reset the score
 
 // ### Setters ###
 void GameBoard::setBalls(const std::vector<std::shared_ptr<Ball>> balls) {

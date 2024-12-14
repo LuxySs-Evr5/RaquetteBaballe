@@ -6,7 +6,7 @@
 #include "../brick/brick.hpp"
 #include "../life_counter//life_counter.hpp"
 #include "../racket/racket.hpp"
-#include "../score/score.hpp"
+#include "../score_manager/score_manager.hpp"
 
 #include <memory>
 #include <optional>
@@ -25,7 +25,7 @@ constexpr double RACKET_VERTICAL_POS =
 
 class GameBoard {
   private:
-    Score score_;
+    ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
 
     std::vector<std::shared_ptr<Racket>> rackets_;
@@ -41,9 +41,9 @@ class GameBoard {
     ~GameBoard() = default;
 
     void update(double deltaTime);
-    void saveCurrentScore();
+    void saveRecordScore();
     std::string getStringScore();
-    const Score &getScore() const;
+    int getScore() const;
     const LifeCounter &getLife() const;
 
     void setRacketAtX(double posX);
