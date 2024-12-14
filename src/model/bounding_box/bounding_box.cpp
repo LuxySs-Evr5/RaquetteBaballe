@@ -1,6 +1,8 @@
 #include "bounding_box.hpp"
 #include "../vec2/vec2.hpp"
 
+// #### Constructors ####
+
 BoundingBox::BoundingBox(Vec2 center, double width, double height)
     : center_(center), width_{width}, height_{height} {}
 
@@ -10,9 +12,13 @@ BoundingBox::BoundingBox(Vec2 topLeft, Vec2 bottomRight)
       width_{std::abs(bottomRight.x - topLeft.x)},
       height_{std::abs(topLeft.y - bottomRight.y)} {}
 
+// #### Destructor ####
+
 BoundingBox::~BoundingBox() = default;
 
 void BoundingBox::setCenter(Vec2 coordinate) { center_ = coordinate; }
+
+// #### Getters ####
 
 Vec2 BoundingBox::getCenter() const noexcept { return center_; }
 
