@@ -33,8 +33,7 @@ class Ball {
 
     double getRadius() const;
 
-    Vec2
-    getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
+    Vec2 getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
     Vec2 getCoordinate() const noexcept;
     void setSpeed(unsigned speed);

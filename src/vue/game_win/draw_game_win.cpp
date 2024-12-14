@@ -17,9 +17,7 @@ using namespace std;
 
 void drawGameWin(int score, ALLEGRO_FONT *font) {
     string scoreString = "Your score is " + to_string(score);
-    al_draw_filled_rectangle(
-        0, 0,
-        SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE);
+    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE);
     al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,
                  GAME_OVER_RECTANGLE_Y_START + 200, ALLEGRO_ALIGN_CENTER,
                  "YOU WIN !");

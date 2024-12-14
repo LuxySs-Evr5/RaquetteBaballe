@@ -14,7 +14,9 @@ BallUi::BallUi(Point center, float radius, ALLEGRO_COLOR color)
 
 // ### Public methods ###
 void BallUi::draw() {
-    center_.x = center_.x + 50; // Move from 50 because the screen is 100 larger so it is centered
+    center_.x =
+        center_.x
+        + 50; // Move from 50 because the screen is 100 larger so it is centered
     center_.y =
         1000
         - center_.y; // Invert the y axis to match the screen with the backend

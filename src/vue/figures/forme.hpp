@@ -22,7 +22,8 @@ class Rectangle {
 
   public:
     Rectangle(Point center, float width, float height,
-              ALLEGRO_COLOR fillColor = COLOR_BLACK, ALLEGRO_COLOR frameColor = COLOR_WHITE);
+              ALLEGRO_COLOR fillColor = COLOR_BLACK,
+              ALLEGRO_COLOR frameColor = COLOR_WHITE);
 
     virtual ~Rectangle() = default;
 
@@ -45,7 +46,8 @@ class Circle {
     ALLEGRO_COLOR frameColor_;
 
   public:
-    Circle(Point center, float radius, ALLEGRO_COLOR fillColor = COLOR_WHITE, ALLEGRO_COLOR frameColor = COLOR_BLACK);
+    Circle(Point center, float radius, ALLEGRO_COLOR fillColor = COLOR_WHITE,
+           ALLEGRO_COLOR frameColor = COLOR_BLACK);
 
     virtual ~Circle() = default;
 

@@ -37,7 +37,8 @@ class Canvas {
     WallRenderer wallRenderer_;
 
   public:
-    Canvas(shared_ptr<GameBoard> gameBoard); // TODO: set a reference ? ask Lucas
+    Canvas(
+        shared_ptr<GameBoard> gameBoard); // TODO: set a reference ? ask Lucas
     ~Canvas() = default;
 
     void draw();

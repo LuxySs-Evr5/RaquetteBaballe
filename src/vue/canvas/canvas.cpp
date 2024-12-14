@@ -11,7 +11,7 @@
 #include <memory>
 
 // ### Constructor ###
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard){};
 
 // ### Public methods ###
 void Canvas::draw() {
@@ -28,6 +28,5 @@ void Canvas::draw() {
         ballRenderer_.render(*ball);
     }
 
-    for (auto &racket : rackets_)
-        racketRenderer_.render(*racket);
+    for (auto &racket : rackets_) racketRenderer_.render(*racket);
 }

@@ -24,8 +24,8 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
     // make sure that if we hit the top edge or corner, the bounce happens the
     // racket way
     if ((bounceType == BounceType::Horizontal
-        || bounceType == BounceType::Corner)
-               && closestPoint.y == boundingBox_.getTopLeft().y) {
+         || bounceType == BounceType::Corner)
+        && closestPoint.y == boundingBox_.getTopLeft().y) {
 
         Vec2 leftSide =
             boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
@@ -52,9 +52,13 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
 }
 
 void Racket::setPosX(double posX) {
-    if (posX  < 20 + (boundingBox_.getWidth() / 2)) {
+    if (posX < 20 + (boundingBox_.getWidth() / 2)) {
         posX = 20 + (boundingBox_.getWidth() / 2);
-    } else if (posX > 900 - 20 - (boundingBox_.getWidth() / 2)) { // -20 for the thikness of the wall // TODO: change the 900 with a global variable
+    } else if (posX
+               > 900 - 20
+                     - (boundingBox_.getWidth()
+                        / 2)) { // -20 for the thikness of the wall // TODO:
+                                // change the 900 with a global variable
         posX = 900 - 20 - (boundingBox_.getWidth() / 2);
     }
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});

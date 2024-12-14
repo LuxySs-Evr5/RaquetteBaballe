@@ -17,7 +17,6 @@ class BrikUi final : public Rectangle {
     virtual ~BrikUi() = default;
 
     void draw() override;
-
 };
 
 #endif // BRIKUI_HPP

@@ -13,7 +13,8 @@
 // # Constructors #
 Rectangle::Rectangle(Point center, float width, float height,
                      ALLEGRO_COLOR fillColor, ALLEGRO_COLOR frameColor)
-    : center_(center), width_(width), height_(height), fillColor_(fillColor), frameColor_(frameColor) {}
+    : center_(center), width_(width), height_(height), fillColor_(fillColor),
+      frameColor_(frameColor) {}
 
 // # Getters #
 float Rectangle::getWidth() const { return width_; }
@@ -39,8 +40,10 @@ void Rectangle::moveHorizontally(float x) { center_.x += x; }
 
 // ### class Circle ###
 // # Constructors #
-Circle::Circle(Point center, float radius, ALLEGRO_COLOR fillColor, ALLEGRO_COLOR frameColor)
-    : center_(center), radius_(radius), fillColor_(fillColor), frameColor_(frameColor) {}
+Circle::Circle(Point center, float radius, ALLEGRO_COLOR fillColor,
+               ALLEGRO_COLOR frameColor)
+    : center_(center), radius_(radius), fillColor_(fillColor),
+      frameColor_(frameColor) {}
 
 // # Getters #
 float Circle::getRadius() const { return radius_; }
