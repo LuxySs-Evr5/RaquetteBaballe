@@ -69,8 +69,18 @@ class GameBoard {
                        rackets); // TODO: set a racket and not a vector
     void setBorders(const std::vector<std::shared_ptr<Border>> borders);
 
-    // ### Clear the vectors of the game board ###
-    void clearVectors();
+    // #### Clear GameBoard ####
+
+    void clearBalls();
+
+    void clearBorders();
+
+    void clearBricks();
+
+    // TODO: might need to rename this to clearRacket (singular)
+    void clearRackets();
+
+    void clear();
 };
 
 #endif

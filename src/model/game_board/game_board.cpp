@@ -148,10 +148,17 @@ void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders) {
     borders_ = borders;
 }
 
-// ### clear the vectors of the game board ###
-void GameBoard::clearVectors() {
-    balls_.clear();
-    bricks_.clear();
-    rackets_.clear();
-    borders_.clear();
+void GameBoard::clearRackets() { rackets_.clear(); }
+
+void GameBoard::clearBalls() { balls_.clear(); }
+
+void GameBoard::clearBorders() { borders_.clear(); }
+
+void GameBoard::clearBricks() { bricks_.clear(); }
+
+void GameBoard::clear() {
+    clearBalls();
+    clearBorders();
+    clearBricks();
+    clearRackets();
 }
