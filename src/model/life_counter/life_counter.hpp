@@ -25,18 +25,30 @@ class LifeCounter {
     Score score_;
 
   public:
+    // ### Constructors ###
+
     LifeCounter();
     LifeCounter(unsigned numLifes);
 
+    // ### Destructor ###
+
     ~LifeCounter();
+
+    // #### Reset Value ####
+
+    void reset();
+
+    // ### Arithmetic Operators ###
 
     const LifeCounter &operator--();
     const LifeCounter &operator++();
     const LifeCounter &operator+=(unsigned numLife);
 
-    void reset();
+    // ### Setters ###
 
-    void setNumLifes(const uint8_t numLifes);
+    void setNumLifes(uint8_t numLifes);
+
+    // ### Conversion Operators ###
 
     operator unsigned() const;
 };

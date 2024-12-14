@@ -121,9 +121,7 @@ const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
-long unsigned int GameBoard::getNbBricks() const {
-    return bricks_.size();
-} // get the number of bricks
+long unsigned int GameBoard::getNumBricks() const { return bricks_.size(); }
 
 void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 

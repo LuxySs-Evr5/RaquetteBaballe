@@ -50,7 +50,7 @@ class GameBoard {
 
     void setRacketAtX(double posX);
 
-    long unsigned int getNbBricks() const;
+    long unsigned int getNumBricks() const;
 
     void resetLifeCounter();
     void resetScore();

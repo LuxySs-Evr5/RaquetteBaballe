@@ -8,7 +8,7 @@
 
 #include "life_counter.hpp"
 
-// ### Constructor ###
+// ### Constructors ###
 
 LifeCounter::LifeCounter() : numLifes_(INITIAL_NUM_LIFES) {}
 
@@ -18,7 +18,11 @@ LifeCounter::LifeCounter(unsigned numLifes) : numLifes_(numLifes) {}
 
 LifeCounter::~LifeCounter() = default;
 
-// ### Public Methods ###
+// #### Reset Value ####
+
+void LifeCounter::reset() { numLifes_ = INITIAL_NUM_LIFES; }
+
+// ### Arithmetic Operators ###
 
 const LifeCounter &LifeCounter::operator--() {
     numLifes_--;
@@ -35,12 +39,10 @@ const LifeCounter &LifeCounter::operator+=(unsigned numLife) {
     return *this;
 }
 
-void LifeCounter::reset() { numLifes_ = INITIAL_NUM_LIFES; }
-
 // ### Setters ###
 
 void LifeCounter::setNumLifes(const uint8_t numLifes) { numLifes_ = numLifes; }
 
-// ### Getters ###
+// ### Conversion Operators ###
 
 LifeCounter::operator unsigned() const { return numLifes_; }

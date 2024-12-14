@@ -128,7 +128,7 @@ void ControllerGame::checkGameOver() {
     }
 }
 void ControllerGame::checkWin() {
-    if (gameBoard_->getNbBricks()
+    if (gameBoard_->getNumBricks()
         == 0) { // if there is no more bricks // TODO: not working
         al_stop_timer(timer_);
         gameBoard_->saveCurrentScore();
@@ -346,7 +346,6 @@ void ControllerGame::loadLevel() {
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 500}, Vec2{850, 475}})};
 
-    // with T=thickness, H=height, W=width
     const std::vector<std::shared_ptr<Border>> borders = {
         // TODO: Lucas doit voir : Les murs font partie de la grille
         // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left
