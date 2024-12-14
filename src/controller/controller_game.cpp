@@ -9,6 +9,7 @@
 
 #include <allegro5/allegro.h>
 
+#include <allegro5/altime.h>
 #include <allegro5/keycodes.h>
 #include <cmath>
 #include <iostream>
@@ -76,7 +77,7 @@ ControllerGame::~ControllerGame() {}
 void ControllerGame::process() {
     while (!done_) {
 
-        currentTime_ = static_cast<double>(al_get_timer_count(timer_)) / 360.0; // Actual time and 360 for number of ticks per second
+        currentTime_ = al_get_time(); // Actual time
         double deltaTime = currentTime_ - lastTime_; // Time between two frames
         lastTime_ = currentTime_;                    // Update the last time
 
@@ -122,9 +123,6 @@ void ControllerGame::checkGameOver() {
         al_stop_timer(timer_);
         displayGame_->gameOver();
         gameBoard_->saveRecordScore();
-        gameBoard_->clear(); // TODO: check if we do that ?
-        gameBoard_->resetLifeCounter();
-        gameBoard_->resetScore();
         waitKeyToRestart();
     }
 }
@@ -134,9 +132,6 @@ void ControllerGame::checkWin() {
         al_stop_timer(timer_);
         displayGame_->gameWin();
         gameBoard_->saveRecordScore();
-        gameBoard_->clear(); // TODO: check if we do that ?
-        gameBoard_->resetLifeCounter();
-        gameBoard_->resetScore();
         waitKeyToRestart();
     }
 }
@@ -149,17 +144,18 @@ void ControllerGame::checkEventType() {
 
     else if (event_.type == ALLEGRO_EVENT_TIMER) {
         draw_ = true;
-
-        if (key_[ALLEGRO_KEY_SPACE]) {
-            // shootLazer(); TODO : shoot lazer when bonus
-        }
-        if (key_[ALLEGRO_KEY_R]) {
-            gameBoard_->resetBestScore();
-        }
     }
 
     else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
         key_.set(event_.keyboard.keycode, true); // set the key pressed to true
+
+        if (key_[ALLEGRO_KEY_R]) {
+            gameBoard_->resetBestScore();
+        }
+
+        if (key_[ALLEGRO_KEY_SPACE]) {
+            // shootLazer(); TODO : shoot lazer when bonus
+        }
     }
 
     else if (event_.type == ALLEGRO_EVENT_KEY_UP) {
@@ -373,11 +369,15 @@ void ControllerGame::loadLevel() {
     const std::vector<std::shared_ptr<Racket>> rackets{
         std::make_shared<Racket>(BoundingBox{Vec2{450, 50}, 100, 25})};
 
+    gameBoard_->clear();
+
     gameBoard_->setRacket(rackets);
     gameBoard_->setBalls(balls);
     gameBoard_->setBorders(borders);
     gameBoard_->setBricks(bricks);
     gameBoard_->readBestScore(); // TODO: maybe change name of the function
+    gameBoard_->resetLifeCounter();
+    gameBoard_->resetScore();
     al_start_timer(timer_);
     lastTime_ = al_get_time(); // get the time at the beginning of the game
 }

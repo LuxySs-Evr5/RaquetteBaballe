@@ -87,7 +87,6 @@ void GameBoard::update(double deltaTime) {
                     std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
             }
         }
-
         ball->update(deltaTime);
     }
 }
