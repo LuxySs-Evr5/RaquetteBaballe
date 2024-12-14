@@ -17,12 +17,10 @@ using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
-constexpr double boardHeight = 900;
-constexpr double boardWidth = 900;
-constexpr double boardBoundingsThickness = 20;
-constexpr double racketWidth = 50;
-constexpr double racketHeight = 20;
-constexpr double racketVerticalPos =
+// TODO: move to or from globalVariables.hpp to avoid splitting variables
+// everywhere
+constexpr double BOARD_BOUNDINGS_THICKNESS = 20;
+constexpr double RACKET_VERTICAL_POS =
     1.5; // how high the racket is sitting on the board
 
 class GameBoard {

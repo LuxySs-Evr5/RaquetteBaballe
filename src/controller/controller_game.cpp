@@ -350,18 +350,20 @@ void ControllerGame::loadLevel() {
         // TODO: Lucas doit voir : Les murs font partie de la grille
         // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left
         // wall
-        std::make_shared<Border>(Border{BoundingBox{
-            Vec2{0, 0}, Vec2{boardBoundingsThickness - 1, boardHeight - 1}}}),
+        std::make_shared<Border>(
+            Border{BoundingBox{Vec2{0, 0}, Vec2{BOARD_BOUNDINGS_THICKNESS - 1,
+                                                BOARD_HEIGHT - 1}}}),
         // (0, boardHeight - 1) -> (boardWidth - 1, boardHeight -
         // boardBoundingsThickness - 1) // upper wall
-        std::make_shared<Border>(BoundingBox{
-            Vec2{0, boardHeight - 1},
-            Vec2{boardWidth - 1, boardHeight - boardBoundingsThickness - 1}}),
+        std::make_shared<Border>(
+            BoundingBox{Vec2{0, BOARD_HEIGHT - 1},
+                        Vec2{BOARD_WIDTH - 1,
+                             BOARD_HEIGHT - BOARD_BOUNDINGS_THICKNESS - 1}}),
         // (boardWidth - boardBoundingsThickness - 1, 0) -> (boardWidth - 1,
         // boardHeight - 1) // right wall
         std::make_shared<Border>(
-            BoundingBox{Vec2{boardWidth - boardBoundingsThickness - 1, 0},
-                        Vec2{boardWidth - 1, boardHeight - 1}})};
+            BoundingBox{Vec2{BOARD_WIDTH - BOARD_BOUNDINGS_THICKNESS - 1, 0},
+                        Vec2{BOARD_WIDTH - 1, BOARD_HEIGHT - 1}})};
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
