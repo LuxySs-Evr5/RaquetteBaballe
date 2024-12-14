@@ -78,8 +78,9 @@ void GameBoard::update(double deltaTime) {
         } while (collided);
 
         if (ball->getCoordinate().y
-            < -5) { // if the ball is out of the screen (-5 because the ball is
-                    // 10px wide)
+            < ball->getRadius() / 2) { // if the ball is out of the screen (-5
+                                       // because the ball is
+                                       // 10px wide)
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             --lifeCounter_;
             if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
