@@ -14,7 +14,8 @@
 
 using namespace std;
 
-// TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de win (autres affichages allegro et le backend) 
+// TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
+// win (autres affichages allegro et le backend)
 // TODO : Problème lors du chargement d'un niveau
 
 // ### Constructor ###
@@ -35,7 +36,8 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
         exit(-1);
     }
 
-    timer_ = al_create_timer(1.0 / 360); // TODO: check the FPS we want for allegro
+    timer_ =
+        al_create_timer(1.0 / 360); // TODO: check the FPS we want for allegro
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);
@@ -60,7 +62,8 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
         queue_,
         al_get_timer_event_source(timer_)); // register the timer event source
 
-    loadLevel(); // at the start of the game we start a level // TODO: check if good
+    loadLevel(); // at the start of the game we start a level // TODO: check if
+                 // good
 }
 
 // ### Destructor ###
@@ -70,7 +73,7 @@ ControllerGame::~ControllerGame() {}
 void ControllerGame::process() {
     while (!done_) {
 
-        currentTime_ = al_get_time(); // Actual time
+        currentTime_ = al_get_time();                // Actual time
         double deltaTime = currentTime_ - lastTime_; // Time between two frames
         lastTime_ = currentTime_;                    // Update the last time
 
@@ -88,11 +91,10 @@ void ControllerGame::process() {
 
         gameBoard_->update(deltaTime);
 
+        checkGameOver(); // check if the player has lifes // TODO : check if
+                         // it's the right place to do that
+        checkWin();      // check if the player has won
 
-        checkGameOver(); // check if the player has lifes // TODO : check if it's
-                     // the right place to do that
-        checkWin();  // check if the player has won
-        
         al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
@@ -104,7 +106,6 @@ void ControllerGame::process() {
         }
     }
 }
-
 
 // ### Private methods ###
 
@@ -124,7 +125,7 @@ void ControllerGame::checkGameOver() {
         gameBoard_->resetTheScore();
         displayGame_->gameOver();
         waitKeyToRestart();
-    }   
+    }
 }
 void ControllerGame::checkWin() {
     if (gameBoard_->getNbBricks()
@@ -167,10 +168,11 @@ void ControllerGame::checkEventType() {
 
 void ControllerGame::waitKeyToRestart() {
     al_wait_for_event(queue_, nullptr);
-    while (!(event_.type == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
+    while (!(event_.type
+             == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
         al_get_next_event(queue_, &event_);
         if (event_.type
-        == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
+            == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
             done_ = true;
             break;
         }
@@ -206,7 +208,6 @@ void ControllerGame::loadLevel() {
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 800}, Vec2{850, 775}}),
 
-
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 750}, Vec2{100, 725}}),
         Brick::makeBrick(Color::red,
@@ -229,10 +230,6 @@ void ControllerGame::loadLevel() {
                          BoundingBox{Vec2{725, 750}, Vec2{775, 725}}),
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 750}, Vec2{850, 725}}),
-
-
-
-
 
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 700}, Vec2{100, 675}}),
@@ -257,12 +254,6 @@ void ControllerGame::loadLevel() {
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 700}, Vec2{850, 675}}),
 
-
-
-
-
-
-
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 650}, Vec2{100, 625}}),
         Brick::makeBrick(Color::red,
@@ -285,10 +276,6 @@ void ControllerGame::loadLevel() {
                          BoundingBox{Vec2{725, 650}, Vec2{775, 625}}),
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 650}, Vec2{850, 625}}),
-
-
-
-
 
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 600}, Vec2{100, 575}}),
@@ -313,11 +300,6 @@ void ControllerGame::loadLevel() {
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 600}, Vec2{850, 575}}),
 
-
-
-
-
-
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 550}, Vec2{100, 525}}),
         Brick::makeBrick(Color::red,
@@ -340,10 +322,6 @@ void ControllerGame::loadLevel() {
                          BoundingBox{Vec2{725, 550}, Vec2{775, 525}}),
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 550}, Vec2{850, 525}}),
-
-
-
-
 
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{50, 500}, Vec2{100, 475}}),
@@ -368,22 +346,23 @@ void ControllerGame::loadLevel() {
         Brick::makeBrick(Color::red,
                          BoundingBox{Vec2{800, 500}, Vec2{850, 475}})};
 
-
     // with T=thickness, H=height, W=width
     const std::vector<std::shared_ptr<Border>> borders = {
         // TODO: Lucas doit voir : Les murs font partie de la grille
-        // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left wall
-        std::make_shared<Border>(
-            Border{BoundingBox{Vec2{0, 0},
-                               Vec2{boardBoundingsThickness - 1, boardHeight -1 }}}),
-        // (0, boardHeight - 1) -> (boardWidth - 1, boardHeight - boardBoundingsThickness - 1) // upper wall
-        std::make_shared<Border>(
-            BoundingBox{Vec2{0, boardHeight - 1},
-                        Vec2{boardWidth -1 , boardHeight - boardBoundingsThickness - 1}}),
-        // (boardWidth - boardBoundingsThickness - 1, 0) -> (boardWidth - 1, boardHeight - 1) // right wall
+        // (0, 0) -> (0 + boardBoundingsThickness - 1, boardHeight - 1) // left
+        // wall
+        std::make_shared<Border>(Border{BoundingBox{
+            Vec2{0, 0}, Vec2{boardBoundingsThickness - 1, boardHeight - 1}}}),
+        // (0, boardHeight - 1) -> (boardWidth - 1, boardHeight -
+        // boardBoundingsThickness - 1) // upper wall
         std::make_shared<Border>(BoundingBox{
-            Vec2{boardWidth - boardBoundingsThickness -1 , 0},
-            Vec2{boardWidth - 1, boardHeight - 1}})};
+            Vec2{0, boardHeight - 1},
+            Vec2{boardWidth - 1, boardHeight - boardBoundingsThickness - 1}}),
+        // (boardWidth - boardBoundingsThickness - 1, 0) -> (boardWidth - 1,
+        // boardHeight - 1) // right wall
+        std::make_shared<Border>(
+            BoundingBox{Vec2{boardWidth - boardBoundingsThickness - 1, 0},
+                        Vec2{boardWidth - 1, boardHeight - 1}})};
 
     // Racket racket;
     // NOTE: doing this to get an iterator without having to rewrite it myself
@@ -397,6 +376,4 @@ void ControllerGame::loadLevel() {
 
     al_start_timer(timer_);
     lastTime_ = al_get_time(); // get the time at the beginning of the game
-
 }
-

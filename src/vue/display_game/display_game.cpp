@@ -144,7 +144,8 @@ void DisplayGame::draw() {
                              // drawn at the right
     al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50,
                  ALLEGRO_ALIGN_CENTER,
-                 gameBoard_->getStringScore().c_str()); // draw the score
+                 static_cast<std::string>(gameBoard_->getScore())
+                     .c_str()); // draw the score
 
     drawLife(); // draw the hearts for the remaining lifes
 
@@ -158,12 +159,12 @@ void DisplayGame::draw() {
 
 void DisplayGame::gameOver() {
     // TODO: verifier avec gameBoard
-    drawGameOver(gameBoard_->getIntScore(), font50_);
+    drawGameOver(gameBoard_->getScore(), font50_);
     al_flip_display();
 }
 
 void DisplayGame::gameWin() {
-    drawGameWin(gameBoard_->getIntScore(), font50_);
+    drawGameWin(gameBoard_->getScore(), font50_);
     al_flip_display();
 }
 
@@ -183,10 +184,11 @@ void DisplayGame::drawLife() {
 
     for (int i = 0; i < gameBoard_->getLife(); i++) {
 
-        al_draw_scaled_bitmap(heartImage_, 0, 0, static_cast<float>(heartWidth),
-                              static_cast<float>(heartHeight),
-                              heartX + static_cast<float>(i) * (scaleHeartWidth + 5), 50,
-                              scaleHeartWidth, scaleHeartHeight,
-                              0); // Affiche les cœurs en haut à gauche
+        al_draw_scaled_bitmap(
+            heartImage_, 0, 0, static_cast<float>(heartWidth),
+            static_cast<float>(heartHeight),
+            heartX + static_cast<float>(i) * (scaleHeartWidth + 5), 50,
+            scaleHeartWidth, scaleHeartHeight,
+            0); // Affiche les cœurs en haut à gauche
     }
 }

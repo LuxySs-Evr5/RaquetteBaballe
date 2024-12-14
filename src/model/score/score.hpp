@@ -23,12 +23,13 @@ class Score {
     Score();
     ~Score();
 
-    void addScore(const int score);
-    void resetScore();
-    void saveScore();
+    void addScore(const int score); // TODO: use operator+= instead ?
+    void resetScore(); // TODO: rename to just reset since we know that we are
+                       // talking about score
+    void saveScore();  // TODO: Rename to saveToFile() ?
 
-    int getScore() const;
-    string getScoreString() const;
+    operator int() const;
+    operator std::string() const;
 };
 
 #endif // SCORE_HPP

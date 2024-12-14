@@ -10,6 +10,7 @@
 #define LIFE_HPP
 
 #include <allegro5/bitmap.h>
+#include <cstdint>
 
 #include "../score/score.hpp"
 
@@ -27,12 +28,12 @@ class Life {
 
     ~Life();
 
-    void removeOneLife();
-    void resetLife();
+    void removeOneLife(); // TODO: use operator--()
+    void resetLife();     // TODO: rename to reset
 
     void setNbLifes(const uint8_t nbLifes);
 
-    uint8_t getNbLifes() const;
+    operator uint8_t() const; // Operator uint8_t
 };
 
 #endif // LIFE_HPP

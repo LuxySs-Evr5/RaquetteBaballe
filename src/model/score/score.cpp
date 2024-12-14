@@ -36,12 +36,11 @@ void Score::saveScore() {
         read.close();
     }
 
-    if (getScore()
-        >= fileScore) { // >= because if the file don't exist and that the best
-                        // score is 0, it will not create the file
+    if (*this >= fileScore) { // >= because if the file don't exist and that the
+                              // best score is 0, it will not create the file
         ofstream write(filePath, ios::out | ios::trunc);
         if (write.is_open()) {
-            write << getScore() << endl;
+            write << *this << endl;
             write.close();
         } else {
             std::cerr << "Error: Can't open the file" << std::endl;
@@ -50,6 +49,6 @@ void Score::saveScore() {
 }
 
 // ### Getters ###
-int Score::getScore() const { return score_; }
+Score::operator int() const { return score_; }
 
-string Score::getScoreString() const { return "Score : " + to_string(score_); }
+Score::operator std::string() const { return "Score : " + to_string(score_); }

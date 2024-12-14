@@ -24,8 +24,10 @@ void Life::removeOneLife() { nbLifes_--; }
 
 void Life::resetLife() { nbLifes_ = 3; }
 
-// ### Getters ###
-uint8_t Life::getNbLifes() const { return nbLifes_; }
-
 // ### Setters ###
+
 void Life::setNbLifes(const uint8_t nbLifes) { nbLifes_ = nbLifes; }
+
+// ### Getters ###
+
+Life::operator uint8_t() const { return nbLifes_; }

@@ -45,8 +45,8 @@ class GameBoard {
     void update(double deltaTime);
     void saveCurrentScore();
     std::string getStringScore();
-    int getIntScore();
-    int getLife();
+    const Score &getScore() const;
+    const Life &getLife() const;
 
     void addScore(); // add 1 to the score if a brick is destroyed
 
@@ -57,22 +57,22 @@ class GameBoard {
     void resetTheLife();
     void resetTheScore();
 
-    // #### getters meant to be used by the View ####
-
+    // #### Getters meant to be used by the View ####
     const std::vector<std::shared_ptr<Ball>> &getBalls() const;
     const std::vector<std::shared_ptr<Brick>> &getBricks() const;
-    const std::vector<std::shared_ptr<Racket>> &getRackets() const; // TODO: set a racket and not a vector ?
+    const std::vector<std::shared_ptr<Racket>> &
+    getRackets() const; // TODO: set a racket and not a vector ?
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
 
     // ### Setters to be use in controller to load a level // TODO: check
     void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
     void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
-    void setRacket(const std::vector<std::shared_ptr<Racket>> rackets); // TODO: set a racket and not a vector
+    void setRacket(const std::vector<std::shared_ptr<Racket>>
+                       rackets); // TODO: set a racket and not a vector
     void setBorders(const std::vector<std::shared_ptr<Border>> borders);
 
-    // ### clear the vectors of the game board ###
+    // ### Clear the vectors of the game board ###
     void clearVectors();
-
 };
 
 #endif
