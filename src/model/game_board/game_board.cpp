@@ -103,7 +103,7 @@ const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
 void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
 
-// #### getters meant to be used by the View ####
+// #### Getters meant to be used by the View ####
 
 // TODO: make the balls pointers const
 const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
@@ -144,6 +144,8 @@ void GameBoard::setRacket(const std::vector<std::shared_ptr<Racket>> rackets) {
 void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders) {
     borders_ = borders;
 }
+
+// #### Clear GameBoard ####
 
 void GameBoard::clearRackets() { rackets_.clear(); }
 
