@@ -11,7 +11,8 @@ Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
     : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
 
-Vec2 Ball::getCoordinate() const noexcept { return coord_; }
+const Vec2 &Ball::getCoordinate() const noexcept { return coord_; }
+const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
 
@@ -123,4 +124,4 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
     return hasReached(closestVec2);
 }
 
-double Ball::getRadius() const { return radius_; }
+double Ball::getRadius() const noexcept { return radius_; }

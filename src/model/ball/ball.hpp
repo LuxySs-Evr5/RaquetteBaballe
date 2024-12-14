@@ -31,17 +31,26 @@ class Ball {
 
     ~Ball() = default;
 
-    double getRadius() const;
+    // #### Getters ####
 
-    Vec2 getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
+    double getRadius() const noexcept;
+    const Vec2 &getCoordinate() const noexcept;
+    const Vec2 &getDirvec() const noexcept;
 
-    Vec2 getCoordinate() const noexcept;
+    // #### Setters ####
+
     void setSpeed(unsigned speed);
     void setDirection(const Vec2 &vec);
+
+    // #### Collision ####
+
+    Vec2 getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
 
     bool checkCollision(const BoundingBox &boundingBox) const;
 
     void collide(const Bounceable &bounceable);
+
+    // #### Update ####
 
     void update(double deltaTime);
 };
