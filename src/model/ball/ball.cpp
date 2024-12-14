@@ -1,5 +1,6 @@
 #include "ball.hpp"
 
+#include "../../log/log.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
@@ -7,19 +8,7 @@
 #include <iostream>
 #include <ostream>
 
-Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
-    : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
-      speed_{speed} {}
-
-const Vec2 &Ball::getCoordinate() const noexcept { return coord_; }
-const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
-void Ball::setSpeed(unsigned speed) { speed_ = speed; };
-void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
-
-void Ball::update(double deltaTime) {
-    prevCoord_ = coord_;
-    coord_ += (dirVec_ * speed_ * deltaTime);
-}
+// #### Internal Helpers ####
 
 // NOTE: this only does the direction vector part of the bounce
 // actual bounce logic is in collide function
@@ -29,45 +18,51 @@ void Ball::bounce(const Bounceable &bounceable) {
     dirVec_ = bounceable.getDirVecAfterBounce(closestPoint, dirVec_);
 }
 
-void Ball::collide(const Bounceable &bounceable) {
-    Vec2 UnidirectionalPenetration =
-        getUnidirectionalPenetration(bounceable.getBoundingBox());
+Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
+    Vec2 boundingBoxHalfExtents{boundingBox.getWidth() / 2,
+                                boundingBox.getHeight() / 2};
 
-    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
-    BounceType bounceType = bounceable.getBounceType(closestPoint);
+    Vec2 distance = coord_ - boundingBox.getCenter();
 
-    Vec2 bidirectionalPenetration;
-    Vec2 changeBetweenLastUpdate{coord_ - prevCoord_};
+    Vec2 clamped =
+        distance.clamped(-boundingBoxHalfExtents, boundingBoxHalfExtents);
 
-    double penetrationRate = 1; // Defaults to prevent 0 division
-    if (bounceType == BounceType::Horizontal
-        and (changeBetweenLastUpdate.y != 0)) {
-        penetrationRate =
-            UnidirectionalPenetration.y / changeBetweenLastUpdate.y;
+    Vec2 closestPoint = clamped + boundingBox.getCenter();
 
-    } else if ((bounceType == BounceType::Vertical
-                or bounceType == BounceType::Corner)
-               and changeBetweenLastUpdate.x != 0) {
-        penetrationRate =
-            UnidirectionalPenetration.x / changeBetweenLastUpdate.x;
-    }
-
-    bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;
-
-    std::cout << "bidirectional: " << bidirectionalPenetration << std::endl;
-
-    coord_ -= bidirectionalPenetration;
-
-    std::cout << "applied bidirectional: " << coord_ << std::endl;
-
-    bounce(bounceable);
-
-    std::cout << "dirvec after bounce" << dirVec_ << std::endl;
-
-    // add back what the distance that the ball should have gone while it was
-    // going inside the bounding-box
-    // coord_ += dirVec_ * bidirectionalPenetration.getModule();
+    return closestPoint;
 }
+
+bool Ball::hasReached(const Vec2 &point) const {
+    double deltaX = point.x - coord_.x;
+    double deltaY = point.y - coord_.y;
+    return Vec2{deltaX, deltaY}.getModule() < radius_;
+}
+
+// #### Constructor ####
+
+Ball::Ball(Vec2 coord, Vec2 directionVec, double radius, double speed)
+    : coord_{coord}, dirVec_{directionVec.normalize()}, radius_{radius},
+      speed_{speed} {}
+
+// #### Destructor ####
+
+Ball::~Ball() = default;
+
+// #### Getters ####
+
+double Ball::getRadius() const noexcept { return radius_; }
+
+const Vec2 &Ball::getCoordinate() const noexcept { return coord_; }
+
+const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
+
+// #### Setters ####
+
+void Ball::setSpeed(unsigned speed) { speed_ = speed; };
+
+void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
+
+// #### Collision ####
 
 Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     // TODO: write a comment to explain how this works
@@ -98,30 +93,63 @@ Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     return MonoDirectionalPenetrationVec;
 }
 
-Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
-    Vec2 boundingBoxHalfExtents{boundingBox.getWidth() / 2,
-                                boundingBox.getHeight() / 2};
-
-    Vec2 distance = coord_ - boundingBox.getCenter();
-
-    Vec2 clamped =
-        distance.clamped(-boundingBoxHalfExtents, boundingBoxHalfExtents);
-
-    Vec2 closestPoint = clamped + boundingBox.getCenter();
-
-    return closestPoint;
-}
-
-bool Ball::hasReached(const Vec2 &point) const {
-    double deltaX = point.x - coord_.x;
-    double deltaY = point.y - coord_.y;
-    return Vec2{deltaX, deltaY}.getModule() < radius_;
-}
-
 bool Ball::checkCollision(const BoundingBox &boundingBox) const {
     Vec2 closestVec2 = getClosestPoint(boundingBox);
 
     return hasReached(closestVec2);
 }
 
-double Ball::getRadius() const noexcept { return radius_; }
+void Ball::collide(const Bounceable &bounceable) {
+
+    Log::get().addMessage(
+        Log::LogType::CollidingObject,
+        string{"topLeft: "} + string{bounceable.getBoundingBox().getTopLeft()});
+    Log::get().addMessage(
+        Log::LogType::CollidingObject,
+        string{"bottomRight: "}
+            + string{bounceable.getBoundingBox().getBottomRight()});
+
+    Vec2 unidirectionalPenetration =
+        getUnidirectionalPenetration(bounceable.getBoundingBox());
+    Log::get().addMessage(Log::LogType::Unidirectional,
+                          string{unidirectionalPenetration});
+
+    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
+    Log::get().addMessage(Log::LogType::ClosestPoint, string{closestPoint});
+
+    BounceType bounceType = bounceable.getBounceType(closestPoint);
+    Log::get().addMessage(Log::LogType::BounceType,
+                          bounceTypeToString(bounceType));
+
+    Vec2 bidirectionalPenetration;
+
+    Vec2 changeBetweenLastUpdate{coord_ - prevCoord_};
+
+    double penetrationRate = 1; // Defaults to prevent 0 division
+    if (bounceType == BounceType::Horizontal
+        or bounceType == BounceType::Corner
+               and (changeBetweenLastUpdate.y != 0)) {
+        penetrationRate =
+            unidirectionalPenetration.y / changeBetweenLastUpdate.y;
+
+    } else if ((bounceType == BounceType::Vertical)
+               and changeBetweenLastUpdate.x != 0) {
+        penetrationRate =
+            unidirectionalPenetration.x / changeBetweenLastUpdate.x;
+    }
+
+    bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;
+
+    coord_ -= bidirectionalPenetration;
+
+    bounce(bounceable);
+
+    // add back what the distance that the ball should have gone while it was
+    // going inside the bounding-box
+    // coord_ += dirVec_ * bidirectionalPenetration.getModule();
+}
+
+void Ball::update(double deltaTime) {
+    prevCoord_ = coord_;
+    coord_ += (dirVec_ * speed_ * deltaTime);
+}

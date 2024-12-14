@@ -6,17 +6,31 @@
 
 enum class BounceType { Vertical, Horizontal, Corner };
 
+std::string bounceTypeToString(BounceType bounceType);
+
 class Bounceable {
   protected:
     BoundingBox boundingBox_;
 
   public:
+    // #### Constructors ####
+
     Bounceable(const BoundingBox &boundingBox);
     Bounceable(Vec2 center, double width, double height);
     Bounceable(Vec2 topLeft, Vec2 bottomRight);
+
+    // #### Destructor ####
+
     virtual ~Bounceable();
 
+    // #### Getters ####
+
     const BoundingBox &getBoundingBox() const;
+
+    // TODO: is this considered as a getter for non-brick Bounceables ?
+    virtual Vec2 getVelocity() const;
+
+    // #### Bouncing ####
 
     // default one, the racket will have to reimplement its own version (bc of
     // the angle).

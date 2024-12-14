@@ -10,31 +10,34 @@ struct Vec2 {
     double y;
 
     Vec2();
-    Vec2(double X, double Y);
+    Vec2(double x, double y);
 
-    double getModule() const;
+    virtual double getModule() const;
 
-    const Vec2 &normalize();
+    virtual const Vec2 &normalize();
 
-    Vec2 clamped(const Vec2 &min, const Vec2 &max) const;
+    virtual Vec2 clamped(const Vec2 &min, const Vec2 &max) const;
 
-    bool operator==(const Vec2 &other) const;
+    virtual bool operator==(const Vec2 &other) const;
 
-    Vec2 operator+(const Vec2 &vec) const;
+    virtual Vec2 operator+(const Vec2 &vec) const;
 
-    Vec2 &operator+=(const Vec2 &vec);
+    virtual Vec2 &operator+=(const Vec2 &vec);
 
-    Vec2 operator-(const Vec2 &vec) const;
+    virtual Vec2 operator-(const Vec2 &vec) const;
 
-    Vec2 &operator-=(const Vec2 &vec);
+    virtual Vec2 &operator-=(const Vec2 &vec);
 
-    Vec2 operator-() const;
+    virtual Vec2 operator-() const;
 
-    Vec2 operator*(double scalar) const;
+    virtual Vec2 operator*(double scalar) const;
 
-    Vec2 &operator*=(double scalar);
+    virtual Vec2 &operator*=(double scalar);
 
-    Point toPoint() const;
+    // TODO: this is very stupid and should be changed
+    virtual Point toPoint() const;
+
+    virtual operator std::string() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };

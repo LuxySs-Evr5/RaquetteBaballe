@@ -17,6 +17,29 @@ void Racket::setCoordinate(const Vec2 &coordinate) {
     boundingBox_.setCenter(coordinate);
 }
 
+// #### Getters ####
+
+Vec2 Racket::getVelocity() const {
+    return previousPosition_ - boundingBox_.getCenter();
+}
+
+// #### Setters ####
+
+void Racket::setPosX(double posX) {
+    if (posX < 20 + (boundingBox_.getWidth() / 2)) {
+        posX = 20 + (boundingBox_.getWidth() / 2);
+    } else if (posX
+               > 900 - 20
+                     - (boundingBox_.getWidth()
+                        / 2)) { // -20 for the thikness of the wall // TODO:
+                                // change the 900 with a global variable
+        posX = 900 - 20 - (boundingBox_.getWidth() / 2);
+    }
+    boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
+}
+
+// #### Bounceable Override ####
+
 Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
                                   const Vec2 &dirVec) const {
     BounceType bounceType = getBounceType(closestPoint);
@@ -31,11 +54,9 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
             boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
 
         double distFromLeftSide = closestPoint.x - leftSide.x;
-        std::cout << "distFromLeftSide : " << distFromLeftSide << std::endl;
 
         double bounceAngle =
             30 + 120 * (1 - (distFromLeftSide / boundingBox_.getWidth()));
-        std::cout << "bounceAngle : " << bounceAngle << std::endl;
 
         // Convert bounceAngle to radians
         double bounceAngleRad = bounceAngle * M_PI / 180.0;
@@ -46,20 +67,6 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
         return Vec2{horizontalComponent, verticalComponent}.normalize();
     } else { // bounce on the side as if it was a usual bounceable (e.g. a
              // Brick)
-        std::cout << "doing normal bounce on the racket's side" << std::endl;
         return Bounceable::getDirVecAfterBounce(closestPoint, dirVec);
     }
-}
-
-void Racket::setPosX(double posX) {
-    if (posX < 20 + (boundingBox_.getWidth() / 2)) {
-        posX = 20 + (boundingBox_.getWidth() / 2);
-    } else if (posX
-               > 900 - 20
-                     - (boundingBox_.getWidth()
-                        / 2)) { // -20 for the thikness of the wall // TODO:
-                                // change the 900 with a global variable
-        posX = 900 - 20 - (boundingBox_.getWidth() / 2);
-    }
-    boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
 }

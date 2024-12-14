@@ -3,6 +3,20 @@
 
 #include <stdexcept>
 
+std::string bounceTypeToString(BounceType bounceType) {
+    switch (bounceType) {
+    case BounceType::Vertical:
+        return "Vertical";
+        break;
+    case BounceType::Horizontal:
+        return "Horizontal";
+        break;
+    case BounceType::Corner:
+        return "Corner";
+        break;
+    }
+}
+
 Bounceable::Bounceable(Vec2 center, double width, double height)
     : boundingBox_(center, width, height) {}
 
@@ -41,17 +55,16 @@ Vec2 Bounceable::getDirVecAfterBounce(const Vec2 &closestPoint,
 
     Vec2 ret = dirVec; // copy dirVec then change its components
     if (bounceType == BounceType::Horizontal) {
-        std::cout << "horizontal";
         ret.y = -ret.y;
     }
     if (bounceType == BounceType::Vertical) {
-        std::cout << "vertical" << std::endl;
         ret.x = -ret.x;
     } else if (bounceType == BounceType::Corner) {
-        std::cout << "corner" << std::endl;
         ret.y = -ret.y;
         ret.x = -ret.x;
     }
 
     return ret;
 }
+
+Vec2 Bounceable::getVelocity() const { return Vec2(0, 0); }

@@ -6,6 +6,10 @@
 
 class Racket final : public Bounceable {
   private:
+    Vec2 previousPosition_;
+
+    // TODO: fix weird stuff with private getters
+
     virtual double getWidth() const;
     virtual double getHeight() const;
 
@@ -14,17 +18,24 @@ class Racket final : public Bounceable {
     virtual void setCoordinate(const Vec2 &coordinate);
 
   public:
+    // #### Constructors ####
+
     Racket(const BoundingBox &boundingBox);
     Racket(const Vec2 &center, double width, double height);
 
-    // only need to know where the ball hit the racket
-    // (dirVec is not necessary for the ball's bounce against the racket since
-    // it doesn't use the previous dirVec)
+    // #### Getters ####
+
+    virtual Vec2 getVelocity() const override;
+
+    // ##### Setters ####
+
+    virtual void setPosX(double posX);
+
+    // #### Bounceable Override ####
+
     virtual Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
                                       const Vec2 &dirVec = {0,
                                                             0}) const override;
-
-    virtual void setPosX(double posX);
 };
 
 #endif

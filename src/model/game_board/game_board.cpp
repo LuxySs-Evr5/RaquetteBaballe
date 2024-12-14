@@ -1,4 +1,6 @@
 #include "game_board.hpp"
+#include "../../log/log.hpp"
+
 #include <algorithm>
 #include <memory>
 #include <optional>
@@ -33,13 +35,9 @@ GameBoard::findNextCollision(Ball &ball) {
 }
 
 void GameBoard::update(double deltaTime) {
-    // std::cout << "racket at " << rackets_[0]->getBoundingBox().getCenter();
-    // std::cout << " top left " << rackets_[0]->getBoundingBox().getTopLeft();
-    // std::cout << " bottom right "
-    //           << rackets_[0]->getBoundingBox().getBottomRight() << std::endl;
-
     for (auto ball : balls_) {
-        std::cout << "coord: " << ball->getCoordinate() << std::endl;
+
+        Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
 
         bool collided = true;
         do {
@@ -47,51 +45,46 @@ void GameBoard::update(double deltaTime) {
 
             collided = collidingObject.has_value();
             if (!collided) {
-                std::cout << "No collision detected!" << std::endl;
                 break;
             }
 
             if (std::holds_alternative<RacketIt>(collidingObject.value())) {
-                std::cout << "Collision with racket!" << std::endl;
+                Log::get().addMessage(Log::LogType::CollidingObject, "racket");
                 RacketIt racketIt = std::get<RacketIt>(*collidingObject);
                 ball->collide(*racketIt->get());
             } else if (std::holds_alternative<BrickIt>(
                            collidingObject.value())) {
-                std::cout << "Collision with a brick!" << std::endl;
+                Log::get().addMessage(Log::LogType::CollidingObject, "brick");
                 BrickIt brickIt = std::get<BrickIt>(*collidingObject);
                 ball->collide(*brickIt->get());
                 (*brickIt)->hit();               // decrement its durability
                 if ((*brickIt)->isDestroyed()) { // erase it if destroyed
-                    std::cout << "erasing brick " << std::endl;
+                    Log::get().addMessage(
+                        Log::LogType::BrickDestroyed,
+                        std::string{"Brick at "}
+                            + string{(*brickIt)->getBoundingBox().getCenter()});
                     scoreManager_.increaseScore((*brickIt)->getScore());
                     bricks_.erase(brickIt);
                 }
             } else if (std::holds_alternative<BorderIt>(
                            collidingObject.value())) {
-                std::cout << "Collision with a border!" << std::endl;
+                Log::get().addMessage(Log::LogType::CollidingObject, "border");
                 BorderIt borderIt = std::get<BorderIt>(*collidingObject);
                 ball->collide(*borderIt->get());
             }
-
-            std::cout << "repositionned at " << ball->getCoordinate()
-                      << std::endl;
         } while (collided);
 
-        if (ball->getCoordinate().y
-            < ball->getRadius() / 2) { // if the ball is out of the screen (-5
-                                       // because the ball is
-                                       // 10px wide)
+        if (ball->getCoordinate().y < ball->getRadius() / 2) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             --lifeCounter_;
             if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
                                     // check de vie dans le controller
-                balls_.push_back(
+                balls_.emplace_back(
                     std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
             }
         }
 
         ball->update(deltaTime);
-        std::cout << std::endl;
     }
 }
 

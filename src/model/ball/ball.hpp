@@ -21,25 +21,36 @@ class Ball {
     double radius_{1};
     double speed_{1};
 
+    // #### Internal Helpers ####
+
     bool hasReached(const Vec2 &point) const;
+
     void bounce(const Bounceable &bounceable);
+
     Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
 
   public:
+    // #### Constructor ####
+
     Ball(Vec2 coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
          double speed = DEFAULT_BALL_SPEED);
 
-    ~Ball() = default;
+    // #### Destructor ####
+
+    ~Ball();
 
     // #### Getters ####
 
     double getRadius() const noexcept;
+
     const Vec2 &getCoordinate() const noexcept;
+
     const Vec2 &getDirvec() const noexcept;
 
     // #### Setters ####
 
     void setSpeed(unsigned speed);
+
     void setDirection(const Vec2 &vec);
 
     // #### Collision ####

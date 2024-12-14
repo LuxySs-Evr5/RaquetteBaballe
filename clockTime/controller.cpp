@@ -22,7 +22,6 @@ void Controller::run() {
         t_last_update = t_now;
 
         model_.update(delta_time.count());
-        std::cout << "delta time= " << delta_time.count() << std::endl;
 
         std::this_thread::sleep_for(std::chrono::duration<double>(SLEEP_TIME));
     }

@@ -23,25 +23,25 @@ Log::Log() : logfile("log.txt") {
 std::string Log::logTypeToString(LogType type) const {
     switch (type) {
     case LogType::BallPos:
-        return "BallPos: ";
+        return "BallPos";
     case LogType::BounceType:
-        return "BounceType: ";
+        return "BounceType";
     case LogType::BrickDestroyed:
-        return "BrickDestroyed: ";
+        return "BrickDestroyed";
     case LogType::ClosestPoint:
-        return "ClosestPoint: ";
+        return "ClosestPoint";
     case LogType::CollidingObject:
-        return "CollidingObject: ";
+        return "CollidingObject";
     case LogType::Unidirectional:
-        return "Unidirectional: ";
+        return "Unidirectional";
     case LogType::Bidirectional:
-        return "Bidirectional: ";
+        return "Bidirectional";
     case LogType::PenetrationRate:
-        return "PenetrationRate: ";
+        return "PenetrationRate";
     case LogType::CollisionButSameDirection:
-        return "CollisionButSameDirection: ";
+        return "CollisionButSameDirection";
     case LogType::Error:
-        return " Error: ";
+        return " Error";
     default:
         return "Unknown";
     }
