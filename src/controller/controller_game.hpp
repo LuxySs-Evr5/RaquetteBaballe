@@ -22,8 +22,9 @@ class ControllerGame {
   private:
     bool done_ = false;
     bool draw_ = false;
-    double lastTime_;
-    double currentTime_;
+    double lastTime_ = 0;
+    double currentTime_ = 0;
+    int bestScore_ = 0;
 
     shared_ptr<GameBoard> gameBoard_;
     shared_ptr<DisplayGame> displayGame_;

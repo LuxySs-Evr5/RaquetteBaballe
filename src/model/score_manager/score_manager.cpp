@@ -58,6 +58,19 @@ void ScoreManager::saveScore() {
     }
 }
 
+void ScoreManager::setScore0() {
+    std::string filePath = "score.txt";
+
+    std::ofstream file(filePath, std::ios::out | std::ios::trunc);
+
+    if (file.is_open()) {
+        file.put('0'); // Erase the content of the file and write 0
+        file.close();
+    } else {
+        std::cerr << "Error: Can't open the file" << std::endl;
+    }
+}
+
 // ### Getters ###
 
 int ScoreManager::getCurrentScore() const { return currentScore_; }

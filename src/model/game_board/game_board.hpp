@@ -27,6 +27,7 @@ class GameBoard {
   private:
     ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
+    int bestScore_ = 0;
 
     std::vector<std::shared_ptr<Racket>> rackets_;
     std::vector<std::shared_ptr<Border>> borders_;
@@ -59,6 +60,8 @@ class GameBoard {
     const std::vector<std::shared_ptr<Racket>> &
     getRackets() const; // TODO: set a racket and not a vector ?
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
+    const int getBestScore() const;
+
 
     // ### Setters to be use in controller to load a level // TODO: check
     void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
@@ -66,6 +69,12 @@ class GameBoard {
     void setRacket(const std::vector<std::shared_ptr<Racket>>
                        rackets); // TODO: set a racket and not a vector
     void setBorders(const std::vector<std::shared_ptr<Border>> borders);
+
+    // #### Get the score from the file ####
+    void readBestScore();
+
+
+    void resetBestScore();
 
     // #### Clear GameBoard ####
 
@@ -79,6 +88,9 @@ class GameBoard {
     void clearRackets();
 
     void clear();
+
+    // ### Pause the game ###
+    void pauseGameBoard();
 };
 
 #endif

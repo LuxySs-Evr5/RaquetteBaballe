@@ -32,6 +32,7 @@ class ScoreManager {
     void saveScore();
     int getCurrentScore() const;
     int getRecordScore() const;
+    void setScore0();
 };
 
 #endif // SCORE_HPP

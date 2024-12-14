@@ -143,9 +143,17 @@ void DisplayGame::draw() {
                  ALLEGRO_ALIGN_CENTER,
                  "Life : "); // draw the text "Life : ", the hearts will be
                              // drawn at the right
-    al_draw_text(font24_, COLOR_WHITE, 3 * SCREEN_WIDTH / 4, 50,
+    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) - 24, 45,
+                 ALLEGRO_ALIGN_CENTER, "Current score : ");
+    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) - 24, 70,
                  ALLEGRO_ALIGN_CENTER,
-                 to_string(gameBoard_->getScore()).c_str()); // draw the score
+                 "Best score : ");
+    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 45,
+                 ALLEGRO_ALIGN_CENTER,
+                 to_string(gameBoard_->getScore()).c_str()); // draw the current score
+    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 70,
+                 ALLEGRO_ALIGN_CENTER,
+                 to_string(gameBoard_->getBestScore()).c_str()); // draw the best score
 
     drawLife(); // draw the hearts for the remaining lifes
 

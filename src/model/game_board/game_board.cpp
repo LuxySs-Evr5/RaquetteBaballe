@@ -35,6 +35,10 @@ GameBoard::findNextCollision(Ball &ball) {
 }
 
 void GameBoard::update(double deltaTime) {
+    if (deltaTime == 0) { // We don't update because there is no update to do
+        return;
+    }
+
     for (auto ball : balls_) {
 
         Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
@@ -153,4 +157,35 @@ void GameBoard::clear() {
     clearBorders();
     clearBricks();
     clearRackets();
+}
+
+
+// ### Get the best score from the file ###
+void GameBoard::readBestScore() {
+    // TODO: check because the same function in constructor of score_manager
+    std::string filePath = "score.txt";
+
+    std::ifstream read(filePath, ios::in);
+    
+    if (read.is_open()) {
+        read >> bestScore_;
+        read.close();
+    }
+}
+
+
+const int GameBoard::getBestScore() const {     // TODO: check because the same function in constructor of score_manager
+    return bestScore_;
+}
+
+
+void GameBoard::resetBestScore() {
+    bestScore_ = 0;
+    scoreManager_.setScore0();
+}
+
+
+void GameBoard::pauseGameBoard() {
+
+    
 }

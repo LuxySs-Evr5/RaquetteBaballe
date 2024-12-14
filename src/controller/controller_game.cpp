@@ -9,6 +9,8 @@
 
 #include <allegro5/allegro.h>
 
+#include <allegro5/keycodes.h>
+#include <cmath>
 #include <iostream>
 #include <ostream>
 
@@ -17,6 +19,7 @@ using namespace std;
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
 // win (autres affichages allegro et le backend)
 // TODO : Problème lors du chargement d'un niveau
+// TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score avant de quiter
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
@@ -73,7 +76,7 @@ ControllerGame::~ControllerGame() {}
 void ControllerGame::process() {
     while (!done_) {
 
-        currentTime_ = al_get_time();                // Actual time
+        currentTime_ = static_cast<double>(al_get_timer_count(timer_)) / 360.0; // Actual time and 360 for number of ticks per second
         double deltaTime = currentTime_ - lastTime_; // Time between two frames
         lastTime_ = currentTime_;                    // Update the last time
 
@@ -110,9 +113,7 @@ void ControllerGame::process() {
 // ### Private methods ###
 
 void ControllerGame::drawGame() {
-    al_start_timer(timer_);
     draw_ = false;
-
     displayGame_->draw(); // draw the pieces
 }
 
@@ -147,11 +148,13 @@ void ControllerGame::checkEventType() {
     }
 
     else if (event_.type == ALLEGRO_EVENT_TIMER) {
-        al_stop_timer(timer_);
         draw_ = true;
 
         if (key_[ALLEGRO_KEY_SPACE]) {
             // shootLazer(); TODO : shoot lazer when bonus
+        }
+        if (key_[ALLEGRO_KEY_R]) {
+            gameBoard_->resetBestScore();
         }
     }
 
@@ -374,7 +377,7 @@ void ControllerGame::loadLevel() {
     gameBoard_->setBalls(balls);
     gameBoard_->setBorders(borders);
     gameBoard_->setBricks(bricks);
-
+    gameBoard_->readBestScore(); // TODO: maybe change name of the function
     al_start_timer(timer_);
     lastTime_ = al_get_time(); // get the time at the beginning of the game
 }
