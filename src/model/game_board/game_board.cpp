@@ -127,9 +127,9 @@ long unsigned int GameBoard::getNbBricks() const {
     return bricks_.size();
 } // get the number of bricks
 
-void GameBoard::resetTheLife() { life_.resetLife(); } // reset the life
+void GameBoard::resetLife() { life_.resetLife(); } // reset the life
 
-void GameBoard::resetTheScore() { score_.resetScore(); } // reset the score
+void GameBoard::resetScore() { score_.resetScore(); } // reset the score
 
 // ### Setters ###
 void GameBoard::setBalls(const std::vector<std::shared_ptr<Ball>> balls) {

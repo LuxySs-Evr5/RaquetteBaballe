@@ -121,8 +121,8 @@ void ControllerGame::checkGameOver() {
         al_stop_timer(timer_);
         gameBoard_->saveCurrentScore();
         gameBoard_->clearVectors(); // TODO: check if we do that ?
-        gameBoard_->resetTheLife();
-        gameBoard_->resetTheScore();
+        gameBoard_->resetLife();
+        gameBoard_->resetScore();
         displayGame_->gameOver();
         waitKeyToRestart();
     }
@@ -133,8 +133,8 @@ void ControllerGame::checkWin() {
         al_stop_timer(timer_);
         gameBoard_->saveCurrentScore();
         gameBoard_->clearVectors(); // TODO: check if we do that ?
-        gameBoard_->resetTheLife();
-        gameBoard_->resetTheScore();
+        gameBoard_->resetLife();
+        gameBoard_->resetScore();
         displayGame_->gameWin();
         waitKeyToRestart();
     }

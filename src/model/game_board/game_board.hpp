@@ -52,8 +52,8 @@ class GameBoard {
 
     long unsigned int getNbBricks() const;
 
-    void resetTheLife();
-    void resetTheScore();
+    void resetLife();
+    void resetScore();
 
     // #### Getters meant to be used by the View ####
     const std::vector<std::shared_ptr<Ball>> &getBalls() const;
