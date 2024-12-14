@@ -4,7 +4,7 @@
 #include "../ball/ball.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
-#include "../life/life.hpp"
+#include "../life_counter//life_counter.hpp"
 #include "../racket/racket.hpp"
 #include "../score/score.hpp"
 
@@ -28,7 +28,7 @@ constexpr double racketVerticalPos =
 class GameBoard {
   private:
     Score score_;
-    Life life_;
+    LifeCounter lifeCounter_;
 
     std::vector<std::shared_ptr<Racket>> rackets_;
     std::vector<std::shared_ptr<Border>> borders_;
@@ -46,13 +46,13 @@ class GameBoard {
     void saveCurrentScore();
     std::string getStringScore();
     const Score &getScore() const;
-    const Life &getLife() const;
+    const LifeCounter &getLife() const;
 
     void setRacketAtX(double posX);
 
     long unsigned int getNbBricks() const;
 
-    void resetLife();
+    void resetLifeCounter();
     void resetScore();
 
     // #### Getters meant to be used by the View ####

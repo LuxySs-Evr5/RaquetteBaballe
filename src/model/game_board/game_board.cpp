@@ -81,9 +81,9 @@ void GameBoard::update(double deltaTime) {
             < -5) { // if the ball is out of the screen (-5 because the ball is
                     // 10px wide)
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
-            life_.removeOneLife();
-            if (life_ > 0) { // TODO : check si on fait ca ici ? y a un check de
-                             // vie dans le controller
+            --lifeCounter_;
+            if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
+                                    // check de vie dans le controller
                 balls_.push_back(
                     std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
             }
@@ -98,7 +98,7 @@ void GameBoard::saveCurrentScore() { score_.saveScore(); }
 
 const Score &GameBoard::getScore() const { return score_; }
 
-const Life &GameBoard::getLife() const { return life_; }
+const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
 void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
 
@@ -117,9 +117,7 @@ const std::vector<std::shared_ptr<Racket>> &GameBoard::getRackets() const {
     return rackets_;
 }
 
-const std::vector<std::shared_ptr<Border>> &
-GameBoard::getBorders() const { // TODO: drop the const because need the object
-                                // to change in the view
+const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
@@ -127,7 +125,7 @@ long unsigned int GameBoard::getNbBricks() const {
     return bricks_.size();
 } // get the number of bricks
 
-void GameBoard::resetLife() { life_.resetLife(); } // reset the life
+void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 
 void GameBoard::resetScore() { score_.resetScore(); } // reset the score
 
