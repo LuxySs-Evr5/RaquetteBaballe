@@ -9,39 +9,45 @@ Log::Log() : logfile("log.txt") {
         std::cerr << "Error opening log file!" << std::endl;
     }
     logTypeEnabled[LogType::BallPos] = true;
+    logTypeEnabled[LogType::Bidirectional] = true;
     logTypeEnabled[LogType::BounceType] = true;
     logTypeEnabled[LogType::BrickDestroyed] = true;
+    logTypeEnabled[LogType::ChangeBetweenLastUpdate] = true;
     logTypeEnabled[LogType::ClosestPoint] = true;
     logTypeEnabled[LogType::CollidingObject] = true;
-    logTypeEnabled[LogType::Unidirectional] = true;
-    logTypeEnabled[LogType::Bidirectional] = true;
-    logTypeEnabled[LogType::PenetrationRate] = true;
     logTypeEnabled[LogType::CollisionButSameDirection] = true;
+    logTypeEnabled[LogType::DirVec] = true;
     logTypeEnabled[LogType::Error] = true;
+    logTypeEnabled[LogType::PenetrationRate] = true;
+    logTypeEnabled[LogType::Unidirectional] = true;
 }
 
 std::string Log::logTypeToString(LogType type) const {
     switch (type) {
     case LogType::BallPos:
         return "BallPos";
+    case LogType::Bidirectional:
+        return "Bidirectional";
     case LogType::BounceType:
         return "BounceType";
     case LogType::BrickDestroyed:
         return "BrickDestroyed";
+    case LogType::ChangeBetweenLastUpdate:
+        return "ChangeBetweenLastUpdate";
     case LogType::ClosestPoint:
         return "ClosestPoint";
     case LogType::CollidingObject:
         return "CollidingObject";
-    case LogType::Unidirectional:
-        return "Unidirectional";
-    case LogType::Bidirectional:
-        return "Bidirectional";
-    case LogType::PenetrationRate:
-        return "PenetrationRate";
     case LogType::CollisionButSameDirection:
         return "CollisionButSameDirection";
+    case LogType::DirVec:
+        return "Dirvec";
     case LogType::Error:
         return " Error";
+    case LogType::PenetrationRate:
+        return "PenetrationRate";
+    case LogType::Unidirectional:
+        return "Unidirectional";
     default:
         return "Unknown";
     }

@@ -9,15 +9,17 @@ class Log {
   public:
     enum class LogType {
         BallPos,
+        Bidirectional,
         BounceType,
         BrickDestroyed,
+        ChangeBetweenLastUpdate,
         ClosestPoint,
         CollidingObject,
-        Unidirectional,
-        Bidirectional,
-        PenetrationRate,
         CollisionButSameDirection,
-        Error
+        DirVec,
+        Error,
+        PenetrationRate,
+        Unidirectional,
     };
 
   private:

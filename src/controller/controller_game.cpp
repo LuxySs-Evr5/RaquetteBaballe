@@ -8,13 +8,14 @@
 #include "../global_variables.hpp"
 #include "levels/levels.hpp"
 
-
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
 // win (autres affichages allegro et le backend)
-// TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score avant de quiter
+// TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score
+// avant de quiter
 
 // ### Constructor ###
-ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {
+ControllerGame::ControllerGame()
+    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {
     displayGame_ = make_shared<DisplayGame>(gameBoard_);
 
     setupAllegro();
@@ -51,7 +52,7 @@ void ControllerGame::process() {
 
         checkWinOrLose(); // check if the game is won or lost
 
-        al_wait_for_event(queue_, nullptr); 
+        al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
             checkEventType();
@@ -67,20 +68,18 @@ void ControllerGame::process() {
 
 void ControllerGame::drawGame() {
     displayGame_->draw(); // draw the pieces
-    draw_ = false; // no more need to draw
+    draw_ = false;        // no more need to draw
 }
 
 void ControllerGame::checkWinOrLose() {
-    if (gameBoard_->getNumBricks()
-        == 0) {
+    if (gameBoard_->getNumBricks() == 0) {
         al_stop_timer(timer_);
         displayGame_->gameWin();
         gameBoard_->saveRecordScore();
         levels_->levelUp();
         waitKeyToRestart();
         loadLevel();
-    }
-    else if (gameBoard_->getLife() == 0) {
+    } else if (gameBoard_->getLife() == 0) {
         al_stop_timer(timer_);
         displayGame_->gameOver();
         gameBoard_->saveRecordScore();

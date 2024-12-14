@@ -29,8 +29,7 @@ Vec2 Vec2::clamped(const Vec2 &min, const Vec2 &max) const {
 }
 
 bool Vec2::operator==(const Vec2 &other) const {
-    return static_cast<int>(x) == static_cast<int>(other.x)
-           && static_cast<int>(y) == static_cast<int>(other.y);
+    return x == other.x && y == other.y;
 }
 
 Vec2 Vec2::operator+(const Vec2 &vec) const { return Vec2{x, y} += vec; }
