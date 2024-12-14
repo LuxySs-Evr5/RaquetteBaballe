@@ -4,8 +4,6 @@
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 
-class BrikUi;
-
 #include <memory>
 
 constexpr unsigned DURABILITY_STANDARD_BRICK = 1;
