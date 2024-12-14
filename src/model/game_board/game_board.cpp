@@ -51,26 +51,23 @@ void GameBoard::update(double deltaTime) {
                 break;
             }
 
-            // Check if collision with racket
             if (std::holds_alternative<RacketIt>(collidingObject.value())) {
                 std::cout << "Collision with racket!" << std::endl;
                 RacketIt racketIt = std::get<RacketIt>(*collidingObject);
                 ball->collide(*racketIt->get());
-            } // Check if collision with brick
-            else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
+            } else if (std::holds_alternative<BrickIt>(
+                           collidingObject.value())) {
                 std::cout << "Collision with a brick!" << std::endl;
                 BrickIt brickIt = std::get<BrickIt>(*collidingObject);
                 ball->collide(*brickIt->get());
                 (*brickIt)->hit();               // decrement its durability
                 if ((*brickIt)->isDestroyed()) { // erase it if destroyed
                     std::cout << "erasing brick " << std::endl;
+                    score_ += (*brickIt)->getScore();
                     bricks_.erase(brickIt);
-                    addScore(); // add 1 to the score because a brick is
-                                // destroyed
                 }
-            } // Check if collision with border
-            else if (std::holds_alternative<BorderIt>(
-                         collidingObject.value())) {
+            } else if (std::holds_alternative<BorderIt>(
+                           collidingObject.value())) {
                 std::cout << "Collision with a border!" << std::endl;
                 BorderIt borderIt = std::get<BorderIt>(*collidingObject);
                 ball->collide(*borderIt->get());
@@ -125,10 +122,6 @@ GameBoard::getBorders() const { // TODO: drop the const because need the object
                                 // to change in the view
     return borders_;
 }
-
-void GameBoard::addScore() {
-    score_.addScore(1);
-} // add 1 to the score if a brick is destroyed
 
 long unsigned int GameBoard::getNbBricks() const {
     return bricks_.size();

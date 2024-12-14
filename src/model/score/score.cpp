@@ -20,7 +20,10 @@ Score::~Score() = default;
 
 // ### Public Methods ###
 
-void Score::addScore(const int score) { score_ += score; }
+const Score &Score::operator+=(int score) {
+    score_ += score;
+    return *this;
+}
 
 void Score::resetScore() { score_ = 0; }
 

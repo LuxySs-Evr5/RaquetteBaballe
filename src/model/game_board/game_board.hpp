@@ -48,8 +48,6 @@ class GameBoard {
     const Score &getScore() const;
     const Life &getLife() const;
 
-    void addScore(); // add 1 to the score if a brick is destroyed
-
     void setRacketAtX(double posX);
 
     long unsigned int getNbBricks() const;

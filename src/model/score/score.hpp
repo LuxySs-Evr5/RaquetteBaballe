@@ -15,7 +15,7 @@ using namespace std;
 
 class Score {
   private:
-    // TODO: verify if the score is very high, so int or long int or lon long
+    // TODO: verify if the score is very high, so int or long int or long long
     // int ?
     int score_;
 
@@ -23,7 +23,7 @@ class Score {
     Score();
     ~Score();
 
-    void addScore(const int score); // TODO: use operator+= instead ?
+    const Score &operator+=(int score); // TODO: use operator+= instead ?
     void resetScore(); // TODO: rename to just reset since we know that we are
                        // talking about score
     void saveScore();  // TODO: Rename to saveToFile() ?
