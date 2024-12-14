@@ -3,8 +3,6 @@
 
 #include "../vec2/vec2.hpp"
 
-enum class BounceType { Vertical, Horizontal, Corner };
-
 class BoundingBox final {
   private:
     Vec2 center_;

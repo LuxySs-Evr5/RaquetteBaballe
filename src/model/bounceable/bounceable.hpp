@@ -4,6 +4,8 @@
 #include "../bounding_box/bounding_box.hpp"
 #include "../vec2/vec2.hpp"
 
+enum class BounceType { Vertical, Horizontal, Corner };
+
 class Bounceable {
   protected:
     BoundingBox boundingBox_;
