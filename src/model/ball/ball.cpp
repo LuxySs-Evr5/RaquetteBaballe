@@ -5,8 +5,7 @@
 #include "../bounding_box/bounding_box.hpp"
 
 #include <cmath>
-#include <iostream>
-#include <ostream>
+
 
 // #### Internal Helpers ####
 
