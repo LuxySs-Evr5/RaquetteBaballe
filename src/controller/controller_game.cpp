@@ -119,11 +119,11 @@ void ControllerGame::drawGame() {
 void ControllerGame::checkGameOver() {
     if (gameBoard_->getLife() == 0) {
         al_stop_timer(timer_);
+        displayGame_->gameOver();
         gameBoard_->saveRecordScore();
         gameBoard_->clear(); // TODO: check if we do that ?
         gameBoard_->resetLifeCounter();
         gameBoard_->resetScore();
-        displayGame_->gameOver();
         waitKeyToRestart();
     }
 }
@@ -131,11 +131,11 @@ void ControllerGame::checkWin() {
     if (gameBoard_->getNumBricks()
         == 0) { // if there is no more bricks // TODO: not working
         al_stop_timer(timer_);
+        displayGame_->gameWin();
         gameBoard_->saveRecordScore();
         gameBoard_->clear(); // TODO: check if we do that ?
         gameBoard_->resetLifeCounter();
         gameBoard_->resetScore();
-        displayGame_->gameWin();
         waitKeyToRestart();
     }
 }
