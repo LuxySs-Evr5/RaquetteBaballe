@@ -9,8 +9,8 @@
 #include "global_variables.hpp"
 
 // ### Screen ###
-const float SCREEN_WIDTH = 1000;
-const float SCREEN_HEIGHT = 1000;
+const float SCREEN_WIDTH = 1020;
+const float SCREEN_HEIGHT = 1100;
 const double FPS = 60;
 
 // ### Board ###

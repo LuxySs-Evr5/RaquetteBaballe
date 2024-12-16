@@ -26,14 +26,17 @@ Vec2 Racket::getVelocity() const {
 // #### Setters ####
 
 void Racket::setPosX(double posX) {
-    if (posX < 20 + (boundingBox_.getWidth() / 2)) {
+    if (posX < 20 + (boundingBox_.getWidth() / 2)) { // 20 for the thikness of
+                                                     // the left wall 
         posX = 20 + (boundingBox_.getWidth() / 2);
-    } else if (posX
-               > 900 - 20
+    }
+
+    else if (posX
+               > (980 + 20)
                      - (boundingBox_.getWidth()
-                        / 2)) { // -20 for the thikness of the wall // TODO:
-                                // change the 900 with a global variable
-        posX = 900 - 20 - (boundingBox_.getWidth() / 2);
+                        / 2)) { // + 20 for the thikness of the left wall // TODO:
+                                // change the 980 with a global variable
+        posX = (980 + 20) - (boundingBox_.getWidth() / 2);
     }
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
 }

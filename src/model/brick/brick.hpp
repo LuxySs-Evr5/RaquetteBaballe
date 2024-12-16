@@ -28,10 +28,10 @@ class Brick : public Bounceable {
     Color color_;
     uint8_t durability_;
 
+  public:
     Brick(const BoundingBox &boundingBox, Color color,
           uint8_t durability = DURABILITY_STANDARD_BRICK);
-
-  public:
+    
     // #### Factory ####
 
     static std::unique_ptr<Brick> makeBrick(Color color,
