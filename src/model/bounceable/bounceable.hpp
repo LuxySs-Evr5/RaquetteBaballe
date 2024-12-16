@@ -16,6 +16,7 @@ class Bounceable {
     // #### Constructors ####
 
     Bounceable(const BoundingBox &boundingBox);
+    Bounceable(const Bounceable &other) = default;
     Bounceable(Vec2 center, double width, double height);
     Bounceable(Vec2 topLeft, Vec2 bottomRight);
 
