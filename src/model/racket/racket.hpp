@@ -21,6 +21,7 @@ class Racket final : public Bounceable {
     // #### Constructors ####
 
     Racket(const BoundingBox &boundingBox);
+    Racket(const Racket &other) = default;
     Racket(const Vec2 &center, double width, double height);
 
     // #### Getters ####

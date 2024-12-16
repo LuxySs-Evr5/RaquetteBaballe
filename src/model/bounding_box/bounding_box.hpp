@@ -13,6 +13,7 @@ class BoundingBox final {
     // #### Constructors ####
 
     BoundingBox(Vec2 center, double width, double height);
+    BoundingBox(const BoundingBox &other) = default;
     BoundingBox(Vec2 topLeft, Vec2 bottomRight);
 
     // #### Destructor ####

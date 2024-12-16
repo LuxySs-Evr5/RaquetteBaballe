@@ -33,6 +33,8 @@ class Ball final {
     Ball(Vec2 coord, Vec2 directionVec, double radius = BALL_RADIUS,
          double speed = BALL_SPEED);
 
+    Ball(const Ball &other) = default;
+
     // #### Destructor ####
 
     ~Ball();
