@@ -19,9 +19,6 @@ using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
 // TODO: move to or from globalVariables.hpp to avoid splitting variables
 // everywhere
-constexpr double BOARD_BOUNDINGS_THICKNESS = 20;
-constexpr double (RACKET_VERTICAL_POS) =
-    1.5; // how high the racket is sitting on the board
 
 class GameBoard {
   private:

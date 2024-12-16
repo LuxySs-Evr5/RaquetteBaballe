@@ -78,7 +78,7 @@ void Levels::loadBricks() {
         }
         x += WALL_THICKNESS; // because the board has a left border
         y += WALL_THICKNESS; // because the board has a top border
-        levelBricks_.push_back(Brick::makeBrick(convertColorFromString(color), BoundingBox{Vec2{x - 35, y - 10}, Vec2{x + 35, y + 10}}));
+        levelBricks_.push_back(Brick::makeBrick(convertColorFromString(color), BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2}, Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}));
     }
     file.close();
 }

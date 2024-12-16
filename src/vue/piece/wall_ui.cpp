@@ -21,7 +21,7 @@ WallUi::WallUi(Point center, float width, float height, ALLEGRO_COLOR color)
 // ### Public methods ###
 void WallUi::draw() {
     center_.y =
-        1100
+        SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
     Rectangle::draw();
 }

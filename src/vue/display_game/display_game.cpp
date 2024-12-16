@@ -26,12 +26,12 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     initialize_allegro();
 
     font24_ = al_load_ttf_font(
-        "fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 24,
+        "fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_24,
         0); // the directory that allegro looks is the main directory
     checkInit(font24_, "font24");
 
     font50_ = al_load_ttf_font(
-        "fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", 50,
+        "fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_50,
         0); // the directory that allegro looks is the main directory
     checkInit(font50_, "font50");
 

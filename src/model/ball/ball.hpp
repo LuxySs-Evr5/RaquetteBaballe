@@ -4,11 +4,9 @@
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 #include "../vec2/vec2.hpp"
+#include "../../global_variables.hpp"
 
 #include <math.h>
-
-constexpr double DEFAULT_BALL_RADIUS = 1;
-constexpr double DEFAULT_BALL_SPEED = 1;
 
 // NOTE: might wanna get inspo from translation class in labs to do the
 // increased-speed nerf
@@ -32,8 +30,8 @@ class Ball {
   public:
     // #### Constructor ####
 
-    Ball(Vec2 coord, Vec2 directionVec, double radius = DEFAULT_BALL_RADIUS,
-         double speed = DEFAULT_BALL_SPEED);
+    Ball(Vec2 coord, Vec2 directionVec, double radius = BALL_RADIUS,
+         double speed = BALL_SPEED);
 
     // #### Destructor ####
 

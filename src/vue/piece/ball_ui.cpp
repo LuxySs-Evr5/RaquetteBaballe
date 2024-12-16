@@ -16,7 +16,7 @@ BallUi::BallUi(Point center, float radius, ALLEGRO_COLOR color)
 void BallUi::draw() {
 
     center_.y =
-        1100
+        SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
     Circle::draw();
 }

@@ -1,5 +1,6 @@
 #include "racket.hpp"
 #include "../vec2/vec2.hpp"
+#include "../../global_variables.hpp"
 #include <cmath>
 
 Racket::Racket(const BoundingBox &boundingBox) : Bounceable(boundingBox) {}
@@ -26,17 +27,17 @@ Vec2 Racket::getVelocity() const {
 // #### Setters ####
 
 void Racket::setPosX(double posX) {
-    if (posX < 20 + (boundingBox_.getWidth() / 2)) { // 20 for the thikness of
+    if (posX < WALL_THICKNESS + (boundingBox_.getWidth() / 2)) { // 20 for the thikness of
                                                      // the left wall 
-        posX = 20 + (boundingBox_.getWidth() / 2);
+        posX = WALL_THICKNESS + (boundingBox_.getWidth() / 2);
     }
 
     else if (posX
-               > (980 + 20)
+               > (BOARD_WIDTH + WALL_THICKNESS)
                      - (boundingBox_.getWidth()
                         / 2)) { // + 20 for the thikness of the left wall // TODO:
                                 // change the 980 with a global variable
-        posX = (980 + 20) - (boundingBox_.getWidth() / 2);
+        posX = (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2);
     }
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
 }

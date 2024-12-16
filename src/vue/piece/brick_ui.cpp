@@ -6,16 +6,16 @@
  *
  */
 
-#include "brik_ui.hpp"
+#include "brick_ui.hpp"
 
 // ### Constructor ###
-BrikUi::BrikUi(Point center, float width, float height, ALLEGRO_COLOR color)
+BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
 // ### Public methods ###
-void BrikUi::draw() {
+void BrickUi::draw() {
     center_.y =
-        1100
+        SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
     Rectangle::draw();
 }

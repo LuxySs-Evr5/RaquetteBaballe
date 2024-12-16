@@ -3,11 +3,9 @@
 
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
+#include "../../global_variables.hpp"
 
 #include <memory>
-
-constexpr unsigned DURABILITY_STANDARD_BRICK = 1;
-constexpr unsigned DURABILITY_SILVER_BRICK = 2;
 
 enum class Color : size_t { // Score/Points is always positive
     defaultBrick = 1,

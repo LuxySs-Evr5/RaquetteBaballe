@@ -7,6 +7,7 @@
  */
 
 #include "life_counter.hpp"
+#include "../../global_variables.hpp"
 #include <iostream>
 
 // ### Constructors ###

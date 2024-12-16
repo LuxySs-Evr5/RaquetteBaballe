@@ -13,8 +13,6 @@
 
 using namespace std;
 
-constexpr unsigned INITIAL_NUM_LIFES = 3;
-
 class LifeCounter {
   private:
     unsigned numLifes_;

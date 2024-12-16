@@ -11,10 +11,10 @@
 
 #include "../figures/forme.hpp"
 
-class BrikUi final : public Rectangle {
+class BrickUi final : public Rectangle {
   public:
-    BrikUi(Point center, float width, float height, ALLEGRO_COLOR color);
-    virtual ~BrikUi() = default;
+    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color);
+    virtual ~BrickUi() = default;
 
     void draw() override;
 };
