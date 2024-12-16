@@ -125,14 +125,14 @@ void Ball::collide(const Bounceable &bounceable) {
     Vec2 changeBetweenLastUpdate{coord_ - prevCoord_};
 
     double penetrationRate = 1; // Defaults to prevent 0 division
-    if (bounceType == BounceType::Horizontal
-        or bounceType == BounceType::Corner
-               and (changeBetweenLastUpdate.y != 0)) {
+    if ((bounceType == BounceType::Horizontal)
+        || (bounceType == BounceType::Corner)
+               && (changeBetweenLastUpdate.y != 0)) {
         penetrationRate =
             unidirectionalPenetration.y / changeBetweenLastUpdate.y;
 
     } else if ((bounceType == BounceType::Vertical)
-               and changeBetweenLastUpdate.x != 0) {
+               && changeBetweenLastUpdate.x != 0) {
         penetrationRate =
             unidirectionalPenetration.x / changeBetweenLastUpdate.x;
     }

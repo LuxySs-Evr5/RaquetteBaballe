@@ -43,10 +43,10 @@ class Brick : public Bounceable {
 
     // #### Getters ####
 
-    virtual Color getColor() const;
-    virtual size_t getScore() const;
-    virtual uint8_t getDurability() const;
-    virtual bool isDestroyed() const;
+    virtual Color getColor() const final;
+    virtual size_t getScore() const final;
+    virtual uint8_t getDurability() const final;
+    virtual bool isDestroyed() const final;
 };
 
 #endif

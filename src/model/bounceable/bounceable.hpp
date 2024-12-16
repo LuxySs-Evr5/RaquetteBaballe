@@ -42,7 +42,7 @@ class Bounceable {
     virtual Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
                                       const Vec2 &dirVec) const;
 
-    virtual BounceType getBounceType(const Vec2 &point) const;
+    virtual BounceType getBounceType(const Vec2 &point) const final;
 };
 
 #endif
