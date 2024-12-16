@@ -14,8 +14,8 @@ const float SCREEN_HEIGHT = 1100;
 const double FPS = 60;
 
 // ### Board ###
-const float BOARD_WIDTH = 900;
-const float BOARD_HEIGHT = 900;
+const float BOARD_WIDTH = 980;
+const float BOARD_HEIGHT = 980;
 
 // ### Racket ###
 const float RACKET_THIKNESS = 20;
@@ -28,14 +28,14 @@ const float RACKET_Y_START =
     - 50; // 50 is the space between the end of the screen and the racket
 
 // ### Brik ###
-const float BRIK_WIDTH = 50;
-const float BRIK_HEIGHT = 25;
+const float BRIK_WIDTH = 70;
+const float BRIK_HEIGHT = 20;
 
 // ### Ball ###
-const float BALL_RADIUS = 20;
+const float BALL_RADIUS = 10;
 
 // ### Walls ###
-const float WALL_THICKNESS = RACKET_THIKNESS;
+const float WALL_THICKNESS = 20;
 const float SPACE_BTW_START_SCREEN_WALL = 20;
 const float SPACE_FOR_TEXT_UPPER = 100;
 

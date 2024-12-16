@@ -13,6 +13,7 @@
 
 #include "../model/game_board/game_board.hpp"
 #include "../vue/display_game/display_game.hpp"
+#include "levels/levels.hpp"
 
 #include <allegro5/allegro.h>
 
@@ -26,6 +27,7 @@ class ControllerGame {
     double currentTime_ = 0;
     int bestScore_ = 0;
 
+    shared_ptr<Levels> levels_;
     shared_ptr<GameBoard> gameBoard_;
     shared_ptr<DisplayGame> displayGame_;
 

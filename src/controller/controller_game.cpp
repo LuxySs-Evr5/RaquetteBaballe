@@ -12,9 +12,12 @@
 
 #include <allegro5/altime.h>
 #include <allegro5/keycodes.h>
+#include <allegro5/timer.h>
 #include <cmath>
 #include <iostream>
+#include <memory>
 #include <ostream>
+#include <vector>
 
 using namespace std;
 
@@ -24,7 +27,7 @@ using namespace std;
 // TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score avant de quiter
 
 // ### Constructor ###
-ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()} {
+ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {
     displayGame_ = make_shared<DisplayGame>(gameBoard_);
     if (!al_init()) { // initialize allegro
         cerr << "Failed to initialize Allegro" << endl;
@@ -133,6 +136,7 @@ void ControllerGame::checkWin() {
         al_stop_timer(timer_);
         displayGame_->gameWin();
         gameBoard_->saveRecordScore();
+        levels_->levelUp();
         waitKeyToRestart();
     }
 }
@@ -153,9 +157,18 @@ void ControllerGame::checkEventType() {
         if (key_[ALLEGRO_KEY_R]) {
             gameBoard_->resetBestScore();
         }
-
         if (key_[ALLEGRO_KEY_SPACE]) {
             // shootLazer(); TODO : shoot lazer when bonus
+        }
+        if (key_[ALLEGRO_KEY_LEFT]) {
+            al_stop_timer(timer_);
+            levels_->levelDown();
+            loadLevel();
+        }
+        if (key_[ALLEGRO_KEY_RIGHT]) {
+            al_stop_timer(timer_);
+            levels_->levelUp();
+            loadLevel();
         }
     }
 
@@ -181,14 +194,18 @@ void ControllerGame::waitKeyToRestart() {
 }
 
 void ControllerGame::loadLevel() {
-    Levels levels;
-
     gameBoard_->clear();
 
-    gameBoard_->setRacket(levels.getRackets());
-    gameBoard_->setBalls(levels.getBalls());
-    gameBoard_->setBorders(levels.getBorders());
-    gameBoard_->setBricks(levels.getBricks());
+    // TODO: verify if it's the right way to do that
+    vector<shared_ptr<Ball>> ball;
+    ball.push_back(make_shared<Ball>(levels_->getBall()));
+    vector<shared_ptr<Racket>> racket;
+    racket.push_back(make_shared<Racket>(levels_->getRacket()));
+
+    gameBoard_->setBorders(levels_->getBorders());
+    gameBoard_->setRacket(racket);
+    gameBoard_->setBricks(levels_->getBricks());
+    gameBoard_->setBalls(ball);
     gameBoard_->readBestScore(); // TODO: maybe change name of the function
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();

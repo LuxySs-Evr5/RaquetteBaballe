@@ -12,10 +12,7 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
-
-const double BOARD_BOUNDINGS_THICKNESS = 20;
-const double BOARD_WIDTH = 980;
-const double BOARD_HEIGHT = 980;
+#include <vector>
 
 
 // TODO: Removing magic numbers and set Global variables
@@ -24,23 +21,17 @@ const double BOARD_HEIGHT = 980;
 
 // ### Constructor ###
 Levels::Levels() {
-    levelBalls_.push_back( 
-        make_shared<Ball>(Vec2{BOARD_WIDTH / 2 + BOARD_BOUNDINGS_THICKNESS - 1, 85}, Vec2{0, 1}, 10, 500)); // + BOARD_BOUNDINGS_THICKNESS because the board has a left border
-    
-    levelRackets_.push_back(
-        make_shared<Racket>(BoundingBox{Vec2{BOARD_WIDTH / 2 + BOARD_BOUNDINGS_THICKNESS - 1, 50}, 100, 25})); // + BOARD_BOUNDINGS_THICKNESS because the board has a left border
-
     // Left border
     levelBorders_.push_back(make_shared<Border>(Border{BoundingBox{
-        Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_BOUNDINGS_THICKNESS - 1, 0}}}));
+        Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}}));
     // Top border
     levelBorders_.push_back(make_shared<Border>(BoundingBox{
         Vec2{0, BOARD_HEIGHT - 1},
-        Vec2{BOARD_WIDTH + BOARD_BOUNDINGS_THICKNESS - 1, BOARD_HEIGHT - BOARD_BOUNDINGS_THICKNESS - 1}}));
+        Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - WALL_THICKNESS - 1}}));
     // Right border
     levelBorders_.push_back(make_shared<Border>(BoundingBox{
-        Vec2{BOARD_WIDTH + BOARD_BOUNDINGS_THICKNESS - 1, BOARD_HEIGHT - 1},
-        Vec2{BOARD_WIDTH + 2 * BOARD_BOUNDINGS_THICKNESS - 1, 0}}));
+        Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
+        Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
 }
 
 
@@ -68,7 +59,8 @@ Color convertColorFromString(const string& colorName) {
 }
 
 void Levels::loadBricks() {
-    string filename = "Levels/1.txt";
+    string mainPath = "Levels/";
+    string filename = mainPath + to_string(level) + ".txt";
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "Failed to open file " << filename << endl;
@@ -84,22 +76,38 @@ void Levels::loadBricks() {
             cerr << "Failed to read line" << endl;
             exit(-1); // TODO: maybe change the way we handle the error
         }
-        x += BOARD_BOUNDINGS_THICKNESS; // because the board has a left border
-        y += BOARD_BOUNDINGS_THICKNESS; // because the board has a top border
-        levelBricks_.push_back(make_shared<Brick>(BoundingBox{Vec2{x - 35, y - 10}, Vec2{x + 35, y + 10}}, convertColorFromString(color)));
+        x += WALL_THICKNESS; // because the board has a left border
+        y += WALL_THICKNESS; // because the board has a top border
+        levelBricks_.push_back(Brick::makeBrick(convertColorFromString(color), BoundingBox{Vec2{x - 35, y - 10}, Vec2{x + 35, y + 10}}));
     }
     file.close();
 }
 
 
 // ### Public methods ###
-vector<shared_ptr<Ball>> Levels::getBalls() const { return levelBalls_; }
+void Levels::levelUp() {
+    // TODO: check if it's not open, return bool to say that the file doesn't exist
+    if (level < MAX_LEVEL) {
+        level++;
+    }
+}
 
-vector<shared_ptr<Racket>> Levels::getRackets() const { return levelRackets_; }
+void Levels::levelDown() {
+    if (level > 0) {
+        level--;
+    }
+}
 
-vector<shared_ptr<Border>> Levels::getBorders() const { return levelBorders_; }
-
-vector<shared_ptr<Brick>> Levels::getBricks() {
+const vector<shared_ptr<Brick>> Levels::getBricks() {
+    levelBricks_.clear();
     loadBricks();
     return levelBricks_;
 }
+
+const Ball Levels::getBall() const {
+    return levelBall_;
+}
+
+const Racket Levels::getRacket() const { return levelRacket_; }
+
+const vector<shared_ptr<Border>> Levels::getBorders() const { return levelBorders_; }
