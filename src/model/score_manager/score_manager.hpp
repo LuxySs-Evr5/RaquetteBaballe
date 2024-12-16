@@ -13,8 +13,8 @@ constexpr int DEFAULT_SCORE = 0;
 
 class ScoreManager {
   private:
-    int currentScore_;
-    int recordScore_;
+    unsigned long currentScore_;
+    unsigned long recordScore_;
 
   public:
     // #### Constructors ####
@@ -27,11 +27,11 @@ class ScoreManager {
 
     // #### Score Actions ####
 
-    void increaseScore(int value);
+    void increaseScore(unsigned long value);
     void resetScore();
     void saveScore();
-    int getCurrentScore() const;
-    int getRecordScore() const;
+    unsigned long getCurrentScore() const;
+    unsigned long getRecordScore() const;
     void setScore0();
 };
 

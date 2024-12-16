@@ -15,7 +15,7 @@
 
 using namespace std;
 
-void drawGameOver(int score, ALLEGRO_FONT *font) {
+void drawGameOver(unsigned long score, ALLEGRO_FONT *font) {
     string scoreString = "Your score is " + to_string(score);
     // TODO : maybe change the size of the rectangle of the game over message
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE);

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class LifeCounter {
+class LifeCounter final {
   private:
     unsigned numLifes_;
 

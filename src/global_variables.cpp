@@ -49,5 +49,5 @@ const unsigned INITIAL_NUM_LIFES = 3;
 const float HEART_IMAGE_SIZE = 24; // because the font size is 24
 
 // ### Size of font ###
-const float FONT_SIZE_24 = 24;
-const float FONT_SIZE_50 = 50;
+const int FONT_SIZE_24 = 24;
+const int FONT_SIZE_50 = 50;

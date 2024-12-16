@@ -14,7 +14,7 @@
 #include <string>
 
 // TODO: avoid code repetition with drawGameOver
-void drawGameWin(int score, ALLEGRO_FONT *font) {
+void drawGameWin(unsigned long score, ALLEGRO_FONT *font) {
     std::string scoreString = "Your score is " + to_string(score);
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE);
     al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,

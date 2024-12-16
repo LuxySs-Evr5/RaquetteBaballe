@@ -51,7 +51,7 @@ extern const unsigned INITIAL_NUM_LIFES;
 extern const float HEART_IMAGE_SIZE; // because the font size is 24
 
 // ### Size of font ###
-extern const float FONT_SIZE_24;
-extern const float FONT_SIZE_50;
+extern const int FONT_SIZE_24;
+extern const int FONT_SIZE_50;
 
 #endif // GLOBAL_VARIABLES_HPP

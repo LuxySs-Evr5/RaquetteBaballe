@@ -27,8 +27,8 @@ class ControllerGame {
     double currentTime_ = 0;
     int bestScore_ = 0;
 
-    shared_ptr<Levels> levels_;
     shared_ptr<GameBoard> gameBoard_;
+    shared_ptr<Levels> levels_;
     shared_ptr<DisplayGame> displayGame_;
 
     ALLEGRO_TIMER *timer_;

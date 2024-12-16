@@ -11,7 +11,7 @@
 // NOTE: might wanna get inspo from translation class in labs to do the
 // increased-speed nerf
 
-class Ball {
+class Ball final {
   private:
     Vec2 coord_;
     Vec2 prevCoord_; // coordinate at the previous update

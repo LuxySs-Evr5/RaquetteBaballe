@@ -11,6 +11,6 @@
 
 #include <allegro5/allegro_font.h>
 
-void drawGameWin(int score, ALLEGRO_FONT *font);
+void drawGameWin(unsigned long score, ALLEGRO_FONT *font);
 
 #endif // DRAW_GAME_WIN_HPP

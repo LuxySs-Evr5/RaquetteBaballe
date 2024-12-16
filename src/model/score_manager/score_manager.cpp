@@ -38,7 +38,7 @@ ScoreManager::~ScoreManager() = default;
 
 // #### Score Actions ####
 
-void ScoreManager::increaseScore(int value) { currentScore_ += value; }
+void ScoreManager::increaseScore(unsigned long value) { currentScore_ += value; }
 
 void ScoreManager::resetScore() { currentScore_ = 0; }
 
@@ -73,6 +73,6 @@ void ScoreManager::setScore0() {
 
 // ### Getters ###
 
-int ScoreManager::getCurrentScore() const { return currentScore_; }
+unsigned long ScoreManager::getCurrentScore() const { return currentScore_; }
 
-int ScoreManager::getRecordScore() const { return recordScore_; }
+unsigned long ScoreManager::getRecordScore() const { return recordScore_; }

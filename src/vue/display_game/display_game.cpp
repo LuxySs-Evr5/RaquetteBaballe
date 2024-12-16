@@ -190,7 +190,7 @@ void DisplayGame::drawLife() {
     float heartX =
         SCREEN_WIDTH / 4 + 40; // space between the text and the heart image
 
-    for (int i = 0; i < gameBoard_->getLife(); i++) {
+    for (unsigned i = 0; i < gameBoard_->getLife(); i++) {
 
         al_draw_scaled_bitmap(
             heartImage_, 0, 0, static_cast<float>(heartWidth),

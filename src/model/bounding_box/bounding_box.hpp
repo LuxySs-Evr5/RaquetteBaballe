@@ -17,27 +17,27 @@ class BoundingBox final {
 
     // #### Destructor ####
 
-    virtual ~BoundingBox();
+    ~BoundingBox();
 
     // #### Setters ####
 
-    virtual void setCenter(Vec2 coordinate);
+    void setCenter(Vec2 coordinate);
 
     // #### Getters ####
 
-    virtual Vec2 getCenter() const noexcept;
+    Vec2 getCenter() const noexcept;
 
-    virtual double getWidth() const noexcept;
+    double getWidth() const noexcept;
 
-    virtual double getHeight() const noexcept;
+    double getHeight() const noexcept;
 
-    virtual Vec2 getTopLeft() const noexcept;
+    Vec2 getTopLeft() const noexcept;
 
-    virtual Vec2 getTopRight() const noexcept;
+    Vec2 getTopRight() const noexcept;
 
-    virtual Vec2 getBottomRight() const noexcept;
+    Vec2 getBottomRight() const noexcept;
 
-    virtual Vec2 getBottomLeft() const noexcept;
+    Vec2 getBottomLeft() const noexcept;
 };
 
 #endif

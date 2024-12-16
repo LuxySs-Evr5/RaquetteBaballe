@@ -11,6 +11,6 @@
 
 #include <allegro5/allegro_font.h>
 
-void drawGameOver(int score, ALLEGRO_FONT *font);
+void drawGameOver(unsigned long score, ALLEGRO_FONT *font);
 
 #endif // DRAW_GAME_OVER_HPP

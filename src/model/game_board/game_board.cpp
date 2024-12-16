@@ -84,7 +84,7 @@ void GameBoard::update(double deltaTime) {
             if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
                                     // check de vie dans le controller
                 balls_.emplace_back(
-                    std::make_shared<Ball>(Vec2{450, 85}, Vec2{0, 1}, 10, 500));
+                    std::make_shared<Ball>(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1}, BALL_RADIUS, BALL_SPEED));
             }
         }
         ball->update(deltaTime);
@@ -93,7 +93,7 @@ void GameBoard::update(double deltaTime) {
 
 void GameBoard::saveRecordScore() { scoreManager_.saveScore(); }
 
-int GameBoard::getScore() const { return scoreManager_.getCurrentScore(); }
+unsigned long GameBoard::getScore() const { return scoreManager_.getCurrentScore(); }
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
@@ -118,7 +118,7 @@ const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
-long unsigned int GameBoard::getNumBricks() const { return bricks_.size(); }
+unsigned long GameBoard::getNumBricks() const { return bricks_.size(); }
 
 void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 
@@ -173,7 +173,7 @@ void GameBoard::readBestScore() {
 }
 
 
-const int GameBoard::getBestScore() const {     // TODO: check because the same function in constructor of score_manager
+int GameBoard::getBestScore() const {     // TODO: check because the same function in constructor of score_manager
     return bestScore_;
 }
 

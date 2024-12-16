@@ -14,6 +14,9 @@ std::string bounceTypeToString(BounceType bounceType) {
     case BounceType::Corner:
         return "Corner";
         break;
+    default:
+        cerr << "Unknown BounceType" << endl;
+        exit(-1);
     }
 }
 

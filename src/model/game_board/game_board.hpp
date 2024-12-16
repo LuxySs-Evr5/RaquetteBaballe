@@ -20,7 +20,7 @@ using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 // TODO: move to or from globalVariables.hpp to avoid splitting variables
 // everywhere
 
-class GameBoard {
+class GameBoard final {
   private:
     ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
@@ -41,12 +41,12 @@ class GameBoard {
     void update(double deltaTime);
     void saveRecordScore();
     std::string getStringScore();
-    int getScore() const;
+    unsigned long getScore() const;
     const LifeCounter &getLife() const;
 
     void setRacketAtX(double posX);
 
-    long unsigned int getNumBricks() const;
+    unsigned long getNumBricks() const;
 
     void resetLifeCounter();
     void resetScore();
@@ -57,7 +57,7 @@ class GameBoard {
     const std::vector<std::shared_ptr<Racket>> &
     getRackets() const; // TODO: set a racket and not a vector ?
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
-    const int getBestScore() const;
+    int getBestScore() const;
 
 
     // ### Setters to be use in controller to load a level // TODO: check
