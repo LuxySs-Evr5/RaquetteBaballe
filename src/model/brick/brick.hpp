@@ -19,7 +19,7 @@ enum class Color : size_t { // Score/Points is always positive
     blue = 100,
     magenta = 110,
     yellow = 120,
-    silver,
+    silver = 200,
     gold
 };
 

@@ -2,6 +2,7 @@
 #include "../../log/log.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <variant>

@@ -1,0 +1,14 @@
+35 500gold
+105 500 gold
+175 500 gold
+245 500 gold
+315 500 gold
+385 500 gold
+455 500 gold
+525 500 gold
+595 500 gold
+665 500 gold
+735 500 gold
+805 500 gold
+875 500 gold
+945 500 gold
