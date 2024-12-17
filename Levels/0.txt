@@ -1,10 +1,1 @@
-175 890 red
-245 890 red
-315 890 red
-385 890 red
-455 890 red
-525 890 red
-595 890 red
-665 890 red
-735 890 red
-805 890 red
+490 500 defaultBrick
