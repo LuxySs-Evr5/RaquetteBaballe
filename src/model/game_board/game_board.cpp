@@ -118,7 +118,15 @@ const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
-unsigned long GameBoard::getNumBricks() const { return bricks_.size(); }
+unsigned long GameBoard::getNumBricks() const {
+    // TODO: Voir avec Luacs si c'est bien de faire ca
+    unsigned long numBricks = 0;
+    for (auto &brick : bricks_) {
+        if (brick->getColor() != Color::gold)
+            ++numBricks;
+    }
+    return numBricks;
+}
 
 void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 
