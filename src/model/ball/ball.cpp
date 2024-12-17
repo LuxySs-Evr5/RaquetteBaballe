@@ -145,7 +145,7 @@ void Ball::collide(const Bounceable &bounceable) {
 
     // add back what the distance that the ball should have gone while it was
     // going inside the bounding-box
-    // coord_ += dirVec_ * bidirectionalPenetration.getModule();
+    coord_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 
 void Ball::update(double deltaTime) {
