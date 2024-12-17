@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <memory>
 #include <optional>
+#include <sys/types.h>
 #include <variant>
 
 std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
@@ -61,7 +62,7 @@ void GameBoard::update(double deltaTime) {
                 Log::get().addMessage(Log::LogType::CollidingObject, "brick");
                 BrickIt brickIt = std::get<BrickIt>(*collidingObject);
                 ball->collide(*brickIt->get());
-                (*brickIt)->hit();               // decrement its durability
+                (*brickIt)->hit(); // decrement its durability
                 if ((*brickIt)->isDestroyed()) { // erase it if destroyed
                     Log::get().addMessage(
                         Log::LogType::BrickDestroyed,
