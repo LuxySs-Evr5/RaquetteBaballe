@@ -1,14 +1,2 @@
-35 500 silver
-105 500 silver
-175 500 silver
-245 500 silver
-315 500 silver
-385 500 silver
 455 500 silver
 525 500 silver
-595 500 silver
-665 500 silver
-735 500 silver
-805 500 silver
-875 500 silver
-945 500 silver
