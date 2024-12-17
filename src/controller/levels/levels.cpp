@@ -59,7 +59,7 @@ Color convertColorFromString(const string& colorName) {
 }
 
 void Levels::loadBricks() {
-    string mainPath = "Levels/";
+    string mainPath = "ressources/levels/";
     string filename = mainPath + to_string(level) + ".txt";
     ifstream file(filename);
     if (!file.is_open()) {
