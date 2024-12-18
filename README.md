@@ -63,3 +63,11 @@ To start the game, run the following command:
 - `espace` : Shoot a laser when available
 - `q` : Quit the game
 
+## Game Bonus
+There are several bonuses available in the game. They will be displayed with a letter in the brick containing the bonus. You have to collect the bonus with the racket. Here is a list of the different bonuses :
+- `L` to shoot a lazer with `espace`.
+- `C` to catch the ball and release the ball with `espace`.
+- `S` to slow down the speed of the ball.
+- `E` to increase the width of the racket.
+- `V` to add a life.
+- `I` to divide the ball into 3 instances of itself. When this bonus is activate, no other bonus can fall.
