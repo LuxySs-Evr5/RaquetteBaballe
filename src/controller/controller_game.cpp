@@ -154,6 +154,9 @@ void ControllerGame::checkEventType() {
     else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
         key_.set(event_.keyboard.keycode, true); // set the key pressed to true
 
+        if (key_[ALLEGRO_KEY_Q]) {
+            done_ = true;
+        }
         if (key_[ALLEGRO_KEY_R]) {
             gameBoard_->resetBestScore();
         }
