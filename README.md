@@ -27,7 +27,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 1. Install the required dependencies (g++, make, and Allegro):
     ```sh
-    sudo apt-get install g++ make liballegro5-dev
+    sudo apt install g++ make liballegro5-dev
     ```
 
 2. Compile the project:
