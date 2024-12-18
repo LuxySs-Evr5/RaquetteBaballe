@@ -1,0 +1,9 @@
+SortIncludes: true
+IndentWidth: 4
+NamespaceIndentation: All
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Attach
