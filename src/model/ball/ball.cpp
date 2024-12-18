@@ -102,19 +102,19 @@ void Ball::collide(const Bounceable &bounceable) {
 
     Log::get().addMessage(
         Log::LogType::CollidingObject,
-        string{"topLeft: "} + string{bounceable.getBoundingBox().getTopLeft()});
+        std::string{"topLeft: "} + std::string{bounceable.getBoundingBox().getTopLeft()});
     Log::get().addMessage(
         Log::LogType::CollidingObject,
-        string{"bottomRight: "}
-            + string{bounceable.getBoundingBox().getBottomRight()});
+        std::string{"bottomRight: "}
+            + std::string{bounceable.getBoundingBox().getBottomRight()});
 
     Vec2 unidirectionalPenetration =
         getUnidirectionalPenetration(bounceable.getBoundingBox());
     Log::get().addMessage(Log::LogType::Unidirectional,
-                          string{unidirectionalPenetration});
+                          std::string{unidirectionalPenetration});
 
     Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
-    Log::get().addMessage(Log::LogType::ClosestPoint, string{closestPoint});
+    Log::get().addMessage(Log::LogType::ClosestPoint, std::string{closestPoint});
 
     BounceType bounceType = bounceable.getBounceType(closestPoint);
     Log::get().addMessage(Log::LogType::BounceType,

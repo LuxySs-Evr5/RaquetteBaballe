@@ -1,5 +1,5 @@
 /**
- * @file point.hpp
+ * @file point.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Definition of the Point struct
  * @date 16/11/2024
@@ -10,9 +10,3 @@
 
 // ### Constructors ###
 Point::Point(float valX, float valY) : x(valX), y(valY) {}
-
-// ### Overloaded operators ###
-ostream &operator<<(ostream &os, const Point &point) {
-    os << "(" << point.x << ", " << point.y << ")";
-    return os;
-}

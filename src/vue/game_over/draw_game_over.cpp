@@ -16,13 +16,12 @@
 using namespace std;
 
 void drawGameOver(unsigned long score, ALLEGRO_FONT *font) {
-    string scoreString = "Your score is " + to_string(score);
-    // TODO : maybe change the size of the rectangle of the game over message
-    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE);
+    string scoreString = "Your score is " + to_string(score); 
+    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE); // Set the background to white
     al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,
                  SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER,
-                 "GAME OVER");
+                 "GAME OVER"); // Draw the game over message
     al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,
                  SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
-                 scoreString.c_str());
+                 scoreString.c_str()); // Draw the score
 }

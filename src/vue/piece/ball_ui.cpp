@@ -1,5 +1,5 @@
 /**
- * @file ball.cpp
+ * @file ball_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the class Ball
  * @date 26/11/2024
@@ -14,7 +14,6 @@ BallUi::BallUi(Point center, float radius, ALLEGRO_COLOR color)
 
 // ### Public methods ###
 void BallUi::draw() {
-
     center_.y =
         SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend

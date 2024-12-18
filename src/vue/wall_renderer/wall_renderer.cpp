@@ -1,3 +1,11 @@
+/**
+ * @file wall_renderer.cpp
+ * @author Ethan Van Ruyskensvelde (Main developer)
+ * @brief WallRenderer class header
+ * @date 18/02/2024
+ *
+ */
+
 #include "wall_renderer.hpp"
 #include "../piece/wall_ui.hpp"
 

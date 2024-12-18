@@ -13,16 +13,27 @@
 #include <allegro5/color.h>
 
 class WallUi final : public Rectangle {
-  private:
-    float speed_;
-
   public:
-    WallUi();
-
+    /**
+     * @brief Construct a new Wall Ui object
+     * 
+     * @param center The center of the wall
+     * @param width The width of the wall
+     * @param height The height of the wall
+     */
     WallUi(Point center, float width, float height,
            ALLEGRO_COLOR = COLOR_WHITE);
+
+    /**
+     * @brief Destroy the Wall Ui object
+     * 
+     */
     virtual ~WallUi() = default;
 
+    /**
+     * @brief Draw the wall
+     * 
+     */
     void draw() override;
 };
 

@@ -9,18 +9,23 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-#include <iostream>
-
-using namespace std;
-
 struct Point {
-    float x = 0, y = 0;
+    float x = 0, y = 0; // Coordinates of the point
 
+    /**
+     * @brief Construct a new Point object
+     * 
+     * @param valX Value of x coordinate to set
+     * @param valY Value of y coordinate to set
+     */
     Point(float valX, float valY);
 
+    /**
+     * @brief Destruct a Point object
+     * 
+     */
     ~Point() = default;
 
-    friend ostream &operator<<(ostream &os, const Point &point);
 };
 
 #endif // POINT_HPP

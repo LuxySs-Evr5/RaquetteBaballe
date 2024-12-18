@@ -5,6 +5,11 @@
 
 class BallRenderer {
   public:
+    /**
+     * @brief Transform the ball to a BallUi and draw it.
+     * 
+     * @param ball 
+     */
     void render(const Ball &ball) const;
 };
 

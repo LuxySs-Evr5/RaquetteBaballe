@@ -16,18 +16,10 @@ Rectangle::Rectangle(Point center, float width, float height,
     : center_(center), width_(width), height_(height), fillColor_(fillColor),
       frameColor_(frameColor) {}
 
-// # Getters #
-float Rectangle::getWidth() const { return width_; }
-
-float Rectangle::getHeight() const { return height_; }
-
-// # Setters #
-void Rectangle::setWidth(const float width) { width_ = width; }
-
-void Rectangle::setHeight(const float height) { height_ = height; }
 
 // # Public Methods #
 void Rectangle::draw() {
+    // Calculate the coordinates of the rectangle's corners
     const float x1 = center_.x - width_ / 2;
     const float y1 = center_.y - height_ / 2;
     const float x2 = center_.x + width_ / 2;
@@ -36,7 +28,6 @@ void Rectangle::draw() {
     al_draw_rectangle(x1, y1, x2, y2, frameColor_, 1);
 }
 
-void Rectangle::moveHorizontally(float x) { center_.x += x; }
 
 // ### class Circle ###
 // # Constructors #
@@ -45,19 +36,9 @@ Circle::Circle(Point center, float radius, ALLEGRO_COLOR fillColor,
     : center_(center), radius_(radius), fillColor_(fillColor),
       frameColor_(frameColor) {}
 
-// # Getters #
-float Circle::getRadius() const { return radius_; }
-
-// # Setters #
-void Circle::setRadius(const float radius) { radius_ = radius; }
 
 // # Public Methods #
 void Circle::draw() {
     al_draw_filled_circle(center_.x, center_.y, radius_, fillColor_);
     al_draw_circle(center_.x, center_.y, radius_, frameColor_, 1);
-}
-
-void Circle::move(const float x, const float y) {
-    center_.x += x;
-    center_.y += y;
 }

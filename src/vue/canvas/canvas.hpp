@@ -16,7 +16,6 @@
 #include "../racket_renderer/racket_renderer.hpp"
 #include "../wall_renderer/wall_renderer.hpp"
 
-#include <memory>
 #include <vector>
 
 using namespace std;
@@ -37,10 +36,24 @@ class Canvas {
     WallRenderer wallRenderer_;
 
   public:
+    /**
+     * @brief Construct a new Canvas object
+     *
+     * @param gameBoard
+     */
     Canvas(
-        shared_ptr<GameBoard> gameBoard); // TODO: set a reference ? ask Lucas
+        shared_ptr<GameBoard> gameBoard);
+
+    /**
+     * @brief Destroy the Canvas object
+     * 
+     */
     ~Canvas() = default;
 
+    /**
+     * @brief Draw all the elements of the game
+     *
+     */
     void draw();
 };
 

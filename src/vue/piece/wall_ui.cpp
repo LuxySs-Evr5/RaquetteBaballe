@@ -9,12 +9,7 @@
 #include "wall_ui.hpp"
 #include <allegro5/color.h>
 
-// TODO : Removing magic numbers and set Global variables
-
 // ### Constructor ###
-// TODO: do we still need the default constructor ?
-WallUi::WallUi() : Rectangle(Point(0, 0), 0, 0, COLOR_WHITE) {}
-
 WallUi::WallUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 

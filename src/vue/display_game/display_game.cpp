@@ -16,32 +16,28 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-#include <memory>
-#include <string>
 
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
-    : canvas_(gameBoard), gameBoard_(gameBoard) {
+    : gameBoard_(gameBoard), canvas_(gameBoard) {
     // TODO: verifier le exit
     initialize_allegro();
 
     font24_ = al_load_ttf_font(
         "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_24,
-        0); // the directory that allegro looks is the main directory
+        0);
     checkInit(font24_, "font24");
 
     font50_ = al_load_ttf_font(
         "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_50,
-        0); // the directory that allegro looks is the main directory
-    checkInit(font50_, "font50");
+        0);
 
     display_ = al_create_display(static_cast<int>(SCREEN_WIDTH),
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
     heartImage_ =
-        al_load_bitmap("ressources/images/heart.png"); // the directory that allegro looks
-                                            // is the main directory
+        al_load_bitmap("ressources/images/heart.png"); 
     checkInit(heartImage_, "heart image");
 
     music_ = al_load_sample("ressources/music/arkanoid.wav");
@@ -67,6 +63,10 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
 
 // ### Destructor ###
 DisplayGame::~DisplayGame() {
+    /**
+     * @brief Destroy evrything created for allegro
+     * 
+     */
     al_destroy_display(display_);
     al_destroy_font(font24_);
     al_destroy_font(font50_);
@@ -82,6 +82,10 @@ DisplayGame::~DisplayGame() {
 
 // ### Private Methods ###
 void DisplayGame::checkInit(void *test, string type) {
+    /**
+     * @brief Verify if the initialization isn't failed
+     * 
+     */
     if (test == nullptr) {
         cerr << "Failed to load " << type << endl;
         exit(-1);
@@ -89,12 +93,11 @@ void DisplayGame::checkInit(void *test, string type) {
 }
 
 void DisplayGame::initialize_allegro() {
-
     if (!al_init()) { // initialize allegro
-        cerr << "Failed to initialize Allegro" << endl;
+        cerr << "Failed to initialize allegro" << endl;
         exit(-1);
-    };
-
+    }
+    
     if (!al_init_primitives_addon()) { // initialize the primitives addon line,
                                        // circle, rectangle, etc
         cerr << "Failed to initialize the primitives addon" << endl;
@@ -157,10 +160,7 @@ void DisplayGame::draw() {
 
     drawLife(); // draw the hearts for the remaining lifes
 
-    // canvas_.moveRacket(static_cast<float>(mouseState_.x)); // move the racket
-    // with the mouse TODO: check to move racket
-
-    canvas_.draw(); // draw the pieces
+    canvas_.draw(); // draw the pieces of the game
 
     al_flip_display(); // update the window display
 }
@@ -197,6 +197,6 @@ void DisplayGame::drawLife() {
             static_cast<float>(heartHeight),
             heartX + static_cast<float>(i) * (scaleHeartWidth + 5), 50,
             scaleHeartWidth, scaleHeartHeight,
-            0); // Affiche les cœurs en haut à gauche
+            0); // draw the heart image for each life
     }
 }

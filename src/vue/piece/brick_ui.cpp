@@ -1,5 +1,5 @@
 /**
- * @file brik.cpp
+ * @file brik_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the class Brik
  * @date 27/11/2024

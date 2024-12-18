@@ -8,14 +8,17 @@
  */
 
 #include "canvas.hpp"
-#include <memory>
 
 // ### Constructor ###
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard){};
 
 // ### Public methods ###
 void Canvas::draw() {
-
+    /**
+     * @brief For each element of each vector, we draw it
+     * 
+     *  
+     */
     for (auto &border : borders_) {
         wallRenderer_.render(*border);
     }

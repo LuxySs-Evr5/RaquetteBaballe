@@ -13,6 +13,10 @@
 
 #include "../../model/brick/brick.hpp"
 
+/**
+ * @brief Define the colors used in the game
+ * 
+ */
 const ALLEGRO_COLOR COLOR_RED = al_map_rgb(255, 0, 0);
 const ALLEGRO_COLOR COLOR_GREY = al_map_rgb(200, 200, 200);
 const ALLEGRO_COLOR COLOR_DARK_GREY = al_map_rgb(105, 105, 105);
@@ -28,6 +32,12 @@ const ALLEGRO_COLOR COLOR_CYAN = al_map_rgb(0, 255, 255);
 const ALLEGRO_COLOR COLOR_SILVER = al_map_rgb(192, 192, 192);
 const ALLEGRO_COLOR COLOR_GOLD = al_map_rgb(255, 215, 0);
 
+/**
+ * @brief Convert a Color to an ALLEGRO_COLOR
+ * 
+ * @param color 
+ * @return ALLEGRO_COLOR 
+ */
 ALLEGRO_COLOR colorToAllegroColor(Color color);
 
 #endif // COLORS_HPP

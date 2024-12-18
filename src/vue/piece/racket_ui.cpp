@@ -1,5 +1,5 @@
 /**
- * @file racket.cpp
+ * @file racket_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
  * @brief Define the racket class
  * @date 26/11/2024
@@ -9,12 +9,7 @@
 #include "racket_ui.hpp"
 #include <allegro5/color.h>
 
-// TODO : Removing magic numbers and set Global variables
-
 // ### Constructor ###
-// TODO: do we still need the default constructor ?
-RacketUi::RacketUi() : Rectangle(Point(0, 0), 0, 0, COLOR_WHITE) {}
-
 RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 

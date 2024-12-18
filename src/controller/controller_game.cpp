@@ -8,27 +8,161 @@
 #include "../global_variables.hpp"
 #include "levels/levels.hpp"
 
-#include <allegro5/allegro.h>
-
-#include <allegro5/altime.h>
-#include <allegro5/keycodes.h>
-#include <allegro5/timer.h>
-#include <cmath>
-#include <iostream>
-#include <memory>
-#include <ostream>
-#include <vector>
-
-using namespace std;
 
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
 // win (autres affichages allegro et le backend)
-// TODO : Problème lors du chargement d'un niveau
 // TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score avant de quiter
 
 // ### Constructor ###
 ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {
     displayGame_ = make_shared<DisplayGame>(gameBoard_);
+
+    setupAllegro();
+
+    loadLevel(); // at the start of the game we start a level // TODO: check if
+                 // good
+}
+
+// ### Destructor ###
+ControllerGame::~ControllerGame() {
+    if (timer_) {
+        al_destroy_timer(timer_);
+    }
+
+    if (queue_) {
+        al_destroy_event_queue(queue_);
+    }
+}
+
+// ### Public methods ###
+void ControllerGame::process() {
+    while (!done_) {
+
+        currentTime_ = al_get_time();
+        double deltaTime = currentTime_ - lastTime_; // Time between two ticks
+        lastTime_ = currentTime_;                    // Update the last time
+
+        al_get_mouse_state(&mouseState_); // get the mouse state
+
+        gameBoard_->setRacketAtX(static_cast<double>(
+            mouseState_.x)); // move the racket with the mouse
+
+        gameBoard_->update(deltaTime); // update the game board
+
+        checkWinOrLose(); // check if the game is won or lost
+
+        al_wait_for_event(queue_, nullptr); 
+
+        while (al_get_next_event(queue_, &event_)) { // get the next event
+            checkEventType();
+        }
+
+        if (draw_) { // if the timer has ticked we draw the game
+            drawGame();
+        }
+    }
+}
+
+// ### Private methods ###
+
+void ControllerGame::drawGame() {
+    displayGame_->draw(); // draw the pieces
+    draw_ = false; // no more need to draw
+}
+
+void ControllerGame::checkWinOrLose() {
+    if (gameBoard_->getNumBricks()
+        == 0) {
+        al_stop_timer(timer_);
+        displayGame_->gameWin();
+        gameBoard_->saveRecordScore();
+        levels_->levelUp();
+        waitKeyToRestart();
+        loadLevel();
+    }
+    else if (gameBoard_->getLife() == 0) {
+        al_stop_timer(timer_);
+        displayGame_->gameOver();
+        gameBoard_->saveRecordScore();
+        waitKeyToRestart();
+        loadLevel();
+    }
+}
+
+void ControllerGame::checkEventType() {
+    if (event_.type
+        == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display will be closed
+        done_ = true;
+    }
+
+    if (event_.type == ALLEGRO_EVENT_TIMER) {
+        draw_ = true;
+    }
+
+    if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
+        key_.set(event_.keyboard.keycode, true); // set the key pressed to true
+
+        if (key_[ALLEGRO_KEY_Q]) {
+            done_ = true;
+        }
+        if (key_[ALLEGRO_KEY_R]) {
+            gameBoard_->resetBestScore();
+        }
+        if (key_[ALLEGRO_KEY_SPACE]) {
+            // shootLazer(); TODO : shoot lazer when bonus
+        }
+        if (key_[ALLEGRO_KEY_LEFT]) {
+            al_stop_timer(timer_);
+            levels_->levelDown();
+            loadLevel();
+        }
+        if (key_[ALLEGRO_KEY_RIGHT]) {
+            al_stop_timer(timer_);
+            levels_->levelUp();
+            loadLevel();
+        }
+    }
+
+    if (event_.type == ALLEGRO_EVENT_KEY_UP) {
+        key_.reset(
+            event_.keyboard
+                .keycode); // set the key that is no longer pressed to false
+    }
+}
+
+void ControllerGame::waitKeyToRestart() {
+    while (!(event_.type
+             == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
+        al_get_next_event(queue_, &event_);
+        if (event_.type
+            == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
+            done_ = true;
+            break;
+        }
+    }
+}
+
+void ControllerGame::loadLevel() {
+    gameBoard_->clear();
+
+    // TODO: verify if it's the right way to do that
+    vector<shared_ptr<Ball>> ball;
+    ball.push_back(make_shared<Ball>(levels_->getBall()));
+    vector<shared_ptr<Racket>> racket;
+    racket.push_back(make_shared<Racket>(levels_->getRacket()));
+
+    gameBoard_->setBorders(levels_->getBorders());
+    gameBoard_->setRacket(racket);
+    gameBoard_->setBricks(levels_->getBricks());
+    gameBoard_->setBalls(ball);
+    gameBoard_->readBestScore(); // TODO: maybe change name of the function
+    gameBoard_->resetLifeCounter();
+    gameBoard_->resetScore();
+    al_start_timer(timer_);
+    lastTime_ = al_get_time(); // get the time at the beginning of the game
+}
+
+void ControllerGame::setupAllegro() {
     if (!al_init()) { // initialize allegro
         cerr << "Failed to initialize Allegro" << endl;
         exit(-1);
@@ -69,149 +203,4 @@ ControllerGame::ControllerGame() : gameBoard_{make_shared<GameBoard>()}, levels_
     al_register_event_source(
         queue_,
         al_get_timer_event_source(timer_)); // register the timer event source
-
-    loadLevel(); // at the start of the game we start a level // TODO: check if
-                 // good
-}
-
-// ### Destructor ###
-ControllerGame::~ControllerGame() {}
-
-// ### Public methods ###
-void ControllerGame::process() {
-    while (!done_) {
-
-        currentTime_ = al_get_time(); // Actual time
-        double deltaTime = currentTime_ - lastTime_; // Time between two frames
-        lastTime_ = currentTime_;                    // Update the last time
-
-        al_get_mouse_state(&mouseState_); // get the mouse state
-
-        // check if the mouse is in the window // TODO: check si c'est utile
-        if (mouseState_.x < 0) {
-            mouseState_.x = 0;
-        } else if (mouseState_.x > static_cast<int>(SCREEN_WIDTH)) {
-            mouseState_.x = static_cast<int>(SCREEN_WIDTH);
-        }
-
-        gameBoard_->setRacketAtX(static_cast<double>(
-            mouseState_.x)); // move the racket with the mouse
-
-        gameBoard_->update(deltaTime);
-
-        checkGameOver(); // check if the player has lifes // TODO : check if
-                         // it's the right place to do that
-        checkWin();      // check if the player has won
-
-        al_wait_for_event(queue_, nullptr);
-
-        while (al_get_next_event(queue_, &event_)) { // get the next event
-            checkEventType();
-        }
-
-        if (draw_) {
-            drawGame();
-        }
-    }
-}
-
-// ### Private methods ###
-
-void ControllerGame::drawGame() {
-    draw_ = false;
-    displayGame_->draw(); // draw the pieces
-}
-
-void ControllerGame::checkGameOver() {
-    if (gameBoard_->getLife() == 0) {
-        al_stop_timer(timer_);
-        displayGame_->gameOver();
-        gameBoard_->saveRecordScore();
-        waitKeyToRestart();
-    }
-}
-void ControllerGame::checkWin() {
-    if (gameBoard_->getNumBricks()
-        == 0) { // if there is no more bricks // TODO: not working
-        al_stop_timer(timer_);
-        displayGame_->gameWin();
-        gameBoard_->saveRecordScore();
-        levels_->levelUp();
-        waitKeyToRestart();
-    }
-}
-
-void ControllerGame::checkEventType() {
-    if (event_.type
-        == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
-        done_ = true;
-    }
-
-    else if (event_.type == ALLEGRO_EVENT_TIMER) {
-        draw_ = true;
-    }
-
-    else if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
-        key_.set(event_.keyboard.keycode, true); // set the key pressed to true
-
-        if (key_[ALLEGRO_KEY_Q]) {
-            done_ = true;
-        }
-        if (key_[ALLEGRO_KEY_R]) {
-            gameBoard_->resetBestScore();
-        }
-        if (key_[ALLEGRO_KEY_SPACE]) {
-            // shootLazer(); TODO : shoot lazer when bonus
-        }
-        if (key_[ALLEGRO_KEY_LEFT]) {
-            al_stop_timer(timer_);
-            levels_->levelDown();
-            loadLevel();
-        }
-        if (key_[ALLEGRO_KEY_RIGHT]) {
-            al_stop_timer(timer_);
-            levels_->levelUp();
-            loadLevel();
-        }
-    }
-
-    else if (event_.type == ALLEGRO_EVENT_KEY_UP) {
-        key_.reset(
-            event_.keyboard
-                .keycode); // set the key that is no longer pressed to false
-    }
-}
-
-void ControllerGame::waitKeyToRestart() {
-    al_wait_for_event(queue_, nullptr);
-    while (!(event_.type
-             == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
-        al_get_next_event(queue_, &event_);
-        if (event_.type
-            == ALLEGRO_EVENT_DISPLAY_CLOSE) { // if the display is closed
-            done_ = true;
-            break;
-        }
-    }
-    loadLevel(); // TODO: check if it's the right place to do that
-}
-
-void ControllerGame::loadLevel() {
-    gameBoard_->clear();
-
-    // TODO: verify if it's the right way to do that
-    vector<shared_ptr<Ball>> ball;
-    ball.push_back(make_shared<Ball>(levels_->getBall()));
-    vector<shared_ptr<Racket>> racket;
-    racket.push_back(make_shared<Racket>(levels_->getRacket()));
-
-    gameBoard_->setBorders(levels_->getBorders());
-    gameBoard_->setRacket(racket);
-    gameBoard_->setBricks(levels_->getBricks());
-    gameBoard_->setBalls(ball);
-    gameBoard_->readBestScore(); // TODO: maybe change name of the function
-    gameBoard_->resetLifeCounter();
-    gameBoard_->resetScore();
-    al_start_timer(timer_);
-    lastTime_ = al_get_time(); // get the time at the beginning of the game
 }
