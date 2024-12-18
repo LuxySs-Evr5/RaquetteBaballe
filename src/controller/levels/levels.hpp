@@ -23,7 +23,7 @@ constexpr unsigned MAX_LEVEL = 6 - 1; // -1 because we start to count at 0
 
 class Levels {
   private:
-        unsigned currentLevel = 0;
+        unsigned currentLevel;
         vector<shared_ptr<Brick>> levelBricks_ ;
         const Ball levelBall_ = Ball(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1}, BALL_RADIUS, BALL_SPEED); // + BOARD_BOUNDINGS_THICKNESS because the board has a left border
         const Racket levelRacket_ = Racket(BoundingBox{Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 50}, RACKET_WIDTH, RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because the board has a left border;

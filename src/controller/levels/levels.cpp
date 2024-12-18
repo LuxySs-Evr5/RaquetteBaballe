@@ -18,7 +18,7 @@
 
 
 // ### Constructor ###
-Levels::Levels() {
+Levels::Levels() : currentLevel(0){
     // Left wall
     levelBorders_.push_back(make_shared<Border>(Border{BoundingBox{
         Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}}));
@@ -91,7 +91,8 @@ void Levels::loadBricks() {
 
 // ### Public methods ###
 void Levels::levelUp() {
-    // TODO: check if it's not open, return bool to say that the file doesn't exist
+    // TODO: check if it's not open, return bool to say that the file doesn't
+    // exist
     if (currentLevel < MAX_LEVEL) {
         currentLevel++;
     }
