@@ -13,7 +13,6 @@
 #include <unordered_map>
 
 
-// TODO: Removing magic numbers and set Global variables
 // TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick if needed
 
 
@@ -59,7 +58,7 @@ Color convertColorFromString(const string &colorName) {
         return it->second;
     }
     cerr << "Unknown color name" << endl;
-    exit(-1); // TODO: maybe change the way we handle the error
+    exit(1);
 }
 
 void Levels::loadBricks() {
@@ -68,7 +67,7 @@ void Levels::loadBricks() {
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "Failed to open file " << filename << endl;
-        exit(-1); // TODO: maybe change the way we handle the error
+        exit(1);
     }
 
     // Read the file line by line and create a brick to add to the vector
@@ -79,7 +78,7 @@ void Levels::loadBricks() {
         string color;
         if (!(iss >> x >> y >> color)) {
             cerr << "Failed to read line" << endl;
-            exit(-1); // TODO: maybe change the way we handle the error
+            exit(1);
         }
         x += WALL_THICKNESS; // because the board has a left border
         y += WALL_THICKNESS; // because the board has a top border
@@ -91,8 +90,6 @@ void Levels::loadBricks() {
 
 // ### Public methods ###
 void Levels::levelUp() {
-    // TODO: check if it's not open, return bool to say that the file doesn't
-    // exist
     if (currentLevel < MAX_LEVEL) {
         currentLevel++;
     }

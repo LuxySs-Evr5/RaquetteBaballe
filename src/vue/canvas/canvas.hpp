@@ -20,12 +20,9 @@
 
 using namespace std;
 
-// TODO: mettre const
-
 class Canvas {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    // TODO: check si on fait ca dans le hpp
     const vector<shared_ptr<Racket>> &rackets_ = gameBoard_->getRackets();
     const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();

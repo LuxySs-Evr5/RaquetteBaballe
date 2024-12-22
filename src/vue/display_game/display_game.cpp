@@ -20,7 +20,6 @@
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     : gameBoard_(gameBoard), canvas_(gameBoard) {
-    // TODO: verifier le exit
     initialize_allegro();
 
     font24_ = al_load_ttf_font(
@@ -52,8 +51,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
         cerr << "Failed to attach sample instance to mixer" << endl;
         al_destroy_sample_instance(instanceMusic_);
         al_destroy_sample(music_);
-        // TODO: verifier le exit
-        exit(-1);
+        exit(1);
     }
 
     al_set_sample_instance_playmode(
@@ -88,51 +86,51 @@ void DisplayGame::checkInit(void *test, string type) {
      */
     if (test == nullptr) {
         cerr << "Failed to load " << type << endl;
-        exit(-1);
+        exit(1);
     }
 }
 
 void DisplayGame::initialize_allegro() {
     if (!al_init()) { // initialize allegro
         cerr << "Failed to initialize allegro" << endl;
-        exit(-1);
+        exit(1);
     }
     
     if (!al_init_primitives_addon()) { // initialize the primitives addon line,
                                        // circle, rectangle, etc
         cerr << "Failed to initialize the primitives addon" << endl;
-        exit(-1);
+        exit(1);
     };
 
     if (!al_install_audio()) { // install the audio
         cerr << "Failed to install audio" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_init_acodec_addon()) {
         cerr << "Failed to initialize the acodec addon" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_reserve_samples(
             1)) { // reserve the number of samples to play the sound
         cerr << "Failed to reserve samples" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_init_image_addon()) {
         cerr << "Failed to initialize the image addon" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_init_font_addon()) { // initialize the police for the text
         cerr << "Failed to initialize the font addon" << endl;
-        exit(-1);
+        exit(1);
     };
 
     if (!al_init_ttf_addon()) { // initialize the ttf for the text
         cerr << "Failed to initialize the ttf addon" << endl;
-        exit(-1);
+        exit(1);
     }
 }
 
@@ -166,7 +164,6 @@ void DisplayGame::draw() {
 }
 
 void DisplayGame::gameOver() {
-    // TODO: verifier avec gameBoard
     drawGameOver(gameBoard_->getScore(), font50_);
     al_flip_display();
 }

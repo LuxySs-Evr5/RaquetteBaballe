@@ -5,13 +5,10 @@
  */
 
 #include "controller_game.hpp"
-#include "../global_variables.hpp"
 #include "levels/levels.hpp"
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
 
-// TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
-// win (autres affichages allegro et le backend)
 // TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score
 // avant de quiter
 
@@ -21,9 +18,7 @@ ControllerGame::ControllerGame()
     displayGame_ = make_shared<DisplayGame>(gameBoard_);
 
     setupAllegro();
-
-    loadLevel(); // at the start of the game we start a level // TODO: check if
-                 // good
+    loadLevel(); // at the start of the game we start a level
 }
 
 // ### Destructor ###
@@ -111,9 +106,6 @@ void ControllerGame::checkEventType() {
         if (key_[ALLEGRO_KEY_R]) {
             gameBoard_->resetBestScore();
         }
-        if (key_[ALLEGRO_KEY_SPACE]) {
-            // shootLazer(); TODO : shoot lazer when bonus
-        }
         if (key_[ALLEGRO_KEY_LEFT]) {
             al_stop_timer(timer_);
             levels_->levelDown();
@@ -149,7 +141,7 @@ void ControllerGame::waitKeyToRestart() {
 void ControllerGame::loadLevel() {
     gameBoard_->clear();
 
-    // TODO: verify if it's the right way to do that
+
     vector<shared_ptr<Ball>> ball;
     ball.push_back(make_shared<Ball>(levels_->getBall()));
     vector<shared_ptr<Racket>> racket;
@@ -159,7 +151,7 @@ void ControllerGame::loadLevel() {
     gameBoard_->setRacket(racket);
     gameBoard_->setBricks(levels_->getBricks());
     gameBoard_->setBalls(ball);
-    gameBoard_->readBestScore(); // TODO: maybe change name of the function
+    gameBoard_->readBestScore();
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();
     al_start_timer(timer_);
@@ -183,7 +175,7 @@ void ControllerGame::setupAllegro() {
     }
 
     timer_ =
-        al_create_timer(1.0 / 360); // TODO: check the FPS we want for allegro
+        al_create_timer(1.0 / 360);
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);

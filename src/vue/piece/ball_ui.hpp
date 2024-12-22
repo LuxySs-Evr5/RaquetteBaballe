@@ -12,8 +12,6 @@
 #include "../figures/forme.hpp"
 #include <allegro5/color.h>
 
-// TODO: can we just move all of this to the BallRenderer ?
-
 class BallUi final : public Circle {
   public:
     /**
