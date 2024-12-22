@@ -12,25 +12,24 @@
 #include <string>
 #include <unordered_map>
 
-
-// TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick if needed
-
+// TODO: Removing magic numbers and set Global variables
+// TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick
+// if needed
 
 // ### Constructor ###
-Levels::Levels() : currentLevel(0){
+Levels::Levels() : currentLevel(0) {
     // Left wall
-    levelBorders_.push_back(make_shared<Border>(Border{BoundingBox{
-        Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}}));
+    levelBorders_.emplace_back(make_shared<Border>(Border{
+        BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}}));
     // Top wall
-    levelBorders_.push_back(make_shared<Border>(BoundingBox{
-        Vec2{0, BOARD_HEIGHT - 1},
-        Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - WALL_THICKNESS - 1}}));
+    levelBorders_.emplace_back(make_shared<Border>(BoundingBox{
+        Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_WIDTH + WALL_THICKNESS - 1,
+                                        BOARD_HEIGHT - WALL_THICKNESS - 1}}));
     // Right wall
-    levelBorders_.push_back(make_shared<Border>(BoundingBox{
-        Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
-        Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
+    levelBorders_.emplace_back(make_shared<Border>(
+        BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
+                    Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
 }
-
 
 // ### Private methods ###
 Color convertColorFromString(const string &colorName) {
@@ -51,8 +50,7 @@ Color convertColorFromString(const string &colorName) {
         {"magenta", Color::magenta},
         {"yellow", Color::yellow},
         {"silver", Color::silver},
-        {"gold", Color::gold}
-    };
+        {"gold", Color::gold}};
     auto it = colorMap.find(colorName);
     if (it != colorMap.end()) {
         return it->second;
@@ -82,11 +80,13 @@ void Levels::loadBricks() {
         }
         x += WALL_THICKNESS; // because the board has a left border
         y += WALL_THICKNESS; // because the board has a top border
-        levelBricks_.push_back(Brick::makeBrick(convertColorFromString(color), BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2}, Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}));
+        levelBricks_.emplace_back(Brick::makeBrick(
+            convertColorFromString(color),
+            BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
+                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}));
     }
     file.close();
 }
-
 
 // ### Public methods ###
 void Levels::levelUp() {
@@ -107,10 +107,10 @@ const vector<shared_ptr<Brick>> Levels::getBricks() {
     return levelBricks_;
 }
 
-const Ball Levels::getBall() const {
-    return levelBall_;
-}
+const Ball Levels::getBall() const { return levelBall_; }
 
 const Racket Levels::getRacket() const { return levelRacket_; }
 
-const vector<shared_ptr<Border>> Levels::getBorders() const { return levelBorders_; }
+const vector<shared_ptr<Border>> Levels::getBorders() const {
+    return levelBorders_;
+}
