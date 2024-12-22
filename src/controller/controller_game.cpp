@@ -77,7 +77,7 @@ void ControllerGame::checkWinOrLose() {
     if (gameBoard_->getNumBricks() == 0) {
         // if the player has won
         al_stop_timer(timer_);
-        win_ = true;
+        displayGame_->gameWin();
         gameBoard_->saveRecordScore();
         levels_->levelUp();
         waitKeyToRestart();
@@ -85,7 +85,7 @@ void ControllerGame::checkWinOrLose() {
     } else if (gameBoard_->getLife() == 0) {
         // if the player has lost
         al_stop_timer(timer_);
-        lose_ = true;
+        displayGame_->gameOver();
         gameBoard_->saveRecordScore();
         waitKeyToRestart();
         loadLevel();
@@ -142,18 +142,12 @@ void ControllerGame::waitKeyToRestart() {
             done_ = true;
             break;
         }
-        if (lose_) {
-            displayGame_->gameOver(); // display the game over screen
-        } if (win_) {
-            displayGame_->gameWin(); // display the game win screen
-        }
+        al_rest(0.01); // wait a little bit to not use all the CPU
     }
 }
 
 void ControllerGame::loadLevel() {
     gameBoard_->clear();
-    win_ = false;
-    lose_ = false;
 
     // TODO: verify if it's the right way to do that
     vector<shared_ptr<Ball>> ball;
