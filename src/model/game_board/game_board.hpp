@@ -9,6 +9,8 @@
 #include "../score_manager/score_manager.hpp"
 
 #include <memory>
+#include <optional>
+#include <variant>
 #include <vector>
 
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
@@ -29,37 +31,133 @@ class GameBoard final {
     std::vector<std::shared_ptr<Brick>> bricks_;
     std::vector<std::shared_ptr<Ball>> balls_;
 
+    /**
+     * @brief Finds the next collision involving the specified ball.
+     *
+     * @param ball Reference to the ball involved in the collision.
+     * @return An optional variant containing either Brick-iterator or a
+     * Border-iterator or a shared_ptr<Racket> corresponding to the next
+     * Colliding object. The optional has no value if no collisions were found.
+     */
+    std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
+    findNextCollision(Ball &ball);
+
+    /**
+     * @brief Resolves collisions involving the specified ball and
+     * calculates the points earned from this collision resolution.
+     *
+     * @param ball Reference to the ball involved in the collision.
+     * @return The number of points earned as a result of resolving the
+     * collisions.
+     */
+    size_t solveBallCollisions(Ball &ball);
+
   public:
+    /**
+     * @brief Default constructor.
+     */
     GameBoard() = default;
+
+    /**
+     * @brief Default destructor.
+     */
     ~GameBoard() = default;
 
+    /**
+     * @brief Updates the GameBoard state based on elapsed time.
+     *
+     * @param deltaTime Time elapsed (in seconds) since the last update.
+     */
     void update(double deltaTime);
-    void saveRecordScore();
-    std::string getStringScore();
+
+    // #### Getters ####
+
+    /**
+     * @brief Returns the current Score.
+     *
+     * @return The current score.
+     */
     unsigned long getScore() const;
+
+    /**
+     * @brief Returns a reference to the lifeCounter.
+     *
+     * @return A reference to the lifeCounter.
+     */
     const LifeCounter &getLife() const;
 
-    void setRacketAtX(double posX);
-
+    /**
+     * @brief Returns the current number of bricks.
+     *
+     * @return The current number of bricks.
+     */
     unsigned long getNumBricks() const;
 
-    void resetLifeCounter();
-    void resetScore();
-
-    // #### Getters meant to be used by the View ####
+    /**
+     * @brief Returns the currently active Balls.
+     *
+     * @return A reference to the vector of ball pointers.
+     */
     const std::vector<std::shared_ptr<Ball>> &getBalls() const;
+
+    /**
+     * @brief Returns the current Bricks.
+     *
+     * @return A reference to the vector of brick pointers.
+     */
     const std::vector<std::shared_ptr<Brick>> &getBricks() const;
+
+    // TODO: doc
     const std::vector<std::shared_ptr<Racket>> &
     getRackets() const; // TODO: set a racket and not a vector ?
+
+    /**
+     * @brief Returns the map borders.
+     *
+     * @return A reference to the vector of border pointers.
+     */
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
     int getBestScore() const;
 
-    // ### Setters to be use in controller to load a level // TODO: check
-    void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
-    void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
+    // #### Setters ####
+
+    /**
+     * @brief Sets the racket's horizontal cooddinate.
+     *
+     * @param posX The racket's horizontal cooddinate.
+     */
+    void setRacketAtX(double posX);
+
+    /**
+     * @brief Sets the balls.
+     *
+     * @param balls A reference to the vector of brick pointers.
+     */
+    void setBalls(const std::vector<std::shared_ptr<Ball>> &balls);
+
+    /**
+     * @brief Sets the bricks.
+     *
+     * @param bricks A reference to the vector of brick pointers.
+     */
+    void setBricks(const std::vector<std::shared_ptr<Brick>> &bricks);
+
+    // TODO: doc
     void setRacket(const std::vector<std::shared_ptr<Racket>>
-                       rackets); // TODO: set a racket and not a vector
-    void setBorders(const std::vector<std::shared_ptr<Border>> borders);
+                       &rackets); // TODO: set a racket and not a vector
+
+    /**
+     * @brief Sets the borders.
+     *
+     * @param borders A reference to the vector of border pointers.
+     */
+    void setBorders(const std::vector<std::shared_ptr<Border>> &borders);
+
+    void resetLifeCounter();
+
+    void resetScore();
+
+    void saveRecordScore();
 
     // #### Get the score from the file ####
     void readBestScore();

@@ -1,14 +1,89 @@
 #include "game_board.hpp"
 #include "../../log/log.hpp"
-#include "../collision_solver/collision_solver.hpp"
 
 #include <algorithm>
 #include <memory>
 #include <sys/types.h>
 
-void GameBoard::update(double deltaTime) {
+std::optional<std::variant<BrickIt, BorderIt, std::shared_ptr<Racket>>>
+GameBoard::findNextCollision(Ball &ball) {
+    std::optional<std::variant<BrickIt, BorderIt, std::shared_ptr<Racket>>>
+        closestCollision;
+    double distanceClosestCollision = std::numeric_limits<double>::max();
 
-    CollisionSolver collisionSolver{rackets_[0], borders_, bricks_};
+    auto checkCollisions = [&](auto &elements, auto &closestCollision) {
+        for (auto it = elements.begin(); it != elements.end(); ++it) {
+            if (ball.checkCollision((*it)->getBoundingBox())) {
+                double distanceCurrentCollision =
+                    ball.getUnidirectionalPenetration((*it)->getBoundingBox())
+                        .getModule();
+
+                if (distanceCurrentCollision < distanceClosestCollision) {
+                    closestCollision = it;
+                    distanceClosestCollision = distanceCurrentCollision;
+                }
+            }
+        }
+    };
+
+    checkCollisions(bricks_, closestCollision);
+    checkCollisions(borders_, closestCollision);
+
+    if (rackets_[0] && ball.checkCollision(rackets_[0]->getBoundingBox())) {
+        double distanceCurrentCollision =
+            ball.getUnidirectionalPenetration(rackets_[0]->getBoundingBox())
+                .getModule();
+
+        if (distanceCurrentCollision < distanceClosestCollision) {
+            closestCollision = rackets_[0];
+            distanceClosestCollision = distanceCurrentCollision;
+        }
+    }
+
+    return closestCollision;
+}
+
+size_t GameBoard::solveBallCollisions(Ball &ball) {
+    size_t pointsEarned = 0;
+    bool collided = true;
+    do {
+        auto collidingObject = (findNextCollision(ball));
+
+        collided = collidingObject.has_value();
+        if (!collided) {
+            break;
+        }
+
+        if (std::holds_alternative<shared_ptr<Racket>>(
+                collidingObject.value())) {
+            Log::get().addMessage(Log::LogType::CollidingObject, "racket");
+            shared_ptr<Racket> racket =
+                std::get<shared_ptr<Racket>>(*collidingObject);
+            ball.collide(*racket);
+        } else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
+            Log::get().addMessage(Log::LogType::CollidingObject, "brick");
+            BrickIt brickIt = std::get<BrickIt>(*collidingObject);
+            ball.collide(*brickIt->get());
+            (*brickIt)->hit();               // decrement its durability
+            if ((*brickIt)->isDestroyed()) { // erase it if destroyed
+                Log::get().addMessage(
+                    Log::LogType::BrickDestroyed,
+                    std::string{"Brick at "}
+                        + string{(*brickIt)->getBoundingBox().getCenter()});
+                pointsEarned += (*brickIt)->getScore();
+                bricks_.erase(brickIt);
+            }
+        } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
+            Log::get().addMessage(Log::LogType::CollidingObject, "border");
+            BorderIt borderIt = std::get<BorderIt>(*collidingObject);
+            ball.collide(*borderIt->get());
+        }
+    } while (collided);
+
+    return pointsEarned;
+}
+
+void GameBoard::update(double deltaTime) {
 
     if (deltaTime == 0) { // We don't update because there is no update to do
         return;
@@ -19,7 +94,7 @@ void GameBoard::update(double deltaTime) {
         Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
 
         // solve collisions here
-        size_t scoreToAdd = collisionSolver.solveBallCollisions(*ball);
+        size_t scoreToAdd = solveBallCollisions(*ball);
         scoreManager_.increaseScore(scoreToAdd);
 
         if (ball->getCoordinate().y < ball->getRadius() / 2) {
@@ -79,19 +154,20 @@ void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 void GameBoard::resetScore() { scoreManager_.resetScore(); } // reset the score
 
 // ### Setters ###
-void GameBoard::setBalls(const std::vector<std::shared_ptr<Ball>> balls) {
+void GameBoard::setBalls(const std::vector<std::shared_ptr<Ball>> &balls) {
     balls_ = balls;
 }
 
-void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> bricks) {
+void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
     bricks_ = bricks;
 }
 
-void GameBoard::setRacket(const std::vector<std::shared_ptr<Racket>> rackets) {
+void GameBoard::setRacket(const std::vector<std::shared_ptr<Racket>> &rackets) {
     rackets_ = rackets;
 }
 
-void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders) {
+void GameBoard::setBorders(
+    const std::vector<std::shared_ptr<Border>> &borders) {
     borders_ = borders;
 }
 
