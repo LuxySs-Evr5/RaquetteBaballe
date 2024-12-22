@@ -9,8 +9,6 @@
 #include "../score_manager/score_manager.hpp"
 
 #include <memory>
-#include <optional>
-#include <variant>
 #include <vector>
 
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
@@ -30,9 +28,6 @@ class GameBoard final {
     std::vector<std::shared_ptr<Border>> borders_;
     std::vector<std::shared_ptr<Brick>> bricks_;
     std::vector<std::shared_ptr<Ball>> balls_;
-
-    std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
-    findNextCollision(Ball &ball);
 
   public:
     GameBoard() = default;
@@ -59,7 +54,6 @@ class GameBoard final {
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
     int getBestScore() const;
 
-
     // ### Setters to be use in controller to load a level // TODO: check
     void setBalls(const std::vector<std::shared_ptr<Ball>> balls);
     void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
@@ -69,7 +63,6 @@ class GameBoard final {
 
     // #### Get the score from the file ####
     void readBestScore();
-
 
     void resetBestScore();
 

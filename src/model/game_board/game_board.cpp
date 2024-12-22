@@ -1,41 +1,15 @@
 #include "game_board.hpp"
 #include "../../log/log.hpp"
+#include "../collision_solver/collision_solver.hpp"
 
 #include <algorithm>
 #include <memory>
-#include <optional>
 #include <sys/types.h>
-#include <variant>
-
-std::optional<std::variant<BrickIt, BorderIt, RacketIt>>
-GameBoard::findNextCollision(Ball &ball) {
-    std::optional<std::variant<BrickIt, BorderIt, RacketIt>> closestCollision;
-    double distanceClosestCollision = std::numeric_limits<double>::max();
-
-    // Helper lambda function
-    auto checkCollisions = [&](auto &elements, auto &closestCollision) {
-        for (auto it = elements.begin(); it != elements.end(); ++it) {
-            if (ball.checkCollision((*it)->getBoundingBox())) {
-                double distanceCurrentCollision =
-                    ball.getUnidirectionalPenetration((*it)->getBoundingBox())
-                        .getModule();
-
-                if (distanceCurrentCollision < distanceClosestCollision) {
-                    closestCollision = it;
-                    distanceClosestCollision = distanceCurrentCollision;
-                }
-            }
-        }
-    };
-
-    checkCollisions(bricks_, closestCollision);
-    checkCollisions(borders_, closestCollision);
-    checkCollisions(rackets_, closestCollision);
-
-    return closestCollision;
-}
 
 void GameBoard::update(double deltaTime) {
+
+    CollisionSolver collisionSolver{rackets_[0], borders_, bricks_};
+
     if (deltaTime == 0) { // We don't update because there is no update to do
         return;
     }
@@ -44,48 +18,18 @@ void GameBoard::update(double deltaTime) {
 
         Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
 
-        bool collided = true;
-        do {
-            auto collidingObject = (findNextCollision(*ball));
-
-            collided = collidingObject.has_value();
-            if (!collided) {
-                break;
-            }
-
-            if (std::holds_alternative<RacketIt>(collidingObject.value())) {
-                Log::get().addMessage(Log::LogType::CollidingObject, "racket");
-                RacketIt racketIt = std::get<RacketIt>(*collidingObject);
-                ball->collide(*racketIt->get());
-            } else if (std::holds_alternative<BrickIt>(
-                           collidingObject.value())) {
-                Log::get().addMessage(Log::LogType::CollidingObject, "brick");
-                BrickIt brickIt = std::get<BrickIt>(*collidingObject);
-                ball->collide(*brickIt->get());
-                (*brickIt)->hit(); // decrement its durability
-                if ((*brickIt)->isDestroyed()) { // erase it if destroyed
-                    Log::get().addMessage(
-                        Log::LogType::BrickDestroyed,
-                        std::string{"Brick at "}
-                            + string{(*brickIt)->getBoundingBox().getCenter()});
-                    scoreManager_.increaseScore((*brickIt)->getScore());
-                    bricks_.erase(brickIt);
-                }
-            } else if (std::holds_alternative<BorderIt>(
-                           collidingObject.value())) {
-                Log::get().addMessage(Log::LogType::CollidingObject, "border");
-                BorderIt borderIt = std::get<BorderIt>(*collidingObject);
-                ball->collide(*borderIt->get());
-            }
-        } while (collided);
+        // solve collisions here
+        size_t scoreToAdd = collisionSolver.solveBallCollisions(*ball);
+        scoreManager_.increaseScore(scoreToAdd);
 
         if (ball->getCoordinate().y < ball->getRadius() / 2) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             --lifeCounter_;
             if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
                                     // check de vie dans le controller
-                balls_.emplace_back(
-                    std::make_shared<Ball>(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1}, BALL_RADIUS, BALL_SPEED));
+                balls_.emplace_back(std::make_shared<Ball>(
+                    Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
+                    BALL_RADIUS, BALL_SPEED));
             }
         }
         ball->update(deltaTime);
@@ -94,7 +38,9 @@ void GameBoard::update(double deltaTime) {
 
 void GameBoard::saveRecordScore() { scoreManager_.saveScore(); }
 
-unsigned long GameBoard::getScore() const { return scoreManager_.getCurrentScore(); }
+unsigned long GameBoard::getScore() const {
+    return scoreManager_.getCurrentScore();
+}
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
@@ -123,8 +69,7 @@ unsigned long GameBoard::getNumBricks() const {
     // TODO: Voir avec Luacs si c'est bien de faire ca
     unsigned long numBricks = 0;
     for (auto &brick : bricks_) {
-        if (brick->getColor() != Color::gold)
-            ++numBricks;
+        if (brick->getColor() != Color::gold) ++numBricks;
     }
     return numBricks;
 }
@@ -167,33 +112,27 @@ void GameBoard::clear() {
     clearRackets();
 }
 
-
 // ### Get the best score from the file ###
 void GameBoard::readBestScore() {
     // TODO: check because the same function in constructor of score_manager
     std::string filePath = "score.txt";
 
     std::ifstream read(filePath, ios::in);
-    
+
     if (read.is_open()) {
         read >> bestScore_;
         read.close();
     }
 }
 
-
-int GameBoard::getBestScore() const {     // TODO: check because the same function in constructor of score_manager
+int GameBoard::getBestScore() const { // TODO: check because the same function
+                                      // in constructor of score_manager
     return bestScore_;
 }
-
 
 void GameBoard::resetBestScore() {
     bestScore_ = 0;
     scoreManager_.setScore0();
 }
 
-
-void GameBoard::pauseGameBoard() {
-
-    
-}
+void GameBoard::pauseGameBoard() {}
