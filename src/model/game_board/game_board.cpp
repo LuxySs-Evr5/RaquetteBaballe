@@ -29,13 +29,13 @@ GameBoard::findNextCollision(Ball &ball) {
     checkCollisions(bricks_, closestCollision);
     checkCollisions(borders_, closestCollision);
 
-    if (rackets_[0] && ball.checkCollision(rackets_[0]->getBoundingBox())) {
+    if (racket_ && ball.checkCollision(racket_->getBoundingBox())) {
         double distanceCurrentCollision =
-            ball.getUnidirectionalPenetration(rackets_[0]->getBoundingBox())
+            ball.getUnidirectionalPenetration(racket_->getBoundingBox())
                 .getModule();
 
         if (distanceCurrentCollision < distanceClosestCollision) {
-            closestCollision = rackets_[0];
+            closestCollision = racket_;
             distanceClosestCollision = distanceCurrentCollision;
         }
     }
@@ -84,7 +84,6 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 }
 
 void GameBoard::update(double deltaTime) {
-
     if (deltaTime == 0) { // We don't update because there is no update to do
         return;
     }
@@ -100,8 +99,9 @@ void GameBoard::update(double deltaTime) {
         if (ball->getCoordinate().y < ball->getRadius() / 2) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             --lifeCounter_;
-            if (lifeCounter_ > 0) { // TODO : check si on fait ca ici ? y a un
-                                    // check de vie dans le controller
+            if (lifeCounter_
+                > 0) { // TODO : VERY BAD, magic numbers everywhere. check si on
+                       // fait ca ici ? y a un check de vie dans le controller
                 balls_.emplace_back(std::make_shared<Ball>(
                     Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
                     BALL_RADIUS, BALL_SPEED));
@@ -119,11 +119,10 @@ unsigned long GameBoard::getScore() const {
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
-void GameBoard::setRacketAtX(double posX) { rackets_.at(0)->setPosX(posX); }
+void GameBoard::setRacketAtX(double posX) { racket_->setPosX(posX); }
 
 // #### Getters meant to be used by the View ####
 
-// TODO: make the balls pointers const
 const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
     return balls_;
 }
@@ -132,21 +131,16 @@ const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
     return bricks_;
 }
 
-const std::vector<std::shared_ptr<Racket>> &GameBoard::getRackets() const {
-    return rackets_;
-}
+const std::shared_ptr<Racket> &GameBoard::getRacket() const { return racket_; }
 
 const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
 unsigned long GameBoard::getNumBricks() const {
-    // TODO: Voir avec Luacs si c'est bien de faire ca
-    unsigned long numBricks = 0;
-    for (auto &brick : bricks_) {
-        if (brick->getColor() != Color::gold) ++numBricks;
-    }
-    return numBricks;
+    return std::count_if(bricks_.begin(), bricks_.end(), [](const auto &brick) {
+        return brick->getColor() != Color::gold;
+    });
 }
 
 void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
@@ -162,8 +156,8 @@ void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
     bricks_ = bricks;
 }
 
-void GameBoard::setRacket(const std::vector<std::shared_ptr<Racket>> &rackets) {
-    rackets_ = rackets;
+void GameBoard::setRacket(const std::shared_ptr<Racket> &racket) {
+    racket_ = racket;
 }
 
 void GameBoard::setBorders(
@@ -172,8 +166,6 @@ void GameBoard::setBorders(
 }
 
 // #### Clear GameBoard ####
-
-void GameBoard::clearRackets() { rackets_.clear(); }
 
 void GameBoard::clearBalls() { balls_.clear(); }
 
@@ -185,7 +177,6 @@ void GameBoard::clear() {
     clearBalls();
     clearBorders();
     clearBricks();
-    clearRackets();
 }
 
 // ### Get the best score from the file ###

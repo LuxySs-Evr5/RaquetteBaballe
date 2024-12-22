@@ -144,8 +144,8 @@ void ControllerGame::loadLevel() {
 
     vector<shared_ptr<Ball>> ball;
     ball.emplace_back(make_shared<Ball>(levels_->getBall()));
-    vector<shared_ptr<Racket>> racket;
-    racket.emplace_back(make_shared<Racket>(levels_->getRacket()));
+    const shared_ptr<Racket> &racket =
+        make_shared<Racket>(levels_->getRacket());
 
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);

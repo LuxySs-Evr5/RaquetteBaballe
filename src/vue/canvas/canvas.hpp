@@ -23,7 +23,7 @@ using namespace std;
 class Canvas {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    const vector<shared_ptr<Racket>> &rackets_ = gameBoard_->getRackets();
+    const shared_ptr<Racket> &racket_ = gameBoard_->getRacket();
     const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
@@ -38,12 +38,11 @@ class Canvas {
      *
      * @param gameBoard
      */
-    Canvas(
-        shared_ptr<GameBoard> gameBoard);
+    Canvas(shared_ptr<GameBoard> gameBoard);
 
     /**
      * @brief Destroy the Canvas object
-     * 
+     *
      */
     ~Canvas() = default;
 

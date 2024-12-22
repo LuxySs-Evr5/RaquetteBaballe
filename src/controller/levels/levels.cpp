@@ -101,16 +101,16 @@ void Levels::levelDown() {
     }
 }
 
-const vector<shared_ptr<Brick>> Levels::getBricks() {
+const vector<shared_ptr<Brick>> &Levels::getBricks() {
     levelBricks_.clear();
     loadBricks();
     return levelBricks_;
 }
 
-const Ball Levels::getBall() const { return levelBall_; }
+const Ball &Levels::getBall() const { return levelBall_; }
 
-const Racket Levels::getRacket() const { return levelRacket_; }
+const Racket &Levels::getRacket() const { return levelRacket_; }
 
-const vector<shared_ptr<Border>> Levels::getBorders() const {
+const vector<shared_ptr<Border>> &Levels::getBorders() const {
     return levelBorders_;
 }

@@ -15,7 +15,6 @@
 
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
-using RacketIt = std::vector<std::shared_ptr<Racket>>::const_iterator;
 
 // TODO: move to or from globalVariables.hpp to avoid splitting variables
 // everywhere
@@ -26,7 +25,7 @@ class GameBoard final {
     LifeCounter lifeCounter_;
     int bestScore_ = 0;
 
-    std::vector<std::shared_ptr<Racket>> rackets_;
+    std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
     std::vector<std::shared_ptr<Brick>> bricks_;
     std::vector<std::shared_ptr<Ball>> balls_;
@@ -107,9 +106,12 @@ class GameBoard final {
      */
     const std::vector<std::shared_ptr<Brick>> &getBricks() const;
 
-    // TODO: doc
-    const std::vector<std::shared_ptr<Racket>> &
-    getRackets() const; // TODO: set a racket and not a vector ?
+    /**
+     * @brief Returns the racket.
+     *
+     * @return A reference to the racket pointer.
+     */
+    const std::shared_ptr<Racket> &getRacket() const;
 
     /**
      * @brief Returns the map borders.
@@ -142,9 +144,12 @@ class GameBoard final {
      */
     void setBricks(const std::vector<std::shared_ptr<Brick>> &bricks);
 
-    // TODO: doc
-    void setRacket(const std::vector<std::shared_ptr<Racket>>
-                       &rackets); // TODO: set a racket and not a vector
+    /**
+     * @brief Sets the racket.
+     *
+     * @param bricks A reference to the racket pointer.
+     */
+    void setRacket(const std::shared_ptr<Racket> &racket);
 
     /**
      * @brief Sets the borders.
@@ -171,9 +176,6 @@ class GameBoard final {
     void clearBorders();
 
     void clearBricks();
-
-    // TODO: might need to rename this to clearRacket (singular)
-    void clearRackets();
 
     void clear();
 

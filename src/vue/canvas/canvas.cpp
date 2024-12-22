@@ -10,15 +10,10 @@
 #include "canvas.hpp"
 
 // ### Constructor ###
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard){};
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
 
 // ### Public methods ###
 void Canvas::draw() {
-    /**
-     * @brief For each element of each vector, we draw it
-     * 
-     *  
-     */
     for (auto &border : borders_) {
         wallRenderer_.render(*border);
     }
@@ -31,5 +26,5 @@ void Canvas::draw() {
         ballRenderer_.render(*ball);
     }
 
-    for (auto &racket : rackets_) racketRenderer_.render(*racket);
+    racketRenderer_.render(*racket_);
 }
