@@ -7,6 +7,8 @@
 #include "controller_game.hpp"
 #include "../global_variables.hpp"
 #include "levels/levels.hpp"
+#include <allegro5/display.h>
+#include <allegro5/timer.h>
 
 // TODO : Arrêter toutes les ressoucrces quand y a le message de game over ou de
 // win (autres affichages allegro et le backend)
@@ -73,15 +75,17 @@ void ControllerGame::drawGame() {
 
 void ControllerGame::checkWinOrLose() {
     if (gameBoard_->getNumBricks() == 0) {
+        // if the player has won
         al_stop_timer(timer_);
-        displayGame_->gameWin();
+        win_ = true;
         gameBoard_->saveRecordScore();
         levels_->levelUp();
         waitKeyToRestart();
         loadLevel();
     } else if (gameBoard_->getLife() == 0) {
+        // if the player has lost
         al_stop_timer(timer_);
-        displayGame_->gameOver();
+        lose_ = true;
         gameBoard_->saveRecordScore();
         waitKeyToRestart();
         loadLevel();
@@ -138,11 +142,18 @@ void ControllerGame::waitKeyToRestart() {
             done_ = true;
             break;
         }
+        if (lose_) {
+            displayGame_->gameOver(); // display the game over screen
+        } if (win_) {
+            displayGame_->gameWin(); // display the game win screen
+        }
     }
 }
 
 void ControllerGame::loadLevel() {
     gameBoard_->clear();
+    win_ = false;
+    lose_ = false;
 
     // TODO: verify if it's the right way to do that
     vector<shared_ptr<Ball>> ball;
