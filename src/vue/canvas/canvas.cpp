@@ -8,6 +8,7 @@
  */
 
 #include "canvas.hpp"
+#include "../piece/brick_ui.hpp"
 
 // ### Constructor ###
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
@@ -19,7 +20,11 @@ void Canvas::draw() {
     }
 
     for (auto &brick : bricks_) {
-        brickRenderer_.render(*brick);
+        BrickUi brickUi{brick->getBoundingBox().getCenter().toPoint(),
+                        static_cast<float>(brick->getBoundingBox().getWidth()),
+                        static_cast<float>(brick->getBoundingBox().getHeight()),
+                        colorToAllegroColor(brick->getColor())};
+        brickUi.draw(*brick);
     }
 
     for (auto &ball : balls_) {

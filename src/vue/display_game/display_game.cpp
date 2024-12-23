@@ -13,27 +13,26 @@
 #include "../game_win/draw_game_win.hpp"
 
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <memory>
 
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
-    : gameBoard_(gameBoard), canvas_(gameBoard) {
+    : gameBoard_(gameBoard), canvas_(gameBoard)  {
     initialize_allegro();
-
-    font24_ = al_load_ttf_font(
-        "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_24,
-        0);
-    checkInit(font24_, "font24");
-
-    font50_ = al_load_ttf_font(
-        "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_50,
-        0);
 
     display_ = al_create_display(static_cast<int>(SCREEN_WIDTH),
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
+
+    font24_ = al_load_ttf_font("ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_24, 0);
+    checkInit(font24_, "font24");
+
+    font50_ = al_load_ttf_font("ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_50, 0);
+    checkInit(font50_, "font50");
 
     heartImage_ =
         al_load_bitmap("ressources/images/heart.png"); 
@@ -66,11 +65,11 @@ DisplayGame::~DisplayGame() {
      * 
      */
     al_destroy_display(display_);
-    al_destroy_font(font24_);
-    al_destroy_font(font50_);
     al_destroy_bitmap(heartImage_);
     al_destroy_sample_instance(instanceMusic_);
     al_destroy_sample(music_);
+    al_destroy_font(font24_);
+    al_destroy_font(font50_);
     al_uninstall_audio();
     al_shutdown_image_addon();
     al_shutdown_font_addon();
@@ -173,8 +172,10 @@ void DisplayGame::gameWin() {
     al_flip_display();
 }
 
+
 // ### Getters ###
 ALLEGRO_DISPLAY *DisplayGame::getDisplay() const { return display_; }
+
 
 // ### Private Methods ###
 void DisplayGame::drawLife() {

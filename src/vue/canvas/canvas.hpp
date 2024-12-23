@@ -12,10 +12,10 @@
 
 #include "../../model/game_board/game_board.hpp"
 #include "../ball_renderer/ball_renderer.hpp"
-#include "../brick_renderer/brick_renderer.hpp"
 #include "../racket_renderer/racket_renderer.hpp"
 #include "../wall_renderer/wall_renderer.hpp"
 
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -28,7 +28,6 @@ class Canvas {
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
     BallRenderer ballRenderer_;
-    BrickRenderer brickRenderer_;
     RacketRenderer racketRenderer_;
     WallRenderer wallRenderer_;
 

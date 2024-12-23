@@ -62,6 +62,8 @@ class Brick : public Bounceable {
     virtual bool isDestroyed() const final;
 
     virtual BonusType getBonusType() const final;
+
+    virtual bool hasBonus() const final;
 };
 
 #endif

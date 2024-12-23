@@ -10,8 +10,14 @@
 #define BRIKUI_HPP
 
 #include "../figures/forme.hpp"
+#include <allegro5/allegro_font.h>
+
+using namespace std;
 
 class BrickUi final : public Rectangle {
+  private:
+    ALLEGRO_FONT *fontBrick_;
+
   public:
     /**
      * @brief Construct a new Brick Ui object
@@ -27,13 +33,13 @@ class BrickUi final : public Rectangle {
      * @brief Destroy the Brick Ui object
      * 
      */
-    virtual ~BrickUi() = default;
+    virtual ~BrickUi();
 
     /**
      * @brief Draw the brick
      * 
      */
-    void draw() override;
+    void draw(const Brick &brick);
 
     /**
      * @brief Set the Frame Color for the brick
@@ -41,6 +47,22 @@ class BrickUi final : public Rectangle {
      * @param color The color of the frame
      */
     void setFrameColor(const ALLEGRO_COLOR &color);
+
+    /**
+     * @brief Get the Center x object
+     * 
+     * @return float 
+     */
+    float getCenterx() const;
+
+    /**
+     * @brief Get the Center y object
+     * 
+     * @return float 
+     */
+    float getCentery() const;
+
+    static const ALLEGRO_FONT *getBrickFont();
 };
 
 #endif // BRIKUI_HPP

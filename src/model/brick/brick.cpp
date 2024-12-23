@@ -58,3 +58,5 @@ uint8_t Brick::getDurability() const { return durability_; }
 bool Brick::isDestroyed() const { return durability_ == 0; }
 
 BonusType Brick::getBonusType() const { return bonusType_; };
+
+bool Brick::hasBonus() const { return bonusType_ != BonusType::None; }
