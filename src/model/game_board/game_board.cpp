@@ -73,7 +73,21 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
                     std::string{"Brick at "}
                         + string{(*brickIt)->getBoundingBox().getCenter()});
 
-                applyBonus(bonusType);
+                // add The Bonus Pill to the descendingBonusses_ vec
+
+                if (bonusType != BonusType::None) {
+                    // vertical space between brick and pill centers
+                    double verticalSpace = ((*brickIt)->getHeight() / 2)
+                                           - (BONUS_PILL_HEIGHT / 2.0);
+                    Vec2 brickCenter = (*brickIt)->getCenter();
+                    Vec2 bonusPillCenter{brickCenter.x,
+                                         brickCenter.y - verticalSpace};
+
+                    cout << "pushing descending bonus" << endl;
+                    descendingBonusses_.emplace_back(
+                        std::make_unique<BonusPill>(bonusType,
+                                                    bonusPillCenter));
+                }
 
                 pointsEarned += (*brickIt)->getScore();
                 bricks_.erase(brickIt);
@@ -86,6 +100,22 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         }
 
     } while (collided);
+
+    for (auto descendingBonusIt = descendingBonusses_.begin();
+         descendingBonusIt != descendingBonusses_.end();) {
+
+        cout << (*descendingBonusIt)->getCoordinate() << " | "
+             << racket_->getCoordinate() << endl;
+
+        if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
+            cout << "colliding" << endl;
+            BonusType bonusType = (*descendingBonusIt)->getBonusType();
+            applyBonus(bonusType);
+            descendingBonusses_.erase(descendingBonusIt);
+        } else {
+            descendingBonusIt++;
+        }
+    }
 
     return pointsEarned;
 }
@@ -144,6 +174,20 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
 void GameBoard::update(double deltaTime) {
     if (deltaTime == 0) {
         return;
+    }
+
+    for (unique_ptr<BonusPill> &descendingBonus : descendingBonusses_) {
+        descendingBonus->update(deltaTime);
+    }
+
+    for (auto descendingBonusIt = descendingBonusses_.begin();
+         descendingBonusIt != descendingBonusses_.end();) {
+        (*descendingBonusIt)->update(deltaTime);
+        if ((*descendingBonusIt)->getCoordinate().y < 0) {
+            descendingBonusses_.erase(descendingBonusIt);
+        } else {
+            descendingBonusIt++;
+        }
     }
 
     if (activeBonus_ != nullptr) {

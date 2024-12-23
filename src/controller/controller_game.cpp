@@ -151,6 +151,8 @@ void ControllerGame::loadLevel() {
     auto bricks = levels_->getBricks();
     bricks.emplace_back(Brick::makeBrick(Color::red, {Vec2(490, 300), 100, 50},
                                          BonusType::SlowDown));
+    bricks.emplace_back(Brick::makeBrick(Color::red, {Vec2(400, 300), 100, 50},
+                                         BonusType::SlowDown));
 
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);

@@ -1,22 +1,19 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
+#include "../../global_variables.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
 #include "../vec2/vec2.hpp"
-#include "../../global_variables.hpp"
 
 #include <math.h>
-
-// NOTE: might wanna get inspo from translation class in labs to do the
-// increased-speed nerf
 
 class Ball final {
   private:
     Vec2 coord_;
-    Vec2 prevCoord_; // coordinate at the previous update
-    Vec2 dirVec_;    // direction vector (always normalized)
-    double radius_{1};
+    Vec2 prevCoord_;   // coordinate at the previous update
+    Vec2 dirVec_;      // direction vector (always normalized)
+    double radius_{1}; // TODO: do we need those 2 "{1}" ?
     double speed_{1};
 
     // #### Internal Helpers ####

@@ -43,6 +43,10 @@ class BoundingBox final {
     Vec2 getBottomRight() const noexcept;
 
     Vec2 getBottomLeft() const noexcept;
+
+    // #### Collisions / Collision ####
+
+    bool isOverlapping(const BoundingBox &other);
 };
 
 #endif

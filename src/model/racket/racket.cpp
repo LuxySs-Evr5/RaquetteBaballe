@@ -3,6 +3,8 @@
 #include "../vec2/vec2.hpp"
 #include <cmath>
 
+// #### Constructors ####
+
 Racket::Racket(const BoundingBox &boundingBox) : Bounceable(boundingBox) {}
 
 Racket::Racket(const Vec2 &center, double width, double height)
@@ -11,16 +13,21 @@ Racket::Racket(const Vec2 &center, double width, double height)
 
 // #### Getters ####
 
-Vec2 Racket::getVelocity() const {
-    return previousPosition_ - boundingBox_.getCenter();
-}
 double Racket::getWidth() const { return boundingBox_.getWidth(); }
 
 double Racket::getHeight() const { return boundingBox_.getHeight(); }
 
 Vec2 Racket::getCoordinate() const { return boundingBox_.getCenter(); }
 
+Vec2 Racket::getVelocity() const {
+    return previousPosition_ - boundingBox_.getCenter();
+}
+
 // #### Setters ####
+
+void Racket::setWidth(double newWidth) { boundingBox_.setWidth(newWidth); }
+
+void Racket::setHeight(double newHeight) { boundingBox_.setHeight(newHeight); }
 
 void Racket::setCoordinate(const Vec2 &coordinate) {
     boundingBox_.setCenter(coordinate);
@@ -42,10 +49,6 @@ void Racket::setPosX(double posX) {
     }
     boundingBox_.setCenter(Vec2{posX, getCoordinate().y});
 }
-
-void Racket::setWidth(double newWidth) { boundingBox_.setWidth(newWidth); }
-
-void Racket::setHeight(double newHeight) { boundingBox_.setHeight(newHeight); }
 
 // #### Bounceable Override ####
 

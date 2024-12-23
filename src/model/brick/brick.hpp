@@ -47,10 +47,21 @@ class Brick : public Bounceable {
 
     // #### Getters ####
 
+    virtual double getWidth() const final;
+
+    virtual double getHeight() const final;
+
+    virtual Vec2 getCenter() const final;
+
     virtual Color getColor() const final;
+
     virtual size_t getScore() const final;
+
     virtual uint8_t getDurability() const final;
+
     virtual bool isDestroyed() const final;
+
+    virtual BonusType getBonusType() const final;
 };
 
 #endif

@@ -58,3 +58,23 @@ Vec2 BoundingBox::getBottomLeft() const noexcept {
         center_.y - height_ / 2,
     };
 }
+
+// #### Overlapping / Collision ####
+
+bool BoundingBox::isOverlapping(const BoundingBox &other) {
+    Vec2 topLeft1 = getTopLeft();
+    Vec2 bottomRight1 = getBottomRight();
+
+    Vec2 topLeft2 = other.getTopLeft();
+    Vec2 bottomRight2 = other.getBottomRight();
+
+    if (bottomRight1.x < topLeft2.x || bottomRight2.x < topLeft1.x) {
+        return false;
+    }
+
+    if (bottomRight1.y < topLeft2.y || bottomRight2.y < topLeft1.y) {
+        return false;
+    }
+
+    return true;
+}

@@ -3,6 +3,7 @@
 
 #include "../ball/ball.hpp"
 #include "../bonus/bonus.hpp"
+#include "../bonus/bonus_pill.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
 #include "../life_counter//life_counter.hpp"
@@ -28,6 +29,7 @@ class GameBoard final {
     LifeCounter lifeCounter_;
     int bestScore_ = 0;
     unique_ptr<AbstractTimedBonus> activeBonus_;
+    std::vector<unique_ptr<BonusPill>> descendingBonusses_;
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
