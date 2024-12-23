@@ -239,6 +239,11 @@ const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
     return bricks_;
 }
 
+const std::vector<std::unique_ptr<BonusPill>> &
+GameBoard::getDecendingBonusses() const {
+    return descendingBonusses_;
+}
+
 const std::shared_ptr<Racket> &GameBoard::getRacket() const { return racket_; }
 
 const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {

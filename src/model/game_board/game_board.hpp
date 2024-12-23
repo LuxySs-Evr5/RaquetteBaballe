@@ -117,6 +117,13 @@ class GameBoard final {
     const std::vector<std::shared_ptr<Brick>> &getBricks() const;
 
     /**
+     * @brief Returns the currently descending bonus pills.
+     *
+     * @return A reference to the vector of descending bonus pills.
+     */
+    const std::vector<std::unique_ptr<BonusPill>> &getDecendingBonusses() const;
+
+    /**
      * @brief Returns the racket.
      *
      * @return A reference to the racket pointer.
