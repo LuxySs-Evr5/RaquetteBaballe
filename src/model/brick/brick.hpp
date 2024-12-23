@@ -1,9 +1,10 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
+#include "../../global_variables.hpp"
+#include "../bonus/bonus_type.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
-#include "../../global_variables.hpp"
 
 #include <memory>
 
@@ -25,21 +26,24 @@ class Brick : public Bounceable {
   protected:
     Color color_;
     uint8_t durability_;
+    BonusType bonusType_;
 
   public:
     Brick(const BoundingBox &boundingBox, Color color,
-          uint8_t durability = DURABILITY_STANDARD_BRICK);
-    
+          uint8_t durability = DURABILITY_STANDARD_BRICK,
+          BonusType bonusType = BonusType::None);
+
     // #### Factory ####
 
-    static std::unique_ptr<Brick> makeBrick(Color color,
-                                            BoundingBox boundingBox);
+    static std::unique_ptr<Brick>
+    makeBrick(Color color, BoundingBox boundingBox,
+              BonusType bonusType = BonusType::None);
 
     virtual ~Brick();
 
     // #### Brick Actions ####
 
-    virtual void hit();
+    virtual BonusType hit();
 
     // #### Getters ####
 

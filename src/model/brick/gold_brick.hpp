@@ -7,7 +7,7 @@ class GoldBrick final : public Brick {
   public:
     GoldBrick(BoundingBox boundingBox);
 
-    virtual void hit() override; // Gold bricks are never destroyed
+    virtual BonusType hit() override; // Gold bricks are never destroyed
 };
 
 #endif
