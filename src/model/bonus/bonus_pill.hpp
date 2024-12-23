@@ -4,9 +4,9 @@
 #include "../bounding_box/bounding_box.hpp"
 #include "bonus_type.hpp"
 
-constexpr double BONUS_PILL_WIDTH = 100;
-constexpr double BONUS_PILL_HEIGHT = 100;
-constexpr double DESCENT_SPEED = 70;
+constexpr double BONUS_PILL_WIDTH = 10;
+constexpr double BONUS_PILL_HEIGHT = 10;
+constexpr double DESCENT_SPEED = 40;
 
 class BonusPill {
   private:
@@ -24,6 +24,8 @@ class BonusPill {
     bool checkCollision(const BoundingBox &boundingBox);
 
     Vec2 getCoordinate() const;
+
+    const BoundingBox &getBoundingBox();
 };
 
 #endif // BONUS_PILL_HPP

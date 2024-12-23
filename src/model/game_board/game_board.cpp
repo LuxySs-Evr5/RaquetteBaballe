@@ -83,7 +83,6 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
                     Vec2 bonusPillCenter{brickCenter.x,
                                          brickCenter.y - verticalSpace};
 
-                    cout << "pushing descending bonus" << endl;
                     descendingBonusses_.emplace_back(
                         std::make_unique<BonusPill>(bonusType,
                                                     bonusPillCenter));
@@ -103,12 +102,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 
     for (auto descendingBonusIt = descendingBonusses_.begin();
          descendingBonusIt != descendingBonusses_.end();) {
-
-        cout << (*descendingBonusIt)->getCoordinate() << " | "
-             << racket_->getCoordinate() << endl;
-
         if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
-            cout << "colliding" << endl;
             BonusType bonusType = (*descendingBonusIt)->getBonusType();
             applyBonus(bonusType);
             descendingBonusses_.erase(descendingBonusIt);
@@ -155,7 +149,6 @@ void GameBoard::applyBonus(BonusType bonusType) {
 
 void GameBoard::undoBonusEffect(BonusType bonusType) {
     switch (bonusType) {
-
     case BonusType::SlowDown:
         for (auto &ball : balls_) {
             ball->setSpeed(BALL_SPEED);
@@ -174,10 +167,6 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
 void GameBoard::update(double deltaTime) {
     if (deltaTime == 0) {
         return;
-    }
-
-    for (unique_ptr<BonusPill> &descendingBonus : descendingBonusses_) {
-        descendingBonus->update(deltaTime);
     }
 
     for (auto descendingBonusIt = descendingBonusses_.begin();
@@ -290,12 +279,15 @@ void GameBoard::clearBalls() { balls_.clear(); }
 
 void GameBoard::clearBonus() { activeBonus_.reset(); }
 
+void GameBoard::clearDescendingBonusses() { descendingBonusses_.clear(); }
+
 void GameBoard::clearBorders() { borders_.clear(); }
 
 void GameBoard::clearBricks() { bricks_.clear(); }
 
 void GameBoard::clear() {
     clearBonus();
+    clearDescendingBonusses();
     clearBalls();
     clearBorders();
     clearBricks();

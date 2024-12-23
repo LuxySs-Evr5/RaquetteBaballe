@@ -1,10 +1,5 @@
 #include "bonus_pill.hpp"
 
-#include <iostream>
-
-// TODO: remove this
-using namespace std;
-
 BonusPill::BonusPill(BonusType bonusType, struct Vec2 coord)
     : boundingBox_{coord, BONUS_PILL_WIDTH, BONUS_PILL_HEIGHT},
       bonusType_{bonusType}, descentSpeed_{DESCENT_SPEED} {}
@@ -19,9 +14,9 @@ void BonusPill::update(double deltaTime) {
 }
 
 bool BonusPill::checkCollision(const BoundingBox &boundingBox) {
-    bool isOverlapping = boundingBox_.isOverlapping(boundingBox_);
-    cout << "isOverlapping: " << isOverlapping << endl;
-    return isOverlapping;
+    return boundingBox_.isOverlapping(boundingBox);
 }
 
 Vec2 BonusPill::getCoordinate() const { return boundingBox_.getCenter(); }
+
+const BoundingBox &BonusPill::getBoundingBox() { return boundingBox_; }

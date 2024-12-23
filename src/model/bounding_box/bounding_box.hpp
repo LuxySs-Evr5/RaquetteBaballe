@@ -25,7 +25,6 @@ class BoundingBox final {
     void setCenter(Vec2 coordinate);
 
     void setWidth(double newWidth);
-
     void setHeight(double newWidth);
 
     // #### Getters ####
@@ -33,16 +32,17 @@ class BoundingBox final {
     Vec2 getCenter() const noexcept;
 
     double getWidth() const noexcept;
-
     double getHeight() const noexcept;
 
+    double getLeft() const noexcept;
+    double getRight() const noexcept;
+    double getBottom() const noexcept;
+    double getTop() const noexcept;
+
     Vec2 getTopLeft() const noexcept;
-
     Vec2 getTopRight() const noexcept;
-
-    Vec2 getBottomRight() const noexcept;
-
     Vec2 getBottomLeft() const noexcept;
+    Vec2 getBottomRight() const noexcept;
 
     // #### Collisions / Collision ####
 

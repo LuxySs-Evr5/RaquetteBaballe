@@ -32,31 +32,36 @@ double BoundingBox::getWidth() const noexcept { return width_; }
 
 double BoundingBox::getHeight() const noexcept { return height_; }
 
-Vec2 BoundingBox::getTopLeft() const noexcept {
-    return Vec2{
-        center_.x - width_ / 2,
-        center_.y + height_ / 2,
-    };
+double BoundingBox::getLeft() const noexcept {
+    return center_.x - getWidth() / 2;
 }
 
-Vec2 BoundingBox::getBottomRight() const noexcept {
-    return Vec2{
-        center_.x + width_ / 2,
-        center_.y - height_ / 2,
-    };
+double BoundingBox::getRight() const noexcept {
+    return center_.x + getWidth() / 2;
+}
+
+double BoundingBox::getBottom() const noexcept {
+    return center_.y - getHeight() / 2;
+}
+
+double BoundingBox::getTop() const noexcept {
+    return center_.y + getHeight() / 2;
+}
+
+Vec2 BoundingBox::getTopLeft() const noexcept {
+    return Vec2{getLeft(), getTop()};
 }
 
 Vec2 BoundingBox::getTopRight() const noexcept {
-    return Vec2{
-        center_.x + width_ / 2,
-        center_.y + height_ / 2,
-    };
+    return Vec2{getRight(), getTop()};
 }
+
 Vec2 BoundingBox::getBottomLeft() const noexcept {
-    return Vec2{
-        center_.x - width_ / 2,
-        center_.y - height_ / 2,
-    };
+    return Vec2{getLeft(), getBottom()};
+}
+
+Vec2 BoundingBox::getBottomRight() const noexcept {
+    return Vec2{getRight(), getBottom()};
 }
 
 // #### Overlapping / Collision ####
@@ -64,15 +69,16 @@ Vec2 BoundingBox::getBottomLeft() const noexcept {
 bool BoundingBox::isOverlapping(const BoundingBox &other) {
     Vec2 topLeft1 = getTopLeft();
     Vec2 bottomRight1 = getBottomRight();
-
     Vec2 topLeft2 = other.getTopLeft();
     Vec2 bottomRight2 = other.getBottomRight();
 
-    if (bottomRight1.x < topLeft2.x || bottomRight2.x < topLeft1.x) {
+    // X-axis check
+    if (getRight() < other.getLeft() || other.getRight() < getLeft()) {
         return false;
     }
 
-    if (bottomRight1.y < topLeft2.y || bottomRight2.y < topLeft1.y) {
+    // Y-axis check
+    if (getTop() < other.getBottom() || other.getTop() < getBottom()) {
         return false;
     }
 

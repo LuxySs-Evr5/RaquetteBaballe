@@ -185,6 +185,8 @@ class GameBoard final {
 
     void clearBonus();
 
+    void clearDescendingBonusses();
+
     void clearBorders();
 
     void clearBricks();
