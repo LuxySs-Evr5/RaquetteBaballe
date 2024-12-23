@@ -20,3 +20,9 @@ bool BonusPill::checkCollision(const BoundingBox &boundingBox) {
 Vec2 BonusPill::getCoordinate() const { return boundingBox_.getCenter(); }
 
 const BoundingBox &BonusPill::getBoundingBox() { return boundingBox_; }
+
+double BonusPill::getWidth() const { return boundingBox_.getWidth(); }
+
+double BonusPill::getHeight() const { return boundingBox_.getHeight(); }
+
+BonusType BonusPill::getBonusType() const { return bonusType_; }

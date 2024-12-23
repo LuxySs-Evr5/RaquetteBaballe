@@ -26,6 +26,12 @@ class BonusPill {
     Vec2 getCoordinate() const;
 
     const BoundingBox &getBoundingBox();
+
+    double getWidth() const;
+
+    double getHeight() const;
+
+    BonusType getBonusType() const;
 };
 
 #endif // BONUS_PILL_HPP

@@ -27,6 +27,10 @@ void Canvas::draw() {
         brickUi.draw(*brick);
     }
 
+    for (auto &bonusPill : bonusPills_) {
+        pillRenderer_.render(*bonusPill);
+    }
+
     for (auto &ball : balls_) {
         ballRenderer_.render(*ball);
     }

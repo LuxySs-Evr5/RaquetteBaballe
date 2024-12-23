@@ -14,6 +14,7 @@
 #include "../ball_renderer/ball_renderer.hpp"
 #include "../racket_renderer/racket_renderer.hpp"
 #include "../wall_renderer/wall_renderer.hpp"
+#include "../pill_renderer/pill_renderer.hpp"
 
 #include <memory>
 #include <vector>
@@ -25,11 +26,13 @@ class Canvas {
     shared_ptr<GameBoard> gameBoard_;
     const shared_ptr<Racket> &racket_ = gameBoard_->getRacket();
     const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
+    const vector<unique_ptr<BonusPill>> &bonusPills_ = gameBoard_->getDecendingBonusses();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
     BallRenderer ballRenderer_;
     RacketRenderer racketRenderer_;
     WallRenderer wallRenderer_;
+    PillRenderer pillRenderer_;
 
   public:
     /**
