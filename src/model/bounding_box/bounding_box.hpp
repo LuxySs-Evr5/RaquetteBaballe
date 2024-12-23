@@ -24,6 +24,10 @@ class BoundingBox final {
 
     void setCenter(Vec2 coordinate);
 
+    void setWidth(double newWidth);
+
+    void setHeight(double newWidth);
+
     // #### Getters ####
 
     Vec2 getCenter() const noexcept;

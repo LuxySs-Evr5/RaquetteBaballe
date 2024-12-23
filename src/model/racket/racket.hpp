@@ -11,6 +11,7 @@ class Racket final : public Bounceable {
     // TODO: fix weird stuff with private getters
 
     virtual double getWidth() const;
+
     virtual double getHeight() const;
 
     virtual Vec2 getCoordinate() const;
@@ -29,6 +30,10 @@ class Racket final : public Bounceable {
     virtual Vec2 getVelocity() const override;
 
     // ##### Setters ####
+
+    void setWidth(double newWidth);
+
+    void setHeight(double newHeight);
 
     virtual void setPosX(double posX);
 

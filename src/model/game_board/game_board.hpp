@@ -2,6 +2,7 @@
 #define GAME_BOARD_HPP
 
 #include "../ball/ball.hpp"
+#include "../bonus/bonus.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
 #include "../life_counter//life_counter.hpp"
@@ -12,6 +13,8 @@
 #include <optional>
 #include <variant>
 #include <vector>
+
+// TODO: move this to global constants
 
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
@@ -24,6 +27,7 @@ class GameBoard final {
     ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
     int bestScore_ = 0;
+    unique_ptr<AbstractTimedBonus> activeBonus_;
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
@@ -50,6 +54,10 @@ class GameBoard final {
      * collisions.
      */
     size_t solveBallCollisions(Ball &ball);
+
+    void applyBonus(BonusType bonusType);
+
+    void undoBonusEffect(BonusType bonusType);
 
   public:
     /**
@@ -172,6 +180,8 @@ class GameBoard final {
     // #### Clear GameBoard ####
 
     void clearBalls();
+
+    void clearBonus();
 
     void clearBorders();
 

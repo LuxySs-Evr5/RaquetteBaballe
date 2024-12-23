@@ -60,48 +60,123 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
             shared_ptr<Racket> racket =
                 std::get<shared_ptr<Racket>>(*collidingObject);
             ball.collide(*racket);
+
         } else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "brick");
             BrickIt brickIt = std::get<BrickIt>(*collidingObject);
             ball.collide(*brickIt->get());
-            (*brickIt)->hit();               // decrement its durability
+            BonusType bonusType =
+                (*brickIt)->hit(); // decrement its durability and extract bonus
             if ((*brickIt)->isDestroyed()) { // erase it if destroyed
                 Log::get().addMessage(
                     Log::LogType::BrickDestroyed,
                     std::string{"Brick at "}
                         + string{(*brickIt)->getBoundingBox().getCenter()});
+
+                applyBonus(bonusType);
+
                 pointsEarned += (*brickIt)->getScore();
                 bricks_.erase(brickIt);
             }
+
         } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "border");
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);
             ball.collide(*borderIt->get());
         }
+
     } while (collided);
 
     return pointsEarned;
 }
 
+void GameBoard::applyBonus(BonusType bonusType) {
+    switch (bonusType) {
+    case BonusType::SlowDown: {
+        if (activeBonus_ != nullptr
+            && activeBonus_->getBonusType() == BonusType::SlowDown) {
+            activeBonus_->reapply();
+        } else {
+            activeBonus_ = make_unique<SlowDownBonus>();
+        }
+
+        double slowDownFactor =
+            dynamic_cast<SlowDownBonus *>(activeBonus_.get())
+                ->getSlowDownFactor();
+
+        for (auto &ball : balls_) {
+            ball->setSpeed(BALL_SPEED / slowDownFactor);
+        }
+        break;
+    }
+    case BonusType::WideRacket:
+        activeBonus_ = make_unique<BasicTimedBonus>(BonusType::WideRacket);
+        racket_->setWidth(WIDE_RACKET_WIDTH);
+        break;
+
+    case BonusType::ExtraLife:
+        ++lifeCounter_;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void GameBoard::undoBonusEffect(BonusType bonusType) {
+    switch (bonusType) {
+
+    case BonusType::SlowDown:
+        for (auto &ball : balls_) {
+            ball->setSpeed(BALL_SPEED);
+        }
+        break;
+    case BonusType::WideRacket:
+        racket_->setWidth(RACKET_WIDTH);
+        break;
+    default:
+        break;
+    }
+
+    activeBonus_.reset();
+}
+
 void GameBoard::update(double deltaTime) {
-    if (deltaTime == 0) { // We don't update because there is no update to do
+    if (deltaTime == 0) {
         return;
     }
 
-    for (auto ball : balls_) {
+    if (activeBonus_ != nullptr) {
+        bool isActive = activeBonus_->update(deltaTime);
+        BonusType bonusType = activeBonus_->getBonusType();
+        if (bonusType == BonusType::SlowDown) {
+            double slowDownFactor =
+                dynamic_cast<SlowDownBonus *>(activeBonus_.get())
+                    ->getSlowDownFactor();
 
+            for (auto &ball : balls_) {
+                ball->setSpeed(BALL_SPEED / slowDownFactor);
+            }
+        }
+
+        if (!isActive) {
+            undoBonusEffect(bonusType);
+            activeBonus_.reset();
+        }
+    }
+
+    for (auto &ball : balls_) {
         Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
 
-        // solve collisions here
         size_t scoreToAdd = solveBallCollisions(*ball);
         scoreManager_.increaseScore(scoreToAdd);
 
         if (ball->getCoordinate().y < ball->getRadius() / 2) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
             --lifeCounter_;
-            if (lifeCounter_
-                > 0) { // TODO : VERY BAD, magic numbers everywhere. check si on
-                       // fait ca ici ? y a un check de vie dans le controller
+            if (lifeCounter_ > 0) { // TODO : VERY BAD, magic numbers
+                                    // everywhere. check si on fait ca ici ? y a
+                                    // un check de vie dans le controller
                 balls_.emplace_back(std::make_shared<Ball>(
                     Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
                     BALL_RADIUS, BALL_SPEED));
@@ -169,11 +244,14 @@ void GameBoard::setBorders(
 
 void GameBoard::clearBalls() { balls_.clear(); }
 
+void GameBoard::clearBonus() { activeBonus_.reset(); }
+
 void GameBoard::clearBorders() { borders_.clear(); }
 
 void GameBoard::clearBricks() { bricks_.clear(); }
 
 void GameBoard::clear() {
+    clearBonus();
     clearBalls();
     clearBorders();
     clearBricks();

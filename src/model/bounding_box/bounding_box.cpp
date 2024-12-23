@@ -16,7 +16,13 @@ BoundingBox::BoundingBox(Vec2 topLeft, Vec2 bottomRight)
 
 BoundingBox::~BoundingBox() = default;
 
+// #### Setters ####
+
 void BoundingBox::setCenter(Vec2 coordinate) { center_ = coordinate; }
+
+void BoundingBox::setWidth(double newWidth) { width_ = newWidth; }
+
+void BoundingBox::setHeight(double newHeight) { height_ = newHeight; }
 
 // #### Getters ####
 

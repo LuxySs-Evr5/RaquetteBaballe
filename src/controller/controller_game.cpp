@@ -6,6 +6,7 @@
 
 #include "controller_game.hpp"
 #include "levels/levels.hpp"
+
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
 
@@ -141,15 +142,19 @@ void ControllerGame::waitKeyToRestart() {
 void ControllerGame::loadLevel() {
     gameBoard_->clear();
 
-
     vector<shared_ptr<Ball>> ball;
     ball.emplace_back(make_shared<Ball>(levels_->getBall()));
     const shared_ptr<Racket> &racket =
         make_shared<Racket>(levels_->getRacket());
 
+    // TODO: move me back to setBricks() parameter
+    auto bricks = levels_->getBricks();
+    bricks.emplace_back(Brick::makeBrick(Color::red, {Vec2(490, 300), 100, 50},
+                                         BonusType::SlowDown));
+
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);
-    gameBoard_->setBricks(levels_->getBricks());
+    gameBoard_->setBricks(bricks);
     gameBoard_->setBalls(ball);
     gameBoard_->readBestScore();
     gameBoard_->resetLifeCounter();
@@ -174,8 +179,7 @@ void ControllerGame::setupAllegro() {
         exit(-1);
     }
 
-    timer_ =
-        al_create_timer(1.0 / 360);
+    timer_ = al_create_timer(1.0 / 360);
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);
