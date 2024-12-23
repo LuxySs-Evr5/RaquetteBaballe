@@ -10,5 +10,9 @@ void BrickRenderer::render(const Brick &brick) const {
                    static_cast<float>(brick.getBoundingBox().getHeight()),
                    brickColor};
 
+    if (brick.getDurability() == 2) {
+        brickUi.setFrameColor(COLOR_BLACK); // for silver bricks change frame color for if durability is 2, if it's 1, it's default white
+    }
+
     brickUi.draw();
 }

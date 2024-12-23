@@ -34,6 +34,13 @@ class BrickUi final : public Rectangle {
      * 
      */
     void draw() override;
+
+    /**
+     * @brief Set the Frame Color for the brick
+     * 
+     * @param color The color of the frame
+     */
+    void setFrameColor(const ALLEGRO_COLOR &color);
 };
 
 #endif // BRIKUI_HPP

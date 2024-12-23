@@ -19,3 +19,5 @@ void BrickUi::draw() {
         - center_.y; // Invert the y axis to match the screen with the backend
     Rectangle::draw();
 }
+
+void BrickUi::setFrameColor(const ALLEGRO_COLOR &color) { frameColor_ = color; }
