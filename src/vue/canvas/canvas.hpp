@@ -11,10 +11,6 @@
 #define CANVAS_HPP
 
 #include "../../model/game_board/game_board.hpp"
-#include "../ball_renderer/ball_renderer.hpp"
-#include "../racket_renderer/racket_renderer.hpp"
-#include "../wall_renderer/wall_renderer.hpp"
-#include "../pill_renderer/pill_renderer.hpp"
 
 #include <memory>
 #include <vector>
@@ -29,10 +25,6 @@ class Canvas {
     const vector<unique_ptr<BonusPill>> &bonusPills_ = gameBoard_->getDecendingBonusses();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
-    BallRenderer ballRenderer_;
-    RacketRenderer racketRenderer_;
-    WallRenderer wallRenderer_;
-    PillRenderer pillRenderer_;
 
   public:
     /**

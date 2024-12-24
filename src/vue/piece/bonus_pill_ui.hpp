@@ -10,6 +10,7 @@
 #define BONUS_PILL_UI_HPP
 
 #include "../figures/forme.hpp"
+#include "../../model/bonus/bonus_pill.hpp"
 #include <allegro5/color.h>
 
 class BonusPillUi final : public Rectangle {
@@ -34,7 +35,7 @@ class BonusPillUi final : public Rectangle {
      * @brief Draw the racket
      * 
      */
-    void draw() override;
+    void draw(const BonusPill &bonusPill);
 };
 
 #endif // BONUS_PILL_UI_HPP
