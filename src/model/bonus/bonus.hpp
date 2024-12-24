@@ -7,7 +7,7 @@
 
 // #### Bonuses constants ####
 // SlowDown
-constexpr double SLOW_DOWN_SPEED = 100;
+constexpr double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
 constexpr double SLOW_DOWN_DURATION = 10;
 // WideRacket
 constexpr double WIDE_RACKET_WIDTH = 200;

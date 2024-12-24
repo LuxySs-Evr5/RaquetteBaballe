@@ -1,6 +1,8 @@
 #include "bonus.hpp"
 #include "bonus_type.hpp"
 
+#include <numeric>
+
 /* ----------------------------
  *          AbstractBonus
  * ---------------------------- */
@@ -53,4 +55,8 @@ bool SlowDownBonus::update(double deltaT) {
     return (queue_.size() > 0);
 }
 
-double SlowDownBonus::getSlowDownFactor() const { return queue_.size() + 1; }
+double SlowDownBonus::getSlowDownFactor() const {
+    int sum = std::accumulate(queue_.begin(), queue_.end(), 0);
+
+    return 1 + (SLOW_DOWN_PROPORTIAL_CONST * sum);
+}

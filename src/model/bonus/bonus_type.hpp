@@ -1,6 +1,14 @@
-#ifndef BONUSE_TYPE_HPP
-#define BONUSE_TYPE_HPP
+#ifndef BONUS_TYPE_HPP
+#define BONUS_TYPE_HPP
 
-enum class BonusType { None, SlowDown, ExtraLife, WideRacket };
+enum class BonusType {
+    None,
+    SlowDown,
+    ExtraLife,
+    WideRacket,
+    Lazer,
+    StickyRacket,
+    SplitBall
+};
 
-#endif // BONUSE_TYPE_HPP
+#endif // BONUS_TYPE_HPP
