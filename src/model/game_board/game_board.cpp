@@ -115,6 +115,10 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 }
 
 void GameBoard::applyBonus(BonusType bonusType) {
+    if (activeBonus_ != nullptr && activeBonus_->getBonusType() != bonusType) {
+        undoBonusEffect(activeBonus_->getBonusType());
+    }
+
     switch (bonusType) {
     case BonusType::SlowDown: {
         if (activeBonus_ != nullptr
