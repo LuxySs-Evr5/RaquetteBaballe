@@ -137,10 +137,10 @@ void ControllerGame::waitKeyToRestart() {
 }
 
 void ControllerGame::loadLevel() {
-    cout << "loadLevel" << endl;
     gameBoard_->clear();
 
-    shared_ptr<Racket> racket = make_shared<Racket>(levels_->getRacket());
+    const shared_ptr<Racket> &racket =
+        make_shared<Racket>(levels_->getRacket());
 
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);

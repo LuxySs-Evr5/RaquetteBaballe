@@ -67,7 +67,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
             ball.collide(*brickIt->get());
             BonusType bonusType =
                 (*brickIt)->hit(); // decrement its durability and extract bonus
-            if ((*brickIt)->isDestroyed()) { // erase it if destroyed
+            if ((*brickIt)->isDestroyed()) {
                 Log::get().addMessage(
                     Log::LogType::BrickDestroyed,
                     std::string{"Brick at "}
@@ -105,7 +105,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
             BonusType bonusType = (*descendingBonusIt)->getBonusType();
             applyBonus(bonusType);
-            descendingBonusses_.erase(descendingBonusIt);
+            descendingBonusIt = descendingBonusses_.erase(descendingBonusIt);
         } else {
             descendingBonusIt++;
         }
@@ -132,6 +132,12 @@ void GameBoard::applyBonus(BonusType bonusType) {
     case BonusType::WideRacket:
         activeBonus_ = make_unique<BasicTimedBonus>(BonusType::WideRacket);
         racket_->setWidth(WIDE_RACKET_WIDTH);
+        break;
+
+    case BonusType::SplitBall:
+        for (const std::shared_ptr<Ball> &ball : balls_) {
+            splitBallIntoThree(*ball);
+        }
         break;
 
     case BonusType::ExtraLife:
@@ -167,6 +173,21 @@ shared_ptr<Ball> GameBoard::createBall() {
         BALL_SPEED);
 }
 
+void GameBoard::splitBallIntoThree(const Ball &originalBall) {
+    Vec2 originalDir = originalBall.getDirvec();
+    float angle = std::atan2(originalDir.y, originalDir.x);
+    float spread = M_PI / 8;
+
+    for (int i = 0; i < 2; ++i) {
+        float newAngle = angle + (i == 0 ? -spread : spread);
+
+        shared_ptr<Ball> newBall = std::make_shared<Ball>(originalBall);
+        newBall->setDirection(Vec2(std::cos(newAngle), std::sin(newAngle)));
+
+        balls_.emplace_back(newBall);
+    }
+}
+
 void GameBoard::update(double deltaTime) {
     if (deltaTime == 0) {
         return;
@@ -176,7 +197,7 @@ void GameBoard::update(double deltaTime) {
          descendingBonusIt != descendingBonusses_.end();) {
         (*descendingBonusIt)->update(deltaTime);
         if ((*descendingBonusIt)->getCoordinate().y < 0) {
-            descendingBonusses_.erase(descendingBonusIt);
+            descendingBonusIt = descendingBonusses_.erase(descendingBonusIt);
         } else {
             descendingBonusIt++;
         }
@@ -200,7 +221,10 @@ void GameBoard::update(double deltaTime) {
         }
     }
 
-    for (auto &ball : balls_) {
+    // NOTE: Don't use iterators here because solveBallCollisions could
+    // append to balls_ invalidating our iterator.
+    for (size_t ballIdx = 0; ballIdx < balls_.size();) {
+        auto &ball = (balls_[ballIdx]);
         Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
 
         size_t scoreToAdd = solveBallCollisions(*ball);
@@ -208,16 +232,17 @@ void GameBoard::update(double deltaTime) {
 
         if (ball->getCoordinate().y < ball->getRadius()) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
+        } else {
+            ball->update(deltaTime);
+            ballIdx++;
         }
+    }
 
-        if (balls_.size() == 0) {
-            --lifeCounter_;
-            if (lifeCounter_ > 0) {
-                balls_.emplace_back(createBall());
-            }
+    if (balls_.empty()) {
+        --lifeCounter_;
+        if (lifeCounter_ > 0) {
+            balls_.emplace_back(createBall());
         }
-
-        ball->update(deltaTime);
     }
 }
 

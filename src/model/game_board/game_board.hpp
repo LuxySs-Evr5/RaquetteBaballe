@@ -63,6 +63,14 @@ class GameBoard final {
 
     shared_ptr<Ball> createBall();
 
+    // #### Bonus Split into 3 ####
+
+    /**
+     * @brief Adds the 2 newly created balls when the given ball gets split into
+     * three.
+     */
+    void splitBallIntoThree(const Ball &originalBall);
+
   public:
     /**
      * @brief Default constructor.

@@ -69,7 +69,9 @@ BonusType convertBonusFromString(const string &bonusName) {
         {"None", BonusType::None},
         {"SlowDown", BonusType::SlowDown},
         {"ExtraLife", BonusType::ExtraLife},
-        {"WideRacket", BonusType::WideRacket}};
+        {"WideRacket", BonusType::WideRacket},
+        {"SplitBall", BonusType::SplitBall},
+    };
     auto it = bonusMap.find(bonusName);
     if (it != bonusMap.end()) {
         return it->second;
@@ -99,7 +101,7 @@ void Levels::loadBricks() {
             exit(1);
         }
 
-         // Check if there's a 4th column for bonus
+        // Check if there's a 4th column for bonus
         if (!(iss >> bonus)) {
             bonus = "None"; // No bonus provided, keep it as default
         }
@@ -109,7 +111,8 @@ void Levels::loadBricks() {
         levelBricks_.emplace_back(Brick::makeBrick(
             convertColorFromString(color),
             BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}, convertBonusFromString(bonus)));
+                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
+            convertBonusFromString(bonus)));
     }
     file.close();
 }
