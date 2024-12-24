@@ -8,19 +8,15 @@
 
 #include "brick_ui.hpp"
 #include "../../model/brick/brick.hpp"
+
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
 // ### Constructor ###
-BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
-    : Rectangle(center, width, height, color) {
-    fontBrick_ = al_load_ttf_font(
-        PATH_TO_FONT, BRICK_HEIGHT,
-        0); // load the font for the brick
+BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color, ALLEGRO_FONT *fontBrick)
+    : Rectangle(center, width, height, color), fontBrick_(fontBrick) {
 }
 
-// ### Destructor ###
-BrickUi::~BrickUi() { al_destroy_font(fontBrick_); }
 
 // ### Public methods ###
 void BrickUi::draw(const Brick &brick) {
@@ -38,8 +34,7 @@ void BrickUi::draw(const Brick &brick) {
 
     if (brick.hasBonus()) {
         float y = center_.y - (static_cast<int>(BRICK_HEIGHT) / 2.0); // Sart at the top of the brick
-        al_draw_text(
-            fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
+        al_draw_text(fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
             "B"); // draw a B in the center of the brick if it has a bonus
     }
 }

@@ -19,7 +19,7 @@
 class DisplayGame {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    Canvas canvas_;
+    shared_ptr<Canvas> canvas_;
 
     ALLEGRO_DISPLAY *display_;
     ALLEGRO_BITMAP *heartImage_;
@@ -27,6 +27,7 @@ class DisplayGame {
     ALLEGRO_SAMPLE_INSTANCE *instanceMusic_;
     ALLEGRO_FONT *font24_;
     ALLEGRO_FONT *font50_;
+    ALLEGRO_FONT *fontBrick_;
 
     // ### Private Methods ###
     /**

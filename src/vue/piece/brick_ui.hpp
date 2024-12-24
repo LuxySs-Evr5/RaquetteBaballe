@@ -26,14 +26,15 @@ class BrickUi final : public Rectangle {
      * @param width The width of the brick
      * @param height The height of the brick
      * @param color The color of the brick
+     * @param fontBrick The font of the brick bonus
      */
-    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color);
+    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color, ALLEGRO_FONT *fontBrick);
 
     /**
      * @brief Destroy the Brick Ui object
      *
      */
-    virtual ~BrickUi();
+    virtual ~BrickUi() = default;
 
     /**
      * @brief Draw the brick

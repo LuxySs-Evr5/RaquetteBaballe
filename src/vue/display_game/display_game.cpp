@@ -21,18 +21,22 @@
 
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
-    : gameBoard_(gameBoard), canvas_(gameBoard)  {
+    : gameBoard_(gameBoard)  {
+
     initialize_allegro();
 
     display_ = al_create_display(static_cast<int>(SCREEN_WIDTH),
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
-    font24_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_24, 0);
+    font24_ = al_load_ttf_font(PATH_TO_FONT, 24, 0);
     checkInit(font24_, "font24");
 
-    font50_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_50, 0);
+    font50_ = al_load_ttf_font(PATH_TO_FONT, 50, 0);
     checkInit(font50_, "font50");
+
+    fontBrick_ = al_load_ttf_font(PATH_TO_FONT, 20, 0);
+    checkInit(fontBrick_, "fontBrick");
 
     heartImage_ =
         al_load_bitmap(PATH_TO_HEART_IMAGE); 
@@ -56,6 +60,8 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     al_set_sample_instance_playmode(
         instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
     al_play_sample_instance(instanceMusic_);    // play the music
+
+    canvas_ = make_shared<Canvas>(gameBoard_, fontBrick_);
 }
 
 // ### Destructor ###
@@ -65,11 +71,12 @@ DisplayGame::~DisplayGame() {
      * 
      */
     al_destroy_display(display_);
+    al_destroy_font(font24_);
+    al_destroy_font(font50_);
+    al_destroy_font(fontBrick_);
     al_destroy_bitmap(heartImage_);
     al_destroy_sample_instance(instanceMusic_);
     al_destroy_sample(music_);
-    al_destroy_font(font24_);
-    al_destroy_font(font50_);
     al_uninstall_audio();
     al_shutdown_image_addon();
     al_shutdown_font_addon();
@@ -157,7 +164,7 @@ void DisplayGame::draw() {
 
     drawLife(); // draw the hearts for the remaining lifes
 
-    canvas_.draw(); // draw the pieces of the game
+    canvas_->draw(); // draw the pieces of the game
 
     al_flip_display(); // update the window display
 }

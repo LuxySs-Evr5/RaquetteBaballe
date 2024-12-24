@@ -15,7 +15,7 @@
 #include "../piece/bonus_pill_ui.hpp"
 
 // ### Constructor ###
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard) : gameBoard_(gameBoard) {};
+Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick) : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
 
 // ### Public methods ###
 void Canvas::draw() {
@@ -30,7 +30,7 @@ void Canvas::draw() {
         BrickUi brickUi{brick->getBoundingBox().getCenter().toPoint(),
                         static_cast<float>(brick->getBoundingBox().getWidth()),
                         static_cast<float>(brick->getBoundingBox().getHeight()),
-                        colorToAllegroColor(brick->getColor())};
+                        colorToAllegroColor(brick->getColor()), fontBrick_};
         brickUi.draw(*brick);
     }
 

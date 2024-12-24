@@ -12,6 +12,7 @@
 
 #include "../../model/game_board/game_board.hpp"
 
+#include <allegro5/allegro_font.h>
 #include <memory>
 #include <vector>
 
@@ -26,14 +27,17 @@ class Canvas {
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
 
+    ALLEGRO_FONT *fontBrick_;
+
 
   public:
     /**
      * @brief Construct a new Canvas object
      *
      * @param gameBoard
+     * @param fontBrick the font for the bricks bonus
      */
-    Canvas(shared_ptr<GameBoard> gameBoard);
+    Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick); 
 
     /**
      * @brief Destroy the Canvas object
