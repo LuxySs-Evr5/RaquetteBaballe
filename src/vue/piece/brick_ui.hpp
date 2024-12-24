@@ -1,13 +1,13 @@
 /**
- * @file brik_ui.hpp
+ * @file brick_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Brik
+ * @brief Define the class Brick
  * @date 27/11/2024
  *
  */
 
-#ifndef BRIKUI_HPP
-#define BRIKUI_HPP
+#ifndef BRICK_UI_HPP
+#define BRICK_UI_HPP
 
 #include "../figures/forme.hpp"
 #include <allegro5/allegro_font.h>
@@ -28,7 +28,8 @@ class BrickUi final : public Rectangle {
      * @param color The color of the brick
      * @param fontBrick The font of the brick bonus
      */
-    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color, ALLEGRO_FONT *fontBrick);
+    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
+            ALLEGRO_FONT *fontBrick);
 
     /**
      * @brief Destroy the Brick Ui object
@@ -59,4 +60,4 @@ class BrickUi final : public Rectangle {
     static const ALLEGRO_FONT *getBrickFont();
 };
 
-#endif // BRIKUI_HPP
+#endif // BRICK_UI_HPP

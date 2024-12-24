@@ -236,7 +236,7 @@ const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
 }
 
 const std::vector<std::unique_ptr<BonusPill>> &
-GameBoard::getDecendingBonusses() const {
+GameBoard::getDescendingBonusses() const {
     return descendingBonusses_;
 }
 

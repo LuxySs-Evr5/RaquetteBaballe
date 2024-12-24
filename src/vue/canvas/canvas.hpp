@@ -23,12 +23,12 @@ class Canvas {
     shared_ptr<GameBoard> gameBoard_;
     const shared_ptr<Racket> &racket_ = gameBoard_->getRacket();
     const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
-    const vector<unique_ptr<BonusPill>> &bonusPills_ = gameBoard_->getDecendingBonusses();
+    const vector<unique_ptr<BonusPill>> &bonusPills_ =
+        gameBoard_->getDescendingBonusses();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
 
     ALLEGRO_FONT *fontBrick_;
-
 
   public:
     /**
@@ -37,7 +37,7 @@ class Canvas {
      * @param gameBoard
      * @param fontBrick the font for the bricks bonus
      */
-    Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick); 
+    Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick);
 
     /**
      * @brief Destroy the Canvas object

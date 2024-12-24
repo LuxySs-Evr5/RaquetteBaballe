@@ -1,7 +1,7 @@
 /**
- * @file brik_ui.cpp
+ * @file brick_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Brik
+ * @brief Define the class Brick
  * @date 27/11/2024
  *
  */
@@ -13,10 +13,9 @@
 #include <allegro5/allegro_ttf.h>
 
 // ### Constructor ###
-BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color, ALLEGRO_FONT *fontBrick)
-    : Rectangle(center, width, height, color), fontBrick_(fontBrick) {
-}
-
+BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
+                 ALLEGRO_FONT *fontBrick)
+    : Rectangle(center, width, height, color), fontBrick_(fontBrick) {}
 
 // ### Public methods ###
 void BrickUi::draw(const Brick &brick) {
@@ -33,8 +32,11 @@ void BrickUi::draw(const Brick &brick) {
     Rectangle::draw();
 
     if (brick.hasBonus()) {
-        float y = center_.y - (static_cast<int>(BRICK_HEIGHT) / 2.0); // Sart at the top of the brick
-        al_draw_text(fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
+        float y = center_.y
+                  - (static_cast<int>(BRICK_HEIGHT)
+                     / 2.0); // Sart at the top of the brick
+        al_draw_text(
+            fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
             "B"); // draw a B in the center of the brick if it has a bonus
     }
 }

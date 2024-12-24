@@ -121,7 +121,8 @@ class GameBoard final {
      *
      * @return A reference to the vector of descending bonus pills.
      */
-    const std::vector<std::unique_ptr<BonusPill>> &getDecendingBonusses() const;
+    const std::vector<std::unique_ptr<BonusPill>> &
+    getDescendingBonusses() const;
 
     /**
      * @brief Returns the racket.
