@@ -139,7 +139,7 @@ void DisplayGame::draw() {
 
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2, 30,
                  ALLEGRO_ALIGN_CENTER, "Arkanoid"); // draw the title
-    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 4, 50,
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 6, 50,
                  ALLEGRO_ALIGN_CENTER,
                  "Life : "); // draw the text "Life : ", the hearts will be
                              // drawn at the right
@@ -186,7 +186,7 @@ void DisplayGame::drawLife() {
     float scaleHeartHeight = HEART_IMAGE_SIZE;
 
     float heartX =
-        SCREEN_WIDTH / 4 + 40; // space between the text and the heart image
+        SCREEN_WIDTH / 6 + 40; // space between the text and the heart image
 
     for (unsigned i = 0; i < gameBoard_->getLife(); i++) {
 

@@ -59,6 +59,26 @@ Color convertColorFromString(const string &colorName) {
     exit(1);
 }
 
+BonusType convertBonusFromString(const string &bonusName) {
+    /**
+     * @brief Translate the bonus name to the corresponding BonusType
+     *
+     * @param bonusName The name of the bonus
+     * @return The corresponding BonusType
+     */
+    static const unordered_map<string, BonusType> bonusMap = {
+        {"None", BonusType::None},
+        {"SlowDown", BonusType::SlowDown},
+        {"ExtraLife", BonusType::ExtraLife},
+        {"WideRacket", BonusType::WideRacket}};
+    auto it = bonusMap.find(bonusName);
+    if (it != bonusMap.end()) {
+        return it->second;
+    }
+    cerr << "Unknown bonus name" << endl;
+    exit(1);
+}
+
 void Levels::loadBricks() {
     string mainPath = "ressources/levels/";
     string filename = mainPath + to_string(currentLevel) + ".txt";
@@ -74,16 +94,23 @@ void Levels::loadBricks() {
         istringstream iss(line);
         double x, y;
         string color;
+        string bonus;
         if (!(iss >> x >> y >> color)) {
             cerr << "Failed to read line" << endl;
             exit(1);
         }
+
+         // Check if there's a 4th column for bonus
+        if (!(iss >> bonus)) {
+            bonus = "None"; // No bonus provided, keep it as default
+        }
+
         x += WALL_THICKNESS; // because the board has a left border
         y += WALL_THICKNESS; // because the board has a top border
         levelBricks_.emplace_back(Brick::makeBrick(
             convertColorFromString(color),
             BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}));
+                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}, convertBonusFromString(bonus)));
     }
     file.close();
 }

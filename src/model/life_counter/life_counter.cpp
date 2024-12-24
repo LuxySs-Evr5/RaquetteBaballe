@@ -8,7 +8,6 @@
 
 #include "life_counter.hpp"
 #include "../../global_variables.hpp"
-#include <iostream>
 
 // ### Constructors ###
 
@@ -32,8 +31,7 @@ const LifeCounter &LifeCounter::operator--() {
 }
 
 const LifeCounter &LifeCounter::operator++() {
-    std::cout << "numLifes_ : " << numLifes_ << std::endl;
-    numLifes_--;
+    numLifes_++;
     return *this;
 }
 
