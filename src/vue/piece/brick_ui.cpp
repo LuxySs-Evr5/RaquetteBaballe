@@ -15,7 +15,7 @@
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {
     fontBrick_ = al_load_ttf_font(
-        "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", BRICK_HEIGHT,
+        PATH_TO_FONT, BRICK_HEIGHT,
         0); // load the font for the brick
 }
 

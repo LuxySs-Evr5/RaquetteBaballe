@@ -26,6 +26,7 @@ class Canvas {
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
     const vector<shared_ptr<Border>> &borders_ = gameBoard_->getBorders();
 
+
   public:
     /**
      * @brief Construct a new Canvas object

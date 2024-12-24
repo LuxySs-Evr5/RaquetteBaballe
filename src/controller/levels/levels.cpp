@@ -80,7 +80,7 @@ BonusType convertBonusFromString(const string &bonusName) {
 }
 
 void Levels::loadBricks() {
-    string mainPath = "ressources/levels/";
+    string mainPath = PATH_TO_LEVELS;
     string filename = mainPath + to_string(currentLevel) + ".txt";
     ifstream file(filename);
     if (!file.is_open()) {

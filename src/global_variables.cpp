@@ -8,6 +8,12 @@
 
 #include "global_variables.hpp"
 
+// ### Different paths ###
+const char *PATH_TO_FONT = "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
+const char *PATH_TO_MUSIC = "ressources/music/arkanoid.wav";
+const char *PATH_TO_HEART_IMAGE = "ressources/images/heart.png";
+const string PATH_TO_LEVELS = "ressources/levels/";
+
 // ### Screen ###
 const float SCREEN_WIDTH = 1020;
 const float SCREEN_HEIGHT = 1080;

@@ -9,8 +9,18 @@
 #ifndef GLOBAL_VARIABLES_HPP
 #define GLOBAL_VARIABLES_HPP
 
-// ### Screen ###
+#include <string>
 #include <cstdint>
+
+using std::string;
+
+// ### Different paths ###
+extern const char *PATH_TO_FONT;
+extern const char *PATH_TO_MUSIC;
+extern const char *PATH_TO_HEART_IMAGE;
+extern const string PATH_TO_LEVELS;
+
+// ### Screen ###
 extern const float SCREEN_WIDTH;
 extern const float SCREEN_HEIGHT;
 extern const double FPS;

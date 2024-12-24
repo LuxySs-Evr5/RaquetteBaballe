@@ -28,17 +28,17 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
-    font24_ = al_load_ttf_font("ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_24, 0);
+    font24_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_24, 0);
     checkInit(font24_, "font24");
 
-    font50_ = al_load_ttf_font("ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", FONT_SIZE_50, 0);
+    font50_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_50, 0);
     checkInit(font50_, "font50");
 
     heartImage_ =
-        al_load_bitmap("ressources/images/heart.png"); 
+        al_load_bitmap(PATH_TO_HEART_IMAGE); 
     checkInit(heartImage_, "heart image");
 
-    music_ = al_load_sample("ressources/music/arkanoid.wav");
+    music_ = al_load_sample(PATH_TO_MUSIC);
     checkInit(music_, "music");
 
     instanceMusic_ = al_create_sample_instance(music_);
