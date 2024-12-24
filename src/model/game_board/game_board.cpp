@@ -123,14 +123,6 @@ void GameBoard::applyBonus(BonusType bonusType) {
         } else {
             activeBonus_ = make_unique<SlowDownBonus>();
         }
-
-        double slowDownFactor =
-            dynamic_cast<SlowDownBonus *>(activeBonus_.get())
-                ->getSlowDownFactor();
-
-        for (auto &ball : balls_) {
-            ball->setSpeed(BALL_SPEED / slowDownFactor);
-        }
         break;
     }
     case BonusType::WideRacket:
