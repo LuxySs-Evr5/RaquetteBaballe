@@ -10,9 +10,6 @@
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
 
-// TODO : Décider si quand on ferme le jeu, ferme la fenêtre , on save le score
-// avant de quiter
-
 // ### Constructor ###
 ControllerGame::ControllerGame()
     : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {

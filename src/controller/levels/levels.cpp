@@ -12,7 +12,6 @@
 #include <string>
 #include <unordered_map>
 
-// TODO: Removing magic numbers and set Global variables
 // TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick
 // if needed
 
