@@ -16,7 +16,7 @@ class RacketUi final : public Rectangle {
   public:
     /**
      * @brief Construct a new Racket Ui object
-     * 
+     *
      * @param center The center of the racket
      * @param width The width of the racket
      * @param height The height of the racket
@@ -26,13 +26,11 @@ class RacketUi final : public Rectangle {
 
     /**
      * @brief Destroy the Racket Ui object
-     * 
      */
     virtual ~RacketUi() = default;
 
     /**
      * @brief Draw the racket
-     * 
      */
     void draw() override;
 };

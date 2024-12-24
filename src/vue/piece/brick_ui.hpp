@@ -21,7 +21,7 @@ class BrickUi final : public Rectangle {
   public:
     /**
      * @brief Construct a new Brick Ui object
-     * 
+     *
      * @param center The center of the brick
      * @param width The width of the brick
      * @param height The height of the brick
@@ -31,36 +31,29 @@ class BrickUi final : public Rectangle {
 
     /**
      * @brief Destroy the Brick Ui object
-     * 
+     *
      */
     virtual ~BrickUi();
 
     /**
      * @brief Draw the brick
-     * 
+     *
      */
     void draw(const Brick &brick);
 
     /**
      * @brief Set the Frame Color for the brick
-     * 
+     *
      * @param color The color of the frame
      */
     void setFrameColor(const ALLEGRO_COLOR &color);
 
     /**
-     * @brief Get the Center x object
-     * 
-     * @return float 
+     * @brief Get the brick's center
+     *
+     * @return Point
      */
-    float getCenterx() const;
-
-    /**
-     * @brief Get the Center y object
-     * 
-     * @return float 
-     */
-    float getCentery() const;
+    Point getCenter() const;
 
     static const ALLEGRO_FONT *getBrickFont();
 };

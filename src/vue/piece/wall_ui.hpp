@@ -16,7 +16,7 @@ class WallUi final : public Rectangle {
   public:
     /**
      * @brief Construct a new Wall Ui object
-     * 
+     *
      * @param center The center of the wall
      * @param width The width of the wall
      * @param height The height of the wall
@@ -26,13 +26,11 @@ class WallUi final : public Rectangle {
 
     /**
      * @brief Destroy the Wall Ui object
-     * 
      */
     virtual ~WallUi() = default;
 
     /**
      * @brief Draw the wall
-     * 
      */
     void draw() override;
 };

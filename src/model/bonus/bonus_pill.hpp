@@ -6,7 +6,7 @@
 
 constexpr double BONUS_PILL_WIDTH = 10;
 constexpr double BONUS_PILL_HEIGHT = 10;
-constexpr double DESCENT_SPEED = 40;
+constexpr double DESCENT_SPEED = 200;
 
 class BonusPill {
   private:

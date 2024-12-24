@@ -11,17 +11,16 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-
 // ### Constructor ###
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {
-    fontBrick_ = al_load_ttf_font("ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", BRICK_HEIGHT, 0); // load the font for the brick
+    fontBrick_ = al_load_ttf_font(
+        "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf", BRICK_HEIGHT,
+        0); // load the font for the brick
 }
-
 
 // ### Destructor ###
 BrickUi::~BrickUi() { al_destroy_font(fontBrick_); }
-
 
 // ### Public methods ###
 void BrickUi::draw(const Brick &brick) {
@@ -30,18 +29,20 @@ void BrickUi::draw(const Brick &brick) {
         - center_.y; // Invert the y axis to match the screen with the backend
 
     if (brick.getDurability() == 2) {
-        frameColor_ = COLOR_BLACK; // for silver bricks change frame color for if durability is 2, if it's 1, it's default white
+        frameColor_ =
+            COLOR_BLACK; // for silver bricks change frame color for if
+                         // durability is 2, if it's 1, it's default white
     }
 
     Rectangle::draw();
 
     if (brick.hasBonus()) {
-        al_draw_text(fontBrick_, COLOR_BLACK, center_.x, center_.y, ALLEGRO_ALIGN_CENTER, "B"); // draw a B in the center of the brick if it has a bonus
+        al_draw_text(
+            fontBrick_, COLOR_BLACK, center_.x, center_.y, ALLEGRO_ALIGN_CENTER,
+            "B"); // draw a B in the center of the brick if it has a bonus
     }
 }
 
 void BrickUi::setFrameColor(const ALLEGRO_COLOR &color) { frameColor_ = color; }
 
-float BrickUi::getCenterx() const { return center_.x; }
-
-float BrickUi::getCentery() const { return center_.y; }
+Point BrickUi::getCenter() const { return center_; }
