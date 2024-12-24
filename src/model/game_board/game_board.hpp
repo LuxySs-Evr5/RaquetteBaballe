@@ -61,6 +61,8 @@ class GameBoard final {
 
     void undoBonusEffect(BonusType bonusType);
 
+    shared_ptr<Ball> createBall();
+
   public:
     /**
      * @brief Default constructor.

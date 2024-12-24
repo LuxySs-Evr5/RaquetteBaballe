@@ -137,17 +137,14 @@ void ControllerGame::waitKeyToRestart() {
 }
 
 void ControllerGame::loadLevel() {
+    cout << "loadLevel" << endl;
     gameBoard_->clear();
-
-    vector<shared_ptr<Ball>> ball;
-    ball.emplace_back(make_shared<Ball>(levels_->getBall()));
 
     shared_ptr<Racket> racket = make_shared<Racket>(levels_->getRacket());
 
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);
     gameBoard_->setBricks(levels_->getBricks());
-    gameBoard_->setBalls(ball);
     gameBoard_->readBestScore();
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();

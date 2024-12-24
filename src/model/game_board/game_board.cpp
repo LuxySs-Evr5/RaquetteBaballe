@@ -160,6 +160,13 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
     activeBonus_.reset();
 }
 
+// TODO: remove magic numbers
+shared_ptr<Ball> GameBoard::createBall() {
+    return std::make_shared<Ball>(
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1}, BALL_RADIUS,
+        BALL_SPEED);
+}
+
 void GameBoard::update(double deltaTime) {
     if (deltaTime == 0) {
         return;
@@ -199,17 +206,17 @@ void GameBoard::update(double deltaTime) {
         size_t scoreToAdd = solveBallCollisions(*ball);
         scoreManager_.increaseScore(scoreToAdd);
 
-        if (ball->getCoordinate().y < ball->getRadius() / 2) {
+        if (ball->getCoordinate().y < ball->getRadius()) {
             balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
+        }
+
+        if (balls_.size() == 0) {
             --lifeCounter_;
-            if (lifeCounter_ > 0) { // TODO : VERY BAD, magic numbers
-                                    // everywhere. check si on fait ca ici ? y a
-                                    // un check de vie dans le controller
-                balls_.emplace_back(std::make_shared<Ball>(
-                    Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
-                    BALL_RADIUS, BALL_SPEED));
+            if (lifeCounter_ > 0) {
+                balls_.emplace_back(createBall());
             }
         }
+
         ball->update(deltaTime);
     }
 }
@@ -275,7 +282,10 @@ void GameBoard::setBorders(
 
 // #### Clear GameBoard ####
 
-void GameBoard::clearBalls() { balls_.clear(); }
+void GameBoard::clearBalls() {
+    balls_.clear();
+    balls_.emplace_back(createBall());
+}
 
 void GameBoard::clearBonus() { activeBonus_.reset(); }
 
