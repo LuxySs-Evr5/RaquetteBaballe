@@ -144,17 +144,12 @@ void ControllerGame::loadLevel() {
 
     vector<shared_ptr<Ball>> ball;
     ball.emplace_back(make_shared<Ball>(levels_->getBall()));
-    const shared_ptr<Racket> &racket =
-        make_shared<Racket>(levels_->getRacket());
 
-    // TODO: move me back to setBricks() parameter
-    auto bricks = levels_->getBricks();
-    bricks.emplace_back(Brick::makeBrick(Color::red, {Vec2(490, 400), 100, 50},
-                                         BonusType::WideRacket));
+    shared_ptr<Racket> racket = make_shared<Racket>(levels_->getRacket());
 
     gameBoard_->setBorders(levels_->getBorders());
     gameBoard_->setRacket(racket);
-    gameBoard_->setBricks(bricks);
+    gameBoard_->setBricks(levels_->getBricks());
     gameBoard_->setBalls(ball);
     gameBoard_->readBestScore();
     gameBoard_->resetLifeCounter();
