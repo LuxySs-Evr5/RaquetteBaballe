@@ -57,3 +57,4 @@ const float HEART_IMAGE_SIZE = 24; // because the font size is 24
 // ### Size of font ###
 const int FONT_SIZE_24 = 24;
 const int FONT_SIZE_50 = 50;
+const int FONT_SIZE_BRICK = BRICK_HEIGHT - 3; // a bit smaller than the brick height to fit in the brick

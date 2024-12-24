@@ -63,5 +63,6 @@ extern const float HEART_IMAGE_SIZE; // because the font size is 24
 // ### Size of font ###
 extern const int FONT_SIZE_24;
 extern const int FONT_SIZE_50;
+extern const int FONT_SIZE_BRICK; 
 
 #endif // GLOBAL_VARIABLES_HPP
