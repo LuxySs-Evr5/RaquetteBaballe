@@ -17,7 +17,7 @@ debug:
 	@cmake --build $(BUILD_DIR) -- -j$(CORES)
 
 clean:
-	@find . -mindepth 1 -not -name Makefile -not -name '.git*' -exec rm -rf {} +
+	@rm -rf $(OUTPUT_DIR)arkanoid $(BUILD_DIR)
 
 re: clean all
 

@@ -180,8 +180,7 @@ void GameBoard::update(double deltaTime) {
         BonusType bonusType = activeBonus_->getBonusType();
         if (bonusType == BonusType::SlowDown) {
             double slowDownFactor =
-                dynamic_cast<SlowDownBonus *>(activeBonus_.get())
-                    ->getSlowDownFactor();
+                static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
 
             for (auto &ball : balls_) {
                 ball->setSpeed(BALL_SPEED / slowDownFactor);
