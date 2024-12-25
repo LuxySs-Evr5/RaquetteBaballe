@@ -69,7 +69,8 @@ class GameBoard final {
      * @brief Adds the 2 newly created balls when the given ball gets split into
      * three.
      */
-    void splitBallIntoThree(const Ball &originalBall);
+    void splitBallIntoThree(const Ball &originalBall,
+                            std::vector<shared_ptr<Ball>> &newBalls);
 
   public:
     /**

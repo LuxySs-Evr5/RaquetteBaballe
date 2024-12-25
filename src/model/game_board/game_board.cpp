@@ -2,8 +2,9 @@
 #include "../../log/log.hpp"
 
 #include <algorithm>
+#include <iterator>
 #include <memory>
-#include <sys/types.h>
+#include <vector>
 
 std::optional<std::variant<BrickIt, BorderIt, std::shared_ptr<Racket>>>
 GameBoard::findNextCollision(Ball &ball) {
@@ -134,12 +135,14 @@ void GameBoard::applyBonus(BonusType bonusType) {
         racket_->setWidth(WIDE_RACKET_WIDTH);
         break;
 
-    case BonusType::SplitBall:
+    case BonusType::SplitBall: {
+        vector<shared_ptr<Ball>> newBalls;
         for (const std::shared_ptr<Ball> &ball : balls_) {
-            splitBallIntoThree(*ball);
+            splitBallIntoThree(*ball, newBalls);
         }
+        std::move(newBalls.begin(), newBalls.end(), std::back_inserter(balls_));
         break;
-
+    }
     case BonusType::ExtraLife:
         ++lifeCounter_;
         break;
@@ -173,7 +176,8 @@ shared_ptr<Ball> GameBoard::createBall() {
         BALL_SPEED);
 }
 
-void GameBoard::splitBallIntoThree(const Ball &originalBall) {
+void GameBoard::splitBallIntoThree(const Ball &originalBall,
+                                   std::vector<shared_ptr<Ball>> &newBalls) {
     Vec2 originalDir = originalBall.getDirvec();
     float angle = std::atan2(originalDir.y, originalDir.x);
     float spread = M_PI / 8;
@@ -184,7 +188,7 @@ void GameBoard::splitBallIntoThree(const Ball &originalBall) {
         shared_ptr<Ball> newBall = std::make_shared<Ball>(originalBall);
         newBall->setDirection(Vec2(std::cos(newAngle), std::sin(newAngle)));
 
-        balls_.emplace_back(newBall);
+        newBalls.push_back(newBall);
     }
 }
 
@@ -224,16 +228,16 @@ void GameBoard::update(double deltaTime) {
     // NOTE: Don't use iterators here because solveBallCollisions could
     // append to balls_ invalidating our iterator.
     for (size_t ballIdx = 0; ballIdx < balls_.size();) {
-        auto &ball = (balls_[ballIdx]);
-        Log::get().addMessage(Log::LogType::BallPos, ball->getCoordinate());
+        Log::get().addMessage(Log::LogType::BallPos,
+                              balls_[ballIdx]->getCoordinate());
 
-        size_t scoreToAdd = solveBallCollisions(*ball);
+        size_t scoreToAdd = solveBallCollisions(*balls_[ballIdx]);
         scoreManager_.increaseScore(scoreToAdd);
 
-        if (ball->getCoordinate().y < ball->getRadius()) {
-            balls_.erase(std::find(balls_.begin(), balls_.end(), ball));
+        if (balls_[ballIdx]->getCoordinate().y < balls_[ballIdx]->getRadius()) {
+            balls_.erase(balls_.begin() + ballIdx);
         } else {
-            ball->update(deltaTime);
+            balls_[ballIdx]->update(deltaTime);
             ballIdx++;
         }
     }
