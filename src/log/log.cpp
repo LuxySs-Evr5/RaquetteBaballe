@@ -8,18 +8,20 @@ Log::Log() : logfile("log.txt") {
     if (!logfile.is_open()) {
         std::cerr << "Error opening log file!" << std::endl;
     }
-    logTypeEnabled[LogType::BallPos] = true;
-    logTypeEnabled[LogType::Bidirectional] = true;
-    logTypeEnabled[LogType::BounceType] = true;
-    logTypeEnabled[LogType::BrickDestroyed] = true;
-    logTypeEnabled[LogType::ChangeBetweenLastUpdate] = true;
-    logTypeEnabled[LogType::ClosestPoint] = true;
-    logTypeEnabled[LogType::CollidingObject] = true;
-    logTypeEnabled[LogType::CollisionButSameDirection] = true;
-    logTypeEnabled[LogType::DirVec] = true;
-    logTypeEnabled[LogType::Error] = true;
-    logTypeEnabled[LogType::PenetrationRate] = true;
-    logTypeEnabled[LogType::Unidirectional] = true;
+    logTypeEnabled = {
+        {LogType::BallPos, true},
+        {LogType::Bidirectional, true},
+        {LogType::BounceType, true},
+        {LogType::BrickDestroyed, true},
+        {LogType::ChangeBetweenLastUpdate, true},
+        {LogType::ClosestPoint, true},
+        {LogType::CollidingObject, true},
+        {LogType::CollisionButSameDirection, true},
+        {LogType::DirVec, true},
+        {LogType::Error, true},
+        {LogType::PenetrationRate, true},
+        {LogType::Unidirectional, true},
+    };
 }
 
 std::string Log::logTypeToString(LogType type) const {
@@ -61,11 +63,11 @@ Log &Log::get() {
 }
 
 void Log::toggleLogType(LogType type, bool enabled) {
-    logTypeEnabled[type] = enabled;
+    logTypeEnabled.at(type) = enabled;
 }
 
 void Log::addMessage(LogType type, const std::string &message) {
-    if (logTypeEnabled[type]) {
+    if (logTypeEnabled.at(type)) {
         logfile << "[" << logTypeToString(type) << "] " << message << std::endl;
         ++linesOutput;
     }

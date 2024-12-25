@@ -229,15 +229,16 @@ void GameBoard::update(double deltaTime) {
     // append to balls_ invalidating our iterator.
     for (size_t ballIdx = 0; ballIdx < balls_.size();) {
         Log::get().addMessage(Log::LogType::BallPos,
-                              balls_[ballIdx]->getCoordinate());
+                              balls_.at(ballIdx)->getCoordinate());
 
-        size_t scoreToAdd = solveBallCollisions(*balls_[ballIdx]);
+        size_t scoreToAdd = solveBallCollisions(*balls_.at(ballIdx));
         scoreManager_.increaseScore(scoreToAdd);
 
-        if (balls_[ballIdx]->getCoordinate().y < balls_[ballIdx]->getRadius()) {
+        if (balls_.at(ballIdx)->getCoordinate().y
+            < balls_.at(ballIdx)->getRadius()) {
             balls_.erase(balls_.begin() + ballIdx);
         } else {
-            balls_[ballIdx]->update(deltaTime);
+            balls_.at(ballIdx)->update(deltaTime);
             ballIdx++;
         }
     }
