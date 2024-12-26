@@ -118,7 +118,7 @@ void Ball::collide(const Bounceable &bounceable) {
     Log::get().addMessage(Log::LogType::ChangeBetweenLastUpdate,
                           changeBetweenLastUpdate);
 
-    double penetrationRate = 1; // Defaults to prevent 0 division
+    double penetrationRate = 1; // Default to 1 to prevent 0-division
     if ((bounceType == BounceType::Horizontal)
         || (bounceType == BounceType::Corner)
                && (changeBetweenLastUpdate.y != 0)) {
@@ -144,7 +144,7 @@ void Ball::collide(const Bounceable &bounceable) {
                           std::string{"dirvec afterBounce: "}
                               + std::string{getDirvec()});
 
-    // add back what the distance that the ball should have gone while it was
+    // Add back the distance that the ball should have travelled instead of
     // going inside the bounding-box
     pos_ += dirVec_ * bidirectionalPenetration.getModule();
 }

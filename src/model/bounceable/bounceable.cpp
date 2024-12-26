@@ -40,11 +40,11 @@ BounceType Bounceable::getBounceType(const Vec2 &point) const {
         or point == boundingBox_.getBottomRight()) {
 
         return BounceType::Corner;
-    } else if (point.x == boundingBox_.getBottomRight().x
-               or point.x == boundingBox_.getTopLeft().x) {
+    } else if (point.x == boundingBox_.getLeft()
+               or point.x == boundingBox_.getRight()) {
         return BounceType::Vertical;
-    } else if (point.y == boundingBox_.getBottomRight().y
-               or point.y == boundingBox_.getTopLeft().y) {
+    } else if (point.y == boundingBox_.getBottom()
+               or point.y == boundingBox_.getTop()) {
         return BounceType::Horizontal;
     } else {
         throw std::runtime_error{

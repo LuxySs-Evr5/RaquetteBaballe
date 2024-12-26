@@ -56,7 +56,7 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
     // racket way
     if ((bounceType == BounceType::Horizontal
          || bounceType == BounceType::Corner)
-        && closestPoint.y == boundingBox_.getTopLeft().y) {
+        && closestPoint.y == boundingBox_.getTop()) {
 
         Vec2 leftSide =
             boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
