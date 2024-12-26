@@ -87,7 +87,7 @@ class Brick : public Bounceable {
     /**
      * @brief Returns the brick's position.
      */
-    virtual Vec2 getPos() const final;
+    virtual const Vec2 &getPos() const final;
 
     /**
      * @brief Returns the brick's color.

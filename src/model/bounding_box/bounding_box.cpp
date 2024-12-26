@@ -3,10 +3,10 @@
 
 // #### Constructors ####
 
-BoundingBox::BoundingBox(Vec2 center, double width, double height)
+BoundingBox::BoundingBox(const Vec2 &center, double width, double height)
     : center_(center), width_{width}, height_{height} {}
 
-BoundingBox::BoundingBox(Vec2 topLeft, Vec2 bottomRight)
+BoundingBox::BoundingBox(const Vec2 &topLeft, const Vec2 &bottomRight)
     : center_{(Vec2{(topLeft.x + bottomRight.x) / 2,
                     (topLeft.y + bottomRight.y) / 2})},
       width_{std::abs(bottomRight.x - topLeft.x)},
@@ -22,7 +22,7 @@ void BoundingBox::setHeight(double newHeight) { height_ = newHeight; }
 
 // #### Getters ####
 
-Vec2 BoundingBox::getCenter() const noexcept { return center_; }
+const Vec2 &BoundingBox::getCenter() const noexcept { return center_; }
 
 double BoundingBox::getWidth() const noexcept { return width_; }
 

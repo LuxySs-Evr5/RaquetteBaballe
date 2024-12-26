@@ -292,7 +292,7 @@ int GameBoard::getBestScore() const { return scoreManager_.getBestScore(); }
 void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 
 // ### Setters ###
-void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> bricks) {
+void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
     bricks_ = bricks;
 }
 
@@ -300,7 +300,8 @@ void GameBoard::setRacket(const std::shared_ptr<Racket> racket) {
     racket_ = racket;
 }
 
-void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders) {
+void GameBoard::setBorders(
+    const std::vector<std::shared_ptr<Border>> &borders) {
     borders_ = borders;
 }
 

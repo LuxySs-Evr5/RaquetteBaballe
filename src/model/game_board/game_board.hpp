@@ -177,14 +177,13 @@ class GameBoard final {
      * @return A reference to the vector of border pointers.
      */
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
-    int getBestScore() const;
 
     // #### Setters ####
 
     /**
-     * @brief Sets the racket's horizontal cooddinate.
+     * @brief Sets the racket's horizontal coordinate.
      *
-     * @param posX The racket's horizontal cooddinate.
+     * @param posX The racket's horizontal coordinate.
      */
     void setRacketAtX(double posX);
 
@@ -193,7 +192,7 @@ class GameBoard final {
      *
      * @param bricks A reference to the vector of brick pointers.
      */
-    void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
+    void setBricks(const std::vector<std::shared_ptr<Brick>> &bricks);
 
     /**
      * @brief Sets the racket.
@@ -207,7 +206,7 @@ class GameBoard final {
      *
      * @param borders A reference to the vector of border pointers.
      */
-    void setBorders(const std::vector<std::shared_ptr<Border>> borders);
+    void setBorders(const std::vector<std::shared_ptr<Border>> &borders);
 
     /**
      * @brief Resets the life counter.
@@ -223,6 +222,11 @@ class GameBoard final {
      * @brief Saves the best score.
      */
     void saveBestScore();
+
+    /**
+     * Returns the best score.
+     */
+    int getBestScore() const;
 
     /**
      * @brief Resets the best score.

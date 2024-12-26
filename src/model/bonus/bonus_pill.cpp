@@ -14,7 +14,7 @@ bool BonusPill::checkCollision(const BoundingBox &boundingBox) {
     return boundingBox_.isOverlapping(boundingBox);
 }
 
-Vec2 BonusPill::getPos() const { return boundingBox_.getCenter(); }
+const Vec2 &BonusPill::getPos() const { return boundingBox_.getCenter(); }
 
 const BoundingBox &BonusPill::getBoundingBox() { return boundingBox_; }
 

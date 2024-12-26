@@ -19,7 +19,7 @@ class BoundingBox final {
      * @param width The width.
      * @param height The height.
      */
-    BoundingBox(Vec2 center, double width, double height);
+    BoundingBox(const Vec2 &center, double width, double height);
 
     /**
      * @brief Constructs a new BoundingBox.
@@ -27,7 +27,7 @@ class BoundingBox final {
      * @param topLeft The top-left corner coordinate.
      * @param bottomRight The bottom-right corner coordinate.
      */
-    BoundingBox(Vec2 topLeft, Vec2 bottomRight);
+    BoundingBox(const Vec2 &topLeft, const Vec2 &bottomRight);
     BoundingBox(const BoundingBox &other) = default;
     BoundingBox(BoundingBox &&) = default;
     BoundingBox &operator=(const BoundingBox &) = default;
@@ -62,7 +62,7 @@ class BoundingBox final {
     /**
      * @brief Returns the BoundingBox's center's position.
      */
-    Vec2 getCenter() const noexcept;
+    const Vec2 &getCenter() const noexcept;
 
     /**
      * @brief Returns the BoundingBox's width.

@@ -29,7 +29,7 @@ class BonusPill {
     /**
      * @brief Returns the BonusPill's position.
      */
-    Vec2 getPos() const;
+    const Vec2 &getPos() const;
 
     /**
      * @brief Returns the BonusPill's BoundingBox.
