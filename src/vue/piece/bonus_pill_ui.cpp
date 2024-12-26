@@ -29,6 +29,9 @@ void BonusPillUi::draw(const BonusPill &bonusPill) {
     else if (bonusPill.getBonusType() == BonusType::WideRacket) {
         fillColor_ = COLOR_BLUE;
     }
+    else if (bonusPill.getBonusType() == BonusType::SplitBall) {
+        fillColor_ = COLOR_CYAN;
+    }
 
     frameColor_ = COLOR_BLACK; // Black frame color for all bonus pills
 

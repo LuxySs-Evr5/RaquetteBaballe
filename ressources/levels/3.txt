@@ -1,7 +1,7 @@
 490 550 defaultBrick SlowDown
 420 550 defaultBrick ExtraLife
 560 550 defaultBrick WideRacket
-630 550 defaultBrick
+630 550 defaultBrick SplitBall
 350 550 defaultBrick
 700 550 defaultBrick
 280 550 defaultBrick
