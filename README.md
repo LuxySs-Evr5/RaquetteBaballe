@@ -60,14 +60,13 @@ To start the game, run the following command:
 - `r` : Reset the high score to 0 (also saves to the file)
 - `←` : Move to the previous level
 - `→` : Move to the next level
+- `a` : Reset the current level
 - `espace` : Shoot a laser when available
 - `q` : Quit the game
 
 ## Game Bonus
-There are several bonuses available in the game. They will be displayed with a letter in the brick containing the bonus. You have to collect the bonus with the racket. Here is a list of the different bonuses :
-- `L` to shoot a lazer with `espace`.
-- `C` to catch the ball and release the ball with `espace`.
-- `S` to slow down the speed of the ball.
-- `E` to increase the width of the racket.
-- `V` to add a life.
-- `I` to divide the ball into 3 instances of itself. When this bonus is activate, no other bonus can fall.
+There are several bonuses available in the game. They will be displayed with the letter `B` in the brick containing the bonus. You have to collect the bonus with the racket. Here is a list of the different bonuses :
+- Reduce the ball's speed
+- Expand the racket's width
+- Gain an extra life
+- Split the ball into three instances of itself. When this bonus is active, no other bonuses will drop

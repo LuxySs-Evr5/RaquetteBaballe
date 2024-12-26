@@ -3,8 +3,6 @@
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
 
-#include <memory>
-
 // #### Protected Constructor ####
 
 Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability,
@@ -12,30 +10,16 @@ Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability,
     : Bounceable{boundingBox}, color_{color}, durability_{durability},
       bonusType_(bonusType) {}
 
-// #### Constructor ####
-
-Brick::Brick(const BoundingBox &boundingBox, Color color, BonusType bonusType)
-    : Bounceable{boundingBox}, color_{color}, bonusType_(bonusType) {
-        if (color == Color::silver) {
-            durability_ = DURABILITY_SILVER_BRICK;
-        } else {
-            durability_ = DURABILITY_STANDARD_BRICK;
-        }
-    }
-
 // #### Factory ####
 
-std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox,
+Brick Brick::makeBrick(Color color, BoundingBox boundingBox,
                                         BonusType bonusType) {
-
     if (color == Color::gold) {
-        return std::make_unique<GoldBrick>(boundingBox);
+        return GoldBrick(boundingBox);
     } else if (color == Color::silver) {
-        return std::make_unique<BasicBrick>(boundingBox, color,
-                                            DURABILITY_SILVER_BRICK, bonusType);
+        return BasicBrick(boundingBox, color, DURABILITY_SILVER_BRICK, bonusType);
     }
-    return std::make_unique<Brick>(boundingBox, color,
-                                   DURABILITY_STANDARD_BRICK, bonusType);
+    return Brick(boundingBox, color, DURABILITY_STANDARD_BRICK, bonusType);
 }
 
 Brick::~Brick() = default;

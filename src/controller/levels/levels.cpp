@@ -128,8 +128,9 @@ void Levels::loadBricks() {
 
             x += WALL_THICKNESS; // because the board has a left border
             y += WALL_THICKNESS; // because the board has a top border
-            bricks.emplace_back(Brick(BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                            Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}, convertColorFromString(color),
+            bricks.emplace_back(Brick::makeBrick(
+                convertColorFromString(color),
+                BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2}, Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
                 convertBonusFromString(bonus)));
         }
         levelBricks_.emplace_back(bricks);

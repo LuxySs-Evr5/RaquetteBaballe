@@ -159,13 +159,6 @@ class GameBoard final {
     void setRacketAtX(double posX);
 
     /**
-     * @brief Sets the balls.
-     *
-     * @param balls A reference to the vector of brick pointers.
-     */
-    void setBalls(const std::vector<std::shared_ptr<Ball>> &balls);
-
-    /**
      * @brief Sets the bricks.
      *
      * @param bricks A reference to the vector of brick pointers.
@@ -178,6 +171,13 @@ class GameBoard final {
      * @param bricks A reference to the racket pointer.
      */
     void setRacket(const std::shared_ptr<Racket> &racket);
+
+    /**
+     * @brief Sets the ball.
+     *
+     * @param ball A reference to the ball pointer.
+     */
+    void setBall(const std::shared_ptr<Ball> &ball);
 
     /**
      * @brief Sets the borders.

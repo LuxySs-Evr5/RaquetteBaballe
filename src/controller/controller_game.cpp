@@ -6,9 +6,11 @@
 
 #include "controller_game.hpp"
 #include "levels/levels.hpp"
+#include "../model/brick/gold_brick.hpp"
 
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
+#include <memory>
 #include <vector>
 
 // ### Constructor ###
@@ -112,6 +114,10 @@ void ControllerGame::checkEventType() {
             levels_->nextLevel();
             loadLevel();
         }
+        if (key_[ALLEGRO_KEY_A]) {
+            al_stop_timer(timer_);
+            loadLevel(); // restart the level
+        }
     }
 
     if (event_.type == ALLEGRO_EVENT_KEY_UP) {
@@ -135,14 +141,27 @@ void ControllerGame::waitKeyToRestart() {
 }
 
 void ControllerGame::loadLevel() {
+    // Clear all the pieces of the game board
     gameBoard_->clear();
 
+    // Reset the data of the game board
+    gameBoard_->readBestScore();
+    gameBoard_->resetLifeCounter();
+    gameBoard_->resetScore();
+
+    // Create the racket, the ball, the bricks and the borders
     const shared_ptr<Racket> &racket =
         make_shared<Racket>(levels_->getRacket());
 
+    const shared_ptr<Ball> &ball = make_shared<Ball>(levels_->getBall());
+
     vector<shared_ptr<Brick>> bricks;
     for (const Brick &brick : levels_->getBricks()) {
-        bricks.emplace_back(make_shared<Brick>(brick));
+        if (brick.getColor() == Color::gold) {
+            bricks.emplace_back(make_shared<GoldBrick>(brick));
+        } else {
+            bricks.emplace_back(make_shared<Brick>(brick));
+        }
     }
 
     vector<shared_ptr<Border>> borders;
@@ -150,12 +169,13 @@ void ControllerGame::loadLevel() {
         borders.emplace_back(make_shared<Border>(border));
     }
 
+    // Set the pieces in the game board
     gameBoard_->setBorders(borders);
     gameBoard_->setRacket(racket);
     gameBoard_->setBricks(bricks);
-    gameBoard_->readBestScore();
-    gameBoard_->resetLifeCounter();
-    gameBoard_->resetScore();
+    gameBoard_->setBall(ball);
+
+    // Start the timer
     al_start_timer(timer_);
     lastTime_ = al_get_time(); // get the time at the beginning of the game
 }
