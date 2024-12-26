@@ -1,14 +1,14 @@
-490 550 gold
-420 550 gold
-560 550 gold
-630 550 gold
-350 550 gold
-700 550 gold
-280 550 gold
-770 550 gold
-210 550 gold
-840 550 gold
-140 550 gold
-910 550 gold
-70 550 gold
-490 600 defaultBrick
+490 550 defaultBrick SplitBall
+490 600 defaultBrick SlowDown
+420 600 defaultBrick ExtraLife
+560 600 defaultBrick WideRacket
+350 600 defaultBrick
+630 600 defaultBrick
+700 600 defaultBrick
+280 600 defaultBrick
+770 600 defaultBrick
+210 600 defaultBrick
+840 600 defaultBrick
+140 600 defaultBrick
+910 600 defaultBrick
+70 600 defaultBrick

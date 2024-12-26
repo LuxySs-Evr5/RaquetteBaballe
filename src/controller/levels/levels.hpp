@@ -19,7 +19,7 @@
 
 using namespace std;
 
-constexpr unsigned MAX_LEVEL = 7 - 1; // -1 because we start to count at 0
+constexpr unsigned MAX_LEVEL = 8;
 
 class Levels {
   private:
