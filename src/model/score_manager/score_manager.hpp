@@ -9,12 +9,20 @@
 #ifndef SCORE_MANAGER_HPP
 #define SCORE_MANAGER_HPP
 
+#include <string>
+
 constexpr int DEFAULT_SCORE = 0;
 
 class ScoreManager {
   private:
     unsigned long currentScore_;
     unsigned long bestScore_;
+    static const std::string bestScoreFilePath_;
+
+    /**
+     * Writes the given content to the best score file.
+     */
+    void writeInBestScoreFile(const std::string &content);
 
   public:
     // #### Constructors ####
@@ -24,12 +32,12 @@ class ScoreManager {
      */
     ScoreManager();
     ScoreManager(const ScoreManager &) = default;
-    ScoreManager(ScoreManager &&) = delete;
+    ScoreManager(ScoreManager &&) = default;
 
     // #### Assignment ####
 
     ScoreManager &operator=(const ScoreManager &) = default;
-    ScoreManager &operator=(ScoreManager &&) = delete;
+    ScoreManager &operator=(ScoreManager &&) = default;
 
     /**
      * @brief Constructs a new ScoreManager.
@@ -54,7 +62,7 @@ class ScoreManager {
     void resetScore();
 
     /**
-     * @brief Saves the score.
+     * @brief Saves the highest score between best and current score.
      */
     void saveScore();
 
@@ -68,11 +76,10 @@ class ScoreManager {
      */
     unsigned long getBestScore() const;
 
-    // TODO: this is weird
     /**
-     * @brief Writes 0 in the bestScore file.
+     * @brief Resets the best Score.
      */
-    void setScore0();
+    void resetBestScore();
 };
 
 #endif // SCORE_HPP

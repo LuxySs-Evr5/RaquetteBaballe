@@ -22,7 +22,6 @@ class GameBoard final {
   private:
     ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
-    int bestScore_ = 0;
     unique_ptr<AbstractTimedBonus> activeBonus_;
     std::vector<unique_ptr<BonusPill>> descendingBonuses_;
 
@@ -224,13 +223,6 @@ class GameBoard final {
      * @brief Saves the best score.
      */
     void saveBestScore();
-
-    // #### Get the score from the file ####
-
-    /**
-     * @brief Reads the best/ score.
-     */
-    void loadBestScore();
 
     /**
      * @brief Resets the best score.

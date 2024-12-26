@@ -12,19 +12,14 @@
 #include <iostream>
 #include <string>
 
-// TODO: remove "score.txt" magic variable
-// maybe make the controller decide where this one should write and read the
-// best-score ?
+const std::string ScoreManager::bestScoreFilePath_ = "score.txt";
 
 // ### Constructors ###
 
 ScoreManager::ScoreManager() : currentScore_(DEFAULT_SCORE) {
-    // setup bestScore_ variable
-    std::string filePath = "score.txt";
+    std::ifstream read(bestScoreFilePath_, std::ios::in);
 
-    std::ifstream read(filePath, std::ios::in);
-
-    bestScore_ = 0;
+    bestScore_ = DEFAULT_SCORE;
 
     if (read.is_open()) {
         read >> bestScore_;
@@ -38,35 +33,33 @@ void ScoreManager::increaseScore(unsigned long value) {
     currentScore_ += value;
 }
 
-void ScoreManager::resetScore() { currentScore_ = 0; }
+void ScoreManager::resetScore() { currentScore_ = DEFAULT_SCORE; }
+
+void ScoreManager::writeInBestScoreFile(const std::string &content) {
+    std::ofstream file(bestScoreFilePath_, std::ios::out | std::ios::trunc);
+
+    if (file.is_open()) {
+        file << content << std::endl;
+        file.close();
+    } else {
+        std::cerr << "Error: Can't open the file" << std::endl;
+    }
+}
 
 void ScoreManager::saveScore() {
     if (currentScore_ < bestScore_) {
         return;
     }
 
-    std::string filePath = "score.txt";
-    std::ofstream write(filePath, std::ios::out | std::ios::trunc);
+    bestScore_ = currentScore_;
 
-    if (write.is_open()) {
-        write << getCurrentScore() << std::endl;
-        write.close();
-    } else {
-        std::cerr << "Error: Can't open the file" << std::endl;
-    }
+    writeInBestScoreFile(std::to_string(getCurrentScore()));
 }
 
-void ScoreManager::setScore0() {
-    std::string filePath = "score.txt";
+void ScoreManager::resetBestScore() {
+    bestScore_ = DEFAULT_SCORE;
 
-    std::ofstream file(filePath, std::ios::out | std::ios::trunc);
-
-    if (file.is_open()) {
-        file.put('0'); // Erase the content of the file and write 0
-        file.close();
-    } else {
-        std::cerr << "Error: Can't open the file" << std::endl;
-    }
+    writeInBestScoreFile("0");
 }
 
 // ### Getters ###

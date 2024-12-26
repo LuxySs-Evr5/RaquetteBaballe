@@ -145,7 +145,6 @@ void ControllerGame::loadLevel() {
     gameBoard_->clear();
 
     // Reset the data of the game board
-    gameBoard_->loadBestScore();
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();
 

@@ -283,9 +283,13 @@ unsigned long GameBoard::getNumBricks() const {
     });
 }
 
-void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
+void GameBoard::resetLifeCounter() { lifeCounter_.reset(); }
 
-void GameBoard::resetScore() { scoreManager_.resetScore(); } // reset the score
+void GameBoard::resetScore() { scoreManager_.resetScore(); }
+
+int GameBoard::getBestScore() const { return scoreManager_.getBestScore(); }
+
+void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 
 // ### Setters ###
 void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> bricks) {
@@ -321,28 +325,4 @@ void GameBoard::clear() {
     clearBalls();
     clearBorders();
     clearBricks();
-}
-
-// ### Get the best score from the file ###
-void GameBoard::loadBestScore() {
-    // TODO: check because the same function in constructor of score_manager
-    // TODO: Magic variable score.txt
-    std::string filePath = "score.txt";
-
-    std::ifstream read(filePath, ios::in);
-
-    if (read.is_open()) {
-        read >> bestScore_;
-        read.close();
-    }
-}
-
-int GameBoard::getBestScore() const { // TODO: check because the same function
-                                      // in constructor of score_manager
-    return bestScore_;
-}
-
-void GameBoard::resetBestScore() {
-    bestScore_ = 0;
-    scoreManager_.setScore0();
 }
