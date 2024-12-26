@@ -9,12 +9,13 @@
 #ifndef LEVELS_HPP
 #define LEVELS_HPP
 
-#include "../../global_variables.hpp"
 #include "../../model/ball/ball.hpp"
 #include "../../model/border/border.hpp"
 #include "../../model/brick/brick.hpp"
 #include "../../model/racket/racket.hpp"
 
+#include <cstdlib>
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -22,16 +23,10 @@ using namespace std;
 class Levels {
   private:
     int currentLevel_ = 0;
-    vector<vector<Brick>> levelBricks_;
-    const Ball levelBall_ =
-        Ball(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
-             BALL_RADIUS, BALL_SPEED); // + BOARD_BOUNDINGS_THICKNESS because
-                                       // the board has a left border
-    const Racket levelRacket_ = Racket(BoundingBox{
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 50}, RACKET_WIDTH,
-        RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because the board has a
-                         // left border;
-    vector<Border> levelBorders_;
+    vector<vector<shared_ptr<Brick>>> levelBricks_;
+    shared_ptr<Ball> levelBall_;
+    shared_ptr<Racket> levelRacket_;
+    vector<shared_ptr<Border>> levelBorders_;
 
     /**
      * @brief Load the bricks of the current level by reading a file in
@@ -65,28 +60,28 @@ class Levels {
      *
      * @return const vector<shared_ptr<Brick>>
      */
-    const vector<Brick> &getBricks();
+    const vector<shared_ptr<Brick>> &getBricks();
 
     /**
      * @brief Get the ball of the current level
      *
      * @return const Ball
      */
-    const Ball &getBall() const;
+    const shared_ptr<Ball> getBall() const;
 
     /**
      * @brief Get the racket of the current level
      *
      * @return const Racket
      */
-    const Racket &getRacket() const;
+    const shared_ptr<Racket> &getRacket() const;
 
     /**
      * @brief Get the borders of the current level
      *
      * @return const vector<shared_ptr<Border>>
      */
-    const vector<Border> &getBorders() const;
+    const vector<shared_ptr<Border>> &getBorders() const;
 };
 
 #endif // LEVELS_HPP

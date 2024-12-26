@@ -5,6 +5,7 @@
 #include "../bonus/bonus_type.hpp"
 #include "../bounceable/bounceable.hpp"
 #include "../bounding_box/bounding_box.hpp"
+#include <memory>
 
 enum class Color : size_t { // Score/Points is always positive
     defaultBrick = 1,
@@ -33,8 +34,8 @@ class Brick : public Bounceable {
 
     // #### Factory ####
 
-    static Brick makeBrick(Color color, BoundingBox boundingBox,
-              BonusType bonusType = BonusType::None); // static because needed in Levels class to create a brick from a file
+    static std::unique_ptr<Brick> makeBrick(Color color, BoundingBox boundingBox,
+              BonusType bonusType = BonusType::None);
 
     virtual ~Brick();
 

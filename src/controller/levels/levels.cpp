@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <unordered_map>
@@ -20,20 +21,30 @@
 
 // ### Constructor ###
 Levels::Levels() {
+    // Create the ball
+    levelBall_ = make_shared<Ball>(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
+             BALL_RADIUS, BALL_SPEED); // + BOARD_BOUNDINGS_THICKNESS because
+                                       // the board has a left border
+
+    // Create the racket
+    levelRacket_ = make_shared<Racket>(BoundingBox{
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 50}, RACKET_WIDTH,
+        RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because the board has a
+                         // left border
+
     // Left wall
-    levelBorders_.emplace_back(Border(
+    levelBorders_.emplace_back(make_shared<Border>(
         BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}));
     // Top wall
-    levelBorders_.emplace_back(Border(BoundingBox{
+    levelBorders_.emplace_back(make_shared<Border>(BoundingBox{
         Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_WIDTH + WALL_THICKNESS - 1,
                                         BOARD_HEIGHT - WALL_THICKNESS - 1}}));
     // Right wall
-    levelBorders_.emplace_back(Border(
+    levelBorders_.emplace_back(make_shared<Border>(
         BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
                     Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
 
     loadBricks();
-
 }
 
 Color convertColorFromString(const string &colorName) {
@@ -107,7 +118,7 @@ void Levels::loadBricks() {
             exit(1);
         }
 
-        vector<Brick> bricks;
+        vector<shared_ptr<Brick>> bricks;
 
         // Read the file line by line and create a brick to add to the vector
         string line;
@@ -129,9 +140,11 @@ void Levels::loadBricks() {
             x += WALL_THICKNESS; // because the board has a left border
             y += WALL_THICKNESS; // because the board has a top border
             bricks.emplace_back(Brick::makeBrick(
-                convertColorFromString(color),
-                BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2}, Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
-                convertBonusFromString(bonus)));
+            convertColorFromString(color),
+            BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
+                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
+            convertBonusFromString(bonus)));
+
         }
         levelBricks_.emplace_back(bricks);
         file.close();
@@ -151,14 +164,14 @@ void Levels::previousLevel() {
     }
 }
 
-const vector<Brick> &Levels::getBricks() {
+const vector<shared_ptr<Brick>> &Levels::getBricks() {
     return levelBricks_[currentLevel_];
 }
 
-const Ball &Levels::getBall() const { return levelBall_; }
+const shared_ptr<Ball> Levels::getBall() const { return levelBall_; }
 
-const Racket &Levels::getRacket() const { return levelRacket_; }
+const shared_ptr<Racket> &Levels::getRacket() const { return levelRacket_; }
 
-const vector<Border> &Levels::getBorders() const {
+const vector<shared_ptr<Border>> &Levels::getBorders() const {
     return levelBorders_;
 }

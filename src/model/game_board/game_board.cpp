@@ -288,20 +288,16 @@ void GameBoard::resetLifeCounter() { lifeCounter_.reset(); } // reset the life
 void GameBoard::resetScore() { scoreManager_.resetScore(); } // reset the score
 
 // ### Setters ###
-void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
+void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> bricks) {
     bricks_ = bricks;
 }
 
-void GameBoard::setRacket(const std::shared_ptr<Racket> &racket) {
+void GameBoard::setRacket(const std::shared_ptr<Racket> racket) {
     racket_ = racket;
 }
 
-void GameBoard::setBall(const std::shared_ptr<Ball> &ball) {
-    balls_.emplace_back(ball);
-}
-
 void GameBoard::setBorders(
-    const std::vector<std::shared_ptr<Border>> &borders) {
+    const std::vector<std::shared_ptr<Border>> borders) {
     borders_ = borders;
 }
 
@@ -309,6 +305,7 @@ void GameBoard::setBorders(
 
 void GameBoard::clearBalls() {
     balls_.clear();
+    balls_.emplace_back(createBall());
 }
 
 void GameBoard::clearBonus() { activeBonus_.reset(); }

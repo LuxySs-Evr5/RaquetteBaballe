@@ -6,7 +6,6 @@
 
 #include "controller_game.hpp"
 #include "levels/levels.hpp"
-#include "../model/brick/gold_brick.hpp"
 
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
@@ -149,31 +148,20 @@ void ControllerGame::loadLevel() {
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();
 
-    // Create the racket, the ball, the bricks and the borders
-    const shared_ptr<Racket> &racket =
-        make_shared<Racket>(levels_->getRacket());
-
-    const shared_ptr<Ball> &ball = make_shared<Ball>(levels_->getBall());
-
-    vector<shared_ptr<Brick>> bricks;
-    for (const Brick &brick : levels_->getBricks()) {
-        if (brick.getColor() == Color::gold) {
-            bricks.emplace_back(make_shared<GoldBrick>(brick));
-        } else {
-            bricks.emplace_back(make_shared<Brick>(brick));
-        }
+    // Load the level
+    vector<shared_ptr<Brick>> copyBricks; // a copy of the bricks of the level to
+                                          // avoid modifying the original bricks
+    for (const auto &brick : levels_->getBricks()) {
+        copyBricks.emplace_back(Brick::makeBrick(
+            brick->getColor(), brick->getBoundingBox(), brick->getBonusType()));
     }
 
-    vector<shared_ptr<Border>> borders;
-    for (const Border &border : levels_->getBorders()) {
-        borders.emplace_back(make_shared<Border>(border));
-    }
+    shared_ptr<Racket> racketCopy = make_shared<Racket>(*levels_->getRacket());
 
     // Set the pieces in the game board
-    gameBoard_->setBorders(borders);
-    gameBoard_->setRacket(racket);
-    gameBoard_->setBricks(bricks);
-    gameBoard_->setBall(ball);
+    gameBoard_->setBorders(levels_->getBorders());
+    gameBoard_->setRacket(racketCopy);
+    gameBoard_->setBricks(copyBricks);
 
     // Start the timer
     al_start_timer(timer_);

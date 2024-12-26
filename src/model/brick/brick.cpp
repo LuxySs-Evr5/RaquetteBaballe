@@ -2,6 +2,7 @@
 #include "../bounding_box/bounding_box.hpp"
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
+#include <memory>
 
 // #### Protected Constructor ####
 
@@ -12,14 +13,16 @@ Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability,
 
 // #### Factory ####
 
-Brick Brick::makeBrick(Color color, BoundingBox boundingBox,
+std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox,
                                         BonusType bonusType) {
     if (color == Color::gold) {
-        return GoldBrick(boundingBox);
+        return std::make_unique<GoldBrick>(boundingBox);
     } else if (color == Color::silver) {
-        return BasicBrick(boundingBox, color, DURABILITY_SILVER_BRICK, bonusType);
+        return std::make_unique<BasicBrick>(boundingBox, color,
+                                            DURABILITY_SILVER_BRICK, bonusType);
     }
-    return Brick(boundingBox, color, DURABILITY_STANDARD_BRICK, bonusType);
+    return std::make_unique<BasicBrick>(boundingBox, color,
+                                        DURABILITY_STANDARD_BRICK, bonusType);
 }
 
 Brick::~Brick() = default;

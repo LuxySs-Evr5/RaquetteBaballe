@@ -163,28 +163,21 @@ class GameBoard final {
      *
      * @param bricks A reference to the vector of brick pointers.
      */
-    void setBricks(const std::vector<std::shared_ptr<Brick>> &bricks);
+    void setBricks(const std::vector<std::shared_ptr<Brick>> bricks);
 
     /**
      * @brief Sets the racket.
      *
      * @param bricks A reference to the racket pointer.
      */
-    void setRacket(const std::shared_ptr<Racket> &racket);
-
-    /**
-     * @brief Sets the ball.
-     *
-     * @param ball A reference to the ball pointer.
-     */
-    void setBall(const std::shared_ptr<Ball> &ball);
+    void setRacket(const std::shared_ptr<Racket> racket);
 
     /**
      * @brief Sets the borders.
      *
      * @param borders A reference to the vector of border pointers.
      */
-    void setBorders(const std::vector<std::shared_ptr<Border>> &borders);
+    void setBorders(const std::vector<std::shared_ptr<Border>> borders);
 
     void resetLifeCounter();
 
