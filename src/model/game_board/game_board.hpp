@@ -29,7 +29,7 @@ class GameBoard final {
     LifeCounter lifeCounter_;
     int bestScore_ = 0;
     unique_ptr<AbstractTimedBonus> activeBonus_;
-    std::vector<unique_ptr<BonusPill>> descendingBonusses_;
+    std::vector<unique_ptr<BonusPill>> descendingBonuses_;
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
@@ -132,8 +132,7 @@ class GameBoard final {
      *
      * @return A reference to the vector of descending bonus pills.
      */
-    const std::vector<std::unique_ptr<BonusPill>> &
-    getDescendingBonusses() const;
+    const std::vector<std::unique_ptr<BonusPill>> &getDescendingBonuses() const;
 
     /**
      * @brief Returns the racket.
@@ -204,7 +203,7 @@ class GameBoard final {
 
     void clearBonus();
 
-    void clearDescendingBonusses();
+    void clearDescendingBonuses();
 
     void clearBorders();
 

@@ -82,9 +82,8 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
                     Vec2 bonusPillCenter{brickCenter.x,
                                          brickCenter.y - verticalSpace};
 
-                    descendingBonusses_.emplace_back(
-                        std::make_unique<BonusPill>(bonusType,
-                                                    bonusPillCenter));
+                    descendingBonuses_.emplace_back(std::make_unique<BonusPill>(
+                        bonusType, bonusPillCenter));
                 }
 
                 pointsEarned += (*brickIt)->getScore();
@@ -99,12 +98,12 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 
     } while (collided);
 
-    for (auto descendingBonusIt = descendingBonusses_.begin();
-         descendingBonusIt != descendingBonusses_.end();) {
+    for (auto descendingBonusIt = descendingBonuses_.begin();
+         descendingBonusIt != descendingBonuses_.end();) {
         if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
             BonusType bonusType = (*descendingBonusIt)->getBonusType();
             applyBonus(bonusType);
-            descendingBonusIt = descendingBonusses_.erase(descendingBonusIt);
+            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
         } else {
             descendingBonusIt++;
         }
@@ -195,11 +194,11 @@ void GameBoard::update(double deltaTime) {
         return;
     }
 
-    for (auto descendingBonusIt = descendingBonusses_.begin();
-         descendingBonusIt != descendingBonusses_.end();) {
+    for (auto descendingBonusIt = descendingBonuses_.begin();
+         descendingBonusIt != descendingBonuses_.end();) {
         (*descendingBonusIt)->update(deltaTime);
         if ((*descendingBonusIt)->getCoordinate().y < 0) {
-            descendingBonusIt = descendingBonusses_.erase(descendingBonusIt);
+            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
         } else {
             descendingBonusIt++;
         }
@@ -270,8 +269,8 @@ const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
 }
 
 const std::vector<std::unique_ptr<BonusPill>> &
-GameBoard::getDescendingBonusses() const {
-    return descendingBonusses_;
+GameBoard::getDescendingBonuses() const {
+    return descendingBonuses_;
 }
 
 const std::shared_ptr<Racket> &GameBoard::getRacket() const { return racket_; }
@@ -317,7 +316,7 @@ void GameBoard::clearBalls() {
 
 void GameBoard::clearBonus() { activeBonus_.reset(); }
 
-void GameBoard::clearDescendingBonusses() { descendingBonusses_.clear(); }
+void GameBoard::clearDescendingBonuses() { descendingBonuses_.clear(); }
 
 void GameBoard::clearBorders() { borders_.clear(); }
 
@@ -325,7 +324,7 @@ void GameBoard::clearBricks() { bricks_.clear(); }
 
 void GameBoard::clear() {
     clearBonus();
-    clearDescendingBonusses();
+    clearDescendingBonuses();
     clearBalls();
     clearBorders();
     clearBricks();
