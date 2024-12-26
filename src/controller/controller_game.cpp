@@ -136,7 +136,7 @@ void ControllerGame::waitKeyToRestart() {
             done_ = true;
             break;
         }
-        al_rest(0.01); // wait a little bit to not use all the CPU
+        al_rest(0.001); // wait a little bit to not use 100% of the CPU
     }
 }
 
