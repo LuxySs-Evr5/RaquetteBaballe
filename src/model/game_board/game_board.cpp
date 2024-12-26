@@ -74,9 +74,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
                     std::string{"Brick at "}
                         + string{(*brickIt)->getBoundingBox().getCenter()});
 
-                // add The Bonus Pill to the descendingBonusses_ vec
-
-                if (bonusType != BonusType::None) {
+                if (bonusType != BonusType::None && balls_.size() == 1) {
                     // vertical space between brick and pill centers
                     double verticalSpace = ((*brickIt)->getHeight() / 2)
                                            - (BONUS_PILL_HEIGHT / 2.0);
