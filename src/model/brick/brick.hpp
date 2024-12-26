@@ -33,6 +33,8 @@ class Brick : public Bounceable {
           uint8_t durability = DURABILITY_STANDARD_BRICK,
           BonusType bonusType = BonusType::None);
 
+    Brick(const BoundingBox &boundingBox, Color color, BonusType bonusType = BonusType::None);
+
     // #### Factory ####
 
     static std::unique_ptr<Brick>

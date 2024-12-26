@@ -7,30 +7,35 @@
  */
 
 #include "levels.hpp"
+#include <algorithm>
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 // TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick
 // if needed
 
 // ### Constructor ###
-Levels::Levels() : currentLevel(0) {
+Levels::Levels() {
     // Left wall
-    levelBorders_.emplace_back(make_shared<Border>(Border{
-        BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}}));
+    levelBorders_.emplace_back(Border(
+        BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}));
     // Top wall
-    levelBorders_.emplace_back(make_shared<Border>(BoundingBox{
+    levelBorders_.emplace_back(Border(BoundingBox{
         Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_WIDTH + WALL_THICKNESS - 1,
                                         BOARD_HEIGHT - WALL_THICKNESS - 1}}));
     // Right wall
-    levelBorders_.emplace_back(make_shared<Border>(
+    levelBorders_.emplace_back(Border(
         BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
                     Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
+
+    loadBricks();
+
 }
 
-// ### Private methods ###
 Color convertColorFromString(const string &colorName) {
     /**
      * @brief Translate the color name to the corresponding Color
@@ -80,66 +85,79 @@ BonusType convertBonusFromString(const string &bonusName) {
     exit(1);
 }
 
+// ### Private methods ###
 void Levels::loadBricks() {
     string mainPath = PATH_TO_LEVELS;
-    string filename = mainPath + to_string(currentLevel) + ".txt";
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Failed to open file " << filename << endl;
-        exit(1);
+    vector<string> levelFiles; // Store the paths of the level files
+
+    // Get all the files in the levels directory and store them in the vector
+    for (const auto &entry : filesystem::directory_iterator(PATH_TO_LEVELS)) {
+        if (entry.is_regular_file() && entry.path().extension() == ".txt") {
+            levelFiles.push_back(entry.path().string());
+        }
     }
 
-    // Read the file line by line and create a brick to add to the vector
-    string line;
-    while (getline(file, line)) {
-        istringstream iss(line);
-        double x, y;
-        string color;
-        string bonus;
-        if (!(iss >> x >> y >> color)) {
-            cerr << "Failed to read line" << endl;
+    // Sort the files by name (level number)
+    sort(levelFiles.begin(), levelFiles.end());
+
+    for (const auto &filename : levelFiles) {
+        ifstream file(filename);
+        if (!file.is_open()) {
+            cerr << "Failed to open file " << filename << endl;
             exit(1);
         }
 
-        // Check if there's a 4th column for bonus
-        if (!(iss >> bonus)) {
-            bonus = "None"; // No bonus provided, keep it as default
-        }
+        vector<Brick> bricks;
 
-        x += WALL_THICKNESS; // because the board has a left border
-        y += WALL_THICKNESS; // because the board has a top border
-        levelBricks_.emplace_back(Brick::makeBrick(
-            convertColorFromString(color),
-            BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
-            convertBonusFromString(bonus)));
+        // Read the file line by line and create a brick to add to the vector
+        string line;
+        while (getline(file, line)) {
+            istringstream iss(line);
+            double x, y;
+            string color;
+            string bonus;
+            if (!(iss >> x >> y >> color)) {
+                cerr << "Failed to read line" << endl;
+                exit(1);
+            }
+
+            // Check if there's a 4th column for bonus
+            if (!(iss >> bonus)) {
+                bonus = "None"; // No bonus provided, keep it as default
+            }
+
+            x += WALL_THICKNESS; // because the board has a left border
+            y += WALL_THICKNESS; // because the board has a top border
+            bricks.emplace_back(Brick(BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
+                            Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}}, convertColorFromString(color),
+                convertBonusFromString(bonus)));
+        }
+        levelBricks_.emplace_back(bricks);
+        file.close();
     }
-    file.close();
 }
 
 // ### Public methods ###
-void Levels::levelUp() {
-    if (currentLevel < MAX_LEVEL) {
-        currentLevel++;
+void Levels::nextLevel() {
+    if (currentLevel_ < levelBricks_.size() - 1) {
+        ++currentLevel_;
     }
 }
 
-void Levels::levelDown() {
-    if (currentLevel > 0) {
-        currentLevel--;
+void Levels::previousLevel() {
+    if (currentLevel_ > 0) {
+        --currentLevel_;
     }
 }
 
-const vector<shared_ptr<Brick>> &Levels::getBricks() {
-    levelBricks_.clear();
-    loadBricks();
-    return levelBricks_;
+const vector<Brick> &Levels::getBricks() {
+    return levelBricks_[currentLevel_];
 }
 
 const Ball &Levels::getBall() const { return levelBall_; }
 
 const Racket &Levels::getRacket() const { return levelRacket_; }
 
-const vector<shared_ptr<Border>> &Levels::getBorders() const {
+const vector<Border> &Levels::getBorders() const {
     return levelBorders_;
 }

@@ -9,14 +9,13 @@
 
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
+#include <vector>
 
 // ### Constructor ###
 ControllerGame::ControllerGame()
-    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()) {
-    displayGame_ = make_shared<DisplayGame>(gameBoard_);
-
+    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()), displayGame_(make_shared<DisplayGame>(gameBoard_)) {
     setupAllegro();
-    loadLevel(); // at the start of the game we start a level
+    loadLevel();
 }
 
 // ### Destructor ###
@@ -24,7 +23,6 @@ ControllerGame::~ControllerGame() {
     if (timer_) {
         al_destroy_timer(timer_);
     }
-
     if (queue_) {
         al_destroy_event_queue(queue_);
     }
@@ -72,7 +70,7 @@ void ControllerGame::checkWinOrLose() {
         al_stop_timer(timer_);
         displayGame_->gameWin();
         gameBoard_->saveRecordScore();
-        levels_->levelUp();
+        levels_->nextLevel();
         waitKeyToRestart();
         loadLevel();
     } else if (gameBoard_->getLife() == 0) {
@@ -106,12 +104,12 @@ void ControllerGame::checkEventType() {
         }
         if (key_[ALLEGRO_KEY_LEFT]) {
             al_stop_timer(timer_);
-            levels_->levelDown();
+            levels_->previousLevel();
             loadLevel();
         }
         if (key_[ALLEGRO_KEY_RIGHT]) {
             al_stop_timer(timer_);
-            levels_->levelUp();
+            levels_->nextLevel();
             loadLevel();
         }
     }
@@ -142,9 +140,19 @@ void ControllerGame::loadLevel() {
     const shared_ptr<Racket> &racket =
         make_shared<Racket>(levels_->getRacket());
 
-    gameBoard_->setBorders(levels_->getBorders());
+    vector<shared_ptr<Brick>> bricks;
+    for (const Brick &brick : levels_->getBricks()) {
+        bricks.emplace_back(make_shared<Brick>(brick));
+    }
+
+    vector<shared_ptr<Border>> borders;
+    for (const Border &border : levels_->getBorders()) {
+        borders.emplace_back(make_shared<Border>(border));
+    }
+
+    gameBoard_->setBorders(borders);
     gameBoard_->setRacket(racket);
-    gameBoard_->setBricks(levels_->getBricks());
+    gameBoard_->setBricks(bricks);
     gameBoard_->readBestScore();
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();

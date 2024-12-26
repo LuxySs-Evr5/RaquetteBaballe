@@ -19,12 +19,10 @@
 
 using namespace std;
 
-constexpr unsigned MAX_LEVEL = 8;
-
 class Levels {
   private:
-    unsigned currentLevel;
-    vector<shared_ptr<Brick>> levelBricks_;
+    int currentLevel_ = 0;
+    vector<vector<Brick>> levelBricks_;
     const Ball levelBall_ =
         Ball(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
              BALL_RADIUS, BALL_SPEED); // + BOARD_BOUNDINGS_THICKNESS because
@@ -33,7 +31,7 @@ class Levels {
         Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 50}, RACKET_WIDTH,
         RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because the board has a
                          // left border;
-    vector<shared_ptr<Border>> levelBorders_;
+    vector<Border> levelBorders_;
 
     /**
      * @brief Load the bricks of the current level by reading a file in
@@ -51,23 +49,23 @@ class Levels {
     ~Levels() = default;
 
     /**
-     * @brief Set one level up
+     * @brief Set the current level to the next one
      *
      */
-    void levelUp();
+    void nextLevel();
 
     /**
-     * @brief Set one level down
+     * @brief Set the current level to the previous one
      *
      */
-    void levelDown();
+    void previousLevel();
 
     /**
      * @brief Get the brick of the current level
      *
      * @return const vector<shared_ptr<Brick>>
      */
-    const vector<shared_ptr<Brick>> &getBricks();
+    const vector<Brick> &getBricks();
 
     /**
      * @brief Get the ball of the current level
@@ -88,7 +86,7 @@ class Levels {
      *
      * @return const vector<shared_ptr<Border>>
      */
-    const vector<shared_ptr<Border>> &getBorders() const;
+    const vector<Border> &getBorders() const;
 };
 
 #endif // LEVELS_HPP
