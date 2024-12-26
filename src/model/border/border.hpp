@@ -17,7 +17,7 @@ class Border final : public Bounceable {
     Border(const Border &other) = default;
     Border(Border &&) = default;
     Border &operator=(const Border &) = default;
-    Border &operator=(Border &&) = delete;
+    Border &operator=(Border &&) = default;
 
     virtual ~Border() = default;
 };

@@ -43,9 +43,9 @@ class Brick : public Bounceable {
           BonusType bonusType = BonusType::None);
 
     Brick(const Brick &) = default;
-    Brick(Brick &&) = delete;
+    Brick(Brick &&) = default;
     Brick &operator=(const Brick &) = default;
-    Brick &operator=(Brick &&) = delete;
+    Brick &operator=(Brick &&) = default;
 
   public:
     // #### Destructor ####

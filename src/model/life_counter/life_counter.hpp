@@ -26,9 +26,9 @@ class LifeCounter final {
     LifeCounter();
 
     LifeCounter(const LifeCounter &) = default;
-    LifeCounter(LifeCounter &&) = delete;
+    LifeCounter(LifeCounter &&) = default;
     LifeCounter &operator=(const LifeCounter &) = default;
-    LifeCounter &operator=(LifeCounter &&) = delete;
+    LifeCounter &operator=(LifeCounter &&) = default;
 
     /**
      * @brief Constructs a new LifeCounter with numLifes lifes remaining.

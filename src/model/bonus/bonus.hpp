@@ -19,10 +19,10 @@ class AbstractTimedBonus {
 
   protected:
     AbstractTimedBonus(BonusType bonusType);
-    AbstractTimedBonus(const AbstractTimedBonus &) = delete;
-    AbstractTimedBonus(AbstractTimedBonus &&) = delete;
-    AbstractTimedBonus &operator=(const AbstractTimedBonus &) = delete;
-    AbstractTimedBonus &operator=(AbstractTimedBonus &&) = delete;
+    AbstractTimedBonus(const AbstractTimedBonus &) = default;
+    AbstractTimedBonus(AbstractTimedBonus &&) = default;
+    AbstractTimedBonus &operator=(const AbstractTimedBonus &) = default;
+    AbstractTimedBonus &operator=(AbstractTimedBonus &&) = default;
 
   public:
     virtual ~AbstractTimedBonus() = default;
@@ -52,13 +52,13 @@ class BasicTimedBonus final : public AbstractTimedBonus {
     // #### Constructor ####
 
     BasicTimedBonus(BonusType bonusType);
-    BasicTimedBonus(const BasicTimedBonus &) = delete;
-    BasicTimedBonus(BasicTimedBonus &&) = delete;
+    BasicTimedBonus(const BasicTimedBonus &) = default;
+    BasicTimedBonus(BasicTimedBonus &&) = default;
 
     // #### Assignment operator ####
 
-    BasicTimedBonus &operator=(const BasicTimedBonus &) = delete;
-    BasicTimedBonus &operator=(BasicTimedBonus &&) = delete;
+    BasicTimedBonus &operator=(const BasicTimedBonus &) = default;
+    BasicTimedBonus &operator=(BasicTimedBonus &&) = default;
 
     // #### Destructor ####
 
@@ -81,13 +81,13 @@ class SlowDownBonus final : public AbstractTimedBonus {
     // #### Constructor ####
 
     SlowDownBonus();
-    SlowDownBonus(const SlowDownBonus &) = delete;
-    SlowDownBonus(SlowDownBonus &&) = delete;
+    SlowDownBonus(const SlowDownBonus &) = default;
+    SlowDownBonus(SlowDownBonus &&) = default;
 
     // #### Assignment operator ####
 
-    SlowDownBonus &operator=(const SlowDownBonus &) = delete;
-    SlowDownBonus &operator=(SlowDownBonus &&) = delete;
+    SlowDownBonus &operator=(const SlowDownBonus &) = default;
+    SlowDownBonus &operator=(SlowDownBonus &&) = default;
 
     // #### Destructor ####
 

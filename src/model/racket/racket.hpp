@@ -28,9 +28,9 @@ class Racket final : public Bounceable {
     Racket(const BoundingBox &boundingBox);
 
     Racket(const Racket &other) = default;
-    Racket(Racket &&) = delete;
+    Racket(Racket &&) = default;
     Racket &operator=(const Racket &) = default;
-    Racket &operator=(Racket &&) = delete;
+    Racket &operator=(Racket &&) = default;
 
     // #### Destructor ####
 

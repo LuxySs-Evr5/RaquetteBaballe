@@ -27,6 +27,9 @@ class Bounceable {
     Bounceable(Vec2 pos, double width, double height);
     Bounceable(Vec2 topLeft, Vec2 bottomRight);
     Bounceable(const Bounceable &other) = default;
+    Bounceable(Bounceable &&) = default;
+    Bounceable &operator=(const Bounceable &) = default;
+    Bounceable &operator=(Bounceable &&) = default;
 
   public:
     // #### Destructor ####

@@ -29,9 +29,9 @@ class BoundingBox final {
      */
     BoundingBox(Vec2 topLeft, Vec2 bottomRight);
     BoundingBox(const BoundingBox &other) = default;
-    BoundingBox(BoundingBox &&) = delete;
+    BoundingBox(BoundingBox &&) = default;
     BoundingBox &operator=(const BoundingBox &) = default;
-    BoundingBox &operator=(BoundingBox &&) = delete;
+    BoundingBox &operator=(BoundingBox &&) = default;
 
     // #### Destructor ####
 

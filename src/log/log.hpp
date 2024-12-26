@@ -37,6 +37,8 @@ class Log {
     std::string logTypeToString(LogType type) const;
 
   public:
+    Log(Log &&) = delete;
+    Log &operator=(Log &&) = delete;
     Log(const Log &) = delete;
     Log &operator=(const Log &) = delete;
 

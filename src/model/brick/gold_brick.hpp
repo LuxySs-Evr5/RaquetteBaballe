@@ -13,6 +13,11 @@ class GoldBrick final : public Brick {
      * @param boudingBox The BoudingBox.
      */
     GoldBrick(BoundingBox boundingBox);
+    GoldBrick(const GoldBrick &) = default;
+    GoldBrick(GoldBrick &&) = default;
+
+    GoldBrick &operator=(const GoldBrick &) = default;
+    GoldBrick &operator=(GoldBrick &&) = default;
 
     virtual ~GoldBrick() = default;
 

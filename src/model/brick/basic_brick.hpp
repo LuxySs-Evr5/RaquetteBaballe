@@ -19,10 +19,10 @@ class BasicBrick final : public Brick {
                BonusType bonusType = BonusType::None);
 
     BasicBrick(const BasicBrick &) = default;
-    BasicBrick(BasicBrick &&) = delete;
+    BasicBrick(BasicBrick &&) = default;
 
     BasicBrick &operator=(const BasicBrick &) = default;
-    BasicBrick &operator=(BasicBrick &&) = delete;
+    BasicBrick &operator=(BasicBrick &&) = default;
 
     virtual ~BasicBrick() = default;
 };
