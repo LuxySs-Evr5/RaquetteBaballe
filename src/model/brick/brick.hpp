@@ -7,6 +7,9 @@
 #include "../bounding_box/bounding_box.hpp"
 #include <memory>
 
+/**
+ * @brief Contains all the brick colors and its score associated.
+ */
 enum class Color : size_t { // Score/Points is always positive
     defaultBrick = 1,
     white = 50,
@@ -27,40 +30,95 @@ class Brick : public Bounceable {
     uint8_t durability_;
     BonusType bonusType_;
 
-  public:
+  protected:
+    /**
+     * @brief Constructs a new Brick.
+     * @param boudingBox The brick's BoudingBox.
+     * @param color The brick's color.
+     * @param durability The brick's durability.
+     * @param bonusType The bonus held contained in the brick.
+     */
     Brick(const BoundingBox &boundingBox, Color color,
           uint8_t durability = DURABILITY_STANDARD_BRICK,
           BonusType bonusType = BonusType::None);
 
-    // #### Factory ####
+    Brick(const Brick &) = default;
+    Brick(Brick &&) = delete;
+    Brick &operator=(const Brick &) = default;
+    Brick &operator=(Brick &&) = delete;
 
-    static std::unique_ptr<Brick> makeBrick(Color color, BoundingBox boundingBox,
-              BonusType bonusType = BonusType::None);
+  public:
+    // #### Destructor ####
 
     virtual ~Brick();
 
+    // #### Factory ####
+
+    /**
+     * @brief Brick factory. Returns a unique pointer to a new Brick.
+     * @param color The brick's color.
+     * @param boundingBox The brick's BoundingBox.
+     * @param bonusType The bonus held contained in the brick.
+     */
+    static std::unique_ptr<Brick>
+    makeBrick(Color color, BoundingBox boundingBox,
+              BonusType bonusType = BonusType::None);
+
     // #### Brick Actions ####
 
+    /**
+     * @brief Hit the brick. Returns the type of bonus held inside of the brick
+     * is destroyed.
+     */
     virtual BonusType hit();
 
     // #### Getters ####
 
+    /**
+     * @brief Returns the brick's width.
+     */
     virtual double getWidth() const final;
 
+    /**
+     * @brief Returns the brick's height.
+     */
     virtual double getHeight() const final;
 
+    /**
+     * @brief Returns the brick's position.
+     */
     virtual Vec2 getPos() const final;
 
+    /**
+     * @brief Returns the brick's color.
+     */
     virtual Color getColor() const final;
 
+    /**
+     * @brief Returns the score awarded for destroying the brick.
+     */
     virtual size_t getScore() const final;
 
+    /**
+     * @brief Returns the brick's durability (how many times to hit it left
+     * before it should be destroyed).
+     */
     virtual uint8_t getDurability() const final;
 
+    /**
+     * @brief Returns the brick's durability (hits remaining before
+     * destruction).
+     */
     virtual bool isDestroyed() const final;
 
+    /**
+     * @brief Returns the type of bonus contained in the brick.
+     */
     virtual BonusType getBonusType() const final;
 
+    /**
+     * @brief Returns true if the brick contains a bonus.
+     */
     virtual bool hasBonus() const final;
 };
 

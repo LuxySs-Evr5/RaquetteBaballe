@@ -4,8 +4,6 @@ BonusPill::BonusPill(BonusType bonusType, struct Vec2 pos)
     : boundingBox_{pos, BONUS_PILL_WIDTH, BONUS_PILL_HEIGHT},
       bonusType_{bonusType}, descentSpeed_{DESCENT_SPEED} {}
 
-BonusType BonusPill::getBonusType() { return bonusType_; }
-
 void BonusPill::update(double deltaTime) {
     Vec2 newPos{getPos().x, getPos().y - DESCENT_SPEED * deltaTime};
 

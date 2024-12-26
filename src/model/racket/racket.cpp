@@ -19,10 +19,6 @@ double Racket::getHeight() const { return boundingBox_.getHeight(); }
 
 Vec2 Racket::getPos() const { return boundingBox_.getCenter(); }
 
-Vec2 Racket::getVelocity() const {
-    return previousPosition_ - boundingBox_.getCenter();
-}
-
 // #### Setters ####
 
 void Racket::setWidth(double newWidth) { boundingBox_.setWidth(newWidth); }

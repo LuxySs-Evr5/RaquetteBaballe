@@ -15,13 +15,8 @@
 #include <variant>
 #include <vector>
 
-// TODO: move this to global constants
-
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
-
-// TODO: move to or from globalVariables.hpp to avoid splitting variables
-// everywhere
 
 class GameBoard final {
   private:
@@ -57,10 +52,19 @@ class GameBoard final {
      */
     size_t solveBallCollisions(Ball &ball);
 
+    /**
+     * @brief Applies the given bonus.
+     */
     void applyBonus(BonusType bonusType);
 
+    /**
+     * @brief Undoes the effects of the given bonus.
+     */
     void undoBonusEffect(BonusType bonusType);
 
+    /**
+     * @brief Creates a new ball.
+     */
     shared_ptr<Ball> createBall();
 
     // #### Bonus Split into 3 ####
@@ -72,16 +76,43 @@ class GameBoard final {
     void splitBallIntoThree(const Ball &originalBall,
                             std::vector<shared_ptr<Ball>> &newBalls);
 
-  public:
     /**
-     * @brief Default constructor.
+     * @brief Clears and sets up the ball vector for the next game.
      */
-    GameBoard() = default;
+    void clearBalls();
 
     /**
-     * @brief Default destructor.
+     * @brief Clears the active bonus.
      */
-    ~GameBoard() = default;
+    void clearBonus();
+
+    /**
+     * @brief Clears the descending bonuses.
+     */
+    void clearDescendingBonuses();
+
+    /**
+     * @brief Clears the Borders.
+     */
+    void clearBorders();
+
+    /**
+     * @brief Clears the bricks.
+     */
+    void clearBricks();
+
+  public:
+    // #### Constructor ####
+
+    GameBoard() = default;
+    GameBoard(const GameBoard &) = delete;
+    GameBoard(GameBoard &&) = delete;
+    GameBoard &operator=(const GameBoard &) = delete;
+    GameBoard &operator=(GameBoard &&) = delete;
+
+    // #### Destructor ####
+
+    virtual ~GameBoard() = default;
 
     /**
      * @brief Updates the GameBoard state based on elapsed time.
@@ -179,33 +210,39 @@ class GameBoard final {
      */
     void setBorders(const std::vector<std::shared_ptr<Border>> borders);
 
+    /**
+     * @brief Resets the life counter.
+     */
     void resetLifeCounter();
 
+    /**
+     * @brief Resets the current score to 0.
+     */
     void resetScore();
 
-    void saveRecordScore();
+    /**
+     * @brief Saves the best score.
+     */
+    void saveBestScore();
 
     // #### Get the score from the file ####
-    void readBestScore();
 
+    /**
+     * @brief Reads the best/ score.
+     */
+    void loadBestScore();
+
+    /**
+     * @brief Resets the best score.
+     */
     void resetBestScore();
 
     // #### Clear GameBoard ####
 
-    void clearBalls();
-
-    void clearBonus();
-
-    void clearDescendingBonuses();
-
-    void clearBorders();
-
-    void clearBricks();
-
+    /**
+     * @brief Clears and sets up the board for the next game.
+     */
     void clear();
-
-    // ### Pause the game ###
-    void pauseGameBoard();
 };
 
 #endif

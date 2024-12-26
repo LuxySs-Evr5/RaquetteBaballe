@@ -43,10 +43,6 @@ Ball::Ball(Vec2 pos, Vec2 directionVec, double radius, double speed)
     : pos_{pos}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
 
-// #### Destructor ####
-
-Ball::~Ball() = default;
-
 // #### Getters ####
 
 double Ball::getRadius() const noexcept { return radius_; }
@@ -59,7 +55,7 @@ const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 
-void Ball::setDirection(const Vec2 &vec) { dirVec_ = vec; }
+void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec; }
 
 // #### Collision ####
 

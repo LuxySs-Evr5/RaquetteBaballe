@@ -69,5 +69,3 @@ Vec2 Bounceable::getDirVecAfterBounce(const Vec2 &closestPoint,
 
     return ret;
 }
-
-Vec2 Bounceable::getVelocity() const { return Vec2(0, 0); }

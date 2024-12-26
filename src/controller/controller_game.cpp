@@ -14,7 +14,8 @@
 
 // ### Constructor ###
 ControllerGame::ControllerGame()
-    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()), displayGame_(make_shared<DisplayGame>(gameBoard_)) {
+    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()),
+      displayGame_(make_shared<DisplayGame>(gameBoard_)) {
     setupAllegro();
     loadLevel();
 }
@@ -70,7 +71,7 @@ void ControllerGame::checkWinOrLose() {
         // if the player has won
         al_stop_timer(timer_);
         displayGame_->gameWin();
-        gameBoard_->saveRecordScore();
+        gameBoard_->saveBestScore();
         levels_->nextLevel();
         waitKeyToRestart();
         loadLevel();
@@ -78,7 +79,7 @@ void ControllerGame::checkWinOrLose() {
         // if the player has lost
         al_stop_timer(timer_);
         displayGame_->gameOver();
-        gameBoard_->saveRecordScore();
+        gameBoard_->saveBestScore();
         waitKeyToRestart();
         loadLevel();
     }
@@ -144,13 +145,14 @@ void ControllerGame::loadLevel() {
     gameBoard_->clear();
 
     // Reset the data of the game board
-    gameBoard_->readBestScore();
+    gameBoard_->loadBestScore();
     gameBoard_->resetLifeCounter();
     gameBoard_->resetScore();
 
     // Load the level
-    vector<shared_ptr<Brick>> copyBricks; // a copy of the bricks of the level to
-                                          // avoid modifying the original bricks
+    vector<shared_ptr<Brick>>
+        copyBricks; // a copy of the bricks of the level to
+                    // avoid modifying the original bricks
     for (const auto &brick : levels_->getBricks()) {
         copyBricks.emplace_back(Brick::makeBrick(
             brick->getColor(), brick->getBoundingBox(), brick->getBonusType()));

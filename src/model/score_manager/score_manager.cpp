@@ -14,27 +14,23 @@
 
 // TODO: remove "score.txt" magic variable
 // maybe make the controller decide where this one should write and read the
-// record-score ?
+// best-score ?
 
 // ### Constructors ###
 
 ScoreManager::ScoreManager() : currentScore_(DEFAULT_SCORE) {
-    // setup recordScore_ variable
+    // setup bestScore_ variable
     std::string filePath = "score.txt";
 
     std::ifstream read(filePath, std::ios::in);
 
-    recordScore_ = 0;
+    bestScore_ = 0;
 
     if (read.is_open()) {
-        read >> recordScore_;
+        read >> bestScore_;
         read.close();
     }
 }
-
-// ### Destructor ###
-
-ScoreManager::~ScoreManager() = default;
 
 // #### Score Actions ####
 
@@ -45,7 +41,7 @@ void ScoreManager::increaseScore(unsigned long value) {
 void ScoreManager::resetScore() { currentScore_ = 0; }
 
 void ScoreManager::saveScore() {
-    if (currentScore_ < recordScore_) {
+    if (currentScore_ < bestScore_) {
         return;
     }
 
@@ -77,4 +73,4 @@ void ScoreManager::setScore0() {
 
 unsigned long ScoreManager::getCurrentScore() const { return currentScore_; }
 
-unsigned long ScoreManager::getRecordScore() const { return recordScore_; }
+unsigned long ScoreManager::getBestScore() const { return bestScore_; }

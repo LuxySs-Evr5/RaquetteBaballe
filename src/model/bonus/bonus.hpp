@@ -17,16 +17,31 @@ class AbstractTimedBonus {
   private:
     BonusType bonusType_;
 
-  public:
+  protected:
     AbstractTimedBonus(BonusType bonusType);
+    AbstractTimedBonus(const AbstractTimedBonus &) = delete;
+    AbstractTimedBonus(AbstractTimedBonus &&) = delete;
+    AbstractTimedBonus &operator=(const AbstractTimedBonus &) = delete;
+    AbstractTimedBonus &operator=(AbstractTimedBonus &&) = delete;
 
+  public:
     virtual ~AbstractTimedBonus() = default;
 
+    /**
+     * @brief Returns the BonusType.
+     */
     BonusType getBonusType() const;
 
+    /**
+     * @brief Updates the bonus's remaining duration based on the elapsed time.
+     * @param deltaT The time elapsed (in seconds).
+     */
     virtual bool update(double deltaT) = 0;
 
-    virtual void reapply(){};
+    /**
+     * @brief Reapplies the bonus one more time.
+     */
+    virtual void reapply() {};
 };
 
 class BasicTimedBonus final : public AbstractTimedBonus {
@@ -34,9 +49,28 @@ class BasicTimedBonus final : public AbstractTimedBonus {
     double remaningTime_;
 
   public:
-    BasicTimedBonus(BonusType bonusType);
+    // #### Constructor ####
 
-    bool update(double deltaT);
+    BasicTimedBonus(BonusType bonusType);
+    BasicTimedBonus(const BasicTimedBonus &) = delete;
+    BasicTimedBonus(BasicTimedBonus &&) = delete;
+
+    // #### Assignment operator ####
+
+    BasicTimedBonus &operator=(const BasicTimedBonus &) = delete;
+    BasicTimedBonus &operator=(BasicTimedBonus &&) = delete;
+
+    // #### Destructor ####
+
+    virtual ~BasicTimedBonus() = default;
+
+    // #### Update ####
+
+    /**
+     * @brief Updates the bonus's remaining duration based on the elapsed time.
+     * @param deltaT The time elapsed (in seconds).
+     */
+    virtual bool update(double deltaT);
 };
 
 class SlowDownBonus final : public AbstractTimedBonus {
@@ -44,16 +78,42 @@ class SlowDownBonus final : public AbstractTimedBonus {
     std::vector<double> queue_;
 
   public:
+    // #### Constructor ####
+
     SlowDownBonus();
+    SlowDownBonus(const SlowDownBonus &) = delete;
+    SlowDownBonus(SlowDownBonus &&) = delete;
 
-    void reapply() override;
+    // #### Assignment operator ####
 
-    bool update(double deltaT) override;
+    SlowDownBonus &operator=(const SlowDownBonus &) = delete;
+    SlowDownBonus &operator=(SlowDownBonus &&) = delete;
+
+    // #### Destructor ####
+
+    virtual ~SlowDownBonus() = default;
+
+    // #### Reapply SlowDown ####
+
+    /**
+     * @brief Reapplies the SlowDown bonus one more time.
+     */
+    virtual void reapply() override;
+
+    // #### Update ####
+
+    /**
+     * @brief Updates the bonus's remaining duration based on the elapsed time.
+     * @param deltaT The time elapsed (in seconds).
+     */
+    virtual bool update(double deltaT) override;
+
+    // #### SlowDown Factor ####
 
     /**
      * @brief Returns the slow down factor for the ball.
      */
-    double getSlowDownFactor() const;
+    virtual double getSlowDownFactor() const;
 };
 
 #endif // BONUS_HPP

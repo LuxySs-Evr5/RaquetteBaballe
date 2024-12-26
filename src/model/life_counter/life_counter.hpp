@@ -20,29 +20,63 @@ class LifeCounter final {
   public:
     // ### Constructors ###
 
+    /**
+     * @brief Constructs a new LifeCounter.
+     */
     LifeCounter();
+
+    LifeCounter(const LifeCounter &) = default;
+    LifeCounter(LifeCounter &&) = delete;
+    LifeCounter &operator=(const LifeCounter &) = default;
+    LifeCounter &operator=(LifeCounter &&) = delete;
+
+    /**
+     * @brief Constructs a new LifeCounter with numLifes lifes remaining.
+     *
+     * @param numLifes The number of remaining lifes.
+     */
     LifeCounter(unsigned numLifes);
 
     // ### Destructor ###
 
-    ~LifeCounter();
+    virtual ~LifeCounter();
 
     // #### Reset Value ####
 
+    /**
+     * @brief Resets the number of lifes to the initial number of lifes.
+     */
     void reset();
 
     // ### Arithmetic Operators ###
 
+    /**
+     * @brief Decrements the number of lifes.
+     */
     const LifeCounter &operator--();
+
+    /**
+     * @brief Increments the number of lifes.
+     */
     const LifeCounter &operator++();
+
+    /**
+     * @brief Adds numLife lifes to the counter.
+     */
     const LifeCounter &operator+=(unsigned numLife);
 
     // ### Setters ###
 
+    /**
+     * @brief Sets the number of lifes to numLifes.
+     */
     void setNumLifes(uint8_t numLifes);
 
     // ### Conversion Operators ###
 
+    /**
+     * @brief Converts the lifeCounter to an unsigned.
+     */
     operator unsigned() const;
 };
 

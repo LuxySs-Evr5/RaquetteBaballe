@@ -182,7 +182,7 @@ void GameBoard::splitBallIntoThree(const Ball &originalBall,
         float newAngle = angle + (i == 0 ? -spread : spread);
 
         shared_ptr<Ball> newBall = std::make_shared<Ball>(originalBall);
-        newBall->setDirection(Vec2(std::cos(newAngle), std::sin(newAngle)));
+        newBall->setDirVec(Vec2(std::cos(newAngle), std::sin(newAngle)));
 
         newBalls.push_back(newBall);
     }
@@ -246,7 +246,7 @@ void GameBoard::update(double deltaTime) {
     }
 }
 
-void GameBoard::saveRecordScore() { scoreManager_.saveScore(); }
+void GameBoard::saveBestScore() { scoreManager_.saveScore(); }
 
 unsigned long GameBoard::getScore() const {
     return scoreManager_.getCurrentScore();
@@ -296,8 +296,7 @@ void GameBoard::setRacket(const std::shared_ptr<Racket> racket) {
     racket_ = racket;
 }
 
-void GameBoard::setBorders(
-    const std::vector<std::shared_ptr<Border>> borders) {
+void GameBoard::setBorders(const std::vector<std::shared_ptr<Border>> borders) {
     borders_ = borders;
 }
 
@@ -325,7 +324,7 @@ void GameBoard::clear() {
 }
 
 // ### Get the best score from the file ###
-void GameBoard::readBestScore() {
+void GameBoard::loadBestScore() {
     // TODO: check because the same function in constructor of score_manager
     // TODO: Magic variable score.txt
     std::string filePath = "score.txt";
@@ -347,5 +346,3 @@ void GameBoard::resetBestScore() {
     bestScore_ = 0;
     scoreManager_.setScore0();
 }
-
-void GameBoard::pauseGameBoard() {}

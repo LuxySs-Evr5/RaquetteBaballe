@@ -4,8 +4,22 @@
 #include <ostream>
 #include <sstream>
 
+/**
+ * Helper function.
+ * Returns a clamped a value within the specified range.
+ *
+ * @param value The value to clamp.
+ * @param min The lower bound of the range.
+ * @param max The upper bound of the range.
+ */
+double clampedNum(double value, double min, double max) {
+    return std::max(min, std::min(max, value));
+}
+
 Vec2::Vec2() : x{0}, y{0} {}
-Vec2::Vec2(double X, double Y) : x{X}, y{Y} {}
+
+Vec2::Vec2(double xComponent, double yComponent)
+    : x{xComponent}, y{yComponent} {}
 
 double Vec2::getModule() const {
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
@@ -20,12 +34,8 @@ const Vec2 &Vec2::normalize() {
     return *this;
 }
 
-double clamp(double value, double min, double max) {
-    return std::max(min, std::min(max, value));
-}
-
 Vec2 Vec2::clamped(const Vec2 &min, const Vec2 &max) const {
-    return Vec2{clamp(x, min.x, max.x), clamp(y, min.y, max.y)};
+    return Vec2{clampedNum(x, min.x, max.x), clampedNum(y, min.y, max.y)};
 }
 
 bool Vec2::operator==(const Vec2 &other) const {

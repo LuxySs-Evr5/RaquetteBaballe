@@ -12,10 +12,6 @@ BoundingBox::BoundingBox(Vec2 topLeft, Vec2 bottomRight)
       width_{std::abs(bottomRight.x - topLeft.x)},
       height_{std::abs(topLeft.y - bottomRight.y)} {}
 
-// #### Destructor ####
-
-BoundingBox::~BoundingBox() = default;
-
 // #### Setters ####
 
 void BoundingBox::setCenter(const Vec2 &centerPos) { center_ = centerPos; }
