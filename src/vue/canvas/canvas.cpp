@@ -16,12 +16,12 @@
 
 // ### Constructor ###
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
-    : gameBoard_(gameBoard), fontBrick_(fontBrick){};
+    : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
 
 // ### Public methods ###
 void Canvas::draw() {
     for (auto &border : borders_) {
-        WallUi wallUi{border->getBoundingBox().getCenter().toPoint(),
+        WallUi wallUi{border->getBoundingBox().getCenter(),
                       static_cast<float>(border->getBoundingBox().getWidth()),
                       static_cast<float>(border->getBoundingBox().getHeight()),
                       COLOR_WHITE};
@@ -29,7 +29,7 @@ void Canvas::draw() {
     }
 
     for (auto &brick : bricks_) {
-        BrickUi brickUi{brick->getBoundingBox().getCenter().toPoint(),
+        BrickUi brickUi{brick->getBoundingBox().getCenter(),
                         static_cast<float>(brick->getBoundingBox().getWidth()),
                         static_cast<float>(brick->getBoundingBox().getHeight()),
                         colorToAllegroColor(brick->getColor()), fontBrick_};
@@ -38,19 +38,18 @@ void Canvas::draw() {
 
     for (auto &bonusPill : bonusPills_) {
         BonusPillUi bonusPillUi{
-            bonusPill->getPos().toPoint(),
+            bonusPill->getPos(),
             static_cast<float>(bonusPill->getBoundingBox().getWidth()),
             static_cast<float>(bonusPill->getBoundingBox().getHeight())};
         bonusPillUi.draw(*bonusPill);
     }
 
     for (auto &ball : balls_) {
-        BallUi ballUi{ball->getPos().toPoint(),
-                      static_cast<float>(ball->getRadius())};
+        BallUi ballUi{ball->getPos(), static_cast<float>(ball->getRadius())};
         ballUi.draw();
     }
 
-    RacketUi racketUi{racket_->getPos().toPoint(),
+    RacketUi racketUi{racket_->getPos(),
                       static_cast<float>(racket_->getBoundingBox().getWidth()),
                       static_cast<float>(racket_->getBoundingBox().getHeight()),
                       COLOR_RED};

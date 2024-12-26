@@ -104,11 +104,10 @@ struct Vec2 {
      */
     Vec2 &operator*=(double scalar);
 
-    // TODO: this is very stupid and should be changed
     /**
      * @brief Converts the vector into a simple Point instance.
      */
-    Point toPoint() const;
+    operator Point() const;
 
     /**
      * @brief Converts the vector to a string representation.
