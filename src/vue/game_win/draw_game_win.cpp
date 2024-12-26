@@ -16,12 +16,13 @@
 using namespace std;
 
 void drawGameWin(unsigned long score, ALLEGRO_FONT *font) {
-    std::string scoreString = "Your score is " + to_string(score); 
-    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE); // Set the background to white
-    al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,
-                 SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER,
+    std::string scoreString = "Your score is " + to_string(score);
+    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
+                             COLOR_WHITE); // Set the background to white
+    al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                 ALLEGRO_ALIGN_CENTER,
                  "YOU WIN"); // Draw the game win message
-    al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2,
-                 SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
+    al_draw_text(font, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100,
+                 ALLEGRO_ALIGN_CENTER,
                  scoreString.c_str()); // Draw the score
 }

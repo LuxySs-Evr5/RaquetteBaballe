@@ -15,7 +15,7 @@ class Racket final : public Bounceable {
 
     Racket(const BoundingBox &boundingBox);
 
-    Racket(const Vec2 &center, double width, double height);
+    Racket(const Vec2 &pos, double width, double height);
 
     // #### Getters ####
 
@@ -23,13 +23,11 @@ class Racket final : public Bounceable {
 
     double getHeight() const;
 
-    Vec2 getCoordinate() const;
+    Vec2 getPos() const;
 
     Vec2 getVelocity() const override;
 
     // ##### Setters ####
-
-    void setCoordinate(const Vec2 &coordinate);
 
     void setWidth(double newWidth);
 

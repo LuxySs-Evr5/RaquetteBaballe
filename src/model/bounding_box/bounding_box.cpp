@@ -18,7 +18,7 @@ BoundingBox::~BoundingBox() = default;
 
 // #### Setters ####
 
-void BoundingBox::setCenter(Vec2 coordinate) { center_ = coordinate; }
+void BoundingBox::setCenter(const Vec2 &centerPos) { center_ = centerPos; }
 
 void BoundingBox::setWidth(double newWidth) { width_ = newWidth; }
 
@@ -67,11 +67,6 @@ Vec2 BoundingBox::getBottomRight() const noexcept {
 // #### Overlapping / Collision ####
 
 bool BoundingBox::isOverlapping(const BoundingBox &other) {
-    Vec2 topLeft1 = getTopLeft();
-    Vec2 bottomRight1 = getBottomRight();
-    Vec2 topLeft2 = other.getTopLeft();
-    Vec2 bottomRight2 = other.getBottomRight();
-
     // X-axis check
     if (getRight() < other.getLeft() || other.getRight() < getLeft()) {
         return false;

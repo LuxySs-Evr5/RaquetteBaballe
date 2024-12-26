@@ -51,7 +51,7 @@ class Brick : public Bounceable {
 
     virtual double getHeight() const final;
 
-    virtual Vec2 getCenter() const final;
+    virtual Vec2 getPos() const final;
 
     virtual Color getColor() const final;
 

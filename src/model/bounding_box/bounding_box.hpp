@@ -22,7 +22,7 @@ class BoundingBox final {
 
     // #### Setters ####
 
-    void setCenter(Vec2 coordinate);
+    void setCenter(const Vec2 &centerPos);
 
     void setWidth(double newWidth);
     void setHeight(double newWidth);

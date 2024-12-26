@@ -26,7 +26,7 @@ class AbstractTimedBonus {
 
     virtual bool update(double deltaT) = 0;
 
-    virtual void reapply() {};
+    virtual void reapply(){};
 };
 
 class BasicTimedBonus final : public AbstractTimedBonus {

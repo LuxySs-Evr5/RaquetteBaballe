@@ -47,7 +47,7 @@ double Brick::getWidth() const { return getBoundingBox().getWidth(); }
 
 double Brick::getHeight() const { return getBoundingBox().getHeight(); }
 
-Vec2 Brick::getCenter() const { return getBoundingBox().getCenter(); }
+Vec2 Brick::getPos() const { return getBoundingBox().getCenter(); }
 
 Color Brick::getColor() const { return color_; }
 

@@ -21,7 +21,7 @@
 
 // ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
-    : gameBoard_(gameBoard)  {
+    : gameBoard_(gameBoard) {
 
     initialize_allegro();
 
@@ -38,8 +38,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     fontBrick_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_BRICK, 0);
     checkInit(fontBrick_, "fontBrick");
 
-    heartImage_ =
-        al_load_bitmap(PATH_TO_HEART_IMAGE); 
+    heartImage_ = al_load_bitmap(PATH_TO_HEART_IMAGE);
     checkInit(heartImage_, "heart image");
 
     music_ = al_load_sample(PATH_TO_MUSIC);
@@ -68,7 +67,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
 DisplayGame::~DisplayGame() {
     /**
      * @brief Destroy evrything created for allegro
-     * 
+     *
      */
     al_destroy_display(display_);
     al_destroy_font(font24_);
@@ -88,7 +87,7 @@ DisplayGame::~DisplayGame() {
 void DisplayGame::checkInit(void *test, string type) {
     /**
      * @brief Verify if the initialization isn't failed
-     * 
+     *
      */
     if (test == nullptr) {
         cerr << "Failed to load " << type << endl;
@@ -101,7 +100,7 @@ void DisplayGame::initialize_allegro() {
         cerr << "Failed to initialize allegro" << endl;
         exit(1);
     }
-    
+
     if (!al_init_primitives_addon()) { // initialize the primitives addon line,
                                        // circle, rectangle, etc
         cerr << "Failed to initialize the primitives addon" << endl;
@@ -153,14 +152,15 @@ void DisplayGame::draw() {
     al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) - 24, 45,
                  ALLEGRO_ALIGN_CENTER, "Current score : ");
     al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) - 24, 70,
-                 ALLEGRO_ALIGN_CENTER,
-                 "Best score : ");
-    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 45,
-                 ALLEGRO_ALIGN_CENTER,
-                 to_string(gameBoard_->getScore()).c_str()); // draw the current score
-    al_draw_text(font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 70,
-                 ALLEGRO_ALIGN_CENTER,
-                 to_string(gameBoard_->getBestScore()).c_str()); // draw the best score
+                 ALLEGRO_ALIGN_CENTER, "Best score : ");
+    al_draw_text(
+        font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 45,
+        ALLEGRO_ALIGN_CENTER,
+        to_string(gameBoard_->getScore()).c_str()); // draw the current score
+    al_draw_text(
+        font24_, COLOR_WHITE, (3 * SCREEN_WIDTH / 4) + 100, 70,
+        ALLEGRO_ALIGN_CENTER,
+        to_string(gameBoard_->getBestScore()).c_str()); // draw the best score
 
     drawLife(); // draw the hearts for the remaining lifes
 
@@ -179,10 +179,8 @@ void DisplayGame::gameWin() {
     al_flip_display();
 }
 
-
 // ### Getters ###
 ALLEGRO_DISPLAY *DisplayGame::getDisplay() const { return display_; }
-
 
 // ### Private Methods ###
 void DisplayGame::drawLife() {

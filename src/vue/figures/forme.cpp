@@ -16,7 +16,6 @@ Rectangle::Rectangle(Point center, float width, float height,
     : center_(center), width_(width), height_(height), fillColor_(fillColor),
       frameColor_(frameColor) {}
 
-
 // # Public Methods #
 void Rectangle::draw() {
     // Calculate the coordinates of the rectangle's corners
@@ -28,14 +27,12 @@ void Rectangle::draw() {
     al_draw_rectangle(x1, y1, x2, y2, frameColor_, 1);
 }
 
-
 // ### class Circle ###
 // # Constructors #
 Circle::Circle(Point center, float radius, ALLEGRO_COLOR fillColor,
                ALLEGRO_COLOR frameColor)
     : center_(center), radius_(radius), fillColor_(fillColor),
       frameColor_(frameColor) {}
-
 
 // # Public Methods #
 void Circle::draw() {

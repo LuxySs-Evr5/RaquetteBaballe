@@ -16,7 +16,7 @@ class BallUi final : public Circle {
   public:
     /**
      * @brief Construct a new Ball Ui object
-     * 
+     *
      * @param center The center of the ball
      * @param radius The radius of the ball
      * @param color The color of the ball
@@ -25,13 +25,13 @@ class BallUi final : public Circle {
 
     /**
      * @brief Destroy the Ball Ui object
-     * 
+     *
      */
     virtual ~BallUi() = default;
 
     /**
      * @brief Draw the ball
-     * 
+     *
      */
     virtual void draw() override;
 };

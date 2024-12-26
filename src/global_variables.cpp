@@ -9,7 +9,8 @@
 #include "global_variables.hpp"
 
 // ### Different paths ###
-const char *PATH_TO_FONT = "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
+const char *PATH_TO_FONT =
+    "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
 const char *PATH_TO_MUSIC = "ressources/music/arkanoid.wav";
 const char *PATH_TO_HEART_IMAGE = "ressources/images/heart.png";
 const string PATH_TO_LEVELS = "ressources/levels/";
@@ -50,11 +51,11 @@ const uint8_t DURABILITY_SILVER_BRICK = 2;
 // ### Initial number of lifes ###
 const unsigned INITIAL_NUM_LIFES = 3;
 
-
 // ### Size of image heart ###
 const float HEART_IMAGE_SIZE = 24; // because the font size is 24
 
 // ### Size of font ###
 const int FONT_SIZE_24 = 24;
 const int FONT_SIZE_50 = 50;
-const int FONT_SIZE_BRICK = BRICK_HEIGHT - 3; // a bit smaller than the brick height to fit in the brick
+const int FONT_SIZE_BRICK =
+    BRICK_HEIGHT - 3; // a bit smaller than the brick height to fit in the brick

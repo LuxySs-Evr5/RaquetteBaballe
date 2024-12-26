@@ -14,18 +14,17 @@
 #include <allegro5/allegro.h>
 #include <bitset>
 
-
 using namespace std;
 
 class ControllerGame {
   private:
     // ### Private Variables ###
     // Game variables
-    bool done_ = false; // if the game is done
-    bool draw_ = false; // if we need to draw the game
-    double lastTime_ = 0; // last time we checked the time
+    bool done_ = false;      // if the game is done
+    bool draw_ = false;      // if we need to draw the game
+    double lastTime_ = 0;    // last time we checked the time
     double currentTime_ = 0; // current time
-    int bestScore_ = 0; // best score of the player
+    int bestScore_ = 0;      // best score of the player
 
     // Levels, View and Model variables
     shared_ptr<GameBoard> gameBoard_;
@@ -44,44 +43,45 @@ class ControllerGame {
     // ### Private Methods ###
     /**
      * @brief Draw the game by calling the displayGame_ draw method
-     * 
+     *
      */
     void drawGame();
 
     /**
      * @brief Check if the player has won or lost
-     * 
+     *
      */
     void checkWinOrLose();
 
     /**
      * @brief Check the type of the event
-     * 
+     *
      */
     void checkEventType();
 
     /**
      * @brief Wait for a key to be pressed to restart the game
-     * 
+     *
      */
     void waitKeyToRestart();
 
     /**
-     * @brief Load a level by clearing the game board and setting the new level with the class Levels
-     * 
+     * @brief Load a level by clearing the game board and setting the new level
+     * with the class Levels
+     *
      */
     void loadLevel();
 
     /**
      * @brief Setup allegro
-     * 
+     *
      */
     void setupAllegro();
 
   public:
     /**
      * @brief Construct and destrcut a Controller Game object
-     * 
+     *
      */
     ControllerGame();
     virtual ~ControllerGame();
@@ -89,7 +89,7 @@ class ControllerGame {
     // ### Public Methods ###
     /**
      * @brief Function that manage the game
-     * 
+     *
      */
     void process();
 };

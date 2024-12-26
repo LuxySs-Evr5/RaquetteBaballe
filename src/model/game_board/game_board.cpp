@@ -69,16 +69,15 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
             BonusType bonusType =
                 (*brickIt)->hit(); // decrement its durability and extract bonus
             if ((*brickIt)->isDestroyed()) {
-                Log::get().addMessage(
-                    Log::LogType::BrickDestroyed,
-                    std::string{"Brick at "}
-                        + string{(*brickIt)->getBoundingBox().getCenter()});
+                Log::get().addMessage(Log::LogType::BrickDestroyed,
+                                      std::string{"Brick at "}
+                                          + string{(*brickIt)->getPos()});
 
                 if (bonusType != BonusType::None && balls_.size() == 1) {
                     // vertical space between brick and pill centers
                     double verticalSpace = ((*brickIt)->getHeight() / 2)
                                            - (BONUS_PILL_HEIGHT / 2.0);
-                    Vec2 brickCenter = (*brickIt)->getCenter();
+                    Vec2 brickCenter = (*brickIt)->getPos();
                     Vec2 bonusPillCenter{brickCenter.x,
                                          brickCenter.y - verticalSpace};
 
@@ -197,7 +196,7 @@ void GameBoard::update(double deltaTime) {
     for (auto descendingBonusIt = descendingBonuses_.begin();
          descendingBonusIt != descendingBonuses_.end();) {
         (*descendingBonusIt)->update(deltaTime);
-        if ((*descendingBonusIt)->getCoordinate().y < 0) {
+        if ((*descendingBonusIt)->getPos().y < 0) {
             descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
         } else {
             descendingBonusIt++;
@@ -226,13 +225,12 @@ void GameBoard::update(double deltaTime) {
     // append to balls_ invalidating our iterator.
     for (size_t ballIdx = 0; ballIdx < balls_.size();) {
         Log::get().addMessage(Log::LogType::BallPos,
-                              balls_.at(ballIdx)->getCoordinate());
+                              balls_.at(ballIdx)->getPos());
 
         size_t scoreToAdd = solveBallCollisions(*balls_.at(ballIdx));
         scoreManager_.increaseScore(scoreToAdd);
 
-        if (balls_.at(ballIdx)->getCoordinate().y
-            < balls_.at(ballIdx)->getRadius()) {
+        if (balls_.at(ballIdx)->getPos().y < balls_.at(ballIdx)->getRadius()) {
             balls_.erase(balls_.begin() + ballIdx);
         } else {
             balls_.at(ballIdx)->update(deltaTime);
@@ -333,6 +331,7 @@ void GameBoard::clear() {
 // ### Get the best score from the file ###
 void GameBoard::readBestScore() {
     // TODO: check because the same function in constructor of score_manager
+    // TODO: Magic variable score.txt
     std::string filePath = "score.txt";
 
     std::ifstream read(filePath, ios::in);

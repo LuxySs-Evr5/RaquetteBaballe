@@ -14,7 +14,7 @@ struct Point {
 
     /**
      * @brief Construct a new Point object
-     * 
+     *
      * @param valX Value of x coordinate to set
      * @param valY Value of y coordinate to set
      */
@@ -22,10 +22,9 @@ struct Point {
 
     /**
      * @brief Destruct a Point object
-     * 
+     *
      */
     ~Point() = default;
-
 };
 
 #endif // POINT_HPP

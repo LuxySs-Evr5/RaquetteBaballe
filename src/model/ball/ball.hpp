@@ -10,8 +10,8 @@
 
 class Ball final {
   private:
-    Vec2 coord_;
-    Vec2 prevCoord_;   // coordinate at the previous update
+    Vec2 pos_;
+    Vec2 prevPos_;     // coordinate at the previous update
     Vec2 dirVec_;      // direction vector (always normalized)
     double radius_{1}; // TODO: do we need those 2 "{1}" ?
     double speed_{1};
@@ -27,7 +27,7 @@ class Ball final {
   public:
     // #### Constructor ####
 
-    Ball(Vec2 coord, Vec2 directionVec, double radius = BALL_RADIUS,
+    Ball(Vec2 pos, Vec2 directionVec, double radius = BALL_RADIUS,
          double speed = BALL_SPEED);
 
     Ball(const Ball &other) = default;
@@ -40,7 +40,7 @@ class Ball final {
 
     double getRadius() const noexcept;
 
-    const Vec2 &getCoordinate() const noexcept;
+    const Vec2 &getPos() const noexcept;
 
     const Vec2 &getDirvec() const noexcept;
 

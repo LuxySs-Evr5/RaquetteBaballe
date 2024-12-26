@@ -13,7 +13,7 @@
 
 /**
  * @brief Draw the game over message with the score
- * 
+ *
  * @param score The score of the player
  * @param font The font to use to draw the message
  */

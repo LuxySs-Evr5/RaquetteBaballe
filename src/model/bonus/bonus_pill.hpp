@@ -15,7 +15,7 @@ class BonusPill {
     double descentSpeed_;
 
   public:
-    BonusPill(BonusType bonusType, Vec2 coord);
+    BonusPill(BonusType bonusType, Vec2 pos);
 
     BonusType getBonusType();
 
@@ -23,7 +23,7 @@ class BonusPill {
 
     bool checkCollision(const BoundingBox &boundingBox);
 
-    Vec2 getCoordinate() const;
+    Vec2 getPos() const;
 
     const BoundingBox &getBoundingBox();
 

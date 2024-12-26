@@ -9,8 +9,8 @@
 #ifndef GLOBAL_VARIABLES_HPP
 #define GLOBAL_VARIABLES_HPP
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 using std::string;
 
@@ -56,13 +56,12 @@ extern const uint8_t DURABILITY_SILVER_BRICK;
 // ### Initial number of lifes ###
 extern const unsigned INITIAL_NUM_LIFES;
 
-
 // ### Size of image heart ###
 extern const float HEART_IMAGE_SIZE; // because the font size is 24
 
 // ### Size of font ###
 extern const int FONT_SIZE_24;
 extern const int FONT_SIZE_50;
-extern const int FONT_SIZE_BRICK; 
+extern const int FONT_SIZE_BRICK;
 
 #endif // GLOBAL_VARIABLES_HPP

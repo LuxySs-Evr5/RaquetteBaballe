@@ -15,13 +15,13 @@ std::string bounceTypeToString(BounceType bounceType) {
         return "Corner";
         break;
     default:
-       std::cerr << "Unknown BounceType" << std::endl;
+        std::cerr << "Unknown BounceType" << std::endl;
         exit(-1);
     }
 }
 
-Bounceable::Bounceable(Vec2 center, double width, double height)
-    : boundingBox_(center, width, height) {}
+Bounceable::Bounceable(Vec2 pos, double width, double height)
+    : boundingBox_(pos, width, height) {}
 
 Bounceable::Bounceable(Vec2 topLeft, Vec2 bottomRight)
     : boundingBox_(topLeft, bottomRight) {}

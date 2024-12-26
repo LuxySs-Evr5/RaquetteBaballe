@@ -7,7 +7,7 @@
 class Border final : public Bounceable {
   public:
     Border(const BoundingBox &boundingBox);
-    Border(const Border& other);
+    Border(const Border &other);
     virtual ~Border();
 };
 

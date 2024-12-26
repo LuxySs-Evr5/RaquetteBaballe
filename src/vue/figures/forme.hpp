@@ -22,11 +22,11 @@ class Rectangle {
   public:
     /**
      * @brief Construct a new Rectangle object
-     * 
+     *
      * @param center The center of the rectangle
      * @param width The width of the rectangle
      * @param height The height of the rectangle
-     * @param fillColor The fillcolor of the rectangle 
+     * @param fillColor The fillcolor of the rectangle
      * @param frameColor The framecolor of the rectangle
      */
     Rectangle(Point center, float width, float height,
@@ -35,13 +35,13 @@ class Rectangle {
 
     /**
      * @brief Destroy the Rectangle object
-     * 
+     *
      */
     virtual ~Rectangle() = default;
 
     /**
      * @brief Draw the rectangle
-     * 
+     *
      */
     virtual void draw();
 };
@@ -56,7 +56,7 @@ class Circle {
   public:
     /**
      * @brief Construct a new Circle object
-     * 
+     *
      * @param center The center of the circle
      * @param radius The radius of the circle
      * @param fillColor The fillcolor of the circle
@@ -67,13 +67,13 @@ class Circle {
 
     /**
      * @brief Destroy the Circle object
-     * 
+     *
      */
     virtual ~Circle() = default;
-    
+
     /**
      * @brief Draw the circle
-     * 
+     *
      */
     virtual void draw();
 };
