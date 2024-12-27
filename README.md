@@ -16,7 +16,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 ## Prerequisites
 
-- C++20
+- C++17
 - Allegro 5
 - g++
 - make
