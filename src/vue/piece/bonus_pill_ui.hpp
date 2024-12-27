@@ -9,7 +9,7 @@
 #ifndef BONUS_PILL_UI_HPP
 #define BONUS_PILL_UI_HPP
 
-#include "../../model/bonus/bonus_pill.hpp"
+#include "../../model/bonus_pill/bonus_pill.hpp"
 #include "../figures/forme.hpp"
 #include <allegro5/color.h>
 

@@ -1,8 +1,8 @@
 #ifndef BONUS_PILL_HPP
 #define BONUS_PILL_HPP
 
+#include "../bonus_type/bonus_type.hpp"
 #include "../bounding_box/bounding_box.hpp"
-#include "bonus_type.hpp"
 
 constexpr double BONUS_PILL_WIDTH = 10;
 constexpr double BONUS_PILL_HEIGHT = 10;

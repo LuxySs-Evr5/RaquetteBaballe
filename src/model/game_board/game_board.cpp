@@ -1,5 +1,7 @@
 #include "game_board.hpp"
 #include "../../log/log.hpp"
+#include "../bonus/basic_timed_bonus.hpp"
+#include "../bonus/slowdown_bonus.hpp"
 
 #include <algorithm>
 #include <iterator>

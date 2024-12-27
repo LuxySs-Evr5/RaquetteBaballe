@@ -2,11 +2,12 @@
 #define GAME_BOARD_HPP
 
 #include "../ball/ball.hpp"
-#include "../bonus/bonus.hpp"
-#include "../bonus/bonus_pill.hpp"
+#include "../bonus/abstract_timed_bonus.hpp"
+#include "../bonus_pill/bonus_pill.hpp"
+#include "../bonus_type/bonus_type.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
-#include "../life_counter//life_counter.hpp"
+#include "../life_counter/life_counter.hpp"
 #include "../racket/racket.hpp"
 #include "../score_manager/score_manager.hpp"
 
