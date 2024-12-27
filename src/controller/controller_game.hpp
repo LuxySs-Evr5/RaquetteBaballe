@@ -75,6 +75,12 @@ class ControllerGame {
      */
     void setupAllegro();
 
+    /**
+     * @brief Handle the tick of the timer
+     *
+     */
+    void handleTick();
+
   public:
     /**
      * @brief Construct and destrcut a Controller Game object
