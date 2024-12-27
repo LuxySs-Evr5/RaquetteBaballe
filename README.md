@@ -20,6 +20,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 - Allegro 5
 - g++
 - make
+- cmake
 
 ## Installation
 
@@ -27,24 +28,24 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 1. Install the required dependencies (g++, make, and Allegro):
     ```sh
-    sudo apt install g++ make liballegro5-dev
+    sudo apt install g++ make cmake liballegro5-dev
     ```
 
 2. Compile the project:
     ```sh
-    make
+    cmake -S . -B ./build/ && make -C build
     ```
 
 ### On Arch Linux:
 
 1. Install the required dependencies (g++, make, and Allegro):
     ```sh
-    sudo pacman -S gcc make allegro
+    sudo pacman -S gcc make cmake allegro
     ```
 
 2. Compile the project:
     ```sh
-    make
+    cmake -S . -B ./build/ && make -C build
     ```
 
 ## Usage
