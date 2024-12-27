@@ -9,18 +9,18 @@ Log::Log() : logfile("log.txt") {
         std::cerr << "Error opening log file!" << std::endl;
     }
     logTypeEnabled = {
-        {LogType::BallPos, true},
-        {LogType::Bidirectional, true},
-        {LogType::BounceType, true},
-        {LogType::BrickDestroyed, true},
-        {LogType::ChangeBetweenLastUpdate, true},
-        {LogType::ClosestPoint, true},
-        {LogType::CollidingObject, true},
-        {LogType::CollisionButSameDirection, true},
-        {LogType::DirVec, true},
-        {LogType::Error, true},
-        {LogType::PenetrationRate, true},
-        {LogType::Unidirectional, true},
+        {LogType::BallPos, false},
+        {LogType::Bidirectional, false},
+        {LogType::BounceType, false},
+        {LogType::BrickDestroyed, false},
+        {LogType::ChangeBetweenLastUpdate, false},
+        {LogType::ClosestPoint, false},
+        {LogType::CollidingObject, false},
+        {LogType::CollisionButSameDirection, false},
+        {LogType::DirVec, false},
+        {LogType::Error, false},
+        {LogType::PenetrationRate, false},
+        {LogType::Unidirectional, false},
     };
 }
 
