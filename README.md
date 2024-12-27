@@ -52,7 +52,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 To start the game, run the following command:
 ```sh
-./arkanoid
+./build/arkanoid
 ```
 
 
