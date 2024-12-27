@@ -5,22 +5,21 @@
  */
 
 #include "controller_game.hpp"
-#include "levels/levels.hpp"
+#include "level_manager/level_manager.hpp"
 
 #include <allegro5/display.h>
 #include <allegro5/timer.h>
 #include <memory>
 #include <vector>
 
-// ### Constructor ###
 ControllerGame::ControllerGame()
-    : gameBoard_{make_shared<GameBoard>()}, levels_(make_shared<Levels>()),
+    : gameBoard_{make_shared<GameBoard>()},
+      levelManager_(make_shared<LevelManager>()),
       displayGame_(make_shared<DisplayGame>(gameBoard_)) {
     setupAllegro();
     loadLevel();
 }
 
-// ### Destructor ###
 ControllerGame::~ControllerGame() {
     if (timer_) {
         al_destroy_timer(timer_);
@@ -30,7 +29,6 @@ ControllerGame::~ControllerGame() {
     }
 }
 
-// ### Public methods ###
 void ControllerGame::process() {
     while (!done_) {
 
@@ -46,8 +44,6 @@ void ControllerGame::process() {
     }
 }
 
-// ### Private methods ###
-
 void ControllerGame::drawGame() {
     displayGame_->draw(); // draw the pieces
     draw_ = false;        // no more need to draw
@@ -59,7 +55,7 @@ void ControllerGame::checkWinOrLose() {
         al_stop_timer(timer_);
         displayGame_->gameWin();
         gameBoard_->saveBestScore();
-        levels_->nextLevel();
+        levelManager_->nextLevel();
         waitKeyToRestart();
         loadLevel();
     } else if (gameBoard_->getLife() == 0) {
@@ -91,7 +87,6 @@ void ControllerGame::checkEventType() {
             mouseState_.x)); // move the racket with the mouse
 
         gameBoard_->update(deltaTime); // update the game board
-
     }
 
     if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -105,12 +100,12 @@ void ControllerGame::checkEventType() {
         }
         if (key_[ALLEGRO_KEY_LEFT]) {
             al_stop_timer(timer_);
-            levels_->previousLevel();
+            levelManager_->previousLevel();
             loadLevel();
         }
         if (key_[ALLEGRO_KEY_RIGHT]) {
             al_stop_timer(timer_);
-            levels_->nextLevel();
+            levelManager_->nextLevel();
             loadLevel();
         }
         if (key_[ALLEGRO_KEY_A]) {
@@ -151,15 +146,16 @@ void ControllerGame::loadLevel() {
     vector<shared_ptr<Brick>>
         copyBricks; // a copy of the bricks of the level to
                     // avoid modifying the original bricks
-    for (const auto &brick : levels_->getBricks()) {
+    for (const auto &brick : levelManager_->getBricks()) {
         copyBricks.emplace_back(Brick::makeBrick(
             brick->getColor(), brick->getBoundingBox(), brick->getBonusType()));
     }
 
-    shared_ptr<Racket> racketCopy = make_shared<Racket>(*levels_->getRacket());
+    shared_ptr<Racket> racketCopy =
+        make_shared<Racket>(*levelManager_->getRacket());
 
     // Set the pieces in the game board
-    gameBoard_->setBorders(levels_->getBorders());
+    gameBoard_->setBorders(levelManager_->getBorders());
     gameBoard_->setRacket(racketCopy);
     gameBoard_->setBricks(copyBricks);
 

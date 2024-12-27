@@ -15,13 +15,9 @@ class BonusPill {
     double descentSpeed_;
 
   public:
-    // #### Constructor ####
-
     BonusPill(BonusType bonusType, Vec2 pos);
     BonusPill(const BonusPill &) = default;
     BonusPill(BonusPill &&) = default;
-
-    // #### Assignement operator ####
 
     BonusPill &operator=(const BonusPill &) = default;
     BonusPill &operator=(BonusPill &&) = default;

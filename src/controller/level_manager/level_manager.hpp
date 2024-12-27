@@ -1,13 +1,13 @@
 /**
- * @file levels.hpp
+ * @file level_manager.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define struct Levels
+ * @brief Define class LevelManager
  * @date 16/12/2024
  *
  */
 
-#ifndef LEVELS_HPP
-#define LEVELS_HPP
+#ifndef LEVEL_MANAGER_HPP
+#define LEVEL_MANAGER_HPP
 
 #include "../../model/border/border.hpp"
 #include "../../model/brick/brick.hpp"
@@ -19,7 +19,7 @@
 
 using namespace std;
 
-class Levels {
+class LevelManager {
   private:
     unsigned long currentLevel_ = 0;
     vector<vector<shared_ptr<Brick>>> levelBricks_;
@@ -35,11 +35,11 @@ class Levels {
 
   public:
     /**
-     * @brief Construct and destruct the Levels object
+     * @brief Construct and destruct the LevelManager object
      *
      */
-    Levels();
-    ~Levels() = default;
+    LevelManager();
+    ~LevelManager() = default;
 
     /**
      * @brief Set the current level to the next one
@@ -75,4 +75,4 @@ class Levels {
     const vector<shared_ptr<Border>> &getBorders() const;
 };
 
-#endif // LEVELS_HPP
+#endif // LEVEL_MANAGER_HPP

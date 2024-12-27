@@ -29,7 +29,6 @@ class DisplayGame {
     ALLEGRO_FONT *font50_;
     ALLEGRO_FONT *fontBrick_;
 
-    // ### Private Methods ###
     /**
      * @brief Check if the initialization of the object is correct
      *
@@ -64,7 +63,6 @@ class DisplayGame {
      */
     ~DisplayGame();
 
-    // ### Public Methods ###
     /**
      * @brief Draw the game by calling the draw method of the canvas
      *
@@ -83,7 +81,6 @@ class DisplayGame {
      */
     void gameWin();
 
-    // ### Getters ###
     /**
      * @brief Get the ALLLEGRO_DISPLAY
      *

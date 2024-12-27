@@ -25,16 +25,12 @@ class ScoreManager {
     void writeInBestScoreFile(const std::string &content);
 
   public:
-    // #### Constructors ####
-
     /**
      * @brief Constructs a new ScoreManager.
      */
     ScoreManager();
     ScoreManager(const ScoreManager &) = default;
     ScoreManager(ScoreManager &&) = default;
-
-    // #### Assignment ####
 
     ScoreManager &operator=(const ScoreManager &) = default;
     ScoreManager &operator=(ScoreManager &&) = default;
@@ -45,11 +41,7 @@ class ScoreManager {
     ScoreManager(unsigned long currentScore, unsigned long bestScore)
         : currentScore_(currentScore), bestScore_(bestScore) {}
 
-    // #### Destructor ####
-
     virtual ~ScoreManager() = default;
-
-    // #### Score Actions ####
 
     /**
      * @brief Increases the score by the given value.

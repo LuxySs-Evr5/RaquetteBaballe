@@ -294,8 +294,6 @@ const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
 void GameBoard::setRacketAtX(double posX) { racket_->setPosX(posX); }
 
-// #### Getters meant to be used by the View ####
-
 const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
     return balls_;
 }
@@ -331,7 +329,6 @@ unsigned long GameBoard::getBestScore() const {
 
 void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 
-// ### Setters ###
 void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
     bricks_ = bricks;
 }
@@ -344,8 +341,6 @@ void GameBoard::setBorders(
     const std::vector<std::shared_ptr<Border>> &borders) {
     borders_ = borders;
 }
-
-// #### Clear GameBoard ####
 
 void GameBoard::clearBalls() {
     balls_.clear();

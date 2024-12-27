@@ -9,21 +9,13 @@
 #include "life_counter.hpp"
 #include "../../global_variables.hpp"
 
-// ### Constructors ###
-
 LifeCounter::LifeCounter() : numLifes_(INITIAL_NUM_LIFES) {}
 
 LifeCounter::LifeCounter(unsigned numLifes) : numLifes_(numLifes) {}
 
-// ### Destructor ###
-
 LifeCounter::~LifeCounter() = default;
 
-// #### Reset Value ####
-
 void LifeCounter::reset() { numLifes_ = INITIAL_NUM_LIFES; }
-
-// ### Arithmetic Operators ###
 
 const LifeCounter &LifeCounter::operator--() {
     numLifes_--;
@@ -40,10 +32,6 @@ const LifeCounter &LifeCounter::operator+=(unsigned numLife) {
     return *this;
 }
 
-// ### Setters ###
-
 void LifeCounter::setNumLifes(const uint8_t numLifes) { numLifes_ = numLifes; }
-
-// ### Conversion Operators ###
 
 LifeCounter::operator unsigned() const { return numLifes_; }

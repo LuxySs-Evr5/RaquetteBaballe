@@ -10,13 +10,11 @@
 #include <allegro5/allegro_primitives.h>
 
 // ### class Rectangle ###
-// # Constructors #
 Rectangle::Rectangle(Point center, float width, float height,
                      ALLEGRO_COLOR fillColor, ALLEGRO_COLOR frameColor)
     : center_(center), width_(width), height_(height), fillColor_(fillColor),
       frameColor_(frameColor) {}
 
-// # Public Methods #
 void Rectangle::draw() {
     // Calculate the coordinates of the rectangle's corners
     const float x1 = center_.x - width_ / 2;
@@ -28,13 +26,11 @@ void Rectangle::draw() {
 }
 
 // ### class Circle ###
-// # Constructors #
 Circle::Circle(Point center, float radius, ALLEGRO_COLOR fillColor,
                ALLEGRO_COLOR frameColor)
     : center_(center), radius_(radius), fillColor_(fillColor),
       frameColor_(frameColor) {}
 
-// # Public Methods #
 void Circle::draw() {
     al_draw_filled_circle(center_.x, center_.y, radius_, fillColor_);
     al_draw_circle(center_.x, center_.y, radius_, frameColor_, 1);

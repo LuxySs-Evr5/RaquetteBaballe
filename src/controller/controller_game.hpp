@@ -9,7 +9,7 @@
 
 #include "../model/game_board/game_board.hpp"
 #include "../vue/display_game/display_game.hpp"
-#include "levels/levels.hpp"
+#include "level_manager/level_manager.hpp"
 
 #include <allegro5/allegro.h>
 #include <bitset>
@@ -18,16 +18,15 @@ using namespace std;
 
 class ControllerGame {
   private:
-    // ### Private Variables ###
     // Game variables
-    bool done_ = false;           // if the game is done
-    bool draw_ = false;           // if we need to draw the game
-    double lastTime_ = 0;         // last time we checked the time
-    double currentTime_ = 0;      // current time
+    bool done_ = false;      // if the game is done
+    bool draw_ = false;      // if we need to draw the game
+    double lastTime_ = 0;    // last time we checked the time
+    double currentTime_ = 0; // current time
 
-    // Levels, View and Model variables
+    // Model, LevelManager and View
     shared_ptr<GameBoard> gameBoard_;
-    shared_ptr<Levels> levels_;
+    shared_ptr<LevelManager> levelManager_;
     shared_ptr<DisplayGame> displayGame_;
 
     // Allegro variables
@@ -39,7 +38,6 @@ class ControllerGame {
     bitset<ALLEGRO_KEY_MAX>
         key_; // table of bit for all keyboard keys set to false
 
-    // ### Private Methods ###
     /**
      * @brief Draw the game by calling the displayGame_ draw method
      *
@@ -85,7 +83,6 @@ class ControllerGame {
     ControllerGame();
     virtual ~ControllerGame();
 
-    // ### Public Methods ###
     /**
      * @brief Function that manage the game
      *

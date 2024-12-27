@@ -8,5 +8,4 @@
 
 #include "point.hpp"
 
-// ### Constructors ###
 Point::Point(float valX, float valY) : x(valX), y(valY) {}

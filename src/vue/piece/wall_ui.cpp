@@ -9,11 +9,9 @@
 #include "wall_ui.hpp"
 #include <allegro5/color.h>
 
-// ### Constructor ###
 WallUi::WallUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
-// ### Public methods ###
 void WallUi::draw() {
     center_.y =
         SCREEN_HEIGHT

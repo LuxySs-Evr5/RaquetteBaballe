@@ -14,8 +14,6 @@
 
 const std::string ScoreManager::bestScoreFilePath_ = "score.txt";
 
-// ### Constructors ###
-
 ScoreManager::ScoreManager() : currentScore_(DEFAULT_SCORE) {
     std::ifstream read(bestScoreFilePath_, std::ios::in);
 
@@ -26,8 +24,6 @@ ScoreManager::ScoreManager() : currentScore_(DEFAULT_SCORE) {
         read.close();
     }
 }
-
-// #### Score Actions ####
 
 void ScoreManager::increaseScore(unsigned long value) {
     currentScore_ += value;
@@ -61,8 +57,6 @@ void ScoreManager::resetBestScore() {
 
     writeInBestScoreFile("0");
 }
-
-// ### Getters ###
 
 unsigned long ScoreManager::getCurrentScore() const { return currentScore_; }
 

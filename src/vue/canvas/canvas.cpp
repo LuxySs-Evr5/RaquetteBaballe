@@ -14,11 +14,9 @@
 #include "../piece/racket_ui.hpp"
 #include "../piece/wall_ui.hpp"
 
-// ### Constructor ###
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
     : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
 
-// ### Public methods ###
 void Canvas::draw() {
     for (auto &border : borders_) {
         WallUi wallUi{border->getBoundingBox().getCenter(),

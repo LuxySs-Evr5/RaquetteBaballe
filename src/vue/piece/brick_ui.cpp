@@ -12,12 +12,10 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-// ### Constructor ###
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
                  ALLEGRO_FONT *fontBrick)
     : Rectangle(center, width, height, color), fontBrick_(fontBrick) {}
 
-// ### Public methods ###
 void BrickUi::draw(const Brick &brick) {
     center_.y =
         SCREEN_HEIGHT
@@ -33,7 +31,8 @@ void BrickUi::draw(const Brick &brick) {
 
     if (brick.hasBonus()) {
         float y = center_.y
-                  - static_cast<float>(BRICK_HEIGHT / 2.0); // Sart at the top of the brick
+                  - static_cast<float>(BRICK_HEIGHT
+                                       / 2.0); // Sart at the top of the brick
         al_draw_text(
             fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
             "B"); // draw a B in the center of the brick if it has a bonus

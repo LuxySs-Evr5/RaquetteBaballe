@@ -74,8 +74,6 @@ class GameBoard final {
      */
     size_t numBalls();
 
-    // #### Bonus Split into 3 ####
-
     /**
      * @brief Adds the 2 newly created balls when the given ball gets split into
      * three.
@@ -109,15 +107,11 @@ class GameBoard final {
     void clearBricks();
 
   public:
-    // #### Constructor ####
-
     GameBoard() = default;
     GameBoard(const GameBoard &) = delete;
     GameBoard(GameBoard &&) = delete;
     GameBoard &operator=(const GameBoard &) = delete;
     GameBoard &operator=(GameBoard &&) = delete;
-
-    // #### Destructor ####
 
     virtual ~GameBoard() = default;
 
@@ -127,8 +121,6 @@ class GameBoard final {
      * @param deltaTime Time elapsed (in seconds) since the last update.
      */
     void update(double deltaTime);
-
-    // #### Getters ####
 
     /**
      * @brief Returns the current Score.
@@ -186,8 +178,6 @@ class GameBoard final {
      */
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
 
-    // #### Setters ####
-
     /**
      * @brief Sets the racket's horizontal coordinate.
      *
@@ -240,8 +230,6 @@ class GameBoard final {
      * @brief Resets the best score.
      */
     void resetBestScore();
-
-    // #### Clear GameBoard ####
 
     /**
      * @brief Clears and sets up the board for the next game.

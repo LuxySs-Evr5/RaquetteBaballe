@@ -9,11 +9,9 @@
 #include "racket_ui.hpp"
 #include <allegro5/color.h>
 
-// ### Constructor ###
 RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
-// ### Public methods ###
 void RacketUi::draw() {
     center_.y =
         SCREEN_HEIGHT

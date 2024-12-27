@@ -16,8 +16,6 @@ class Ball final {
     double radius_;
     double speed_;
 
-    // #### Internal Helpers ####
-
     /**
      * @brief returns true if the ball has reached the given point, meaning the
      * point is inside the ball.
@@ -37,8 +35,6 @@ class Ball final {
     Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
 
   public:
-    // #### Constructors Operators ####
-
     /**
      * @brief Constructs a new Ball.
      *
@@ -54,17 +50,11 @@ class Ball final {
 
     Ball(Ball &&) = default;
 
-    // #### Assignment Operators ####
-
     Ball &operator=(const Ball &) = default;
 
     Ball &operator=(Ball &&) = default;
 
-    // #### Destructor ####
-
     virtual ~Ball() = default;
-
-    // #### Getters ####
 
     /**
      * @brief Returns the ball's radius.
@@ -81,8 +71,6 @@ class Ball final {
      */
     const Vec2 &getDirvec() const noexcept;
 
-    // #### Setters ####
-
     /**
      * @brief Sets the ball's speed.
      * @param speed The speed.
@@ -94,8 +82,6 @@ class Ball final {
      * @param vec The direction vector.
      */
     void setDirVec(const Vec2 &vec);
-
-    // #### Collision ####
 
     /**
      * @brief Returns the unidirectional-penetration-vector corresponding to the
@@ -115,8 +101,6 @@ class Ball final {
      * @param boundingBox The bounceable.
      */
     void collide(const Bounceable &bounceable);
-
-    // #### Update ####
 
     /**
      * @brief Updates the ball's position as if it had travelled for a deltaTime

@@ -14,37 +14,25 @@ class SlowDownBonus final : public AbstractTimedBonus {
     std::vector<double> queue_;
 
   public:
-    // #### Constructor ####
-
     SlowDownBonus();
     SlowDownBonus(const SlowDownBonus &) = default;
     SlowDownBonus(SlowDownBonus &&) = default;
 
-    // #### Assignment operator ####
-
     SlowDownBonus &operator=(const SlowDownBonus &) = default;
     SlowDownBonus &operator=(SlowDownBonus &&) = default;
 
-    // #### Destructor ####
-
     virtual ~SlowDownBonus() = default;
-
-    // #### Reapply SlowDown ####
 
     /**
      * @brief Reapplies the SlowDown bonus one more time.
      */
     virtual void reapply() override;
 
-    // #### Update ####
-
     /**
      * @brief Updates the bonus's remaining duration based on the elapsed time.
      * @param deltaT The time elapsed (in seconds).
      */
     virtual bool update(double deltaT) override;
-
-    // #### SlowDown Factor ####
 
     /**
      * @brief Returns the slow down factor for the ball.

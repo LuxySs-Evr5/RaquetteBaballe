@@ -48,11 +48,7 @@ class Brick : public Bounceable {
     Brick &operator=(Brick &&) = default;
 
   public:
-    // #### Destructor ####
-
     virtual ~Brick();
-
-    // #### Factory ####
 
     /**
      * @brief Brick factory. Returns a unique pointer to a new Brick.
@@ -64,15 +60,11 @@ class Brick : public Bounceable {
     makeBrick(Color color, BoundingBox boundingBox,
               BonusType bonusType = BonusType::None);
 
-    // #### Brick Actions ####
-
     /**
      * @brief Hit the brick. Returns the type of bonus held inside of the brick
      * is destroyed.
      */
     virtual BonusType hit();
-
-    // #### Getters ####
 
     /**
      * @brief Returns the brick's width.

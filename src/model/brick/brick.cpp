@@ -4,14 +4,10 @@
 #include "gold_brick.hpp"
 #include <memory>
 
-// #### Protected Constructor ####
-
 Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability,
              BonusType bonusType)
     : Bounceable{boundingBox}, color_{color}, durability_{durability},
       bonusType_(bonusType) {}
-
-// #### Factory ####
 
 std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox,
                                         BonusType bonusType) {
@@ -27,8 +23,6 @@ std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox,
 
 Brick::~Brick() = default;
 
-// #### Brick Actions ####
-
 BonusType Brick::hit() { // this is default behavior
     if (durability_ > 0) {
         durability_--;
@@ -38,8 +32,6 @@ BonusType Brick::hit() { // this is default behavior
     }
     return BonusType::None;
 }
-
-// #### Getters ####
 
 double Brick::getWidth() const { return getBoundingBox().getWidth(); }
 

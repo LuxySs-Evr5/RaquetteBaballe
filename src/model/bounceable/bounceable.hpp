@@ -17,8 +17,6 @@ class Bounceable {
     BoundingBox boundingBox_;
 
   protected:
-    // #### Constructors ####
-
     /**
      * @brief Constructs a new Bounceable.
      * @param boundingBox the BoundingBox.
@@ -32,18 +30,12 @@ class Bounceable {
     Bounceable &operator=(Bounceable &&) = default;
 
   public:
-    // #### Destructor ####
-
     virtual ~Bounceable();
-
-    // #### Getters ####
 
     /**
      * @brief Returns the Bounceable's BoundingBox.
      */
     const BoundingBox &getBoundingBox() const;
-
-    // #### Bouncing ####
 
     /**
      * @brief Calculates the ball's new direction vector after bouncing off the

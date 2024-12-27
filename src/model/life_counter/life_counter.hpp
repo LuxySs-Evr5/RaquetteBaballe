@@ -18,8 +18,6 @@ class LifeCounter final {
     unsigned numLifes_;
 
   public:
-    // ### Constructors ###
-
     /**
      * @brief Constructs a new LifeCounter.
      */
@@ -37,18 +35,12 @@ class LifeCounter final {
      */
     LifeCounter(unsigned numLifes);
 
-    // ### Destructor ###
-
     virtual ~LifeCounter();
-
-    // #### Reset Value ####
 
     /**
      * @brief Resets the number of lifes to the initial number of lifes.
      */
     void reset();
-
-    // ### Arithmetic Operators ###
 
     /**
      * @brief Decrements the number of lifes.
@@ -65,14 +57,10 @@ class LifeCounter final {
      */
     const LifeCounter &operator+=(unsigned numLife);
 
-    // ### Setters ###
-
     /**
      * @brief Sets the number of lifes to numLifes.
      */
     void setNumLifes(uint8_t numLifes);
-
-    // ### Conversion Operators ###
 
     /**
      * @brief Converts the lifeCounter to an unsigned.

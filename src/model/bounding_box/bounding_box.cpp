@@ -1,8 +1,6 @@
 #include "bounding_box.hpp"
 #include "../vec2/vec2.hpp"
 
-// #### Constructors ####
-
 BoundingBox::BoundingBox(const Vec2 &center, double width, double height)
     : center_(center), width_{width}, height_{height} {}
 
@@ -12,15 +10,11 @@ BoundingBox::BoundingBox(const Vec2 &topLeft, const Vec2 &bottomRight)
       width_{std::abs(bottomRight.x - topLeft.x)},
       height_{std::abs(topLeft.y - bottomRight.y)} {}
 
-// #### Setters ####
-
 void BoundingBox::setCenter(const Vec2 &centerPos) { center_ = centerPos; }
 
 void BoundingBox::setWidth(double newWidth) { width_ = newWidth; }
 
 void BoundingBox::setHeight(double newHeight) { height_ = newHeight; }
-
-// #### Getters ####
 
 const Vec2 &BoundingBox::getCenter() const noexcept { return center_; }
 
@@ -59,8 +53,6 @@ Vec2 BoundingBox::getBottomLeft() const noexcept {
 Vec2 BoundingBox::getBottomRight() const noexcept {
     return Vec2{getRight(), getBottom()};
 }
-
-// #### Overlapping / Collision ####
 
 bool BoundingBox::isOverlapping(const BoundingBox &other) {
     // X-axis check

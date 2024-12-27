@@ -1,12 +1,12 @@
 /**
- * @file levels.cpp
+ * @file level_manager.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define struct Levels
+ * @brief Define class LevelManager
  * @date 16/12/2024
  *
  */
 
-#include "levels.hpp"
+#include "level_manager.hpp"
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
@@ -16,8 +16,7 @@
 #include <unordered_map>
 #include <vector>
 
-// ### Constructor ###
-Levels::Levels() {
+LevelManager::LevelManager() {
     // Create the racket
     levelRacket_ = make_shared<Racket>(BoundingBox{
         Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, RACKET_Y_POSITION - 1},
@@ -88,8 +87,7 @@ BonusType convertBonusFromString(const string &bonusName) {
     exit(1);
 }
 
-// ### Private methods ###
-void Levels::loadBricks() {
+void LevelManager::loadBricks() {
     string mainPath = PATH_TO_LEVELS;
     vector<string> levelFiles; // Store the paths of the level files
 
@@ -142,25 +140,26 @@ void Levels::loadBricks() {
     }
 }
 
-// ### Public methods ###
-void Levels::nextLevel() {
+void LevelManager::nextLevel() {
     if (currentLevel_ < levelBricks_.size() - 1) {
         ++currentLevel_;
     }
 }
 
-void Levels::previousLevel() {
+void LevelManager::previousLevel() {
     if (currentLevel_ > 0) {
         --currentLevel_;
     }
 }
 
-const vector<shared_ptr<Brick>> &Levels::getBricks() {
+const vector<shared_ptr<Brick>> &LevelManager::getBricks() {
     return levelBricks_[currentLevel_];
 }
 
-const shared_ptr<Racket> &Levels::getRacket() const { return levelRacket_; }
+const shared_ptr<Racket> &LevelManager::getRacket() const {
+    return levelRacket_;
+}
 
-const vector<shared_ptr<Border>> &Levels::getBorders() const {
+const vector<shared_ptr<Border>> &LevelManager::getBorders() const {
     return levelBorders_;
 }

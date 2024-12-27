@@ -9,12 +9,10 @@
 #include "bonus_pill_ui.hpp"
 #include <allegro5/color.h>
 
-// ### Constructor ###
 BonusPillUi::BonusPillUi(Point center, float width, float height,
                          ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
-// ### Public methods ###
 void BonusPillUi::draw(const BonusPill &bonusPill) {
     center_.y =
         SCREEN_HEIGHT

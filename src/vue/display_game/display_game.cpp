@@ -19,7 +19,6 @@
 #include <allegro5/allegro_ttf.h>
 #include <memory>
 
-// ### Constructor ###
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     : gameBoard_(gameBoard) {
 
@@ -63,7 +62,6 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     canvas_ = make_shared<Canvas>(gameBoard_, fontBrick_);
 }
 
-// ### Destructor ###
 DisplayGame::~DisplayGame() {
     /**
      * @brief Destroy evrything created for allegro
@@ -83,7 +81,6 @@ DisplayGame::~DisplayGame() {
     al_shutdown_primitives_addon();
 }
 
-// ### Private Methods ###
 void DisplayGame::checkInit(void *test, string type) {
     /**
      * @brief Verify if the initialization isn't failed
@@ -139,7 +136,6 @@ void DisplayGame::initialize_allegro() {
     }
 }
 
-// ### Public Methods ###
 void DisplayGame::draw() {
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
@@ -179,10 +175,8 @@ void DisplayGame::gameWin() {
     al_flip_display();
 }
 
-// ### Getters ###
 ALLEGRO_DISPLAY *DisplayGame::getDisplay() const { return display_; }
 
-// ### Private Methods ###
 void DisplayGame::drawLife() {
     int heartWidth = al_get_bitmap_width(heartImage_);
     int heartHeight = al_get_bitmap_height(heartImage_);

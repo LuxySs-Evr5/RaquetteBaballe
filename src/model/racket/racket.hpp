@@ -9,8 +9,6 @@ class Racket final : public Bounceable {
     Vec2 previousPosition_;
 
   public:
-    // #### Constructors ####
-
     /**
      * @brief Constructs a new Racket.
      *
@@ -32,11 +30,7 @@ class Racket final : public Bounceable {
     Racket &operator=(const Racket &) = default;
     Racket &operator=(Racket &&) = default;
 
-    // #### Destructor ####
-
     virtual ~Racket() = default;
-
-    // #### Getters ####
 
     /**
      * @brief Returns the racket's width.
@@ -52,8 +46,6 @@ class Racket final : public Bounceable {
      * @brief Returns the racket's position.
      */
     Vec2 getPos() const;
-
-    // ##### Setters ####
 
     /**
      * @brief Sets the racket's width.
@@ -75,8 +67,6 @@ class Racket final : public Bounceable {
      * @param newHeight The new position.
      */
     void setPosX(double posX);
-
-    // #### Bounceable Override ####
 
     /**
      * @brief Calculates the ball's new direction vector after bouncing off the

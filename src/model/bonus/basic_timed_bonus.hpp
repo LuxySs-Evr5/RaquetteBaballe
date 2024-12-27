@@ -12,22 +12,14 @@ class BasicTimedBonus final : public AbstractTimedBonus {
     double remaningTime_;
 
   public:
-    // #### Constructor ####
-
     BasicTimedBonus(BonusType bonusType);
     BasicTimedBonus(const BasicTimedBonus &) = default;
     BasicTimedBonus(BasicTimedBonus &&) = default;
 
-    // #### Assignment operator ####
-
     BasicTimedBonus &operator=(const BasicTimedBonus &) = default;
     BasicTimedBonus &operator=(BasicTimedBonus &&) = default;
 
-    // #### Destructor ####
-
     virtual ~BasicTimedBonus() = default;
-
-    // #### Update ####
 
     /**
      * @brief Updates the bonus's remaining duration based on the elapsed time.

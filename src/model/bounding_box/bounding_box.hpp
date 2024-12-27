@@ -10,8 +10,6 @@ class BoundingBox final {
     double height_;
 
   public:
-    // #### Constructors ####
-
     /**
      * @brief Constructs a new BoundingBox.
      *
@@ -33,11 +31,7 @@ class BoundingBox final {
     BoundingBox &operator=(const BoundingBox &) = default;
     BoundingBox &operator=(BoundingBox &&) = default;
 
-    // #### Destructor ####
-
     virtual ~BoundingBox() = default;
-
-    // #### Setters ####
 
     /**
      * @brief Sets the BoundingBox's center.
@@ -56,8 +50,6 @@ class BoundingBox final {
      * @param newHeight The height.
      */
     void setHeight(double newWidth);
-
-    // #### Getters ####
 
     /**
      * @brief Returns the BoundingBox's center's position.
@@ -113,8 +105,6 @@ class BoundingBox final {
      * @brief Returns the BoundingBox's bottom-right corner's coordinate.
      */
     Vec2 getBottomRight() const noexcept;
-
-    // #### Collisions / Collision ####
 
     /**
      * @brief Returns true if overlaps with the given bounding-box.

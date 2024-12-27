@@ -7,8 +7,6 @@
 #include <cmath>
 #include <string>
 
-// #### Internal Helpers ####
-
 // NOTE: this only does the direction vector part of the bounce
 // actual bounce logic is in collide function
 void Ball::bounce(const Bounceable &bounceable) {
@@ -37,13 +35,9 @@ bool Ball::hasReached(const Vec2 &point) const {
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
-// #### Constructor ####
-
 Ball::Ball(Vec2 pos, Vec2 directionVec, double radius, double speed)
     : pos_{pos}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
-
-// #### Getters ####
 
 double Ball::getRadius() const noexcept { return radius_; }
 
@@ -51,13 +45,9 @@ const Vec2 &Ball::getPos() const noexcept { return pos_; }
 
 const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
-// #### Setters ####
-
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 
 void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec; }
-
-// #### Collision ####
 
 Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
     Vec2 closestPoint =
