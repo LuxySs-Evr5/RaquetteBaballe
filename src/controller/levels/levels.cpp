@@ -16,21 +16,13 @@
 #include <unordered_map>
 #include <vector>
 
-// TODO: set + BOARD_BOUNDINGS_THICKNESS in model for the ball, racket and brick
-// if needed
-
 // ### Constructor ###
 Levels::Levels() {
-    // Create the ball
-    levelBall_ = make_shared<Ball>(Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1},
-             BALL_RADIUS, BALL_SPEED); // + BOARD_BOUNDINGS_THICKNESS because
-                                       // the board has a left border
-
     // Create the racket
     levelRacket_ = make_shared<Racket>(BoundingBox{
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 50}, RACKET_WIDTH,
-        RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because the board has a
-                         // left border
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, RACKET_Y_POSITION - 1},
+        RACKET_WIDTH, RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because
+                                       // the board has a left border
 
     // Left wall
     levelBorders_.emplace_back(make_shared<Border>(
@@ -42,7 +34,7 @@ Levels::Levels() {
     // Right wall
     levelBorders_.emplace_back(make_shared<Border>(
         BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
-                    Vec2{BOARD_WIDTH + 2 * WALL_THICKNESS - 1, 0}}));
+                    Vec2{SCREEN_WIDTH, 0}}));
 
     loadBricks();
 }
@@ -140,11 +132,10 @@ void Levels::loadBricks() {
             x += WALL_THICKNESS; // because the board has a left border
             y += WALL_THICKNESS; // because the board has a top border
             bricks.emplace_back(Brick::makeBrick(
-            convertColorFromString(color),
-            BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                        Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
-            convertBonusFromString(bonus)));
-
+                convertColorFromString(color),
+                BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
+                            Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
+                convertBonusFromString(bonus)));
         }
         levelBricks_.emplace_back(bricks);
         file.close();
@@ -167,8 +158,6 @@ void Levels::previousLevel() {
 const vector<shared_ptr<Brick>> &Levels::getBricks() {
     return levelBricks_[currentLevel_];
 }
-
-const shared_ptr<Ball> Levels::getBall() const { return levelBall_; }
 
 const shared_ptr<Racket> &Levels::getRacket() const { return levelRacket_; }
 

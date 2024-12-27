@@ -7,6 +7,7 @@
  */
 
 #include "global_variables.hpp"
+#include "model/vec2/vec2.hpp"
 
 // ### Different paths ###
 const char *PATH_TO_FONT =
@@ -27,6 +28,7 @@ const double BOARD_HEIGHT = 980;
 // ### Racket ###
 const double RACKET_WIDTH = 100;
 const double RACKET_HEIGHT = 25;
+const double RACKET_Y_POSITION = 50;
 
 // ### Brick ###
 const double BRICK_WIDTH = 70;
@@ -35,14 +37,10 @@ const double BRICK_HEIGHT = 20;
 // ### Ball ###
 const double BALL_RADIUS = 10;
 const double BALL_SPEED = 500;
+extern const Vec2 BALL_INITIAL_DIRECTION = Vec2{0, 1};
 
 // ### Walls ###
 const double WALL_THICKNESS = 20;
-
-// ### Lazer size ###
-const double LAZER_WIDTH = RACKET_WIDTH / 5;
-const double LAZER_HEIGHT = 2 * LAZER_WIDTH;
-const double LAZER_SPEED = 10;
 
 // ### Durability of bricks ###
 const uint8_t DURABILITY_STANDARD_BRICK = 1;

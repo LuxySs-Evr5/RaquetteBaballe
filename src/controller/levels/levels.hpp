@@ -9,7 +9,6 @@
 #ifndef LEVELS_HPP
 #define LEVELS_HPP
 
-#include "../../model/ball/ball.hpp"
 #include "../../model/border/border.hpp"
 #include "../../model/brick/brick.hpp"
 #include "../../model/racket/racket.hpp"
@@ -24,7 +23,6 @@ class Levels {
   private:
     unsigned long currentLevel_ = 0;
     vector<vector<shared_ptr<Brick>>> levelBricks_;
-    shared_ptr<Ball> levelBall_;
     shared_ptr<Racket> levelRacket_;
     vector<shared_ptr<Border>> levelBorders_;
 
@@ -61,13 +59,6 @@ class Levels {
      * @return const vector<shared_ptr<Brick>>
      */
     const vector<shared_ptr<Brick>> &getBricks();
-
-    /**
-     * @brief Get the ball of the current level
-     *
-     * @return const Ball
-     */
-    const shared_ptr<Ball> getBall() const;
 
     /**
      * @brief Get the racket of the current level

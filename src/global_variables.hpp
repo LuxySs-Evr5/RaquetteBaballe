@@ -9,6 +9,8 @@
 #ifndef GLOBAL_VARIABLES_HPP
 #define GLOBAL_VARIABLES_HPP
 
+#include "model/vec2/vec2.hpp"
+
 #include <cstdint>
 #include <string>
 
@@ -28,6 +30,7 @@ extern const double FPS;
 // ### Racket ###
 extern const double RACKET_WIDTH;
 extern const double RACKET_HEIGHT;
+extern const double RACKET_Y_POSITION;
 
 // ### Brick ###
 extern const double BRICK_WIDTH;
@@ -36,6 +39,7 @@ extern const double BRICK_HEIGHT;
 // ### Ball ###
 extern const double BALL_RADIUS;
 extern const double BALL_SPEED;
+extern const Vec2 BALL_INITIAL_DIRECTION;
 
 // ### Board ###
 extern const double BOARD_WIDTH;
@@ -43,11 +47,6 @@ extern const double BOARD_HEIGHT;
 
 // ### Walls ###
 extern const double WALL_THICKNESS;
-
-// ### Lazer size ###
-extern const double LAZER_WIDTH;
-extern const double LAZER_HEIGHT;
-extern const double LAZER_SPEED;
 
 // ### Durability of bricks ###
 extern const uint8_t DURABILITY_STANDARD_BRICK;

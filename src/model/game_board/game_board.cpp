@@ -201,11 +201,12 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
     activeBonus_.reset();
 }
 
-// TODO: remove magic numbers
 shared_ptr<Ball> GameBoard::createBall() {
+    double ballSpawnYPos = RACKET_Y_POSITION + BALL_RADIUS + RACKET_WIDTH;
+
     return std::make_shared<Ball>(
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, 85}, Vec2{0, 1}, BALL_RADIUS,
-        BALL_SPEED);
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, ballSpawnYPos},
+        BALL_INITIAL_DIRECTION, BALL_RADIUS, BALL_SPEED);
 }
 
 void GameBoard::splitBallIntoThree(const Ball &originalBall,
