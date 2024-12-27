@@ -127,7 +127,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         } else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "brick");
             BrickIt brickIt = std::get<BrickIt>(*collidingObject);
-            handleBrickCollision(ball, brickIt);
+            pointsEarned += handleBrickCollision(ball, brickIt);
         } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "border");
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);

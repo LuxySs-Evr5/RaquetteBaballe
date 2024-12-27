@@ -113,6 +113,7 @@ class GameBoard final {
      * @param ball The ball.
      * @param brickIt A brick Iterator on the brick on which the collision is
      * happening.
+     * @return The number of points earned from hitting the brick.
      */
     size_t handleBrickCollision(Ball &ball, BrickIt brickIt);
 
