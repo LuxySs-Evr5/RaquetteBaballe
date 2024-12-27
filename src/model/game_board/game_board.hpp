@@ -106,6 +106,21 @@ class GameBoard final {
      */
     void clearBricks();
 
+    /**
+     * @brief Handles the Brick collision and returns the number of points
+     * earned from hitting the brick.
+     *
+     * @param ball The ball.
+     * @param brickIt A brick Iterator on the brick on which the collision is
+     * happening.
+     */
+    size_t handleBrickCollision(Ball &ball, BrickIt brickIt);
+
+    /**
+     * @brief Handles and updates the descending bonus pills.
+     */
+    void handleDescendingBonusses();
+
   public:
     GameBoard() = default;
     GameBoard(const GameBoard &) = delete;

@@ -46,13 +46,53 @@ GameBoard::findNextCollision(Ball &ball) {
     return closestCollision;
 }
 
+size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
+    size_t pointsEarned = 0;
+
+    ball.collide(*brickIt->get());
+    BonusType bonusType =
+        (*brickIt)->hit(); // decrement its durability and extract bonus
+    if ((*brickIt)->isDestroyed()) {
+        Log::get().addMessage(Log::LogType::BrickDestroyed,
+                              std::string{"Brick at "}
+                                  + string{(*brickIt)->getPos()});
+
+        if (bonusType != BonusType::None && numBalls() == 1) {
+            // vertical space between brick and pill centers
+            double verticalSpace =
+                ((*brickIt)->getHeight() / 2) - (BONUS_PILL_HEIGHT / 2.0);
+            Vec2 brickCenter = (*brickIt)->getPos();
+            Vec2 bonusPillCenter{brickCenter.x, brickCenter.y - verticalSpace};
+
+            descendingBonuses_.emplace_back(
+                std::make_unique<BonusPill>(bonusType, bonusPillCenter));
+        }
+
+        pointsEarned += (*brickIt)->getScore();
+        bricks_.erase(brickIt);
+    }
+
+    return pointsEarned;
+}
+
+void GameBoard::handleDescendingBonusses() {
+    for (auto descendingBonusIt = descendingBonuses_.begin();
+         descendingBonusIt != descendingBonuses_.end();) {
+        if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
+            BonusType bonusType = (*descendingBonusIt)->getBonusType();
+            applyBonus(bonusType);
+            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
+        } else {
+            descendingBonusIt++;
+        }
+    }
+}
+
 size_t GameBoard::solveBallCollisions(Ball &ball) {
     size_t pointsEarned = 0;
     bool collided = true;
-
     std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
         collidingObject, prevCollidingObject;
-
     size_t consecutiveCollisions = 0;
 
     do {
@@ -76,38 +116,14 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 
         if (std::holds_alternative<shared_ptr<Racket>>(
                 collidingObject.value())) {
-            Log::get().addMessage(Log::LogType::CollidingObject, "racket");
             shared_ptr<Racket> racket =
                 std::get<shared_ptr<Racket>>(*collidingObject);
-            ball.collide(*racket);
-
+            Log::get().addMessage(Log::LogType::CollidingObject, "racket");
+            ball.collide(*racket_);
         } else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "brick");
             BrickIt brickIt = std::get<BrickIt>(*collidingObject);
-            ball.collide(*brickIt->get());
-            BonusType bonusType =
-                (*brickIt)->hit(); // decrement its durability and extract bonus
-            if ((*brickIt)->isDestroyed()) {
-                Log::get().addMessage(Log::LogType::BrickDestroyed,
-                                      std::string{"Brick at "}
-                                          + string{(*brickIt)->getPos()});
-
-                if (bonusType != BonusType::None && numBalls() == 1) {
-                    // vertical space between brick and pill centers
-                    double verticalSpace = ((*brickIt)->getHeight() / 2)
-                                           - (BONUS_PILL_HEIGHT / 2.0);
-                    Vec2 brickCenter = (*brickIt)->getPos();
-                    Vec2 bonusPillCenter{brickCenter.x,
-                                         brickCenter.y - verticalSpace};
-
-                    descendingBonuses_.emplace_back(std::make_unique<BonusPill>(
-                        bonusType, bonusPillCenter));
-                }
-
-                pointsEarned += (*brickIt)->getScore();
-                bricks_.erase(brickIt);
-            }
-
+            handleBrickCollision(ball, brickIt);
         } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "border");
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);
@@ -118,16 +134,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
 
     } while (collided);
 
-    for (auto descendingBonusIt = descendingBonuses_.begin();
-         descendingBonusIt != descendingBonuses_.end();) {
-        if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
-            BonusType bonusType = (*descendingBonusIt)->getBonusType();
-            applyBonus(bonusType);
-            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
-        } else {
-            descendingBonusIt++;
-        }
-    }
+    handleDescendingBonusses();
 
     return pointsEarned;
 }
