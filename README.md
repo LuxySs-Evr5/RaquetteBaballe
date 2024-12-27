@@ -33,7 +33,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 2. Compile the project:
     ```sh
-    cmake -S . -B ./build/ && make -C build
+    make
     ```
 
 ### On Arch Linux:
@@ -45,7 +45,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 2. Compile the project:
     ```sh
-    cmake -S . -B ./build/ && make -C build
+    make
     ```
 
 ## Usage
