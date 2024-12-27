@@ -49,11 +49,28 @@ GameBoard::findNextCollision(Ball &ball) {
 size_t GameBoard::solveBallCollisions(Ball &ball) {
     size_t pointsEarned = 0;
     bool collided = true;
+
+    std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
+        collidingObject, prevCollidingObject;
+
+    size_t consecutiveCollisions = 0;
+
     do {
-        auto collidingObject = (findNextCollision(ball));
+        collidingObject = (findNextCollision(ball));
 
         collided = collidingObject.has_value();
         if (!collided) {
+            break;
+        }
+
+        if (prevCollidingObject.has_value()
+            && collidingObject == prevCollidingObject) {
+            consecutiveCollisions++;
+        } else {
+            consecutiveCollisions = 1;
+        }
+
+        if (consecutiveCollisions > MAX_CONSECUTIVE_COLLISION) {
             break;
         }
 
@@ -96,6 +113,8 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);
             ball.collide(*borderIt->get());
         }
+
+        prevCollidingObject = collidingObject;
 
     } while (collided);
 
@@ -147,7 +166,7 @@ void GameBoard::applyBonus(BonusType bonusType) {
 
     case BonusType::None:
         break;
-        
+
     default:
         break;
     }
@@ -222,7 +241,8 @@ void GameBoard::update(double deltaTime) {
                 static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
 
             for (auto &ball : balls_) {
-                ball->setSpeed(static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
+                ball->setSpeed(
+                    static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
             }
         }
 
@@ -298,7 +318,9 @@ void GameBoard::resetLifeCounter() { lifeCounter_.reset(); }
 
 void GameBoard::resetScore() { scoreManager_.resetScore(); }
 
-unsigned long GameBoard::getBestScore() const { return scoreManager_.getBestScore(); }
+unsigned long GameBoard::getBestScore() const {
+    return scoreManager_.getBestScore();
+}
 
 void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 

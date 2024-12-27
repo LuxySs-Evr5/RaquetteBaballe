@@ -19,6 +19,8 @@
 using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 
+constexpr size_t MAX_CONSECUTIVE_COLLISION = 3;
+
 class GameBoard final {
   private:
     ScoreManager scoreManager_;
