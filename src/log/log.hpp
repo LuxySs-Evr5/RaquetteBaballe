@@ -33,7 +33,9 @@ class Log {
 
     Log();
 
-    // Convert LogType to string for output
+    /**
+     * @brief Convert LogType to string for output
+     */
     std::string logTypeToString(LogType type) const;
 
   public:
@@ -42,12 +44,30 @@ class Log {
     Log(const Log &) = delete;
     Log &operator=(const Log &) = delete;
 
+    /**
+     * @brief Get the Log Singleton.
+     */
     static Log &get();
 
+    /**
+     * @brief Enable/Disable the given log Type.
+     *
+     * @param type The LogType to enable/disable.
+     * @param enable True to enable, false to disable.
+     */
     void toggleLogType(LogType type, bool enabled);
 
+    /**
+     * @brief Add a new message to the logs in the given log type.
+     *
+     * @param type The log type.
+     * @param message The message.
+     */
     void addMessage(LogType type, const std::string &message);
 
+    /**
+     * @brief Returns the number of lines that have been output.
+     */
     size_t getLinesOutput() const;
 };
 
