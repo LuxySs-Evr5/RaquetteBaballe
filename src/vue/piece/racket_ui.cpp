@@ -7,7 +7,6 @@
  */
 
 #include "racket_ui.hpp"
-#include <allegro5/color.h>
 
 RacketUi::RacketUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}

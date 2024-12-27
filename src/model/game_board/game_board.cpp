@@ -214,7 +214,7 @@ shared_ptr<Ball> GameBoard::createBall() {
     double ballSpawnYPos = RACKET_Y_POSITION + BALL_RADIUS + RACKET_WIDTH;
 
     return std::make_shared<Ball>(
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, ballSpawnYPos},
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS, ballSpawnYPos},
         BALL_INITIAL_DIRECTION, BALL_RADIUS, BALL_SPEED);
 }
 

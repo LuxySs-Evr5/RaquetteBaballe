@@ -19,20 +19,20 @@
 LevelManager::LevelManager() {
     // Create the racket
     racket_ = make_shared<Racket>(BoundingBox{
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, RACKET_Y_POSITION - 1},
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS, RACKET_Y_POSITION},
         RACKET_WIDTH, RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because
                                        // the board has a left border
 
     // Left wall
     borders_.emplace_back(make_shared<Border>(
-        BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}));
+        BoundingBox{Vec2{0, BOARD_HEIGHT}, Vec2{WALL_THICKNESS, 0}}));
     // Top wall
     borders_.emplace_back(make_shared<Border>(BoundingBox{
-        Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_WIDTH + WALL_THICKNESS - 1,
-                                        BOARD_HEIGHT - WALL_THICKNESS - 1}}));
+        Vec2{0, BOARD_HEIGHT}, Vec2{BOARD_WIDTH + WALL_THICKNESS,
+                                        BOARD_HEIGHT - WALL_THICKNESS}}));
     // Right wall
     borders_.emplace_back(make_shared<Border>(
-        BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
+        BoundingBox{Vec2{SCREEN_WIDTH - WALL_THICKNESS, BOARD_HEIGHT},
                     Vec2{SCREEN_WIDTH, 0}}));
 
     loadBricks();

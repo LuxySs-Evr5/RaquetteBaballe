@@ -20,13 +20,13 @@ void Racket::setWidth(double newWidth) { boundingBox_.setWidth(newWidth); }
 void Racket::setHeight(double newHeight) { boundingBox_.setHeight(newHeight); }
 
 void Racket::setPosX(double posX) {
-    if (posX < WALL_THICKNESS + (boundingBox_.getWidth() / 2)) {
-        posX = WALL_THICKNESS + (boundingBox_.getWidth() / 2);
+    if (posX <= WALL_THICKNESS + (boundingBox_.getWidth() / 2)) {
+        posX = WALL_THICKNESS + (boundingBox_.getWidth() / 2) + 1; // +1 because because otherwise the racket will be by 1 pixel in the wall
     }
 
     else if (posX
-             > (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2)) {
-        posX = (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2);
+             >= (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2)) {
+        posX = (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2) - 1; // -1 because because otherwise the racket will be by 1 pixel in the wall
     }
     boundingBox_.setCenter(Vec2{posX, getPos().y});
 }

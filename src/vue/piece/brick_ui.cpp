@@ -9,9 +9,6 @@
 #include "brick_ui.hpp"
 #include "../../model/brick/brick.hpp"
 
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
                  ALLEGRO_FONT *fontBrick)
     : Rectangle(center, width, height, color), fontBrick_(fontBrick) {}
