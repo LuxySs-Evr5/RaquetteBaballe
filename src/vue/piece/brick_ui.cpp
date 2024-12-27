@@ -33,8 +33,7 @@ void BrickUi::draw(const Brick &brick) {
 
     if (brick.hasBonus()) {
         float y = center_.y
-                  - (static_cast<int>(BRICK_HEIGHT)
-                     / 2.0); // Sart at the top of the brick
+                  - static_cast<float>(BRICK_HEIGHT / 2.0); // Sart at the top of the brick
         al_draw_text(
             fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
             "B"); // draw a B in the center of the brick if it has a bonus

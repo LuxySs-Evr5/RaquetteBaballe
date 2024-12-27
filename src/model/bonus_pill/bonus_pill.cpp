@@ -1,6 +1,6 @@
 #include "bonus_pill.hpp"
 
-BonusPill::BonusPill(BonusType bonusType, struct Vec2 pos)
+BonusPill::BonusPill(BonusType bonusType, Vec2 pos)
     : boundingBox_{pos, BONUS_PILL_WIDTH, BONUS_PILL_HEIGHT},
       bonusType_{bonusType}, descentSpeed_{DESCENT_SPEED} {}
 
@@ -16,7 +16,7 @@ bool BonusPill::checkCollision(const BoundingBox &boundingBox) {
 
 const Vec2 &BonusPill::getPos() const { return boundingBox_.getCenter(); }
 
-const BoundingBox &BonusPill::getBoundingBox() { return boundingBox_; }
+const BoundingBox &BonusPill::getBoundingBox() const { return boundingBox_; }
 
 double BonusPill::getWidth() const { return boundingBox_.getWidth(); }
 

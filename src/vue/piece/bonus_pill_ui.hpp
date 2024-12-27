@@ -35,6 +35,7 @@ class BonusPillUi final : public Rectangle {
      * @brief Draw the racket
      *
      */
+    using Rectangle::draw;
     void draw(const BonusPill &bonusPill);
 };
 

@@ -34,7 +34,7 @@ class BonusPill {
     /**
      * @brief Returns the BonusPill's BoundingBox.
      */
-    const BoundingBox &getBoundingBox();
+    const BoundingBox &getBoundingBox() const;
 
     /**
      * @brief Returns the BonusPill's width.

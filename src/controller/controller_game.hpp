@@ -24,7 +24,7 @@ class ControllerGame {
     bool draw_ = false;      // if we need to draw the game
     double lastTime_ = 0;    // last time we checked the time
     double currentTime_ = 0; // current time
-    int bestScore_ = 0;      // best score of the player
+    unsigned long bestScore_ = 0;      // best score of the player
 
     // Levels, View and Model variables
     shared_ptr<GameBoard> gameBoard_;

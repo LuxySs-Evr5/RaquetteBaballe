@@ -227,7 +227,7 @@ class GameBoard final {
     /**
      * Returns the best score.
      */
-    int getBestScore() const;
+    unsigned long getBestScore() const;
 
     /**
      * @brief Resets the best score.

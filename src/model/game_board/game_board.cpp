@@ -145,6 +145,9 @@ void GameBoard::applyBonus(BonusType bonusType) {
         ++lifeCounter_;
         break;
 
+    case BonusType::None:
+        break;
+        
     default:
         break;
     }
@@ -154,11 +157,17 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
     switch (bonusType) {
     case BonusType::SlowDown:
         for (auto &ball : balls_) {
-            ball->setSpeed(BALL_SPEED);
+            ball->setSpeed(static_cast<unsigned int>(BALL_SPEED));
         }
         break;
     case BonusType::WideRacket:
         racket_->setWidth(RACKET_WIDTH);
+        break;
+    case BonusType::SplitBall:
+        break;
+    case BonusType::ExtraLife:
+        break;
+    case BonusType::None:
         break;
     default:
         break;
@@ -177,11 +186,11 @@ shared_ptr<Ball> GameBoard::createBall() {
 void GameBoard::splitBallIntoThree(const Ball &originalBall,
                                    std::vector<shared_ptr<Ball>> &newBalls) {
     Vec2 originalDir = originalBall.getDirvec();
-    float angle = std::atan2(originalDir.y, originalDir.x);
-    float spread = M_PI / 8;
+    double angle = std::atan2(originalDir.y, originalDir.x);
+    double spread = M_PI / 8;
 
     for (int i = 0; i < 2; ++i) {
-        float newAngle = angle + (i == 0 ? -spread : spread);
+        double newAngle = angle + (i == 0 ? -spread : spread);
 
         shared_ptr<Ball> newBall = std::make_shared<Ball>(originalBall);
         newBall->setDirVec(Vec2(std::cos(newAngle), std::sin(newAngle)));
@@ -213,7 +222,7 @@ void GameBoard::update(double deltaTime) {
                 static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
 
             for (auto &ball : balls_) {
-                ball->setSpeed(BALL_SPEED / slowDownFactor);
+                ball->setSpeed(static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
             }
         }
 
@@ -289,7 +298,7 @@ void GameBoard::resetLifeCounter() { lifeCounter_.reset(); }
 
 void GameBoard::resetScore() { scoreManager_.resetScore(); }
 
-int GameBoard::getBestScore() const { return scoreManager_.getBestScore(); }
+unsigned long GameBoard::getBestScore() const { return scoreManager_.getBestScore(); }
 
 void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 

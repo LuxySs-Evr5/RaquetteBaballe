@@ -22,7 +22,7 @@ using namespace std;
 
 class Levels {
   private:
-    int currentLevel_ = 0;
+    unsigned long currentLevel_ = 0;
     vector<vector<shared_ptr<Brick>>> levelBricks_;
     shared_ptr<Ball> levelBall_;
     shared_ptr<Racket> levelRacket_;

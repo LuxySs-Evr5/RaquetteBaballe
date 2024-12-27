@@ -122,7 +122,7 @@ void Ball::collide(const Bounceable &bounceable) {
             unidirectionalPenetration.y / changeBetweenLastUpdate.y;
 
     } else if ((bounceType == BounceType::Vertical)
-               && changeBetweenLastUpdate.x != 0) {
+               && (changeBetweenLastUpdate.x != 0)) {
         penetrationRate =
             unidirectionalPenetration.x / changeBetweenLastUpdate.x;
     }

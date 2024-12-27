@@ -41,6 +41,7 @@ class BrickUi final : public Rectangle {
      * @brief Draw the brick
      *
      */
+    using Rectangle::draw;
     void draw(const Brick &brick);
 
     /**
