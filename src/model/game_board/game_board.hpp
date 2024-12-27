@@ -118,8 +118,10 @@ class GameBoard final {
 
     /**
      * @brief Handles and updates the descending bonus pills.
+     *
+     * @param deltaTime The time elapsed since the last update.
      */
-    void handleDescendingBonusses();
+    void handleDescendingBonusses(double deltaTime);
 
   public:
     GameBoard() = default;

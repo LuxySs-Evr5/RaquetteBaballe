@@ -75,10 +75,14 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
     return pointsEarned;
 }
 
-void GameBoard::handleDescendingBonusses() {
+void GameBoard::handleDescendingBonusses(double deltaTime) {
     for (auto descendingBonusIt = descendingBonuses_.begin();
          descendingBonusIt != descendingBonuses_.end();) {
-        if ((*descendingBonusIt)->checkCollision(racket_->getBoundingBox())) {
+        (*descendingBonusIt)->update(deltaTime);
+        if ((*descendingBonusIt)->getPos().y < 0) {
+            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
+        } else if ((*descendingBonusIt)
+                       ->checkCollision(racket_->getBoundingBox())) {
             BonusType bonusType = (*descendingBonusIt)->getBonusType();
             applyBonus(bonusType);
             descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
@@ -133,8 +137,6 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         prevCollidingObject = collidingObject;
 
     } while (collided);
-
-    handleDescendingBonusses();
 
     return pointsEarned;
 }
@@ -237,15 +239,7 @@ void GameBoard::update(double deltaTime) {
         return;
     }
 
-    for (auto descendingBonusIt = descendingBonuses_.begin();
-         descendingBonusIt != descendingBonuses_.end();) {
-        (*descendingBonusIt)->update(deltaTime);
-        if ((*descendingBonusIt)->getPos().y < 0) {
-            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
-        } else {
-            descendingBonusIt++;
-        }
-    }
+    handleDescendingBonusses(deltaTime);
 
     if (activeBonus_ != nullptr) {
         bool isActive = activeBonus_->update(deltaTime);
