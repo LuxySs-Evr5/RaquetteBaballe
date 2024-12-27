@@ -34,19 +34,6 @@ ControllerGame::~ControllerGame() {
 void ControllerGame::process() {
     while (!done_) {
 
-        currentTime_ = al_get_time();
-        double deltaTime = currentTime_ - lastTime_; // Time between two ticks
-        lastTime_ = currentTime_;                    // Update the last time
-
-        al_get_mouse_state(&mouseState_); // get the mouse state
-
-        gameBoard_->setRacketAtX(static_cast<double>(
-            mouseState_.x)); // move the racket with the mouse
-
-        gameBoard_->update(deltaTime); // update the game board
-
-        checkWinOrLose(); // check if the game is won or lost
-
         al_wait_for_event(queue_, nullptr);
 
         while (al_get_next_event(queue_, &event_)) { // get the next event
@@ -92,7 +79,19 @@ void ControllerGame::checkEventType() {
     }
 
     if (event_.type == ALLEGRO_EVENT_TIMER) {
+        checkWinOrLose(); // check if the game is won or lost
         draw_ = true;
+        currentTime_ = al_get_time();
+        double deltaTime = currentTime_ - lastTime_; // Time between two ticks
+        lastTime_ = currentTime_;                    // Update the last time
+
+        al_get_mouse_state(&mouseState_); // get the mouse state
+
+        gameBoard_->setRacketAtX(static_cast<double>(
+            mouseState_.x)); // move the racket with the mouse
+
+        gameBoard_->update(deltaTime); // update the game board
+
     }
 
     if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
