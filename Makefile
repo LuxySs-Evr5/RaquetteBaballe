@@ -6,7 +6,7 @@ else
 endif
 
 BUILD_DIR = ./build/
-OUTPUT_DIR = ./build/
+OUTPUT_DIR = ./
 
 all:
 	@cmake -S . -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$(abspath $(OUTPUT_DIR))

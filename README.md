@@ -24,26 +24,30 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 
 ## Installation
 
-### On Debian-based systems:
+### On Debian-based systems
 
-1. Install the required dependencies (g++, make, and Allegro):
+1. Install the required dependencies (g++, make, and Allegro)
+
     ```sh
     sudo apt install g++ make cmake liballegro5-dev
     ```
 
-2. Compile the project:
+2. Compile the project
+
     ```sh
     make
     ```
 
-### On Arch Linux:
+### On Arch Linux
 
-1. Install the required dependencies (g++, make, and Allegro):
+1. Install the required dependencies (g++, make, and Allegro)
+
     ```sh
     sudo pacman -S gcc make cmake allegro
     ```
 
-2. Compile the project:
+2. Compile the project
+
     ```sh
     make
     ```
@@ -51,10 +55,10 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 ## Usage
 
 To start the game, run the following command:
-```sh
-./build/arkanoid
-```
 
+```sh
+./arkanoid
+```
 
 ## Game Controls
 
@@ -66,8 +70,13 @@ To start the game, run the following command:
 - `q` : Quit the game
 
 ## Game Bonus
-There are several bonuses available in the game. They will be displayed with the letter `B` in the brick containing the bonus. You have to collect the bonus with the racket. Here is a list of the different bonuses :
+
+There are several bonuses available in the game. They will be displayed with
+the letter `B` in the brick containing the bonus. You have to collect the
+bonus with the racket. Here is a list of the different bonuses :
+
 - Reduce the ball's speed
 - Expand the racket's width
 - Gain an extra life
-- Split the ball into three instances of itself. When this bonus is active, no other bonuses will drop
+- Split the ball into three instances of itself. When this bonus is
+active, no other bonuses will drop
