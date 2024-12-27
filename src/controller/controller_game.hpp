@@ -13,6 +13,7 @@
 
 #include <allegro5/allegro.h>
 #include <bitset>
+#include <sys/types.h>
 
 using namespace std;
 
@@ -21,8 +22,7 @@ class ControllerGame {
     // Game variables
     bool done_ = false;      // if the game is done
     bool draw_ = false;      // if we need to draw the game
-    double lastTime_ = 0;    // last time we checked the time
-    double currentTime_ = 0; // current time
+    u_int8_t numberOfTick = 0;   // number of ticks
 
     // Model, LevelManager and View
     shared_ptr<GameBoard> gameBoard_;

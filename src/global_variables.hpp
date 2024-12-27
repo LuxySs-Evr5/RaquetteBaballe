@@ -27,6 +27,11 @@ extern const float SCREEN_WIDTH;
 extern const float SCREEN_HEIGHT;
 extern const double FPS;
 
+// ### Board ###
+extern const double BOARD_WIDTH;
+extern const double BOARD_HEIGHT;
+extern const double UPS;
+
 // ### Racket ###
 extern const double RACKET_WIDTH;
 extern const double RACKET_HEIGHT;
@@ -40,10 +45,6 @@ extern const double BRICK_HEIGHT;
 extern const double BALL_RADIUS;
 extern const double BALL_SPEED;
 extern const Vec2 BALL_INITIAL_DIRECTION;
-
-// ### Board ###
-extern const double BOARD_WIDTH;
-extern const double BOARD_HEIGHT;
 
 // ### Walls ###
 extern const double WALL_THICKNESS;

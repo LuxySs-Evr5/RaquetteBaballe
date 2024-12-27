@@ -76,17 +76,20 @@ void ControllerGame::checkEventType() {
 
     if (event_.type == ALLEGRO_EVENT_TIMER) {
         checkWinOrLose(); // check if the game is won or lost
-        draw_ = true;
-        currentTime_ = al_get_time();
-        double deltaTime = currentTime_ - lastTime_; // Time between two ticks
-        lastTime_ = currentTime_;                    // Update the last time
-
+                          // 
         al_get_mouse_state(&mouseState_); // get the mouse state
 
         gameBoard_->setRacketAtX(static_cast<double>(
             mouseState_.x)); // move the racket with the mouse
 
-        gameBoard_->update(deltaTime); // update the game board
+        gameBoard_->update(1.0 / UPS); // update the game board
+
+        if (numberOfTick >= UPS / FPS) {
+            draw_ = true; // draw the game (125 FPS)
+            numberOfTick = 0;
+        } else {
+            numberOfTick++;
+        }
     }
 
     if (event_.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -161,7 +164,6 @@ void ControllerGame::loadLevel() {
 
     // Start the timer
     al_start_timer(timer_);
-    lastTime_ = al_get_time(); // get the time at the beginning of the game
 }
 
 void ControllerGame::setupAllegro() {
@@ -180,7 +182,7 @@ void ControllerGame::setupAllegro() {
         exit(-1);
     }
 
-    timer_ = al_create_timer(1.0 / FPS);
+    timer_ = al_create_timer(1.0 / UPS);
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);

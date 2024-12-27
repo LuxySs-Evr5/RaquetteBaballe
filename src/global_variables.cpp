@@ -19,11 +19,12 @@ const string PATH_TO_LEVELS = "ressources/levels/";
 // ### Screen ###
 const float SCREEN_WIDTH = 1020;
 const float SCREEN_HEIGHT = 1080;
-const double FPS = 360;
+const double FPS = 125;
 
 // ### Board ###
 const double BOARD_WIDTH = 980;
 const double BOARD_HEIGHT = 980;
+const double UPS = 500;
 
 // ### Racket ###
 const double RACKET_WIDTH = 100;
