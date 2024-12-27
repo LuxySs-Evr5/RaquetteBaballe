@@ -13,6 +13,7 @@ This project is an implementation inspired by the classic Arkanoid game, develop
 - Multiple levels encoded in `.txt` files
 - Bricks of different colors awarding varying points
 - Special bricks (silver and gold) with unique behaviors
+- Game bonus on on some bricks
 
 ## Prerequisites
 
@@ -66,7 +67,6 @@ To start the game, run the following command:
 - `←` : Move to the previous level
 - `→` : Move to the next level
 - `a` : Reset the current level
-- `espace` : Shoot a laser when available
 - `q` : Quit the game
 
 ## Game Bonus
