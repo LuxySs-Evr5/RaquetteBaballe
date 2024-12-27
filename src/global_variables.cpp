@@ -18,7 +18,7 @@ const string PATH_TO_LEVELS = "ressources/levels/";
 // ### Screen ###
 const float SCREEN_WIDTH = 1020;
 const float SCREEN_HEIGHT = 1080;
-const double FPS = 60;
+const double FPS = 360;
 
 // ### Board ###
 const double BOARD_WIDTH = 980;

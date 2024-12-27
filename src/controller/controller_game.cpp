@@ -185,7 +185,7 @@ void ControllerGame::setupAllegro() {
         exit(-1);
     }
 
-    timer_ = al_create_timer(1.0 / 360);
+    timer_ = al_create_timer(1.0 / FPS);
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
         exit(-1);
