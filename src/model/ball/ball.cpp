@@ -115,9 +115,9 @@ void Ball::collide(const Bounceable &bounceable) {
                           changeBetweenLastUpdate);
 
     double penetrationRate = 1; // Default to 1 to prevent 0-division
-    if ((bounceType == BounceType::Horizontal)
-        || (bounceType == BounceType::Corner)
-               && (changeBetweenLastUpdate.y != 0)) {
+    if (((bounceType == BounceType::Horizontal)
+         || (bounceType == BounceType::Corner))
+        && (changeBetweenLastUpdate.y != 0)) {
         penetrationRate =
             unidirectionalPenetration.y / changeBetweenLastUpdate.y;
 

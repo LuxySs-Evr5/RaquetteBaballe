@@ -10,8 +10,8 @@ constexpr double DESCENT_SPEED = 200;
 
 class BonusPill {
   private:
-    BonusType bonusType_;
     BoundingBox boundingBox_;
+    BonusType bonusType_;
     double descentSpeed_;
 
   public:

@@ -20,11 +20,11 @@ class ControllerGame {
   private:
     // ### Private Variables ###
     // Game variables
-    bool done_ = false;      // if the game is done
-    bool draw_ = false;      // if we need to draw the game
-    double lastTime_ = 0;    // last time we checked the time
-    double currentTime_ = 0; // current time
-    unsigned long bestScore_ = 0;      // best score of the player
+    bool done_ = false;           // if the game is done
+    bool draw_ = false;           // if we need to draw the game
+    double lastTime_ = 0;         // last time we checked the time
+    double currentTime_ = 0;      // current time
+    unsigned long bestScore_ = 0; // best score of the player
 
     // Levels, View and Model variables
     shared_ptr<GameBoard> gameBoard_;
