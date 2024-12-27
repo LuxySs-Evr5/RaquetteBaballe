@@ -31,7 +31,7 @@ class AbstractTimedBonus {
     /**
      * @brief Reapplies the bonus one more time.
      */
-    virtual void reapply() {};
+    virtual void reapply(){};
 };
 
 #endif

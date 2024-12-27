@@ -15,7 +15,7 @@
 #include "../piece/wall_ui.hpp"
 
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
-    : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
+    : gameBoard_(gameBoard), fontBrick_(fontBrick){};
 
 void Canvas::draw() {
     for (auto &border : borders_) {

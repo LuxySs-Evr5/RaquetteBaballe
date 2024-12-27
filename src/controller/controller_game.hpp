@@ -35,8 +35,8 @@ class ControllerGame {
     ALLEGRO_EVENT event_;
     ALLEGRO_MOUSE_STATE mouseState_;
 
-    bitset<ALLEGRO_KEY_MAX>
-        key_; // table of bit for all keyboard keys set to false
+    // Bitset for registering the keyboard key presses.
+    bitset<ALLEGRO_KEY_MAX> key_;
 
     /**
      * @brief Draw the game by calling the displayGame_ draw method

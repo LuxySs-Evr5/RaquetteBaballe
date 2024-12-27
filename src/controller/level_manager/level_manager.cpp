@@ -18,20 +18,20 @@
 
 LevelManager::LevelManager() {
     // Create the racket
-    levelRacket_ = make_shared<Racket>(BoundingBox{
+    racket_ = make_shared<Racket>(BoundingBox{
         Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS - 1, RACKET_Y_POSITION - 1},
         RACKET_WIDTH, RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because
                                        // the board has a left border
 
     // Left wall
-    levelBorders_.emplace_back(make_shared<Border>(
+    borders_.emplace_back(make_shared<Border>(
         BoundingBox{Vec2{0, BOARD_HEIGHT - 1}, Vec2{WALL_THICKNESS - 1, 0}}));
     // Top wall
-    levelBorders_.emplace_back(make_shared<Border>(BoundingBox{
+    borders_.emplace_back(make_shared<Border>(BoundingBox{
         Vec2{0, BOARD_HEIGHT - 1}, Vec2{BOARD_WIDTH + WALL_THICKNESS - 1,
                                         BOARD_HEIGHT - WALL_THICKNESS - 1}}));
     // Right wall
-    levelBorders_.emplace_back(make_shared<Border>(
+    borders_.emplace_back(make_shared<Border>(
         BoundingBox{Vec2{BOARD_WIDTH + WALL_THICKNESS - 1, BOARD_HEIGHT - 1},
                     Vec2{SCREEN_WIDTH, 0}}));
 
@@ -135,13 +135,13 @@ void LevelManager::loadBricks() {
                             Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
                 convertBonusFromString(bonus)));
         }
-        levelBricks_.emplace_back(bricks);
+        bricksPerLevel_.emplace_back(bricks);
         file.close();
     }
 }
 
 void LevelManager::nextLevel() {
-    if (currentLevel_ < levelBricks_.size() - 1) {
+    if (currentLevel_ < bricksPerLevel_.size() - 1) {
         ++currentLevel_;
     }
 }
@@ -153,13 +153,11 @@ void LevelManager::previousLevel() {
 }
 
 const vector<shared_ptr<Brick>> &LevelManager::getBricks() {
-    return levelBricks_[currentLevel_];
+    return bricksPerLevel_[currentLevel_];
 }
 
-const shared_ptr<Racket> &LevelManager::getRacket() const {
-    return levelRacket_;
-}
+const shared_ptr<Racket> &LevelManager::getRacket() const { return racket_; }
 
 const vector<shared_ptr<Border>> &LevelManager::getBorders() const {
-    return levelBorders_;
+    return borders_;
 }

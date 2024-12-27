@@ -22,9 +22,9 @@ using namespace std;
 class LevelManager {
   private:
     unsigned long currentLevel_ = 0;
-    vector<vector<shared_ptr<Brick>>> levelBricks_;
-    shared_ptr<Racket> levelRacket_;
-    vector<shared_ptr<Border>> levelBorders_;
+    vector<vector<shared_ptr<Brick>>> bricksPerLevel_;
+    shared_ptr<Racket> racket_;
+    vector<shared_ptr<Border>> borders_;
 
     /**
      * @brief Load the bricks of the current level by reading a file in
