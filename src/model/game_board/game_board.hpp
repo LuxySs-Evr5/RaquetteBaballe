@@ -55,6 +55,11 @@ class GameBoard final {
     size_t solveBallCollisions(Ball &ball);
 
     /**
+     * @brief Creates a new ball.
+     */
+    shared_ptr<Ball> createBall();
+
+    /**
      * @brief Applies the given bonus.
      */
     void applyBonus(BonusType bonusType);
@@ -65,9 +70,9 @@ class GameBoard final {
     void undoBonusEffect(BonusType bonusType);
 
     /**
-     * @brief Creates a new ball.
+     * @brief Returns the number of balls currently active.
      */
-    shared_ptr<Ball> createBall();
+    size_t numBalls();
 
     // #### Bonus Split into 3 ####
 

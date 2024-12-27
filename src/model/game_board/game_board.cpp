@@ -92,7 +92,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
                                       std::string{"Brick at "}
                                           + string{(*brickIt)->getPos()});
 
-                if (bonusType != BonusType::None && balls_.size() == 1) {
+                if (bonusType != BonusType::None && numBalls() == 1) {
                     // vertical space between brick and pill centers
                     double verticalSpace = ((*brickIt)->getHeight() / 2)
                                            - (BONUS_PILL_HEIGHT / 2.0);
@@ -132,7 +132,13 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
     return pointsEarned;
 }
 
+size_t GameBoard::numBalls() { return balls_.size(); }
+
 void GameBoard::applyBonus(BonusType bonusType) {
+    if (numBalls() > 1) {
+        return;
+    }
+
     if (activeBonus_ != nullptr && activeBonus_->getBonusType() != bonusType) {
         undoBonusEffect(activeBonus_->getBonusType());
     }
@@ -254,7 +260,7 @@ void GameBoard::update(double deltaTime) {
 
     // NOTE: Don't use iterators here because solveBallCollisions could
     // append to balls_ invalidating our iterator.
-    for (size_t ballIdx = 0; ballIdx < balls_.size();) {
+    for (size_t ballIdx = 0; ballIdx < numBalls();) {
         Log::get().addMessage(Log::LogType::BallPos,
                               balls_.at(ballIdx)->getPos());
 
