@@ -46,6 +46,11 @@ extern const double BALL_RADIUS;
 extern const double BALL_SPEED;
 extern const Vec2 BALL_INITIAL_DIRECTION;
 
+// ### Bonus Pill ###
+extern const double BONUS_PILL_WIDTH;
+extern const double BONUS_PILL_HEIGHT;
+extern const double BONUS_PILL_DESCENT_SPEED;
+
 // ### Walls ###
 extern const double WALL_THICKNESS;
 

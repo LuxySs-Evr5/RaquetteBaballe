@@ -56,14 +56,9 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
                                   + string{(*brickIt)->getCenter()});
 
         if (bonusType != BonusType::None && numBalls() == 1) {
-            // TODO: this could be improved using getTop, getBottom etc
-
-            // vertical space between brick and pill centers
-            double verticalSpace =
-                ((*brickIt)->getHeight() / 2) - (BONUS_PILL_HEIGHT / 2.0);
-            Vec2 brickCenter = (*brickIt)->getCenter();
-            Vec2 bonusPillCenter{brickCenter.x, brickCenter.y - verticalSpace};
-
+            Vec2 bonusPillCenter{(*brickIt)->getCenter().x,
+                                 (*brickIt)->getBottom()
+                                     - (BONUS_PILL_HEIGHT / 2)};
             descendingBonuses_.emplace_back(
                 std::make_unique<BonusPill>(bonusPillCenter, bonusType));
         }

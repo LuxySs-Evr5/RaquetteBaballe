@@ -40,6 +40,11 @@ const double BALL_RADIUS = 10;
 const double BALL_SPEED = 500;
 extern const Vec2 BALL_INITIAL_DIRECTION = Vec2{0, 1};
 
+// ### Bonus Pill ###
+constexpr double BONUS_PILL_WIDTH = 10;
+constexpr double BONUS_PILL_HEIGHT = 10;
+constexpr double BONUS_PILL_DESCENT_SPEED = 200;
+
 // ### Walls ###
 const double WALL_THICKNESS = 20;
 

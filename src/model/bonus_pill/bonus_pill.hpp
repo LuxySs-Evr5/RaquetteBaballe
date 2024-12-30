@@ -4,11 +4,6 @@
 #include "../bonus_type/bonus_type.hpp"
 #include "../rectangle_shape/rectangle_shape.hpp"
 
-// TODO: move this to global variables
-constexpr double BONUS_PILL_WIDTH = 10;
-constexpr double BONUS_PILL_HEIGHT = 10;
-constexpr double DESCENT_SPEED = 200;
-
 class BonusPill : public RectangleShape {
   private:
     BonusType bonusType_;
