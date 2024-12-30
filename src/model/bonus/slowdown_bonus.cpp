@@ -1,4 +1,5 @@
 #include "slowdown_bonus.hpp"
+#include "../../global_variables.hpp"
 
 #include <numeric>
 

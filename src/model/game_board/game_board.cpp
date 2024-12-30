@@ -160,7 +160,6 @@ void GameBoard::applyBonus(BonusType bonusType) {
         activeBonus_ = make_unique<BasicTimedBonus>(BonusType::WideRacket);
         racket_->setWidth(WIDE_RACKET_WIDTH);
         break;
-
     case BonusType::SplitBall: {
         vector<shared_ptr<Ball>> newBalls;
         for (const std::shared_ptr<Ball> &ball : balls_) {
@@ -172,10 +171,8 @@ void GameBoard::applyBonus(BonusType bonusType) {
     case BonusType::ExtraLife:
         ++lifeCounter_;
         break;
-
     case BonusType::None:
         break;
-
     default:
         break;
     }

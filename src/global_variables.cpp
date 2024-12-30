@@ -9,6 +9,8 @@
 #include "global_variables.hpp"
 #include "model/vec2/vec2.hpp"
 
+// TODO: const or constexpr ?
+
 // ### Different paths ###
 const char *PATH_TO_FONT =
     "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
@@ -38,12 +40,16 @@ const double BRICK_HEIGHT = 20;
 // ### Ball ###
 const double BALL_RADIUS = 10;
 const double BALL_SPEED = 500;
-extern const Vec2 BALL_INITIAL_DIRECTION = Vec2{0, 1};
+const Vec2 BALL_INITIAL_DIRECTION = Vec2{0, 1};
+
+// SlowDown Bonus
+const double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
+const double SLOW_DOWN_DURATION = 10;
 
 // ### Bonus Pill ###
-constexpr double BONUS_PILL_WIDTH = 10;
-constexpr double BONUS_PILL_HEIGHT = 10;
-constexpr double BONUS_PILL_DESCENT_SPEED = 200;
+const double BONUS_PILL_WIDTH = 10;
+const double BONUS_PILL_HEIGHT = 10;
+const double BONUS_PILL_DESCENT_SPEED = 200;
 
 // ### Walls ###
 const double WALL_THICKNESS = 20;

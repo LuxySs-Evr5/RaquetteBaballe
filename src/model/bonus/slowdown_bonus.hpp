@@ -1,13 +1,10 @@
 #ifndef SLOWDOWN_BONUS_HPP
 #define SLOWDOWN_BONUS_HPP
 
+#include "../../global_variables.hpp"
 #include "abstract_timed_bonus.hpp"
 
 #include <vector>
-
-// SlowDown
-constexpr double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
-constexpr double SLOW_DOWN_DURATION = 10;
 
 class SlowDownBonus final : public AbstractTimedBonus {
   private:

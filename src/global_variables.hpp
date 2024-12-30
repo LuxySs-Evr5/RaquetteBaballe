@@ -51,6 +51,10 @@ extern const double BONUS_PILL_WIDTH;
 extern const double BONUS_PILL_HEIGHT;
 extern const double BONUS_PILL_DESCENT_SPEED;
 
+// SlowDown Bonus
+extern const double SLOW_DOWN_PROPORTIAL_CONST;
+extern const double SLOW_DOWN_DURATION;
+
 // ### Walls ###
 extern const double WALL_THICKNESS;
 
