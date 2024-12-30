@@ -199,9 +199,9 @@ class GameBoard final {
     /**
      * @brief Sets the racket's horizontal coordinate.
      *
-     * @param posX The racket's horizontal coordinate.
+     * @param centerX The racket's horizontal coordinate.
      */
-    void setRacketAtX(double posX);
+    void setRacketAtX(double centerX);
 
     /**
      * @brief Sets the bricks.

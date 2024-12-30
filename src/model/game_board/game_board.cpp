@@ -293,7 +293,7 @@ unsigned long GameBoard::getScore() const {
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
-void GameBoard::setRacketAtX(double posX) { racket_->setCenterX(posX); }
+void GameBoard::setRacketAtX(double centerX) { racket_->setCenterX(centerX); }
 
 const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
     return balls_;

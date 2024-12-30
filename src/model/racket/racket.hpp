@@ -5,9 +5,6 @@
 #include "../vec2/vec2.hpp"
 
 class Racket final : public Bounceable {
-  private:
-    Vec2 previousPosition_;
-
   public:
     /**
      * @brief Constructs a new Racket.

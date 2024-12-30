@@ -108,7 +108,7 @@ class RectangleShape {
     Vec2 getBottomRight() const noexcept;
 
     /**
-     * @brief Returns true if overlaps with the given bounding-box.
+     * @brief Returns true if overlaps with the given RectangleShape.
      */
     bool isOverlapping(const RectangleShape &other);
 };
