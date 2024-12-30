@@ -2,7 +2,6 @@
 
 #include "../../log/log.hpp"
 #include "../bounceable/bounceable.hpp"
-#include "../bounding_box/bounding_box.hpp"
 
 #include <cmath>
 #include <string>
@@ -10,21 +9,21 @@
 // NOTE: this only does the direction vector part of the bounce
 // actual bounce logic is in collide function
 void Ball::bounce(const Bounceable &bounceable) {
-    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
+    Vec2 closestPoint = getClosestPoint(bounceable);
 
     dirVec_ = bounceable.getDirVecAfterBounce(closestPoint, dirVec_);
 }
 
-Vec2 Ball::getClosestPoint(const BoundingBox &boundingBox) const {
-    Vec2 boundingBoxHalfExtents{boundingBox.getWidth() / 2,
-                                boundingBox.getHeight() / 2};
+Vec2 Ball::getClosestPoint(const RectangleShape &rectangle) const {
+    Vec2 rectangleHalfExtents{rectangle.getWidth() / 2,
+                              rectangle.getHeight() / 2};
 
-    Vec2 distance = pos_ - boundingBox.getCenter();
+    Vec2 distance = pos_ - rectangle.getCenter();
 
     Vec2 clamped =
-        distance.clamped(-boundingBoxHalfExtents, boundingBoxHalfExtents);
+        distance.clamped(-rectangleHalfExtents, rectangleHalfExtents);
 
-    Vec2 closestPoint = clamped + boundingBox.getCenter();
+    Vec2 closestPoint = clamped + rectangle.getCenter();
 
     return closestPoint;
 }
@@ -35,7 +34,7 @@ bool Ball::hasReached(const Vec2 &point) const {
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
-Ball::Ball(Vec2 pos, Vec2 directionVec, double radius, double speed)
+Ball::Ball(const Vec2 &pos, Vec2 directionVec, double radius, double speed)
     : pos_{pos}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
 
@@ -49,10 +48,11 @@ void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 
 void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec; }
 
-Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
+Vec2 Ball::getUnidirectionalPenetration(
+    const RectangleShape &rectangleShape) const {
     Vec2 closestPoint =
-        getClosestPoint(boundingBox); // Closest point from the ball's center,
-                                      // on the bounding-box's edge
+        getClosestPoint(rectangleShape); // Closest point from the ball's
+                                         // center, on the rectangleShape's edge
 
     Vec2 posToClosestPoint{
         closestPoint - pos_}; // Vector from ball's center to closest point
@@ -63,14 +63,14 @@ Vec2 Ball::getUnidirectionalPenetration(const BoundingBox &boundingBox) const {
                                         // 0 degree from the circle's center
 
     // The point on the circle in the direction of the closestPoint
-    Vec2 pointInBoundingBox{pos_.x + radius_ * cos(angleRad),
-                            pos_.y + radius_ * sin(angleRad)};
+    Vec2 pointInRectangle{pos_.x + radius_ * cos(angleRad),
+                          pos_.y + radius_ * sin(angleRad)};
 
-    return pointInBoundingBox - closestPoint;
+    return pointInRectangle - closestPoint;
 }
 
-bool Ball::checkCollision(const BoundingBox &boundingBox) const {
-    Vec2 closestVec2 = getClosestPoint(boundingBox);
+bool Ball::checkCollision(const RectangleShape &rectangleShape) const {
+    Vec2 closestVec2 = getClosestPoint(rectangleShape);
 
     return hasReached(closestVec2);
 }
@@ -78,21 +78,18 @@ bool Ball::checkCollision(const BoundingBox &boundingBox) const {
 void Ball::collide(const Bounceable &bounceable) {
     Log::get().addMessage(Log::LogType::DirVec, getDirvec());
 
-    Log::get().addMessage(
-        Log::LogType::CollidingObject,
-        std::string{"topLeft: "}
-            + std::string{bounceable.getBoundingBox().getTopLeft()});
-    Log::get().addMessage(
-        Log::LogType::CollidingObject,
-        std::string{"bottomRight: "}
-            + std::string{bounceable.getBoundingBox().getBottomRight()});
+    Log::get().addMessage(Log::LogType::CollidingObject,
+                          std::string{"topLeft: "}
+                              + std::string{bounceable.getTopLeft()});
+    Log::get().addMessage(Log::LogType::CollidingObject,
+                          std::string{"bottomRight: "}
+                              + std::string{bounceable.getBottomRight()});
 
-    Vec2 unidirectionalPenetration =
-        getUnidirectionalPenetration(bounceable.getBoundingBox());
+    Vec2 unidirectionalPenetration = getUnidirectionalPenetration(bounceable);
     Log::get().addMessage(Log::LogType::Unidirectional,
                           std::string{unidirectionalPenetration});
 
-    Vec2 closestPoint = getClosestPoint(bounceable.getBoundingBox());
+    Vec2 closestPoint = getClosestPoint(bounceable);
     Log::get().addMessage(Log::LogType::ClosestPoint,
                           std::string{closestPoint});
 
@@ -131,7 +128,7 @@ void Ball::collide(const Bounceable &bounceable) {
                               + std::string{getDirvec()});
 
     // Add back the distance that the ball should have travelled instead of
-    // going inside the bounding-box
+    // going inside the Bounceable
     pos_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 

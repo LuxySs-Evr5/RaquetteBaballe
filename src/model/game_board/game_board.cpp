@@ -16,10 +16,9 @@ GameBoard::findNextCollision(Ball &ball) {
 
     auto checkCollisions = [&](auto &elements, auto &closestCollision) {
         for (auto it = elements.begin(); it != elements.end(); ++it) {
-            if (ball.checkCollision((*it)->getBoundingBox())) {
+            if (ball.checkCollision(**it)) {
                 double distanceCurrentCollision =
-                    ball.getUnidirectionalPenetration((*it)->getBoundingBox())
-                        .getModule();
+                    ball.getUnidirectionalPenetration((**it)).getModule();
 
                 if (distanceCurrentCollision < distanceClosestCollision) {
                     closestCollision = it;
@@ -32,10 +31,9 @@ GameBoard::findNextCollision(Ball &ball) {
     checkCollisions(bricks_, closestCollision);
     checkCollisions(borders_, closestCollision);
 
-    if (racket_ && ball.checkCollision(racket_->getBoundingBox())) {
+    if (racket_ && ball.checkCollision(*racket_)) {
         double distanceCurrentCollision =
-            ball.getUnidirectionalPenetration(racket_->getBoundingBox())
-                .getModule();
+            ball.getUnidirectionalPenetration(*racket_).getModule();
 
         if (distanceCurrentCollision < distanceClosestCollision) {
             closestCollision = racket_;
@@ -55,17 +53,19 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
     if ((*brickIt)->isDestroyed()) {
         Log::get().addMessage(Log::LogType::BrickDestroyed,
                               std::string{"Brick at "}
-                                  + string{(*brickIt)->getPos()});
+                                  + string{(*brickIt)->getCenter()});
 
         if (bonusType != BonusType::None && numBalls() == 1) {
+            // TODO: this could be improved using getTop, getBottom etc
+
             // vertical space between brick and pill centers
             double verticalSpace =
                 ((*brickIt)->getHeight() / 2) - (BONUS_PILL_HEIGHT / 2.0);
-            Vec2 brickCenter = (*brickIt)->getPos();
+            Vec2 brickCenter = (*brickIt)->getCenter();
             Vec2 bonusPillCenter{brickCenter.x, brickCenter.y - verticalSpace};
 
             descendingBonuses_.emplace_back(
-                std::make_unique<BonusPill>(bonusType, bonusPillCenter));
+                std::make_unique<BonusPill>(bonusPillCenter, bonusType));
         }
 
         pointsEarned += (*brickIt)->getScore();
@@ -79,10 +79,9 @@ void GameBoard::handleDescendingBonusses(double deltaTime) {
     for (auto descendingBonusIt = descendingBonuses_.begin();
          descendingBonusIt != descendingBonuses_.end();) {
         (*descendingBonusIt)->update(deltaTime);
-        if ((*descendingBonusIt)->getPos().y < 0) {
+        if ((*descendingBonusIt)->getCenter().y < 0) {
             descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
-        } else if ((*descendingBonusIt)
-                       ->checkCollision(racket_->getBoundingBox())) {
+        } else if ((*descendingBonusIt)->isOverlapping(*racket_)) {
             BonusType bonusType = (*descendingBonusIt)->getBonusType();
             applyBonus(bonusType);
             descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
@@ -293,7 +292,7 @@ unsigned long GameBoard::getScore() const {
 
 const LifeCounter &GameBoard::getLife() const { return lifeCounter_; }
 
-void GameBoard::setRacketAtX(double posX) { racket_->setPosX(posX); }
+void GameBoard::setRacketAtX(double posX) { racket_->setCenterX(posX); }
 
 const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
     return balls_;

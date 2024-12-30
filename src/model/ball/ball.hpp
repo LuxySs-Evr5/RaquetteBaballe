@@ -3,7 +3,7 @@
 
 #include "../../global_variables.hpp"
 #include "../bounceable/bounceable.hpp"
-#include "../bounding_box/bounding_box.hpp"
+#include "../rectangle_shape/rectangle_shape.hpp"
 #include "../vec2/vec2.hpp"
 
 #include <math.h>
@@ -30,9 +30,9 @@ class Ball final {
 
     /**
      * @brief Returns the closest point from the ball laying on the
-     * boundingBox's perimeter.
+     * RectangleShape's perimeter.
      */
-    Vec2 getClosestPoint(const BoundingBox &boundingBox) const;
+    Vec2 getClosestPoint(const RectangleShape &rectangle) const;
 
   public:
     /**
@@ -43,7 +43,7 @@ class Ball final {
      * @param radius The radius.
      * @param speed The speed.
      */
-    Ball(Vec2 pos, Vec2 directionVec, double radius = BALL_RADIUS,
+    Ball(const Vec2 &pos, Vec2 directionVec, double radius = BALL_RADIUS,
          double speed = BALL_SPEED);
 
     Ball(const Ball &other) = default;
@@ -85,20 +85,22 @@ class Ball final {
 
     /**
      * @brief Returns the unidirectional-penetration-vector corresponding to the
-     * given boundingBox.
-     * @param boundingBox The BoundingBox.
+     * given rectangleShape.
+     * @param rectangleShape The RectangleShape.
      */
-    Vec2 getUnidirectionalPenetration(const BoundingBox &boundingBox) const;
+    Vec2
+    getUnidirectionalPenetration(const RectangleShape &rectangleShape) const;
 
     /**
-     * @brief Checks whether the ball has collided with the given BoundingBox.
-     * @param boundingBox The BoundingBox.
+     * @brief Checks whether the ball has collided with the given
+     * RectangleShape.
+     * @param rectangleShape The RectangleShape.
      */
-    bool checkCollision(const BoundingBox &boundingBox) const;
+    bool checkCollision(const RectangleShape &rectangleShape) const;
 
     /**
      * @brief Solves the collision between the ball and the given bounceable.
-     * @param boundingBox The bounceable.
+     * @param bounceable The bounceable.
      */
     void collide(const Bounceable &bounceable);
 

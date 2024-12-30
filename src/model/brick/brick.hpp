@@ -4,7 +4,6 @@
 #include "../../global_variables.hpp"
 #include "../bonus_type/bonus_type.hpp"
 #include "../bounceable/bounceable.hpp"
-#include "../bounding_box/bounding_box.hpp"
 #include <memory>
 
 /**
@@ -33,31 +32,35 @@ class Brick : public Bounceable {
   protected:
     /**
      * @brief Constructs a new Brick.
-     * @param boudingBox The brick's BoudingBox.
+     * @param center The brick's center.
+     * @param width The brick's width.
+     * @param height The brick's height.
      * @param color The brick's color.
      * @param durability The brick's durability.
      * @param bonusType The bonus held contained in the brick.
      */
-    Brick(const BoundingBox &boundingBox, Color color,
+    Brick(const Vec2 &center, double width, double height, Color color,
           uint8_t durability = DURABILITY_STANDARD_BRICK,
           BonusType bonusType = BonusType::None);
 
     Brick(const Brick &) = default;
-    Brick(Brick &&) = default;
-    Brick &operator=(const Brick &) = default;
-    Brick &operator=(Brick &&) = default;
+    Brick(Brick &&) = delete;
+    Brick &operator=(const Brick &) = delete;
+    Brick &operator=(Brick &&) = delete;
 
   public:
     virtual ~Brick();
 
     /**
      * @brief Brick factory. Returns a unique pointer to a new Brick.
+     * @param center The brick's center.
+     * @param width The brick's width.
+     * @param height The brick's height.
      * @param color The brick's color.
-     * @param boundingBox The brick's BoundingBox.
      * @param bonusType The bonus held contained in the brick.
      */
     static std::unique_ptr<Brick>
-    makeBrick(Color color, BoundingBox boundingBox,
+    makeBrick(const Vec2 &center, double width, double height, Color color,
               BonusType bonusType = BonusType::None);
 
     /**
@@ -67,51 +70,41 @@ class Brick : public Bounceable {
     virtual BonusType hit();
 
     /**
-     * @brief Returns the brick's width.
-     */
-    virtual double getWidth() const final;
-
-    /**
-     * @brief Returns the brick's height.
-     */
-    virtual double getHeight() const final;
-
-    /**
-     * @brief Returns the brick's position.
-     */
-    virtual const Vec2 &getPos() const final;
-
-    /**
      * @brief Returns the brick's color.
      */
-    virtual Color getColor() const final;
+    virtual Color getColor() const;
 
     /**
      * @brief Returns the score awarded for destroying the brick.
      */
-    virtual size_t getScore() const final;
+    virtual size_t getScore() const;
 
     /**
      * @brief Returns the brick's durability (how many times to hit it left
      * before it should be destroyed).
      */
-    virtual uint8_t getDurability() const final;
+    virtual uint8_t getDurability() const;
 
     /**
      * @brief Returns the brick's durability (hits remaining before
      * destruction).
      */
-    virtual bool isDestroyed() const final;
+    virtual bool isDestroyed() const;
 
     /**
      * @brief Returns the type of bonus contained in the brick.
      */
-    virtual BonusType getBonusType() const final;
+    virtual BonusType getBonusType() const;
 
     /**
      * @brief Returns true if the brick contains a bonus.
      */
-    virtual bool hasBonus() const final;
+    virtual bool hasBonus() const;
+
+    /**
+     * @brief Returns a pointer to a cloned brick.
+     */
+    virtual std::shared_ptr<Brick> clone() = 0;
 };
 
 #endif

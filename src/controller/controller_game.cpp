@@ -137,8 +137,7 @@ void ControllerGame::loadLevel() {
         copyBricks; // a copy of the bricks of the level to
                     // avoid modifying the original bricks
     for (const auto &brick : levelManager_->getBricks()) {
-        copyBricks.emplace_back(Brick::makeBrick(
-            brick->getColor(), brick->getBoundingBox(), brick->getBonusType()));
+        copyBricks.emplace_back(brick->clone());
     }
 
     shared_ptr<Racket> racketCopy =
@@ -197,10 +196,10 @@ void ControllerGame::setupAllegro() {
 
 void ControllerGame::handleTick() {
     checkWinOrLose();
-         
+
     al_get_mouse_state(&mouseState_);
-    gameBoard_->setRacketAtX(static_cast<double>(
-        mouseState_.x)); // move the racket with the mouse
+    gameBoard_->setRacketAtX(
+        static_cast<double>(mouseState_.x)); // move the racket with the mouse
 
     gameBoard_->update(1.0 / UPS);
 

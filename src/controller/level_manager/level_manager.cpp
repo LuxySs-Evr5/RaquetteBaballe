@@ -18,22 +18,22 @@
 
 LevelManager::LevelManager() {
     // Create the racket
-    racket_ = make_shared<Racket>(BoundingBox{
-        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS, RACKET_Y_POSITION},
-        RACKET_WIDTH, RACKET_HEIGHT}); // + BOARD_BOUNDINGS_THICKNESS because
-                                       // the board has a left border
+    racket_ = make_shared<Racket>(
+        Vec2{BOARD_WIDTH / 2 + WALL_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH,
+        RACKET_HEIGHT); // + BOARD_BOUNDINGS_THICKNESS because
+                        // the board has a left border
 
     // Left wall
-    borders_.emplace_back(make_shared<Border>(
-        BoundingBox{Vec2{0, BOARD_HEIGHT}, Vec2{WALL_THICKNESS, 0}}));
+    borders_.emplace_back(
+        make_shared<Border>(Vec2{0, BOARD_HEIGHT}, Vec2{WALL_THICKNESS, 0}));
     // Top wall
-    borders_.emplace_back(make_shared<Border>(BoundingBox{
-        Vec2{0, BOARD_HEIGHT}, Vec2{BOARD_WIDTH + WALL_THICKNESS,
-                                        BOARD_HEIGHT - WALL_THICKNESS}}));
-    // Right wall
     borders_.emplace_back(make_shared<Border>(
-        BoundingBox{Vec2{SCREEN_WIDTH - WALL_THICKNESS, BOARD_HEIGHT},
-                    Vec2{SCREEN_WIDTH, 0}}));
+        Vec2{0, BOARD_HEIGHT},
+        Vec2{BOARD_WIDTH + WALL_THICKNESS, BOARD_HEIGHT - WALL_THICKNESS}));
+    // Right wall
+    borders_.emplace_back(
+        make_shared<Border>(Vec2{SCREEN_WIDTH - WALL_THICKNESS, BOARD_HEIGHT},
+                            Vec2{SCREEN_WIDTH, 0}));
 
     loadBricks();
 }
@@ -130,10 +130,8 @@ void LevelManager::loadBricks() {
             x += WALL_THICKNESS; // because the board has a left border
             y += WALL_THICKNESS; // because the board has a top border
             bricks.emplace_back(Brick::makeBrick(
-                convertColorFromString(color),
-                BoundingBox{Vec2{x - BRICK_WIDTH / 2, y - BRICK_HEIGHT / 2},
-                            Vec2{x + BRICK_WIDTH / 2, y + BRICK_HEIGHT / 2}},
-                convertBonusFromString(bonus)));
+                Vec2{x, y}, BRICK_WIDTH, BRICK_HEIGHT,
+                convertColorFromString(color), convertBonusFromString(bonus)));
         }
         bricksPerLevel_.emplace_back(bricks);
         file.close();

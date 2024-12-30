@@ -2,20 +2,20 @@
 #define BONUS_PILL_HPP
 
 #include "../bonus_type/bonus_type.hpp"
-#include "../bounding_box/bounding_box.hpp"
+#include "../rectangle_shape/rectangle_shape.hpp"
 
+// TODO: move this to global variables
 constexpr double BONUS_PILL_WIDTH = 10;
 constexpr double BONUS_PILL_HEIGHT = 10;
 constexpr double DESCENT_SPEED = 200;
 
-class BonusPill {
+class BonusPill : public RectangleShape {
   private:
-    BoundingBox boundingBox_;
     BonusType bonusType_;
     double descentSpeed_;
 
   public:
-    BonusPill(BonusType bonusType, Vec2 pos);
+    BonusPill(const Vec2 &center, BonusType bonusType);
     BonusPill(const BonusPill &) = default;
     BonusPill(BonusPill &&) = default;
 
@@ -23,35 +23,9 @@ class BonusPill {
     BonusPill &operator=(BonusPill &&) = default;
 
     /**
-     * @brief Returns the BonusPill's position.
-     */
-    const Vec2 &getPos() const;
-
-    /**
-     * @brief Returns the BonusPill's BoundingBox.
-     */
-    const BoundingBox &getBoundingBox() const;
-
-    /**
-     * @brief Returns the BonusPill's width.
-     */
-    double getWidth() const;
-
-    /**
-     * @brief Returns the BonusPill's height.
-     */
-    double getHeight() const;
-
-    /**
      * @brief Returns the BonusPill's BonusType.
      */
     BonusType getBonusType() const;
-
-    /**
-     * @brief Checks whether the BonusPill has collided with the given
-     * BoundingBox.
-     */
-    bool checkCollision(const BoundingBox &boundingBox);
 
     /**
      * @brief Updates the BonusPill's position as if it had travelled for a

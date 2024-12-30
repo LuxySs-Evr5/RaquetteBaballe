@@ -10,21 +10,22 @@ class BasicBrick final : public Brick {
   public:
     /**
      * @brief Constructs a new BasicBrick.
-     * @param boudingBox The brick's BoudingBox.
+     * @param center The brick's center.
+     * @param width The brick's width.
+     * @param height The brick's height.
      * @param color The brick's color.
      * @param durability The brick's durability.
      * @param bonusType The bonus held contained in the brick.
      */
-    BasicBrick(BoundingBox boundingBox, Color color, uint8_t durability,
-               BonusType bonusType = BonusType::None);
-
-    BasicBrick(const BasicBrick &) = default;
-    BasicBrick(BasicBrick &&) = default;
-
-    BasicBrick &operator=(const BasicBrick &) = default;
-    BasicBrick &operator=(BasicBrick &&) = default;
+    BasicBrick(const Vec2 &center, double width, double height, Color color,
+               uint8_t durability, BonusType bonusType = BonusType::None);
 
     virtual ~BasicBrick() = default;
+
+    /**
+     * @brief Implements Brick::clone.
+     */
+    virtual std::shared_ptr<Brick> clone();
 };
 
 #endif

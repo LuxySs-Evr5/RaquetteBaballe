@@ -10,14 +10,11 @@ class GoldBrick final : public Brick {
   public:
     /**
      * @brief Constructs a new GoldBrick.
-     * @param boudingBox The BoudingBox.
+     * @param center The brick's center.
+     * @param width The brick's width.
+     * @param height The brick's height.
      */
-    GoldBrick(BoundingBox boundingBox);
-    GoldBrick(const GoldBrick &) = default;
-    GoldBrick(GoldBrick &&) = default;
-
-    GoldBrick &operator=(const GoldBrick &) = default;
-    GoldBrick &operator=(GoldBrick &&) = default;
+    GoldBrick(const Vec2 &center, double width, double height);
 
     virtual ~GoldBrick() = default;
 
@@ -25,6 +22,11 @@ class GoldBrick final : public Brick {
      * @brief Hit the golden brick (doesn't have any effect).
      */
     virtual BonusType hit() override; // Gold bricks are never destroyed
+
+    /**
+     * @brief Implements Brick::clone.
+     */
+    virtual std::shared_ptr<Brick> clone();
 };
 
 #endif

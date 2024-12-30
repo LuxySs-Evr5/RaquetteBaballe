@@ -20,35 +20,26 @@ std::string bounceTypeToString(BounceType bounceType) {
     }
 }
 
-Bounceable::Bounceable(Vec2 pos, double width, double height)
-    : boundingBox_(pos, width, height) {}
+Bounceable::Bounceable(const Vec2 &center, double width, double height)
+    : RectangleShape(center, width, height) {}
 
-Bounceable::Bounceable(Vec2 topLeft, Vec2 bottomRight)
-    : boundingBox_(topLeft, bottomRight) {}
-
-Bounceable::Bounceable(const BoundingBox &boundingBox)
-    : boundingBox_(boundingBox) {}
+Bounceable::Bounceable(const Vec2 &topLeft, const Vec2 &bottomRight)
+    : RectangleShape(topLeft, bottomRight) {}
 
 Bounceable::~Bounceable() = default;
 
-const BoundingBox &Bounceable::getBoundingBox() const { return boundingBox_; }
-
 BounceType Bounceable::getBounceType(const Vec2 &point) const {
-    if (point == boundingBox_.getTopLeft()
-        or point == boundingBox_.getTopRight()
-        or point == boundingBox_.getBottomLeft()
-        or point == boundingBox_.getBottomRight()) {
+    if (point == getTopLeft() or point == getTopRight()
+        or point == getBottomLeft() or point == getBottomRight()) {
 
         return BounceType::Corner;
-    } else if (point.x == boundingBox_.getLeft()
-               or point.x == boundingBox_.getRight()) {
+    } else if (point.x == getLeft() or point.x == getRight()) {
         return BounceType::Vertical;
-    } else if (point.y == boundingBox_.getBottom()
-               or point.y == boundingBox_.getTop()) {
+    } else if (point.y == getBottom() or point.y == getTop()) {
         return BounceType::Horizontal;
     } else {
         throw std::runtime_error{
-            "point is not on a the Bounding Box's perimeter"};
+            "point is not on a the Bounceable's perimeter"};
     }
 }
 

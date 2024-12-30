@@ -12,18 +12,11 @@ class Racket final : public Bounceable {
     /**
      * @brief Constructs a new Racket.
      *
-     * @param pos The racket's position.
+     * @param center The racket's position.
      * @param width The racket's width.
      * @param height The racket's height.
      */
-    Racket(const Vec2 &pos, double width, double height);
-
-    /**
-     * @brief Constructs a new Racket.
-     *
-     * @param boundingBox The racket's BoundingBox.
-     */
-    Racket(const BoundingBox &boundingBox);
+    Racket(const Vec2 &center, double width, double height);
 
     Racket(const Racket &other) = default;
     Racket(Racket &&) = default;
@@ -33,40 +26,11 @@ class Racket final : public Bounceable {
     virtual ~Racket() = default;
 
     /**
-     * @brief Returns the racket's width.
-     */
-    double getWidth() const;
-
-    /**
-     * @brief Returns the racket's height.
-     */
-    double getHeight() const;
-
-    /**
-     * @brief Returns the racket's position.
-     */
-    Vec2 getPos() const;
-
-    /**
-     * @brief Sets the racket's width.
-     *
-     * @param newWidth The new width.
-     */
-    void setWidth(double newWidth);
-
-    /**
-     * @brief Sets the racket's height.
-     *
-     * @param newHeight The new height.
-     */
-    void setHeight(double newHeight);
-
-    /**
      * @brief Sets the racket's position.
      *
-     * @param newHeight The new position.
+     * @param centerX The new x-axis position.
      */
-    void setPosX(double posX);
+    void setCenterX(double centerX);
 
     /**
      * @brief Calculates the ball's new direction vector after bouncing off the

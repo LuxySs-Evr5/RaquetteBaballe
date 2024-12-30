@@ -3,32 +3,22 @@
 #include "../vec2/vec2.hpp"
 #include <cmath>
 
-Racket::Racket(const BoundingBox &boundingBox) : Bounceable(boundingBox) {}
+Racket::Racket(const Vec2 &center, double width, double height)
+    : Bounceable{center, width, height} {}
 
-Racket::Racket(const Vec2 &pos, double width, double height)
-    : Bounceable{pos - Vec2{width / 2, height / 2},
-                 pos + Vec2{width / 2, height / 2}} {}
-
-double Racket::getWidth() const { return boundingBox_.getWidth(); }
-
-double Racket::getHeight() const { return boundingBox_.getHeight(); }
-
-Vec2 Racket::getPos() const { return boundingBox_.getCenter(); }
-
-void Racket::setWidth(double newWidth) { boundingBox_.setWidth(newWidth); }
-
-void Racket::setHeight(double newHeight) { boundingBox_.setHeight(newHeight); }
-
-void Racket::setPosX(double posX) {
-    if (posX <= WALL_THICKNESS + (boundingBox_.getWidth() / 2)) {
-        posX = WALL_THICKNESS + (boundingBox_.getWidth() / 2) + 1; // +1 because because otherwise the racket will be by 1 pixel in the wall
+void Racket::setCenterX(double centerX) {
+    if (centerX <= WALL_THICKNESS + (getWidth() / 2)) {
+        centerX = WALL_THICKNESS + (getWidth() / 2)
+                  + 1; // +1 because because otherwise the racket will be by 1
+                       // pixel in the wall
     }
 
-    else if (posX
-             >= (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2)) {
-        posX = (BOARD_WIDTH + WALL_THICKNESS) - (boundingBox_.getWidth() / 2) - 1; // -1 because because otherwise the racket will be by 1 pixel in the wall
+    else if (centerX >= (BOARD_WIDTH + WALL_THICKNESS) - (getWidth() / 2)) {
+        centerX = (BOARD_WIDTH + WALL_THICKNESS) - (getWidth() / 2)
+                  - 1; // -1 because because otherwise the racket will be by 1
+                       // pixel in the wall
     }
-    boundingBox_.setCenter(Vec2{posX, getPos().y});
+    setCenter(Vec2{centerX, getCenter().y});
 }
 
 Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
@@ -39,15 +29,13 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
     // racket way
     if ((bounceType == BounceType::Horizontal
          || bounceType == BounceType::Corner)
-        && closestPoint.y == boundingBox_.getTop()) {
+        && closestPoint.y == getTop()) {
 
-        Vec2 leftSide =
-            boundingBox_.getCenter() - Vec2{boundingBox_.getWidth() / 2, 0};
+        Vec2 leftSide = getCenter() - Vec2{getWidth() / 2, 0};
 
         double distFromLeftSide = closestPoint.x - leftSide.x;
 
-        double bounceAngle =
-            30 + 120 * (1 - (distFromLeftSide / boundingBox_.getWidth()));
+        double bounceAngle = 30 + 120 * (1 - (distFromLeftSide / getWidth()));
 
         // Convert bounceAngle to radians
         double bounceAngleRad = bounceAngle * M_PI / 180.0;

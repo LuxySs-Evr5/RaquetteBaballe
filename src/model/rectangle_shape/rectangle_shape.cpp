@@ -1,4 +1,4 @@
-#include "bounding_box.hpp"
+#include "rectangle_shape.hpp"
 #include "../vec2/vec2.hpp"
 
 BoundingBox::BoundingBox(const Vec2 &center, double width, double height)

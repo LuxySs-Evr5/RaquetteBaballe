@@ -1,7 +1,7 @@
 #ifndef BOUNCEABLE_HPP
 #define BOUNCEABLE_HPP
 
-#include "../bounding_box/bounding_box.hpp"
+#include "../rectangle_shape/rectangle_shape.hpp"
 #include "../vec2/vec2.hpp"
 
 enum class BounceType { Vertical, Horizontal, Corner };
@@ -12,18 +12,24 @@ enum class BounceType { Vertical, Horizontal, Corner };
  */
 std::string bounceTypeToString(BounceType bounceType);
 
-class Bounceable {
-  protected:
-    BoundingBox boundingBox_;
-
+class Bounceable : public RectangleShape {
   protected:
     /**
      * @brief Constructs a new Bounceable.
-     * @param boundingBox the BoundingBox.
+     *
+     * @param center The center coordinate.
+     * @param width The width.
+     * @param height The height.
      */
-    Bounceable(const BoundingBox &boundingBox);
-    Bounceable(Vec2 pos, double width, double height);
-    Bounceable(Vec2 topLeft, Vec2 bottomRight);
+    Bounceable(const Vec2 &center, double width, double height);
+
+    /**
+     * @brief Constructs a new Bounceable.
+     *
+     * @param topLeft The top-left corner coordinate.
+     * @param bottomRight The bottom-right corner coordinate.
+     */
+    Bounceable(const Vec2 &topLeft, const Vec2 &bottomRight);
     Bounceable(const Bounceable &other) = default;
     Bounceable(Bounceable &&) = default;
     Bounceable &operator=(const Bounceable &) = default;
@@ -31,11 +37,6 @@ class Bounceable {
 
   public:
     virtual ~Bounceable();
-
-    /**
-     * @brief Returns the Bounceable's BoundingBox.
-     */
-    const BoundingBox &getBoundingBox() const;
 
     /**
      * @brief Calculates the ball's new direction vector after bouncing off the

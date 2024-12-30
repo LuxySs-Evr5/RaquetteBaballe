@@ -1,23 +1,23 @@
 #include "brick.hpp"
-#include "../bounding_box/bounding_box.hpp"
 #include "basic_brick.hpp"
 #include "gold_brick.hpp"
 #include <memory>
 
-Brick::Brick(const BoundingBox &boundingBox, Color color, uint8_t durability,
-             BonusType bonusType)
-    : Bounceable{boundingBox}, color_{color}, durability_{durability},
+Brick::Brick(const Vec2 &center, double width, double height, Color color,
+             uint8_t durability, BonusType bonusType)
+    : Bounceable{center, width, height}, color_{color}, durability_{durability},
       bonusType_(bonusType) {}
 
-std::unique_ptr<Brick> Brick::makeBrick(Color color, BoundingBox boundingBox,
+std::unique_ptr<Brick> Brick::makeBrick(const Vec2 &center, double width,
+                                        double height, Color color,
                                         BonusType bonusType) {
     if (color == Color::gold) {
-        return std::make_unique<GoldBrick>(boundingBox);
+        return std::make_unique<GoldBrick>(center, width, height);
     } else if (color == Color::silver) {
-        return std::make_unique<BasicBrick>(boundingBox, color,
+        return std::make_unique<BasicBrick>(center, width, height, color,
                                             DURABILITY_SILVER_BRICK, bonusType);
     }
-    return std::make_unique<BasicBrick>(boundingBox, color,
+    return std::make_unique<BasicBrick>(center, width, height, color,
                                         DURABILITY_STANDARD_BRICK, bonusType);
 }
 
@@ -32,12 +32,6 @@ BonusType Brick::hit() { // this is default behavior
     }
     return BonusType::None;
 }
-
-double Brick::getWidth() const { return getBoundingBox().getWidth(); }
-
-double Brick::getHeight() const { return getBoundingBox().getHeight(); }
-
-const Vec2 &Brick::getPos() const { return getBoundingBox().getCenter(); }
 
 Color Brick::getColor() const { return color_; }
 
