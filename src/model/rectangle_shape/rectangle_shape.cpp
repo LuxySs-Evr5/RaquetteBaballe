@@ -1,60 +1,60 @@
 #include "rectangle_shape.hpp"
 #include "../vec2/vec2.hpp"
 
-BoundingBox::BoundingBox(const Vec2 &center, double width, double height)
+RectangleShape::RectangleShape(const Vec2 &center, double width, double height)
     : center_(center), width_{width}, height_{height} {}
 
-BoundingBox::BoundingBox(const Vec2 &topLeft, const Vec2 &bottomRight)
+RectangleShape::RectangleShape(const Vec2 &topLeft, const Vec2 &bottomRight)
     : center_{(Vec2{(topLeft.x + bottomRight.x) / 2,
                     (topLeft.y + bottomRight.y) / 2})},
       width_{std::abs(bottomRight.x - topLeft.x)},
       height_{std::abs(topLeft.y - bottomRight.y)} {}
 
-void BoundingBox::setCenter(const Vec2 &centerPos) { center_ = centerPos; }
+void RectangleShape::setCenter(const Vec2 &centerPos) { center_ = centerPos; }
 
-void BoundingBox::setWidth(double newWidth) { width_ = newWidth; }
+void RectangleShape::setWidth(double newWidth) { width_ = newWidth; }
 
-void BoundingBox::setHeight(double newHeight) { height_ = newHeight; }
+void RectangleShape::setHeight(double newHeight) { height_ = newHeight; }
 
-const Vec2 &BoundingBox::getCenter() const noexcept { return center_; }
+const Vec2 &RectangleShape::getCenter() const noexcept { return center_; }
 
-double BoundingBox::getWidth() const noexcept { return width_; }
+double RectangleShape::getWidth() const noexcept { return width_; }
 
-double BoundingBox::getHeight() const noexcept { return height_; }
+double RectangleShape::getHeight() const noexcept { return height_; }
 
-double BoundingBox::getLeft() const noexcept {
+double RectangleShape::getLeft() const noexcept {
     return center_.x - getWidth() / 2;
 }
 
-double BoundingBox::getRight() const noexcept {
+double RectangleShape::getRight() const noexcept {
     return center_.x + getWidth() / 2;
 }
 
-double BoundingBox::getBottom() const noexcept {
+double RectangleShape::getBottom() const noexcept {
     return center_.y - getHeight() / 2;
 }
 
-double BoundingBox::getTop() const noexcept {
+double RectangleShape::getTop() const noexcept {
     return center_.y + getHeight() / 2;
 }
 
-Vec2 BoundingBox::getTopLeft() const noexcept {
+Vec2 RectangleShape::getTopLeft() const noexcept {
     return Vec2{getLeft(), getTop()};
 }
 
-Vec2 BoundingBox::getTopRight() const noexcept {
+Vec2 RectangleShape::getTopRight() const noexcept {
     return Vec2{getRight(), getTop()};
 }
 
-Vec2 BoundingBox::getBottomLeft() const noexcept {
+Vec2 RectangleShape::getBottomLeft() const noexcept {
     return Vec2{getLeft(), getBottom()};
 }
 
-Vec2 BoundingBox::getBottomRight() const noexcept {
+Vec2 RectangleShape::getBottomRight() const noexcept {
     return Vec2{getRight(), getBottom()};
 }
 
-bool BoundingBox::isOverlapping(const BoundingBox &other) {
+bool RectangleShape::isOverlapping(const RectangleShape &other) {
     // X-axis check
     if (getRight() < other.getLeft() || other.getRight() < getLeft()) {
         return false;

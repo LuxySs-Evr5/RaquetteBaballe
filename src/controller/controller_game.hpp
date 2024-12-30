@@ -20,9 +20,9 @@ using namespace std;
 class ControllerGame {
   private:
     // Game variables
-    bool done_ = false;      // if the game is done
-    bool draw_ = false;      // if we need to draw the game
-    u_int8_t numberOfTick = 0;   // number of ticks
+    bool done_ = false;        // if the game is done
+    bool draw_ = false;        // if we need to draw the game
+    u_int8_t numberOfTick = 0; // number of ticks
 
     // Model, LevelManager and View
     shared_ptr<GameBoard> gameBoard_;

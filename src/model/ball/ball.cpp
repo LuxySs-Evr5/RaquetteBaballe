@@ -18,7 +18,7 @@ Vec2 Ball::getClosestPoint(const RectangleShape &rectangle) const {
     Vec2 rectangleHalfExtents{rectangle.getWidth() / 2,
                               rectangle.getHeight() / 2};
 
-    Vec2 distance = pos_ - rectangle.getCenter();
+    Vec2 distance = center_ - rectangle.getCenter();
 
     Vec2 clamped =
         distance.clamped(-rectangleHalfExtents, rectangleHalfExtents);
@@ -29,18 +29,18 @@ Vec2 Ball::getClosestPoint(const RectangleShape &rectangle) const {
 }
 
 bool Ball::hasReached(const Vec2 &point) const {
-    double deltaX = point.x - pos_.x;
-    double deltaY = point.y - pos_.y;
+    double deltaX = point.x - center_.x;
+    double deltaY = point.y - center_.y;
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
-Ball::Ball(const Vec2 &pos, Vec2 directionVec, double radius, double speed)
-    : pos_{pos}, dirVec_{directionVec.normalize()}, radius_{radius},
+Ball::Ball(const Vec2 &center, Vec2 directionVec, double radius, double speed)
+    : center_{center}, dirVec_{directionVec.normalize()}, radius_{radius},
       speed_{speed} {}
 
 double Ball::getRadius() const noexcept { return radius_; }
 
-const Vec2 &Ball::getPos() const noexcept { return pos_; }
+const Vec2 &Ball::getCenter() const noexcept { return center_; }
 
 const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
@@ -54,17 +54,17 @@ Vec2 Ball::getUnidirectionalPenetration(
         getClosestPoint(rectangleShape); // Closest point from the ball's
                                          // center, on the rectangleShape's edge
 
-    Vec2 posToClosestPoint{
-        closestPoint - pos_}; // Vector from ball's center to closest point
+    Vec2 centerToClosestPoint{
+        closestPoint - center_}; // Vector from ball's center to closest point
 
     double angleRad =
-        atan2(closestPoint.y - pos_.y,
-              closestPoint.x - pos_.x); // Angle between closestPoint and the
-                                        // 0 degree from the circle's center
+        atan2(closestPoint.y - center_.y,
+              closestPoint.x - center_.x); // Angle between closestPoint and the
+                                           // 0 degree from the circle's center
 
     // The point on the circle in the direction of the closestPoint
-    Vec2 pointInRectangle{pos_.x + radius_ * cos(angleRad),
-                          pos_.y + radius_ * sin(angleRad)};
+    Vec2 pointInRectangle{center_.x + radius_ * cos(angleRad),
+                          center_.y + radius_ * sin(angleRad)};
 
     return pointInRectangle - closestPoint;
 }
@@ -97,7 +97,7 @@ void Ball::collide(const Bounceable &bounceable) {
     Log::get().addMessage(Log::LogType::BounceType,
                           bounceTypeToString(bounceType));
 
-    Vec2 changeBetweenLastUpdate{pos_ - prevPos_};
+    Vec2 changeBetweenLastUpdate{center_ - prevCenter_};
     Log::get().addMessage(Log::LogType::ChangeBetweenLastUpdate,
                           changeBetweenLastUpdate);
 
@@ -120,7 +120,7 @@ void Ball::collide(const Bounceable &bounceable) {
     Log::get().addMessage(Log::LogType::Bidirectional,
                           bidirectionalPenetration);
 
-    pos_ -= bidirectionalPenetration;
+    center_ -= bidirectionalPenetration;
 
     bounce(bounceable);
     Log::get().addMessage(Log::LogType::DirVec,
@@ -129,10 +129,10 @@ void Ball::collide(const Bounceable &bounceable) {
 
     // Add back the distance that the ball should have travelled instead of
     // going inside the Bounceable
-    pos_ += dirVec_ * bidirectionalPenetration.getModule();
+    center_ += dirVec_ * bidirectionalPenetration.getModule();
 }
 
 void Ball::update(double deltaTime) {
-    prevPos_ = pos_;
-    pos_ += (dirVec_ * speed_ * deltaTime);
+    prevCenter_ = center_;
+    center_ += (dirVec_ * speed_ * deltaTime);
 }
