@@ -9,6 +9,29 @@
 #include "brick_ui.hpp"
 #include "../../model/brick/brick.hpp"
 
+string BonusTypeToLetter(const BonusType bonusType) {
+    /**
+     * @brief Translate the BonusType to the corresponding letter
+     *
+     * @param bonusType The BonusType
+     * @return The corresponding letter
+     */
+    switch (bonusType) {
+    case BonusType::ExtraLife:
+        return "E";
+    case BonusType::SlowDown:
+        return "S";
+    case BonusType::WideRacket:
+        return "W";
+    case BonusType::SplitBall:
+        return "B";
+    case BonusType::None:
+        return "";
+    default:
+        return "";
+    }
+}
+
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
                  ALLEGRO_FONT *fontBrick)
     : Rectangle(center, width, height, color), fontBrick_(fontBrick) {}
@@ -30,9 +53,12 @@ void BrickUi::draw(const Brick &brick) {
         float y = center_.y
                   - static_cast<float>(BRICK_HEIGHT
                                        / 2.0); // Sart at the top of the brick
-        al_draw_text(
-            fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
-            "B"); // draw a B in the center of the brick if it has a bonus
+        string letter = BonusTypeToLetter(brick.getBonusType());
+        if (letter != "") {
+            al_draw_text(
+                fontBrick_, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
+                letter.c_str()); // draw a B in the center of the brick if it has a bonus
+        }
     }
 }
 

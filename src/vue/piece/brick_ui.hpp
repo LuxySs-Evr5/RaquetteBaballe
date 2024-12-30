@@ -14,6 +14,14 @@
 
 using namespace std;
 
+/**
+ * @brief Translate the BonusType to the corresponding letter
+ * 
+ * @param bonusType The bonus type to translate
+ * @return string The corresponding letter of the bonus type
+ */
+string BonusTypeToLetter(const BonusType bonusType);
+
 class BrickUi final : public Rectangle {
   private:
     ALLEGRO_FONT *fontBrick_;
