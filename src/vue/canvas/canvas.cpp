@@ -30,8 +30,8 @@ void Canvas::draw() {
         BrickUi brickUi{brick->getBoundingBox().getCenter(),
                         static_cast<float>(brick->getBoundingBox().getWidth()),
                         static_cast<float>(brick->getBoundingBox().getHeight()),
-                        colorToAllegroColor(brick->getColor()), fontBrick_};
-        brickUi.draw(*brick);
+                        colorToAllegroColor(brick->getColor())};
+        brickUi.draw(*brick, fontBrick_);
     }
 
     for (auto &bonusPill : bonusPills_) {

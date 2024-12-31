@@ -22,10 +22,7 @@ using namespace std;
  */
 string BonusTypeToLetter(const BonusType bonusType);
 
-class BrickUi final : public Rectangle {
-  private:
-    ALLEGRO_FONT *fontBrick_;
-
+class BrickUi final : public Rectangle {    
   public:
     /**
      * @brief Construct a new Brick Ui object
@@ -36,8 +33,7 @@ class BrickUi final : public Rectangle {
      * @param color The color of the brick
      * @param fontBrick The font of the brick bonus
      */
-    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
-            ALLEGRO_FONT *fontBrick);
+    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color);
 
     /**
      * @brief Destroy the Brick Ui object
@@ -50,9 +46,7 @@ class BrickUi final : public Rectangle {
      *
      */
     using Rectangle::draw;
-    void draw(const Brick &brick);
-
-    static const ALLEGRO_FONT *getBrickFont();
+    void draw(const Brick &brick, const ALLEGRO_FONT *fontBrick);
 };
 
 #endif // BRICK_UI_HPP
