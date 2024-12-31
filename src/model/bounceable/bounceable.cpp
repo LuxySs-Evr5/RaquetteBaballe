@@ -16,7 +16,7 @@ std::string Bounceable::bounceTypeToString(Bounceable::BounceType bounceType) {
         break;
     default:
         std::cerr << "Unknown BounceType" << std::endl;
-        exit(-1);
+        exit(1);
     }
 }
 

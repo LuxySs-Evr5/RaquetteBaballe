@@ -156,29 +156,29 @@ void ControllerGame::loadLevel() {
 void ControllerGame::setupAllegro() {
     if (!al_init()) { // initialize allegro
         cerr << "Failed to initialize Allegro" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_install_keyboard()) {
         cerr << "Failed to install the keyboard" << endl;
-        exit(-1);
+        exit(1);
     }
 
     if (!al_install_mouse()) {
         cerr << "Failed to install the mouse" << endl;
-        exit(-1);
+        exit(1);
     }
 
     timer_ = al_create_timer(1.0 / UPS);
     if (!timer_) {
         cerr << "Failed to create timer" << endl;
-        exit(-1);
+        exit(1);
     }
 
     queue_ = al_create_event_queue();
     if (!queue_) {
         cerr << "Failed to create queue" << endl;
-        exit(-1);
+        exit(1);
     }
 
     al_register_event_source(
