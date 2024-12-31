@@ -9,10 +9,12 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 
-
 \title{Rapport sur le projet de Langage de Programmation : Arkanoïd}
 \date{5 janvier 2025}
 
+
+%TODO: \textit -> \texttt
+%TODO: plateau de jeu -> grille de jeu
 
 \begin{document}
 
@@ -289,10 +291,8 @@ La méthode \texttt{checkCollision} permet de vérifier si la balle est rentrée
 collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
 \texttt{GameBoard} au moment de trouver les collisions qui ont eu lieu à un
 instant $T$. La méthode \texttt{collide} également appelée par
-\texttt{GameBoard} permet ensuite de résoudre la collision avec un
-\texttt{RectangleShape}. "Résoudre la collision" voulant dire: Sortir la balle
-du Bounceable et appliquer l'effet de rebond spécifique au \texttt{Bounceable}
-sur le vecteur directeur de la balle.
+\texttt{GameBoard} permet ensuite de resoudre la collision (\ref{lexique:resoudre_collisions}) avec un
+\texttt{RectangleShape}.
 
 La méthode \texttt{update} prenant un paramètre représentant une durée
 $deltaTime$ permet de mettre à jour la position de la balle à l'instant $T +
@@ -420,45 +420,58 @@ Nous allons maintenant décrire en détail ce qui se passe dans notre code à
 partir du moment où l'utilisateur lance le programme, et le moment où la balle
 touche une brique pour la première fois. \\
 
-Quand le jeu est lancé, la première chose que fait le programme est
-d'initialiser les différentes classes nécessaires. En tout premier, il va créer
-l'objet \textit{ControllerGame} qui permet de contrôler la grille du jeu et la
-vue. Ensuite, il créera l'objet \textit{GameBoard} pour initialiser le modèle
-qui permet d'avoir l'état de la grille avec les différents systèmes qui
-permettent de la modifier. L'objet \textit{LevelManager} sera également créé.
-Il permet de charger tous les différents niveaux en une fois, avec les murs, la
-raquette et les briques qu'il passera à la grille (GameBoard). Après, il créera
-aussi l'objet \textit{DisplayGame} qui gère la partie graphique du jeu. Il
-initialisera \texttt{Allegro} pour pouvoir afficher une fenêtre. À chaque fois
-que nous avons besoin d'afficher l'état du jeu, \textit{DisplayGame} ira
-demander à \textit{GameBoard} l'état de la grille pour l'afficher. \\
+Au lancement du jeu, le programme commence par initialiser les différentes
+classes nécessaires : En premier lieu, nous instancions un objet
+\textit{ControllerGame}. Celui-ci permet de contrôler la grille du jeu et la
+vue. Lors de sa création, \textit{ControllerGame} crée l'objet
+\textit{GameBoard} représentant la grille de jeu, la partie "modèle". L'objet
+\textit{LevelManager} sera également créé. Il permet de charger tous les
+différents niveaux en une fois, avec les murs, la raquette et les briques. Afin
+de préparer la \textit{GameBoard} pour le niveau choisi, le
+\textit{LevelManager} lui passe une copie de ces différents objets à l'aide des
+setters. Ensuite, il crée aussi l'objet \textit{DisplayGame} qui gère la partie
+graphique du jeu. Il initialise \texttt{Allegro} pour pouvoir afficher une
+fenêtre. À chaque fois que nous avons besoin d'afficher l'état du jeu,
+\textit{DisplayGame} demande à \textit{GameBoard} l'état de la grille pour
+l'afficher. \\
 
-Une fois que ces différents objets sont créés, le programme installera ce qu'il
-faut pour pouvoir utiliser le clavier et la souris dans le jeu. Puis, il créera
-une \textit{clock} qui permet d'avoir un \textit{tick} x fois par seconde pour
-mettre à jour la grille du jeu et également afficher l'état du jeu à l'écran.
-Nous avons séparé la vitesse de mise à jour de la grille du nombre d'images
-affichées par Allegro chaque seconde. La grille sera mise à jour 500 fois par
-seconde tandis qu' Allegro affichera une image à l'écran 125 fois par seconde.
-\\
+Une fois que ces différents objets sont créés, le programme installe le
+nécessaire pour pouvoir utiliser le clavier et la souris dans le jeu. Puis,
+\textit{ControllerGame} initialise le \textit{ALLEGRO\_TIMER} qui permet d'avoir
+un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de mettre à jour
+la grille du jeu ainsi que pour afficher l'état du jeu à l'écran. Nous séparons
+la vitesse de mise à jour de la grille du nombre d'images affichées par Allegro
+à chaque seconde pour des raisons de performance. La grille sera mise à jour
+500 fois par seconde tandis qu' Allegro affichera une image à l'écran 125 fois
+par seconde. \\
 
-Une fois fait, le programme chargera le premier niveau et démarrera ensuite la
-\textit{clock}. La grille sera mise à jour en vérifiant si la balle a cogné
-contre quelque chose, puis le programme regardera si la partie est peut-être
-perdue ou peut-être gagnée, et affichera à l'écran le jeu. Si des événements
-arrivent dans la \textit{queue} d'Allegro, ils seront traités avant d'afficher
-le jeu à l'écran.  \\
+Ensuite, le \textit{ControllerGame} démarre le \textit{ALLEGRO\_TIMER} et à
+chaque "tick" du timer, la \textit{GameBoard} et tous les objets qu'elle
+possèdent sont mis à jour. A chaque mis à jour, la \textit{GameBoard} vérifie
+si la balle est entrée en collision est un ou plusieurs objets. Si c'est le
+cas, elle résout les collisions (\ref{lexique:resoudre_collisions}), ajuste le
+score et fait apparaitre les pillules de bonus si nécessaire en les ajouttant
+au vecteur prévu à cet effet. Pour les briques, elle signale également à la
+brique que celle-ci est touchée. Si la durabilité de la brique est 0, celle-ci
+est supprimée. Pour les pillules de bonus et les lasers, il n'y pas de
+collision à résoudre, simplement faire disparaitre l'objet suffit.
 
-Si la balle a touché une brique, un calcul repositionnera la balle là où elle
-devrait être et changera sa direction. Ensuite, le programme enlève une vie à
-la brique, et si sa vie passe à 0, alors elle sera supprimée de la liste des
-briques. Elle n'existera donc plus et ne sera plus affichée à l'écran.
+A la fin de chaque mis-a-jour du \textit{ControllerGame}, le programme vérifie
+s'il y a encore au moins une balle en jeu. Si ce n'est pas le cas, il retire
+une vie. 
+
+Enfin, le \textit{ControllerGame} demande au \texttt{GameBoard} le nombre de
+vies et de briques non-dorées restantes. S'il n'y a plus de briques non-dorées,
+le joueur a gagné. S'il ne reste aucune vie, le joueur a perdu.
+
+Si des événements arrivent dans la \textit{queue} d'Allegro, ils seront traités
+avant d'afficher le jeu à l'écran. \\
 
 \section{Modèle-Vue-Contrôleur}
 
 Tout au long du développement du programme, nous avons essayé le plus possible
-de respecter le modèle de conception \texttt{'Modèle-Vue-Contrôleur'}. En
-effet, notre programme est divisé en trois parties distinctes : 
+de respecter le modèle de conception \texttt{'Modèle-Vue-Contrôleur'}. Cela
+implique que notre programme soit divisé en trois parties distinctes : 
 
 \begin{itemize}
 
@@ -520,6 +533,27 @@ connaissance du langage \texttt{C++}.  \\
 Cette expérience nous a non seulement permis de développer un programme abouti,
 mais également d’affiner nos compétences en conception, en programmation et en
 travail d'équipe.
+
+
+\section*{Lexique}
+
+\begin{description}
+
+\item[Résoudre les collisions]
+\label{lexique:resoudre_collisions}
+    Dû à notre approche pour la physique du jeu dite
+    "discrète" (\ref{lexique:physique_discrete}), certains objets se retrouvent en superposition au lieu de
+    collisionner (et rebondir). Résoudre les collisions consiste à replacer les
+    objets à l'endroit où ils étaient juste avant la collision, et appliquer
+    l'effet de rebond si nécessaire.
+
+\item[Physique discrète]
+\label{lexique:physique_discrete}
+    Simulation où le temps avance par étapes, ce qui peut
+    parfois entraîner des imprécisions ou des chevauchements entre objets.
+
+\end{description}
+
 
 
 \end{document}
