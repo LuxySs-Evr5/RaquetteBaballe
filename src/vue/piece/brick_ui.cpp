@@ -25,6 +25,8 @@ string BonusTypeToLetter(const BonusType bonusType) {
         return "W";
     case BonusType::SplitBall:
         return "B";
+    case BonusType::Lazer:
+        return "L";
     case BonusType::None:
         return "";
     default:
