@@ -39,7 +39,7 @@ class LevelManager {
      *
      */
     LevelManager();
-    ~LevelManager() = default;
+    virtual ~LevelManager() = default;
 
     /**
      * @brief Set the current level to the next one

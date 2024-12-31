@@ -44,7 +44,7 @@ class Canvas {
      * @brief Destroy the Canvas object
      *
      */
-    ~Canvas() = default;
+    virtual ~Canvas() = default;
 
     /**
      * @brief Draw all the elements of the game

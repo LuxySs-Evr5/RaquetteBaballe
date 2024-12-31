@@ -61,7 +61,7 @@ class DisplayGame {
      * @brief Destroy the Display Game object
      *
      */
-    ~DisplayGame();
+    virtual ~DisplayGame();
 
     /**
      * @brief Draw the game by calling the draw method of the canvas

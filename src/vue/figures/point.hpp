@@ -24,7 +24,7 @@ struct Point {
      * @brief Destruct a Point object
      *
      */
-    ~Point() = default;
+    virtual ~Point() = default;
 };
 
 #endif // POINT_HPP
