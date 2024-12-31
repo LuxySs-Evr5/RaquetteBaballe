@@ -111,8 +111,6 @@ void GameBoard::handleActiveBonus(double deltaTime) {
                 ball->setSpeed(
                     static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
             }
-        } else if (bonusType == BonusType::Lazer) {
-            handleLazers(deltaTime);
         }
 
         if (!isActive) {
@@ -128,7 +126,7 @@ void GameBoard::handleLazers(double deltaTime) {
 
     for (shared_ptr<Lazer> lazer : lazers_) {
         lazer->update(deltaTime);
-        if (lazer->getBottom() > BOARD_HEIGHT) {
+        if (lazer->getTop() > BOARD_HEIGHT) {
             lazersToRemove.push_back(lazer);
         }
         for (shared_ptr<Brick> brick : bricks_) {
@@ -277,7 +275,6 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
         racket_->setWidth(RACKET_WIDTH);
         break;
     case BonusType::Lazer:
-        lazers_.clear();
         break;
     case BonusType::SplitBall:
         break;
@@ -336,6 +333,8 @@ void GameBoard::update(double deltaTime) {
     handleDescendingBonusses(deltaTime);
 
     handleActiveBonus(deltaTime);
+
+    handleLazers(deltaTime);
 
     handleBalls(deltaTime);
 
