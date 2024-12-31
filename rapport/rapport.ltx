@@ -450,6 +450,13 @@ et d'interagir avec Allegro pour la gestion des événements, du timer, et de
 l'affichage, tout en appelant \texttt{DisplayGame} pour dessiner l'état du jeu
 en cours.
 
+\subsection{Log}
+
+Dans l'optique de faciliter le débogage, essentiellement pour les collisions,
+nous ajoutons le singleton \texttt{Log}, permettant d'enregistrer des
+évènements classés par catégories lors de l'éxécution. Nous pouvons activer ou
+désactiver des catégories à la compilation en modifiant le code.
+
 \section{Logique du jeu}
 
 Nous allons maintenant décrire en détail ce qui se passe dans notre code à
