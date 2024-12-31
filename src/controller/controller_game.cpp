@@ -101,6 +101,7 @@ void ControllerGame::checkEventType() {
             al_stop_timer(timer_);
             loadLevel(); // restart the level
         }
+        if (key_[ALLEGRO_KEY_P]) {} // TODO: shoot lazer
     }
 
     if (event_.type == ALLEGRO_EVENT_KEY_UP) {

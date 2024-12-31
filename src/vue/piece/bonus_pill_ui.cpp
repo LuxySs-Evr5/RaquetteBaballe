@@ -21,6 +21,8 @@ BonusPillUi::BonusPillUi(Point center, float width, float height,
         fillColor_ = COLOR_BLUE;
     } else if (bonusPill.getBonusType() == BonusType::SplitBall) {
         fillColor_ = COLOR_CYAN;
+    } else if (bonusPill.getBonusType() == BonusType::Lazer) {
+        fillColor_ = COLOR_MAGENTA;
     }
     frameColor_ = COLOR_BLACK; // Black frame color for all bonus pills
 }

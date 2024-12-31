@@ -68,15 +68,17 @@ To start the game, run the following command:
 - `→` : Move to the next level
 - `a` : Reset the current level
 - `q` : Quit the game
+- `spacebar` : shoot a lazer when available
 
 ## Game Bonus
 
 There are several bonuses available in the game. They will be displayed with
-the letter `B` in the brick containing the bonus. You have to collect the
+a letter inside the brick containing the bonus. You have to collect the
 bonus with the racket. Here is a list of the different bonuses :
 
 - Reduce the ball's speed
 - Expand the racket's width
 - Gain an extra life
+- shoot a lazer
 - Split the ball into three instances of itself. When this bonus is
 active, no other bonuses will drop
