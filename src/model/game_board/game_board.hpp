@@ -27,13 +27,18 @@ class GameBoard final {
     ScoreManager scoreManager_;
     LifeCounter lifeCounter_;
     unique_ptr<AbstractTimedBonus> activeBonus_;
-    std::vector<unique_ptr<BonusPill>> descendingBonuses_;
+    std::vector<shared_ptr<BonusPill>> descendingBonuses_;
     std::vector<std::shared_ptr<Lazer>> lazers_;
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
     std::vector<std::shared_ptr<Brick>> bricks_;
     std::vector<std::shared_ptr<Ball>> balls_;
+
+    template <typename T>
+    static void
+    removeSharedPointers(std::vector<std::shared_ptr<T>> &mainVector,
+                         const std::vector<std::shared_ptr<T>> &toRemove);
 
     /**
      * @brief Finds the next collision involving the specified ball.
@@ -195,7 +200,7 @@ class GameBoard final {
      *
      * @return A reference to the vector of descending bonus pills.
      */
-    const std::vector<std::unique_ptr<BonusPill>> &getDescendingBonuses() const;
+    const std::vector<std::shared_ptr<BonusPill>> &getDescendingBonuses() const;
 
     /**
      * @brief Returns the racket.

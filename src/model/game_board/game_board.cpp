@@ -9,6 +9,22 @@
 #include <memory>
 #include <vector>
 
+template <typename T>
+void GameBoard::removeSharedPointers(
+    std::vector<std::shared_ptr<T>> &mainVector,
+    const std::vector<std::shared_ptr<T>> &toRemove) {
+    mainVector.erase(
+        std::remove_if(mainVector.begin(), mainVector.end(),
+                       [&toRemove](const std::shared_ptr<T> &element) {
+                           return std::any_of(
+                               toRemove.begin(), toRemove.end(),
+                               [&element](const std::shared_ptr<T> &item) {
+                                   return element == item;
+                               });
+                       }),
+        mainVector.end());
+}
+
 std::optional<std::variant<BrickIt, BorderIt, std::shared_ptr<Racket>>>
 GameBoard::findNextCollision(Ball &ball) {
     std::optional<std::variant<BrickIt, BorderIt, std::shared_ptr<Racket>>>
@@ -61,7 +77,7 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
                                  (*brickIt)->getBottom()
                                      - (BONUS_PILL_HEIGHT / 2)};
             descendingBonuses_.emplace_back(
-                std::make_unique<BonusPill>(bonusPillCenter, bonusType));
+                std::make_shared<BonusPill>(bonusPillCenter, bonusType));
         }
 
         pointsEarned += (*brickIt)->getScore();
@@ -72,50 +88,45 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
 }
 
 void GameBoard::handleDescendingBonusses(double deltaTime) {
-    for (auto descendingBonusIt = descendingBonuses_.begin();
-         descendingBonusIt != descendingBonuses_.end();) {
-        (*descendingBonusIt)->update(deltaTime);
-        if ((*descendingBonusIt)->getCenter().y < 0) {
-            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
-        } else if ((*descendingBonusIt)->isOverlapping(*racket_)) {
-            BonusType bonusType = (*descendingBonusIt)->getBonusType();
+    std::vector<shared_ptr<BonusPill>> bonusesToRemove;
+
+    for (shared_ptr<BonusPill> &descendingBonus : descendingBonuses_) {
+        descendingBonus->update(deltaTime);
+        if (descendingBonus->getCenter().y < 0) {
+            bonusesToRemove.push_back(descendingBonus);
+        } else if (descendingBonus->isOverlapping(*racket_)) {
+            bonusesToRemove.push_back(descendingBonus);
+            BonusType bonusType = descendingBonus->getBonusType();
             applyBonus(bonusType);
-            descendingBonusIt = descendingBonuses_.erase(descendingBonusIt);
-        } else {
-            descendingBonusIt++;
         }
     }
+
+    removeSharedPointers(descendingBonuses_, bonusesToRemove);
 }
 
 size_t GameBoard::handleLazers(double deltaTime) {
+    vector<shared_ptr<Lazer>> lazersToRemove;
+    vector<shared_ptr<Brick>> bricksToRemove;
     size_t pointsEarned = 0;
 
-    for (auto lazerIt = lazers_.begin(); lazerIt != lazers_.end();) {
-        (*lazerIt)->update(deltaTime);
-        bool erased = false;
-        if ((*lazerIt)->getCenter().y < 0) {
-            lazerIt = lazers_.erase(lazerIt);
-            erased = true;
-        } else {
-            for (BrickIt brickIt = bricks_.begin(); brickIt != bricks_.end();) {
-                bool isGold = (*brickIt)->getColor() == Color::gold;
-                if ((*lazerIt)->isOverlapping(**brickIt)) {
-                    if (!isGold) {
-                        pointsEarned += (*brickIt)->getScore();
-                        brickIt = bricks_.erase(brickIt);
-                    }
-                    lazerIt = lazers_.erase(lazerIt);
-                    erased = true;
-                    break;
-                } else {
-                    brickIt++;
+    for (shared_ptr<Lazer> lazer : lazers_) {
+        lazer->update(deltaTime);
+        if (lazer->getCenter().y > 0) {
+            lazersToRemove.push_back(lazer);
+        }
+        for (shared_ptr<Brick> brick : bricks_) {
+            if (lazer->isOverlapping(*brick)) {
+                if (brick->getColor() != Color::gold) {
+                    bricksToRemove.push_back(brick);
+                    pointsEarned += brick->getScore();
                 }
+                break;
             }
         }
-        if (!erased) {
-            lazerIt++;
-        }
     }
+
+    removeSharedPointers(lazers_, lazersToRemove);
+    removeSharedPointers(bricks_, bricksToRemove);
 
     return pointsEarned;
 }
@@ -301,23 +312,21 @@ void GameBoard::update(double deltaTime) {
         }
     }
 
-    // NOTE: Don't use iterators here because solveBallCollisions could
-    // append to balls_ invalidating our iterator.
-    for (size_t ballIdx = 0; ballIdx < numBalls();) {
-        Log::get().addMessage(Log::LogType::BallPos,
-                              balls_.at(ballIdx)->getCenter());
+    vector<shared_ptr<Ball>> ballsToRemove;
+    for (shared_ptr<Ball> ball : balls_) {
+        Log::get().addMessage(Log::LogType::BallPos, ball->getCenter());
 
-        size_t scoreToAdd = solveBallCollisions(*balls_.at(ballIdx));
+        size_t scoreToAdd = solveBallCollisions(*ball);
         scoreManager_.increaseScore(scoreToAdd);
 
-        if (balls_.at(ballIdx)->getCenter().y
-            < balls_.at(ballIdx)->getRadius()) {
-            balls_.erase(balls_.begin() + ballIdx);
-        } else {
-            balls_.at(ballIdx)->update(deltaTime);
-            ballIdx++;
+        ball->update(deltaTime);
+
+        if (ball->getCenter().y < -ball->getRadius()) {
+            ballsToRemove.push_back(ball);
         }
     }
+
+    removeSharedPointers(balls_, ballsToRemove);
 
     if (balls_.empty()) {
         --lifeCounter_;
@@ -345,7 +354,7 @@ const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
     return bricks_;
 }
 
-const std::vector<std::unique_ptr<BonusPill>> &
+const std::vector<std::shared_ptr<BonusPill>> &
 GameBoard::getDescendingBonuses() const {
     return descendingBonuses_;
 }

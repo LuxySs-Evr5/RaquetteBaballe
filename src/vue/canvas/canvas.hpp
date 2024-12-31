@@ -23,7 +23,7 @@ class Canvas {
     shared_ptr<GameBoard> gameBoard_;
     const shared_ptr<Racket> &racket_ = gameBoard_->getRacket();
     const vector<shared_ptr<Brick>> &bricks_ = gameBoard_->getBricks();
-    const vector<unique_ptr<BonusPill>> &bonusPills_ =
+    const vector<shared_ptr<BonusPill>> &bonusPills_ =
         gameBoard_->getDescendingBonuses();
     const vector<shared_ptr<Lazer>> &lazers_ = gameBoard_->getLazers();
     const vector<shared_ptr<Ball>> &balls_ = gameBoard_->getBalls();
