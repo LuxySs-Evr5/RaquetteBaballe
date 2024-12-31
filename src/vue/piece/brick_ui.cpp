@@ -7,7 +7,7 @@
  */
 
 #include "brick_ui.hpp"
-#include "../../model/brick/brick.hpp"
+#include "../../model/brick/abstract_brick.hpp"
 
 string BonusTypeToLetter(const BonusType bonusType) {
     /**
@@ -37,7 +37,7 @@ string BonusTypeToLetter(const BonusType bonusType) {
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
     : Rectangle(center, width, height, color) {}
 
-void BrickUi::draw(const Brick &brick, const ALLEGRO_FONT *fontBrick) {
+void BrickUi::draw(const AbstractBrick &brick, const ALLEGRO_FONT *fontBrick) {
     center_.y =
         SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
@@ -56,9 +56,10 @@ void BrickUi::draw(const Brick &brick, const ALLEGRO_FONT *fontBrick) {
                                        / 2.0); // Sart at the top of the brick
         string letter = BonusTypeToLetter(brick.getBonusType());
         if (letter != "") {
-            al_draw_text(
-                fontBrick, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
-                letter.c_str()); // draw a B in the center of the brick if it has a bonus
+            al_draw_text(fontBrick, COLOR_BLACK, center_.x, y,
+                         ALLEGRO_ALIGN_CENTER,
+                         letter.c_str()); // draw a B in the center of the brick
+                                          // if it has a bonus
         }
     }
 }

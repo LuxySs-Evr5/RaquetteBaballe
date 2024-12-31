@@ -1,12 +1,12 @@
 #ifndef BASIC_BRICK_HPP
 #define BASIC_BRICK_HPP
 
-#include "brick.hpp"
+#include "abstract_brick.hpp"
 
 /**
  * @brief Represents a basic brick.
  */
-class BasicBrick final : public Brick {
+class BasicBrick final : public AbstractBrick {
   public:
     /**
      * @brief Constructs a new BasicBrick.
@@ -23,9 +23,9 @@ class BasicBrick final : public Brick {
     virtual ~BasicBrick() = default;
 
     /**
-     * @brief Implements Brick::clone.
+     * @brief Implements AbstractBrick::clone.
      */
-    virtual std::shared_ptr<Brick> clone();
+    virtual std::shared_ptr<AbstractBrick> clone() override;
 };
 
 #endif

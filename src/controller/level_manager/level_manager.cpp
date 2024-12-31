@@ -109,7 +109,7 @@ void LevelManager::loadBricks() {
             exit(1);
         }
 
-        vector<shared_ptr<Brick>> bricks;
+        vector<shared_ptr<AbstractBrick>> bricks;
 
         // Read the file line by line and create a brick to add to the vector
         string line;
@@ -130,7 +130,7 @@ void LevelManager::loadBricks() {
 
             x += WALL_THICKNESS; // because the board has a left border
             y += WALL_THICKNESS; // because the board has a top border
-            bricks.emplace_back(Brick::makeBrick(
+            bricks.emplace_back(AbstractBrick::makeBrick(
                 Vec2{x, y}, BRICK_WIDTH, BRICK_HEIGHT,
                 convertColorFromString(color), convertBonusFromString(bonus)));
         }
@@ -151,7 +151,7 @@ void LevelManager::previousLevel() {
     }
 }
 
-const vector<shared_ptr<Brick>> &LevelManager::getBricks() {
+const vector<shared_ptr<AbstractBrick>> &LevelManager::getBricks() {
     return bricksPerLevel_[currentLevel_];
 }
 

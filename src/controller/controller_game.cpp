@@ -135,7 +135,7 @@ void ControllerGame::loadLevel() {
     gameBoard_->resetScore();
 
     // Load the level
-    vector<shared_ptr<Brick>>
+    vector<shared_ptr<AbstractBrick>>
         copyBricks; // a copy of the bricks of the level to
                     // avoid modifying the original bricks
     for (const auto &brick : levelManager_->getBricks()) {

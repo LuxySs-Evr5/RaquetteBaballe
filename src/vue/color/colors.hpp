@@ -11,7 +11,7 @@
 
 #include <allegro5/color.h>
 
-#include "../../model/brick/brick.hpp"
+#include "../../model/brick/abstract_brick.hpp"
 
 /**
  * @brief Define the colors used in the game

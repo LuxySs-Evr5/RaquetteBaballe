@@ -1,12 +1,12 @@
 #ifndef GOLD_BRICK_HPP
 #define GOLD_BRICK_HPP
 
-#include "brick.hpp"
+#include "abstract_brick.hpp"
 
 /**
  * @brief Represents a golden brick.
  */
-class GoldBrick final : public Brick {
+class GoldBrick final : public AbstractBrick {
   public:
     /**
      * @brief Constructs a new GoldBrick.
@@ -24,9 +24,9 @@ class GoldBrick final : public Brick {
     virtual BonusType hit() override; // Gold bricks are never destroyed
 
     /**
-     * @brief Implements Brick::clone.
+     * @brief Implements AbstractBrick::clone.
      */
-    virtual std::shared_ptr<Brick> clone();
+    virtual std::shared_ptr<AbstractBrick> clone() override;
 };
 
 #endif

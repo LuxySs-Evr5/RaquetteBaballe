@@ -122,14 +122,14 @@ void GameBoard::handleActiveBonus(double deltaTime) {
 
 void GameBoard::handleLazers(double deltaTime) {
     vector<shared_ptr<Lazer>> lazersToRemove;
-    vector<shared_ptr<Brick>> bricksToRemove;
+    vector<shared_ptr<AbstractBrick>> bricksToRemove;
 
     for (shared_ptr<Lazer> lazer : lazers_) {
         lazer->update(deltaTime);
         if (lazer->getTop() > BOARD_HEIGHT) {
             lazersToRemove.push_back(lazer);
         }
-        for (shared_ptr<Brick> brick : bricks_) {
+        for (shared_ptr<AbstractBrick> brick : bricks_) {
             if (lazer->isOverlapping(*brick)) {
                 if (brick->getColor() != Color::gold) {
                     bricksToRemove.push_back(brick);
@@ -355,7 +355,8 @@ const std::vector<std::shared_ptr<Ball>> &GameBoard::getBalls() const {
     return balls_;
 }
 
-const std::vector<std::shared_ptr<Brick>> &GameBoard::getBricks() const {
+const std::vector<std::shared_ptr<AbstractBrick>> &
+GameBoard::getBricks() const {
     return bricks_;
 }
 
@@ -390,7 +391,8 @@ unsigned long GameBoard::getBestScore() const {
 
 void GameBoard::resetBestScore() { scoreManager_.resetBestScore(); }
 
-void GameBoard::setBricks(const std::vector<std::shared_ptr<Brick>> &bricks) {
+void GameBoard::setBricks(
+    const std::vector<std::shared_ptr<AbstractBrick>> &bricks) {
     bricks_ = bricks;
 }
 

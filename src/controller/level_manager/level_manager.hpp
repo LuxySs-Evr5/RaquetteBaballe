@@ -10,7 +10,7 @@
 #define LEVEL_MANAGER_HPP
 
 #include "../../model/border/border.hpp"
-#include "../../model/brick/brick.hpp"
+#include "../../model/brick/abstract_brick.hpp"
 #include "../../model/racket/racket.hpp"
 
 #include <cstdlib>
@@ -22,7 +22,7 @@ using namespace std;
 class LevelManager {
   private:
     unsigned long currentLevel_ = 0;
-    vector<vector<shared_ptr<Brick>>> bricksPerLevel_;
+    vector<vector<shared_ptr<AbstractBrick>>> bricksPerLevel_;
     shared_ptr<Racket> racket_;
     vector<shared_ptr<Border>> borders_;
 
@@ -56,14 +56,14 @@ class LevelManager {
     /**
      * @brief Get the brick of the current level
      *
-     * @return const vector<shared_ptr<Brick>>
+     * @return const vector<shared_ptr<AbstractBrick>>
      */
-    const vector<shared_ptr<Brick>> &getBricks();
+    const vector<shared_ptr<AbstractBrick>> &getBricks();
 
     /**
      * @brief Get the racket of the current level
      *
-     * @return const Racket
+     * @return const shared_ptr<Racket>
      */
     const shared_ptr<Racket> &getRacket() const;
 

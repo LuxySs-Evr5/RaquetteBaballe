@@ -45,7 +45,7 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
 
         return Vec2{horizontalComponent, verticalComponent}.normalize();
     } else { // bounce on the side as if it was a usual bounceable (e.g. a
-             // Brick)
+             // brick)
         return Bounceable::getDirVecAfterBounce(closestPoint, dirVec);
     }
 }

@@ -23,7 +23,7 @@ enum class Color : size_t { // Score/Points is always positive
     gold = 0,
 };
 
-class Brick : public Bounceable {
+class AbstractBrick : public Bounceable {
   protected:
     Color color_;
     uint8_t durability_;
@@ -31,7 +31,7 @@ class Brick : public Bounceable {
 
   protected:
     /**
-     * @brief Constructs a new Brick.
+     * @brief Constructs a new AbstractBrick.
      * @param center The brick's center.
      * @param width The brick's width.
      * @param height The brick's height.
@@ -39,27 +39,27 @@ class Brick : public Bounceable {
      * @param durability The brick's durability.
      * @param bonusType The bonus held contained in the brick.
      */
-    Brick(const Vec2 &center, double width, double height, Color color,
-          uint8_t durability = DURABILITY_STANDARD_BRICK,
-          BonusType bonusType = BonusType::None);
+    AbstractBrick(const Vec2 &center, double width, double height, Color color,
+                  uint8_t durability = DURABILITY_STANDARD_BRICK,
+                  BonusType bonusType = BonusType::None);
 
-    Brick(const Brick &) = default;
-    Brick(Brick &&) = delete;
-    Brick &operator=(const Brick &) = delete;
-    Brick &operator=(Brick &&) = delete;
+    AbstractBrick(const AbstractBrick &) = default;
+    AbstractBrick(AbstractBrick &&) = delete;
+    AbstractBrick &operator=(const AbstractBrick &) = delete;
+    AbstractBrick &operator=(AbstractBrick &&) = delete;
 
   public:
-    virtual ~Brick();
+    virtual ~AbstractBrick();
 
     /**
-     * @brief Brick factory. Returns a unique pointer to a new Brick.
+     * @brief Brick factory. Returns a unique pointer to a new AbstractBrick.
      * @param center The brick's center.
      * @param width The brick's width.
      * @param height The brick's height.
      * @param color The brick's color.
      * @param bonusType The bonus held contained in the brick.
      */
-    static std::unique_ptr<Brick>
+    static std::unique_ptr<AbstractBrick>
     makeBrick(const Vec2 &center, double width, double height, Color color,
               BonusType bonusType = BonusType::None);
 
@@ -104,7 +104,7 @@ class Brick : public Bounceable {
     /**
      * @brief Returns a pointer to a cloned brick.
      */
-    virtual std::shared_ptr<Brick> clone() = 0;
+    virtual std::shared_ptr<AbstractBrick> clone() = 0;
 };
 
 #endif

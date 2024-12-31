@@ -9,6 +9,7 @@
 #ifndef BRICK_UI_HPP
 #define BRICK_UI_HPP
 
+#include "../../model/brick/abstract_brick.hpp"
 #include "../figures/forme.hpp"
 #include <allegro5/allegro_font.h>
 
@@ -16,16 +17,16 @@ using namespace std;
 
 /**
  * @brief Translate the BonusType to the corresponding letter
- * 
+ *
  * @param bonusType The bonus type to translate
  * @return string The corresponding letter of the bonus type
  */
 string BonusTypeToLetter(const BonusType bonusType);
 
-class BrickUi final : public Rectangle {    
+class BrickUi final : public Rectangle {
   public:
     /**
-     * @brief Construct a new Brick Ui object
+     * @brief Construct a new BrickUi object
      *
      * @param center The center of the brick
      * @param width The width of the brick
@@ -36,7 +37,7 @@ class BrickUi final : public Rectangle {
     BrickUi(Point center, float width, float height, ALLEGRO_COLOR color);
 
     /**
-     * @brief Destroy the Brick Ui object
+     * @brief Destroy the BrickUi object
      *
      */
     virtual ~BrickUi() = default;
@@ -46,7 +47,7 @@ class BrickUi final : public Rectangle {
      *
      */
     using Rectangle::draw;
-    void draw(const Brick &brick, const ALLEGRO_FONT *fontBrick);
+    void draw(const AbstractBrick &brick, const ALLEGRO_FONT *fontBrick);
 };
 
 #endif // BRICK_UI_HPP

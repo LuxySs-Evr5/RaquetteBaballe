@@ -6,7 +6,7 @@
 #include "../bonus_pill/bonus_pill.hpp"
 #include "../bonus_type/bonus_type.hpp"
 #include "../border/border.hpp"
-#include "../brick/brick.hpp"
+#include "../brick/abstract_brick.hpp"
 #include "../lazer/lazer.hpp"
 #include "../life_counter/life_counter.hpp"
 #include "../racket/racket.hpp"
@@ -17,7 +17,7 @@
 #include <variant>
 #include <vector>
 
-using BrickIt = std::vector<std::shared_ptr<Brick>>::const_iterator;
+using BrickIt = std::vector<std::shared_ptr<AbstractBrick>>::const_iterator;
 using BorderIt = std::vector<std::shared_ptr<Border>>::const_iterator;
 
 constexpr size_t MAX_CONSECUTIVE_COLLISION = 3;
@@ -32,7 +32,7 @@ class GameBoard final {
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
-    std::vector<std::shared_ptr<Brick>> bricks_;
+    std::vector<std::shared_ptr<AbstractBrick>> bricks_;
     std::vector<std::shared_ptr<Ball>> balls_;
 
     template <typename T>
@@ -130,11 +130,11 @@ class GameBoard final {
     void clearBricks();
 
     /**
-     * @brief Handles the collision between the given Ball and Brick and updates
+     * @brief Handles the collision between the given ball and brick and updates
      * to the brick's color.
      *
      * @param ball The ball.
-     * @param brickIt A brick Iterator on the brick on which the collision is
+     * @param brickIt A brick iterator on the brick on which the collision is
      * happening.
      */
     void handleBallBrickCollision(Ball &ball, BrickIt brickIt);
@@ -222,11 +222,11 @@ class GameBoard final {
     const std::vector<std::shared_ptr<Ball>> &getBalls() const;
 
     /**
-     * @brief Returns the current Bricks.
+     * @brief Returns the current AbstractBricks.
      *
      * @return A reference to the vector of brick pointers.
      */
-    const std::vector<std::shared_ptr<Brick>> &getBricks() const;
+    const std::vector<std::shared_ptr<AbstractBrick>> &getBricks() const;
 
     /**
      * @brief Returns the currently descending bonus pills.
@@ -268,7 +268,7 @@ class GameBoard final {
      *
      * @param bricks A reference to the vector of brick pointers.
      */
-    void setBricks(const std::vector<std::shared_ptr<Brick>> &bricks);
+    void setBricks(const std::vector<std::shared_ptr<AbstractBrick>> &bricks);
 
     /**
      * @brief Sets the racket.
