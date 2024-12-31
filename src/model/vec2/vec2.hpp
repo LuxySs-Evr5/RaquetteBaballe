@@ -1,7 +1,7 @@
 #ifndef VEC2_HPP
 #define VEC2_HPP
 
-#include "../../vue/figures/point.hpp"
+#include "../../view/figures/point.hpp"
 
 #include <iostream>
 

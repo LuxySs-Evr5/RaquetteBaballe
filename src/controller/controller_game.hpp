@@ -8,7 +8,7 @@
 #define CONTROLLER_GAME_HPP
 
 #include "../model/game_board/game_board.hpp"
-#include "../vue/display_game/display_game.hpp"
+#include "../view/display_game/display_game.hpp"
 #include "level_manager/level_manager.hpp"
 
 #include <allegro5/allegro.h>
