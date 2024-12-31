@@ -137,8 +137,8 @@ autres classes}
 % TODO: toutes les classes de view et le controller
 % TODO: Log
 % TODO: Vec2
-
-\subsection{GameBoard}
+\subsection{Modèle}
+\subsubsection{GameBoard}
 
 La classe GameBoard est l'élément central du modèle. Elle coordonne et fait
 évoluer les autres composants du modèle au fil du temps. Le tableau
@@ -174,12 +174,12 @@ méthode \texttt{update}. Chaque fois que celle-ci est appelée à un instant $T
 avec un paramètre $deltaT$, \texttt{GameBoard} met à jour tous les composants
 du modèle à l'état correspondant à l'instant \(T + deltaT\).
 
-\subsection{Vec2}
+\subsubsection{Vec2}
 
 La classe \texttt{Vec2} représente un vecteur à deux dimensions. Celle-ci
 implémente les opérateurs usuels des vecteurs, e.g. l'addition, la soustraction.
 
-\subsection{RectangleShape}
+\subsubsection{RectangleShape}
 
 La classe \texttt{RectangleShape} est utilisée pour représenter n'importe quel
 objet rectangulaire, tel qu'une brique ou la raquette.
@@ -196,7 +196,7 @@ Son interface permet de :
 
 \end{itemize}
 
-\subsection{Bounceable}
+\subsubsection{Bounceable}
 
 La classe \texttt{Bounceable} représente un objet rectangulaire sur lequel la
 balle peut rebondir. Puisque toutes les instances de cette classes sont
@@ -211,7 +211,7 @@ chaque \texttt{Bounceable}'s peut modifier l'effet de rebond par défaut, qui
 est donné à tous les \texttt{Bounceable}'s, et ce en "overridant" la méthode
 \texttt{getDirVecAfterBounce}.
 
-\subsection{Briques}
+\subsubsection{Briques}
 
 La classe abstraite \texttt{AbstractBrick} représente une brique. Puisque la
 balle peut rebondir sur les briques, \texttt{AbstractBrick} hérite de
@@ -256,14 +256,14 @@ polymorphisme, nous implémentons une "méthode-usine" ("factory") renvoyant un
 pointeur de brique pouvant pointer vers une \texttt{BasicBrick} ou une
 \texttt{GoldBrick}.
 
-\subsection{Border}
+\subsubsection{Border}
 
 La classe \texttt{Border} représente les trois bordures du plateau de jeu sur
 lesquelles les balles rebondissent (en haut, à gauche et à droite).
 \texttt{Border} hérite de \texttt{Bounceable} et n'implémente aucune méthode
 particulière. 
 
-\subsection{Racket}
+\subsubsection{Racket}
 
 La classe \texttt{Racket} représente la raquette. Puisque les balles peuvent rebondir
 dessus, celle-ci hérite de \texttt{Bounceable}.
@@ -276,7 +276,7 @@ La classe \texttt{Racket} modifie l'effet de rebond par défaut de
 Cela permet d'ajouter l'effet de variation de l'angle entre la balle et
 l'horizontale en fonction de la distance par rapport au centre de la raquette.
 
-\subsection{Ball}
+\subsubsection{Ball}
 
 La classe \texttt{Ball} représente une balle du jeu. Celle-ci possède
 essentiellement une position, un rayon, et une vitesse, un vecteur directeur.
@@ -298,12 +298,12 @@ La méthode \texttt{update} prenant un paramètre représentant une durée
 $deltaTime$ permet de mettre à jour la position de la balle à l'instant $T +
 deltaTime$.
 
-\subsection{BonusType}
+\subsubsection{BonusType}
 
 L'énuméré contient les différents types de bonus implémentés, ainsi que la
 valeur \texttt{None}, représentant l'absence de bonus.
 
-\subsection{AbstractTimedBonus}
+\subsubsection{AbstractTimedBonus}
 
 Les bonus à effet à durée limitée sont gérés par les classes
 \texttt{BasicTimedBonus} et \texttt{SlowDownBonus}, qui héritent de la classe
@@ -319,7 +319,7 @@ interface pour notifier le bonus de :
 
 \end{itemize}
 
-\subsection{BasicTimedBonus}
+\subsubsection{BasicTimedBonus}
 
 La classe \texttt{BasicTimedBonus} hérite de \texttt{AbstractTimedBonus} et
 gère le temps d'activité de celui-ci. Elle implémente la méthode
@@ -329,10 +329,10 @@ les bonus suivants: "WideRacket" et "Lazer". Nous avions l'intention de
 l'utiliser également pour le bonus "Attraper" mais nous ne sommes pas
 parvenus à implémenter celui-ci dans les délais du projet.
 
-\subsection{SlowDownBonus} 
+\subsubsection{SlowDownBonus} 
 
-Le bonus "SlowDown" est cummulable, contrairement aux autres. Cela signifie que
-si le joueur attrappe un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
+Le bonus "SlowDown" est cumulable, contrairement aux autres. Cela signifie que
+si le joueur attrape un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
 déjà actifs, la balle doit encore plus ralentir.
 La méthode \texttt{getSlowDownFactor} est spécifique à celui-ci et permet d'obtenir la
 valeur par laquelle la vitesse de base de la balle doit être divisée pour
@@ -340,12 +340,12 @@ obtenir sa vitesse avec cette configuration de bonus "SlowDown". Cette valeur
 est proportionnelle à la somme des temps restants pour tous les "SlowDown"
 actifs.
 
-Le fait qu'il soit cumulable contrairement aux autres bonus est la raison pour
+Le fait qu'il soit cumulable contrairement aux autres bonus, est la raison pour
 laquelle nous choisissons d'implémenter les bonus à l'aide de 3 classes dont
 une classe abstraite permettant d'unifier le comportement commun des deux
 autres.
 
-\subsection{BonusPill}
+\subsubsection{BonusPill}
 
 La classe \texttt{BonusPill} représente une capsule/pillule de bonus contenant
 un \texttt{BonusType}. Celle-ci étant rectangulaire mais ne laissant pas la
@@ -353,33 +353,66 @@ balle rebondir dessus, elle hérite seulement de \texttt{RectangleShape}. Elle
 possède également une vitesse de descente. La méthode isOverlapping, héritée de
 \texttt{RectangleShape} permet de vérifier si la pillule est rentrée en
 collision avec un autre \texttt{RectangleShape}. Nous utilisons cette méthode
-sur la raquette afin de savoir si la raquette a attrappé la \texttt{BonusPill}.
+sur la raquette afin de savoir si la raquette a attrapé la \texttt{BonusPill}.
 La méthode \texttt{update} permet de faire descendre le bonus de la distance
-qu'il aurait pacourut après \texttt{deltaTime} secondes.
+qu'il aurait parcouru après \texttt{deltaTime} secondes.
 
-\subsection{ScoreManager}
+\subsubsection{ScoreManager}
 
 La classe \texttt{ScoreManager} gère et centralise les informations concernant
-le score, c'est à dire le meilleur score et le score du joueur à un instant T.
+le score, c'est-à-dire le meilleur score et le score du joueur à un instant T.
 
-\subsection{LifeCounter}
+\subsubsection{LifeCounter}
 
 La classe \texttt{LifeCounter} gère le nombre de vies du joueur. Toutefois, la
 responsabilité de notifier les pertes et gains de vie au \texttt{LifeCounter}
 revient à la \texttt{GameBoard}. Par exemple, lorsque le joueur n'a plus de
-balle en jeu, \texttt{GameBoard} doit envoyer une message \texttt{LifeCounter}
-pour décrémenter le nombre de vie.
+balle en jeu, \texttt{GameBoard} doit envoyer un message \texttt{LifeCounter}
+pour décrémenter le nombre de vies.
 
-\subsection{Lazer}
+\subsubsection{Lazer}
 
-La classe \texttt{Lazer} représente un lazer tiré vers le haut et provenant de
+La classe \texttt{Lazer} représente un laser tiré vers le haut et provenant de
 la raquette. Celui-ci est de forme rectangulaire et ne fait pas rebondir la
 balle, il hérite donc uniquement de \texttt{RectangleShape}. Celui-ci possède
 une vitesse. Nous utilisons la méthode isOlverapping héritée de
-\texttt{RectangleShape} afin de vérifier si le lazer a collisionné avec un
+\texttt{RectangleShape} afin de vérifier si le laser a collisionné avec un
 autre \texttt{RectangleShape}. La méthode \texttt{update} permet de faire
-monter le bonus de la distance qu'il aurait pacourut après \texttt{deltaTime}
+monter le bonus de la distance qu'il aurait parcouru après \texttt{deltaTime}
 secondes.
+
+\subsection{Vue}
+\subsubsection{DisplayGame}
+La classe \texttt{DisplayGame} gère l'affichage global du jeu. Elle utilise la classe \texttt{Canvas} pour dessiner les éléments et dépend de \texttt{GameBoard} pour accéder aux données du jeu. Cette classe utilise des ressources graphiques Allegro (\texttt{ALLEGRO\_DISPLAY}, \texttt{ALLEGRO\_BITMAP}) et des polices (\texttt{ALLEGRO\_FONT}). Mais d'abord, elle  initialise Allegro et vérifie les erreurs d'initialisation.
+
+\subsubsection{Canvas}
+Cette classe est une plateforme centrale pour dessiner toutes les pièces et éléments du jeu. Elle travaille avec \texttt{GameBoard} pour accéder aux entités comme la raquette, les balles, les briques, etc. Elle intègre des objets comme \texttt{RacketUi}, \texttt{BallUi}, \texttt{BrickUi}, et autres pour traduire l'élément modèle en élément vue qui pourra être dessiné par Allegro. Cette classe permet de centraliser les appels de dessin pour tous les éléments du jeu.
+
+\subsubsection{Formes Géométriques}
+\begin{itemize}
+    \item \textbf{Rectangle} : Classe de base pour les objets comme \texttt{WallUi}, \texttt{RacketUi}, et autres.
+    \item \textbf{Circle} : Classe de base pour les objets comme \texttt{BallUi}.
+    \item \textbf{Responsabilités} :
+    \begin{itemize}
+        \item Gérer les attributs géométriques (position, dimensions, couleurs).
+        \item Fournir une méthode \texttt{draw()} pour dessiner la forme.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Autres Classes}
+\begin{itemize}
+    \item \textbf{WallUi} : Représente les murs dans l'interface utilisateur, hérite de \texttt{Rectangle}.
+    \item \textbf{RacketUi} : Représente la raquette du joueur, hérite de \texttt{Rectangle}.
+    \item \textbf{LazerUi} : Représente les lasers, hérite de \texttt{Rectangle}.
+    \item \textbf{BrickUi} : Gère l'affichage des briques, hérite de \texttt{Rectangle} et travaille avec \texttt{AbstractBrick}.
+    \item \textbf{BonusPillUi} : Affiche les bonus tombants, hérite de \texttt{Rectangle}.
+    \item \textbf{BallUi} : Représente les balles dans le jeu, hérite de \texttt{Circle}.
+\end{itemize}
+
+\subsection{Contrôleur}
+La classe \texttt{ControllerGame} gère la logique principale du jeu, y compris les événements, la progression des niveaux et l'interaction entre les éléments du jeu. Il dépend de \texttt{GameBoard} pour toute la logique du jeu, et interagit avec \texttt{DisplayGame} pour l'affichage. Il utilise également \texttt{LevelManager} pour gérer les niveaux et charger leurs données. \newline
+
+Il est responsable de gérer la boucle principale du jeu, de gérer les événements d'entrée comme le clavier, de charger les niveaux via le \texttt{LevelManager}, de contrôler les transitions de victoire et de défaite, et d'interagir avec Allegro pour la gestion des événements, du timer, et de l'affichage, tout en appelant \texttt{DisplayGame} pour dessiner l'état du jeu en cours.
 
 \section{Logique du jeu}
 
