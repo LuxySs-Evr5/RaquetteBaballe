@@ -131,7 +131,255 @@ Nous avons également effectué ces différentes tâches additionnelles :
 
 
 
-\section{Interface des différentes classes, leurs rôles et liens avec les autres classes}
+\section{Interface des différentes classes, leurs rôles et liens avec les
+autres classes}
+
+% TODO: toutes les classes de view et le controller
+% TODO: Log
+% TODO: Vec2
+
+\subsection{GameBoard}
+
+La classe GameBoard est l'élément central du modèle. Elle coordonne et fait
+évoluer les autres composants du modèle au fil du temps. Le tableau
+\ref{tab:responsabilites} détaille ces composants ainsi que les classes
+associées à chacun :
+
+% TODO: lazer
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Composant du modèle}        & \textbf{Classe}   \\ \hline
+        Le score                            & ScoreManager      \\ \hline
+        Le compteur de vie                  & LifeCounter       \\ \hline
+        Le bonus actif                      & Bonus             \\ \hline
+        Les capsules de bonus qui tombent   & BonusPill         \\ \hline
+        Les lazers                          & Lazer             \\ \hline
+        La raquette                         & Racket            \\ \hline
+        Les bordures du plateau de jeu      & Border            \\ \hline
+        Les briques                         & Brick             \\ \hline
+        Les balles                          & Ball              \\ \hline
+    \end{tabular}
+    \caption{Correspondance entre les composants du modèle et les classes.}
+    \label{tab:responsabilites}
+\end{table}
+
+%TODO: change controller
+Le controlleur qui possède l'horloge du jeu doit pouvoir signaler à la
+GameBoard de mettre-à jour les composants du modèle et combien de temps s'est
+écoulé entre cette mis-à-jour et la précédente. Cela est implémenté via la
+méthode \texttt{update}. Chaque fois que celle-ci est appelée à un instant $T$,
+avec un paramètre $deltaT$, \texttt{GameBoard} met à jour tous les composants
+du modèle à l'état correspondant à l'instant \(T + deltaT\).
+
+\subsection{Vec2}
+
+La classe \texttt{Vec2} représente un vecteur à deux dimensions. Celle-ci
+implémente les opérateurs usuels des vecteurs, e.g. l'addition, soustraction.
+
+\subsection{RectangleShape}
+
+La classe \texttt{RectangleShape} est utilisée pour représenter n'importe quel
+objet rectangulaire, tel qu'une brique ou la raquette.
+
+Son interface permet de :
+\begin{itemize}
+
+    \item Modifier le centre, la hauteur et la largeur du rectangle.
+
+    \item Obtenir différentes informations sur le rectangle, e.g. la largeur,
+        le centre.
+
+    \item Vérifier si une superposition a lieu avec un autre rectangle.
+
+\end{itemize}
+
+\subsection{Bounceable}
+
+La classe \texttt{Bounceable} représente un objet rectangulaire sur lequel la
+balle peut rebondir. Puisque toutes les instances de cette classes sont
+rectangulaires, celle-ci hérite de \texttt{RectangularShape}. 
+
+Par défaut, l'effet de rebonds des \texttt{Bounceable}'s consiste simplement à
+inverser l'axe $x$ et/ou $y$ du vecteur directeur de la balle en fonction du
+type de rebond (rebond sur un coin, une surface verticale ou horizontale). Le
+type de rebond s'obtient via la méthode \texttt{getBounceType} renvoyant un
+enuméré \texttt{BounceType} représentant ces trois types de rebond. Cependant,
+chaque \texttt{Bounceable}'s peut modifier l'effet de rebond par défaut, qui
+est donné à tous les \texttt{Bounceable}'s, et ce en "overridant" la méthode
+\texttt{getDirVecAfterBounce}.
+
+\subsection{Briques}
+
+La classe abstraite \texttt{AbstractBrick} représente une brique. Puisque la
+balle peut rebondir sur les briques, \texttt{AbstractBrick} hérite de
+\texttt{Bounceable}. Une brique est définie comme un type de
+\texttt{Bounceable} ayant:
+
+\begin{itemize}
+
+    \item Une couleur, directemment liée au nombre de points qu'elle rapporte
+        au joueur, une fois que celui-ci la détruit.
+
+    \item Une durabilité, représentant le nombre de coup que celle-ci peut
+        encore subir avant d'être détruite.
+
+    \item Le type type de bonus qu'elle contient.
+
+\end{itemize}
+
+Afin d'associer à sa couleur un nombre de points rapportés lors de la
+destruction, nous utilisons l'énuméré \texttt{AbstractBrick::Color}. \\
+
+Lorsque la \texttt{GameBoard} détecte qu'une balle rebondit sur la brique, elle
+doit signaler à la brique qu'elle a été touchée. Ceci est implémenté via la
+méthode \texttt{hit} servant à décrémenter la durabilité et, si celle-ci est
+détruite, renvoier le type de bonus que la brique contenait.
+
+Les briques dorées ne pouvant pas être détruite contrairement aux autres, nous
+avons créé deux classes héritant de \texttt{brick}:
+
+\begin{itemize}
+
+    \item \texttt{BasicBrick} Pour les briques implémentant les caractérstiques
+        d'une brique simple, i.e. qui peut être détruite.
+
+    \item \texttt{GoldBrick} Pour les briques dorées qui ne peuvent pas être détruite.
+
+\end{itemize}
+
+L'interface qu'offrent \texttt{BasicBrick} et \texttt{GoldBrick} est exactement
+la même interface que celle de \texttt{AbstractBrick}. Afin de pouvoir profiter du
+polymorphisme, nous implémentons une "méthode-usine" ("factory") renvoyant un
+pointeur de brique pouvant pointer vers une \texttt{BasicBrick} ou une
+\texttt{GoldBrick}.
+
+\subsection{Border}
+
+La classe \texttt{Border} représente les trois bordures du plateau de jeu sur
+lesquelles les balles rebondissent (en haut, à gauche et à droite).
+\texttt{Border} hérite de \texttt{Bounceable} et n'implémente aucune méthode
+particulière. 
+
+\subsection{Racket}
+
+La classe \texttt{Racket} représente la raquette. Puisque les balles peuvent rebondir
+dessus, celle-ci hérite de \texttt{Bounceable}.
+
+Puisque dans le jeu, la raquette doit être déplacée uniquement lattéralement,
+nous fournissons le setter \texttt{setCenterX}, spécifiquement dédié à cela.
+
+La classe \texttt{Racket} modifie l'effet de rebond par défaut de
+\texttt{Bounceable} en surchargeant la méthode \texttt{getDirVecAfterBounce}.
+Cela permet d'ajouter l'effet de variation de l'angle entre la balle et
+l'horizontale en fonction de la distance par rapport au centre de la raquette.
+
+\subsection{Ball}
+
+La classe \texttt{Ball} représente une balle du jeu. Celle-ci possède
+essentiellement une position, un rayon, et une vitesse, un vecteur directeur.
+Nous nous assurons que la balle garde une vitesse de déplacement directemment
+porportionnel à son attribut vitesse, en gardant le vecteur directeur toujours
+normalisé, c'est à dire que son module vaut 1. Le scalaire vitesse est donc le
+seul pouvant influencer la vitesse de déplacement de la balle.
+
+La méthode \texttt{checkCollision} permet de vérifier si la balle est rentré en
+collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
+\texttt{GameBoard} au moment de trouver les collisions qui ont eu lieu à un
+instant $T$. La méthode \texttt{collide} également appelée par
+\texttt{GameBoard} permet ensuite de résoudre la collision avec un
+\texttt{RectangleShape}. "Résoudre la collision" voulant dire: Sortir la balle
+du Bounceable et appliquer l'effet de rebond spécifique au \texttt{Bounceable}
+sur le vecteur directeur de la balle.
+
+La méthode \texttt{update} pernant un paramètre représentant une durée
+$deltaTime$ permet de mettre à jour la position de la balle à l'instant $T +
+deltaTime$.
+
+\subsection{BonusType}
+
+L'énuméré contient les différents types de bonus implémentés, ainsi que la
+valeur \texttt{None}, représentant l'absence de Bonus.
+
+\subsection{AbstractTimedBonus}
+
+Les bonus à effet à durée limitée sont gérés par les classes
+\texttt{BasicTimedBonus} et \texttt{SlowDownBonus}, qui héritent de la classe
+abstraite \texttt{AbstractTimedBonus}. Cette dernière fournit une structure
+commune avec un attribut \texttt{BonusType} (indiquant le type de bonus) ainsi qu'une
+interface pour notifier le bonus de :
+\begin{itemize}
+
+    \item L'écoulement d'une durée \texttt{deltaT}
+
+    \item Réappliquer le bonus (Ceci est nécessaire uniquement pour les bonus
+        "SlowDown" car les effets sont cumulables).
+
+\end{itemize}
+
+\subsection{BasicTimedBonus}
+
+La classe \texttt{BasicTimedBonus} hérite de \texttt{AbstractTimedBonus} et
+gère le temps d'activité de celui-ci. Elle implémente la méthode
+\texttt{update} de l'interface de \texttt{AbstractTimedBonus}, permettant de
+diminuer le temps restant du bonus d'une durée donnée. Nous l'utilisons pour
+les bonus suivant: "WideRacket" et "Lazer". Nous avions l'intention de
+l'utiliser également pour le Bonus "Attrapper" et mais nous ne sommes pas
+parvenus à implémenter celui-ci dans les délais du projet.
+
+\subsection{SlowDownBonus} 
+
+Le bonus "SlowDown" est cummulable, contrairement aux autres. Cela signifie que
+si le joueur attrappe un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
+déjà actifs, la balle doit encore plus ralentir.
+La méthode \texttt{getSlowDownFactor} est spécifique à celui-ci et permet d'obtenir la
+valeur par laquelle la vitesse de base de la balle doit être divisée pour
+obtenir sa vitesse avec cette configuration de bonus "SlowDown". Cette valeur
+est proportionnelle à la somme des temps restants pour tous les "SlowDown"
+actifs.
+
+Le fait qu'il soit cummulable contrairement aux autres bonus est la raison pour
+laquelle nous choisissons d'implémenter les bonus à l'aide de 3 classes dont
+une classe abstraite permettant d'unifier le comportement commun des deux
+autres.
+
+\subsection{BonusPill}
+
+La classe \texttt{BonusPill} représente une capsule/pillule de bonus contenant
+un \texttt{BonusType}. Celle-ci étant rectangulaire mais ne laissant pas la
+balle rebondir dessus, elle hérite seulement de \texttt{RectangleShape}. Elle
+possède également une vitesse de descente. La méthode isOverlapping, héritée de
+\texttt{RectangleShape} permet de vérifier si la pillule est rentrée en
+collision avec un autre \texttt{RectangleShape}. Nous utilisons cette méthode
+sur la raquette afin de savoir si la raquette a attrappé la \texttt{BonusPill}.
+La méthode \texttt{update} permet de faire descendre le bonus de la distance
+qu'il aurait pacourut après \texttt{deltaTime} secondes.
+
+\subsection{ScoreManager}
+
+La classe \texttt{ScoreManager} gère et centralise les informations concernant
+le score, c'est à dire le meilleur score et le score du joueur à un instant T.
+
+\subsection{LifeCounter}
+
+La classe \texttt{LifeCounter} gère le nombre de vies du joueur. Toutefois, la
+responsabilité de notifier les pertes et gains de vie au \texttt{LifeCounter}
+revient à la \texttt{GameBoard}. Par exemple, lorsque le joueur n'a plus de
+balle en jeu, \texttt{GameBoard} doit envoyer une message \texttt{LifeCounter}
+pour décrémenter le nombre de vie.
+
+\subsection{Lazer}
+
+La classe \texttt{Lazer} représente un lazer tiré vers le haut et provenant de
+la raquette. Celui-ci est de forme rectangulaire et ne fait pas rebondir la
+balle, il hérite donc uniquement de \texttt{RectangleShape}. Celui-ci possède
+une vitesse. Nous utilisons la méthode isOlverapping héritée de
+\texttt{RectangleShape} afin de vérifier si le lazer a collisionné avec un
+autre \texttt{RectangleShape}. La méthode \texttt{update} permet de faire
+monter le bonus de la distance qu'il aurait pacourut après \texttt{deltaTime}
+secondes.
 
 \section{Logique du jeu}
 
