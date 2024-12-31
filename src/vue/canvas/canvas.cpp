@@ -13,6 +13,7 @@
 #include "../piece/brick_ui.hpp"
 #include "../piece/racket_ui.hpp"
 #include "../piece/wall_ui.hpp"
+#include "../piece/lazer_ui.hpp"
 
 Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
     : gameBoard_(gameBoard), fontBrick_(fontBrick){};
@@ -40,6 +41,12 @@ void Canvas::draw() {
             static_cast<float>(bonusPill->getBoundingBox().getWidth()),
             static_cast<float>(bonusPill->getBoundingBox().getHeight()), *bonusPill};
         bonusPillUi.draw();
+    }
+
+    for (auto &lazer : lazers_) {
+        LazerUi lazerUi{lazer->getPos(), static_cast<float>(lazer->getBoundingBox().getWidth()),
+                        static_cast<float>(lazer->getBoundingBox().getHeight())};
+        lazerUi.draw();
     }
 
     for (auto &ball : balls_) {
