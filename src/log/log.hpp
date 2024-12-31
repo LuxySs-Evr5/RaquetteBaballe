@@ -9,7 +9,7 @@ class Log {
   public:
     enum class LogType {
         BallPos,
-        Bidirectional,
+        BidirectionalPenetrationVec,
         BounceType,
         BrickDestroyed,
         ChangeBetweenLastUpdate,
@@ -19,7 +19,7 @@ class Log {
         DirVec,
         Error,
         PenetrationRate,
-        Unidirectional,
+        SimplePenetrationVec,
     };
 
   private:

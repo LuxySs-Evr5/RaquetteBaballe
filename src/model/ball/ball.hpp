@@ -84,12 +84,11 @@ class Ball final {
     void setDirVec(const Vec2 &vec);
 
     /**
-     * @brief Returns the unidirectional-penetration-vector corresponding to the
+     * @brief Returns the simple-penetration-vector corresponding to the
      * given rectangleShape.
      * @param rectangleShape The RectangleShape.
      */
-    Vec2
-    getUnidirectionalPenetration(const RectangleShape &rectangleShape) const;
+    Vec2 getSimplePenetrationVec(const RectangleShape &rectangleShape) const;
 
     /**
      * @brief Checks whether the ball has collided with the given

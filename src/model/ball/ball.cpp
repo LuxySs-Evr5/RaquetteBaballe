@@ -48,8 +48,7 @@ void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 
 void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec; }
 
-Vec2 Ball::getUnidirectionalPenetration(
-    const RectangleShape &rectangleShape) const {
+Vec2 Ball::getSimplePenetrationVec(const RectangleShape &rectangleShape) const {
     Vec2 closestPoint =
         getClosestPoint(rectangleShape); // Closest point from the ball's
                                          // center, on the rectangleShape's edge
@@ -85,9 +84,9 @@ void Ball::collide(const Bounceable &bounceable) {
                           std::string{"bottomRight: "}
                               + std::string{bounceable.getBottomRight()});
 
-    Vec2 unidirectionalPenetration = getUnidirectionalPenetration(bounceable);
-    Log::get().addMessage(Log::LogType::Unidirectional,
-                          std::string{unidirectionalPenetration});
+    Vec2 simplePenetrationvec = getSimplePenetrationVec(bounceable);
+    Log::get().addMessage(Log::LogType::SimplePenetrationVec,
+                          std::string{simplePenetrationvec});
 
     Vec2 closestPoint = getClosestPoint(bounceable);
     Log::get().addMessage(Log::LogType::ClosestPoint,
@@ -105,22 +104,21 @@ void Ball::collide(const Bounceable &bounceable) {
     if (((bounceType == BounceType::Horizontal)
          || (bounceType == BounceType::Corner))
         && (changeBetweenLastUpdate.y != 0)) {
-        penetrationRate =
-            unidirectionalPenetration.y / changeBetweenLastUpdate.y;
+        penetrationRate = simplePenetrationvec.y / changeBetweenLastUpdate.y;
 
     } else if ((bounceType == BounceType::Vertical)
                && (changeBetweenLastUpdate.x != 0)) {
-        penetrationRate =
-            unidirectionalPenetration.x / changeBetweenLastUpdate.x;
+        penetrationRate = simplePenetrationvec.x / changeBetweenLastUpdate.x;
     }
     Log::get().addMessage(Log::LogType::PenetrationRate,
                           std::to_string(penetrationRate));
 
-    Vec2 bidirectionalPenetration = changeBetweenLastUpdate * penetrationRate;
-    Log::get().addMessage(Log::LogType::Bidirectional,
-                          bidirectionalPenetration);
+    Vec2 bidirectionalPenetrationVec =
+        changeBetweenLastUpdate * penetrationRate;
+    Log::get().addMessage(Log::LogType::BidirectionalPenetrationVec,
+                          bidirectionalPenetrationVec);
 
-    center_ -= bidirectionalPenetration;
+    center_ -= bidirectionalPenetrationVec;
 
     bounce(bounceable);
     Log::get().addMessage(Log::LogType::DirVec,
@@ -129,7 +127,7 @@ void Ball::collide(const Bounceable &bounceable) {
 
     // Add back the distance that the ball should have travelled instead of
     // going inside the Bounceable
-    center_ += dirVec_ * bidirectionalPenetration.getModule();
+    center_ += dirVec_ * bidirectionalPenetrationVec.getModule();
 }
 
 void Ball::update(double deltaTime) {

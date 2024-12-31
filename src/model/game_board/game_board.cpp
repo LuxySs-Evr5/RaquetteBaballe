@@ -35,7 +35,7 @@ GameBoard::findNextCollision(Ball &ball) {
         for (auto it = elements.begin(); it != elements.end(); ++it) {
             if (ball.checkCollision(**it)) {
                 double distanceCurrentCollision =
-                    ball.getUnidirectionalPenetration((**it)).getModule();
+                    ball.getSimplePenetrationVec((**it)).getModule();
 
                 if (distanceCurrentCollision < distanceClosestCollision) {
                     closestCollision = it;
@@ -50,7 +50,7 @@ GameBoard::findNextCollision(Ball &ball) {
 
     if (racket_ && ball.checkCollision(*racket_)) {
         double distanceCurrentCollision =
-            ball.getUnidirectionalPenetration(*racket_).getModule();
+            ball.getSimplePenetrationVec(*racket_).getModule();
 
         if (distanceCurrentCollision < distanceClosestCollision) {
             closestCollision = racket_;

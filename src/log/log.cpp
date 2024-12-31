@@ -10,7 +10,7 @@ Log::Log() : logfile("log.txt") {
     }
     logTypeEnabled = {
         {LogType::BallPos, false},
-        {LogType::Bidirectional, false},
+        {LogType::BidirectionalPenetrationVec, false},
         {LogType::BounceType, false},
         {LogType::BrickDestroyed, false},
         {LogType::ChangeBetweenLastUpdate, false},
@@ -20,7 +20,7 @@ Log::Log() : logfile("log.txt") {
         {LogType::DirVec, false},
         {LogType::Error, false},
         {LogType::PenetrationRate, false},
-        {LogType::Unidirectional, false},
+        {LogType::SimplePenetrationVec, false},
     };
 }
 
@@ -28,8 +28,8 @@ std::string Log::logTypeToString(LogType type) const {
     switch (type) {
     case LogType::BallPos:
         return "BallPos";
-    case LogType::Bidirectional:
-        return "Bidirectional";
+    case LogType::BidirectionalPenetrationVec:
+        return "BidirectionalPenetrationVec";
     case LogType::BounceType:
         return "BounceType";
     case LogType::BrickDestroyed:
@@ -48,8 +48,8 @@ std::string Log::logTypeToString(LogType type) const {
         return " Error";
     case LogType::PenetrationRate:
         return "PenetrationRate";
-    case LogType::Unidirectional:
-        return "Unidirectional";
+    case LogType::SimplePenetrationVec:
+        return "SimplePenetrationVec";
     default:
         return "Unknown";
     }
