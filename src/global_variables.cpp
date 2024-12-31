@@ -9,8 +9,6 @@
 #include "global_variables.hpp"
 #include "model/vec2/vec2.hpp"
 
-// TODO: const or constexpr ?
-
 // ### Different paths ###
 const char *PATH_TO_FONT =
     "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
