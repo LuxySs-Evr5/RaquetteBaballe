@@ -303,13 +303,14 @@ deltaTime$.
 L'énuméré contient les différents types de bonus implémentés, ainsi que la
 valeur \texttt{None}, représentant l'absence de bonus.
 
-\subsubsection{AbstractTimedBonus}
+\subsubsection{Bonus à durée limitée}
 
-Les bonus à effet à durée limitée sont gérés par les classes
-\texttt{BasicTimedBonus} et \texttt{SlowDownBonus}, qui héritent de la classe
-abstraite \texttt{AbstractTimedBonus}. Cette dernière fournit une structure
-commune avec un attribut \texttt{BonusType} (indiquant le type de bonus) ainsi qu'une
+Les bonus à durée limitée sont gérés par les classes \texttt{BasicTimedBonus}
+et \texttt{SlowDownBonus}, qui héritent de la classe abstraite
+\texttt{AbstractTimedBonus}. Cette dernière fournit une structure commune avec
+un attribut \texttt{BonusType} (indiquant le type de bonus) ainsi qu'une
 interface pour notifier le bonus de :
+
 \begin{itemize}
 
     \item L'écoulement d'une durée \texttt{deltaT}
@@ -319,17 +320,13 @@ interface pour notifier le bonus de :
 
 \end{itemize}
 
-\subsubsection{BasicTimedBonus}
-
 La classe \texttt{BasicTimedBonus} hérite de \texttt{AbstractTimedBonus} et
 gère le temps d'activité de celui-ci. Elle implémente la méthode
 \texttt{update} de l'interface de \texttt{AbstractTimedBonus}, permettant de
 diminuer le temps restant du bonus d'une durée donnée. Nous l'utilisons pour
 les bonus suivants: "WideRacket" et "Lazer". Nous avions l'intention de
 l'utiliser également pour le bonus "Attraper" mais nous ne sommes pas
-parvenus à implémenter celui-ci dans les délais du projet.
-
-\subsubsection{SlowDownBonus} 
+parvenus à implémenter celui-ci dans les délais du projet. \\
 
 Le bonus "SlowDown" est cumulable, contrairement aux autres. Cela signifie que
 si le joueur attrape un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
