@@ -107,7 +107,12 @@ class GameBoard final {
     /**
      * @brief Clears the active bonus.
      */
-    void clearBonus();
+    void clearActiveBonus();
+
+    /**
+     * @brief Clears the lazers.
+     */
+    void clearLazers();
 
     /**
      * @brief Clears the descending bonuses.

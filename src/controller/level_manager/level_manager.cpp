@@ -78,12 +78,13 @@ BonusType convertBonusFromString(const string &bonusName) {
         {"ExtraLife", BonusType::ExtraLife},
         {"WideRacket", BonusType::WideRacket},
         {"SplitBall", BonusType::SplitBall},
+        {"Lazer", BonusType::Lazer},
     };
     auto it = bonusMap.find(bonusName);
     if (it != bonusMap.end()) {
         return it->second;
     }
-    cerr << "Unknown bonus name" << endl;
+    cerr << "Unknown bonus name: " << bonusName << endl;
     exit(1);
 }
 
