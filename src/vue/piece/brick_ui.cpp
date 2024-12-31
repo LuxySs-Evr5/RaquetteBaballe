@@ -1,7 +1,7 @@
 /**
  * @file brick_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Brick
+ * @brief Define the class BrickUi
  * @date 27/11/2024
  *
  */
@@ -61,7 +61,3 @@ void BrickUi::draw(const Brick &brick) {
         }
     }
 }
-
-void BrickUi::setFrameColor(const ALLEGRO_COLOR &color) { frameColor_ = color; }
-
-Point BrickUi::getCenter() const { return center_; }

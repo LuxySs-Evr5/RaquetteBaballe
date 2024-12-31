@@ -1,7 +1,7 @@
 /**
  * @file wall_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the racket class
+ * @brief Define the WallUi class
  * @date 26/11/2024
  *
  */

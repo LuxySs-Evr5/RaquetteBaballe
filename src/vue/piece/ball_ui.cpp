@@ -1,7 +1,7 @@
 /**
  * @file ball_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Ball
+ * @brief Define the class BallUi
  * @date 26/11/2024
  *
  */

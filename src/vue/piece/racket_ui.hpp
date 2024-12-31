@@ -1,7 +1,7 @@
 /**
  * @file racket_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the racket class
+ * @brief Define the racketUi class
  * @date 26/11/2024
  *
  */
@@ -35,4 +35,4 @@ class RacketUi final : public Rectangle {
     void draw() override;
 };
 
-#endif // RACKET_HPP
+#endif // RACKET_UI_HPP

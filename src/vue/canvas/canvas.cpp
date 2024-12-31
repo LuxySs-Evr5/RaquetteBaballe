@@ -38,8 +38,8 @@ void Canvas::draw() {
         BonusPillUi bonusPillUi{
             bonusPill->getPos(),
             static_cast<float>(bonusPill->getBoundingBox().getWidth()),
-            static_cast<float>(bonusPill->getBoundingBox().getHeight())};
-        bonusPillUi.draw(*bonusPill);
+            static_cast<float>(bonusPill->getBoundingBox().getHeight()), *bonusPill};
+        bonusPillUi.draw();
     }
 
     for (auto &ball : balls_) {

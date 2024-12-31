@@ -10,14 +10,9 @@
 #include <allegro5/color.h>
 
 BonusPillUi::BonusPillUi(Point center, float width, float height,
-                         ALLEGRO_COLOR color)
-    : Rectangle(center, width, height, color) {}
-
-void BonusPillUi::draw(const BonusPill &bonusPill) {
-    center_.y =
-        SCREEN_HEIGHT
-        - center_.y; // Invert the y axis to match the screen with the backend
-
+                         BonusPill &bonusPill)
+    : Rectangle(center, width, height) {
+    
     if (bonusPill.getBonusType() == BonusType::ExtraLife) {
         fillColor_ = COLOR_GREY;
     } else if (bonusPill.getBonusType() == BonusType::SlowDown) {
@@ -27,8 +22,12 @@ void BonusPillUi::draw(const BonusPill &bonusPill) {
     } else if (bonusPill.getBonusType() == BonusType::SplitBall) {
         fillColor_ = COLOR_CYAN;
     }
-
     frameColor_ = COLOR_BLACK; // Black frame color for all bonus pills
+}
 
+void BonusPillUi::draw() {
+    center_.y =
+        SCREEN_HEIGHT
+        - center_.y; // Invert the y axis to match the screen with the backend
     Rectangle::draw();
 }

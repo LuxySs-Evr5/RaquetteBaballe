@@ -22,8 +22,7 @@ class BonusPillUi final : public Rectangle {
      * @param width The width of the racket
      * @param height The height of the racket
      */
-    BonusPillUi(Point center, float width, float height,
-                ALLEGRO_COLOR = COLOR_WHITE);
+    BonusPillUi(Point center, float width, float height, BonusPill &bonusPill);
 
     /**
      * @brief Destroy the Racket Ui object
@@ -35,8 +34,7 @@ class BonusPillUi final : public Rectangle {
      * @brief Draw the racket
      *
      */
-    using Rectangle::draw;
-    void draw(const BonusPill &bonusPill);
+    void draw();
 };
 
 #endif // BONUS_PILL_UI_HPP

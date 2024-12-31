@@ -1,7 +1,7 @@
 /**
  * @file racket_ui.cpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the racket class
+ * @brief Define the racketUi class
  * @date 26/11/2024
  *
  */

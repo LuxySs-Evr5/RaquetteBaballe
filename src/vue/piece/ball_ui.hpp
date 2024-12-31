@@ -1,13 +1,13 @@
 /**
  * @file ball_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Ball
+ * @brief Define the class BallUi
  * @date 26/11/2024
  *
  */
 
-#ifndef BALLUI_HPP
-#define BALLUI_HPP
+#ifndef BALL_UI_HPP
+#define BALL_UI_HPP
 
 #include "../figures/forme.hpp"
 #include <allegro5/color.h>
@@ -36,4 +36,4 @@ class BallUi final : public Circle {
     virtual void draw() override;
 };
 
-#endif // BALLUI_HPP
+#endif // BALL_UI_HPP

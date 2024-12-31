@@ -1,7 +1,7 @@
 /**
  * @file brick_ui.hpp
  * @author Ethan Van Ruyskensvelde (Main developer)
- * @brief Define the class Brick
+ * @brief Define the class BrickUi
  * @date 27/11/2024
  *
  */
@@ -51,20 +51,6 @@ class BrickUi final : public Rectangle {
      */
     using Rectangle::draw;
     void draw(const Brick &brick);
-
-    /**
-     * @brief Set the Frame Color for the brick
-     *
-     * @param color The color of the frame
-     */
-    void setFrameColor(const ALLEGRO_COLOR &color);
-
-    /**
-     * @brief Get the brick's center
-     *
-     * @return Point
-     */
-    Point getCenter() const;
 
     static const ALLEGRO_FONT *getBrickFont();
 };
