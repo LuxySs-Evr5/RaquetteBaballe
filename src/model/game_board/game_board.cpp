@@ -356,6 +356,10 @@ const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;
 }
 
+const std::vector<std::shared_ptr<Lazer>> &GameBoard::getLazers() const {
+    return lazers_;
+}
+
 unsigned long GameBoard::getNumBricks() const {
     return std::count_if(bricks_.begin(), bricks_.end(), [](const auto &brick) {
         return brick->getColor() != Color::gold;

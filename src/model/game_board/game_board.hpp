@@ -82,10 +82,6 @@ class GameBoard final {
      */
     void splitBallIntoThree(const Ball &originalBall,
                             std::vector<shared_ptr<Ball>> &newBalls);
-    /**
-     * @brief Shoots a lazer.
-     */
-    void shootLazer();
 
     /**
      * @brief Clears and sets up the ball vector for the next game.
@@ -155,6 +151,11 @@ class GameBoard final {
     void update(double deltaTime);
 
     /**
+     * @brief Shoots a lazer.
+     */
+    void shootLazer();
+
+    /**
      * @brief Returns the current Score.
      *
      * @return The current score.
@@ -209,6 +210,13 @@ class GameBoard final {
      * @return A reference to the vector of border pointers.
      */
     const std::vector<std::shared_ptr<Border>> &getBorders() const;
+
+    /**
+     * @brief Returns the lazers vector.
+     *
+     * @return A reference to the vector of lazers.
+     */
+    const std::vector<std::shared_ptr<Lazer>> &getLazers() const;
 
     /**
      * @brief Sets the racket's horizontal coordinate.
