@@ -82,7 +82,7 @@ void GameBoard::handleBallBrickCollision(Ball &ball, BrickIt brickIt) {
     }
 }
 
-void GameBoard::handleDescendingBonusses(double deltaTime) {
+void GameBoard::handleDescendingBonuses(double deltaTime) {
     std::vector<shared_ptr<BonusPill>> bonusesToRemove;
 
     for (shared_ptr<BonusPill> &descendingBonus : descendingBonuses_) {
@@ -330,7 +330,7 @@ void GameBoard::update(double deltaTime) {
         return;
     }
 
-    handleDescendingBonusses(deltaTime);
+    handleDescendingBonuses(deltaTime);
 
     handleActiveBonus(deltaTime);
 

@@ -25,5 +25,5 @@ bool SlowDownBonus::update(double deltaT) {
 double SlowDownBonus::getSlowDownFactor() const {
     int sum = std::accumulate(queue_.begin(), queue_.end(), 0);
 
-    return 1 + (SLOW_DOWN_PROPORTIAL_CONST * sum);
+    return 1 + (SLOW_DOWN_PROPORTIONAL_CONST * sum);
 }

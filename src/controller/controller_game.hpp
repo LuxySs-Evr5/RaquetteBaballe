@@ -83,7 +83,7 @@ class ControllerGame {
 
   public:
     /**
-     * @brief Construct and destrcut a Controller Game object
+     * @brief Construct and destruct a Controller Game object
      *
      */
     ControllerGame();

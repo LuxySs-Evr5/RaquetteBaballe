@@ -58,7 +58,7 @@ extern const double LAZER_SPEED = 800;
 extern const double LAZER_DURATION = 10;
 
 // SlowDown Bonus
-const double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
+const double SLOW_DOWN_PROPORTIONAL_CONST = 0.2;
 const double SLOW_DOWN_DURATION = 10;
 
 // ### Walls ###
@@ -68,8 +68,8 @@ const double WALL_THICKNESS = 20;
 const uint8_t DURABILITY_STANDARD_BRICK = 1;
 const uint8_t DURABILITY_SILVER_BRICK = 2;
 
-// ### Initial number of lifes ###
-const unsigned INITIAL_NUM_LIFES = 3;
+// ### Initial number of lives ###
+const unsigned INITIAL_NUM_LIVES = 3;
 
 // ### Size of image heart ###
 const float HEART_IMAGE_SIZE = 24; // because the font size is 24

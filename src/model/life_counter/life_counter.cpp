@@ -9,29 +9,29 @@
 #include "life_counter.hpp"
 #include "../../global_variables.hpp"
 
-LifeCounter::LifeCounter() : numLifes_(INITIAL_NUM_LIFES) {}
+LifeCounter::LifeCounter() : numLives_(INITIAL_NUM_LIVES) {}
 
-LifeCounter::LifeCounter(unsigned numLifes) : numLifes_(numLifes) {}
+LifeCounter::LifeCounter(unsigned numLives) : numLives_(numLives) {}
 
 LifeCounter::~LifeCounter() = default;
 
-void LifeCounter::reset() { numLifes_ = INITIAL_NUM_LIFES; }
+void LifeCounter::reset() { numLives_ = INITIAL_NUM_LIVES; }
 
 const LifeCounter &LifeCounter::operator--() {
-    numLifes_--;
+    numLives_--;
     return *this;
 }
 
 const LifeCounter &LifeCounter::operator++() {
-    numLifes_++;
+    numLives_++;
     return *this;
 }
 
 const LifeCounter &LifeCounter::operator+=(unsigned numLife) {
-    numLifes_ -= numLife;
+    numLives_ -= numLife;
     return *this;
 }
 
-void LifeCounter::setNumLifes(const uint8_t numLifes) { numLifes_ = numLifes; }
+void LifeCounter::setNumLives(const uint8_t numLives) { numLives_ = numLives; }
 
-LifeCounter::operator unsigned() const { return numLifes_; }
+LifeCounter::operator unsigned() const { return numLives_; }

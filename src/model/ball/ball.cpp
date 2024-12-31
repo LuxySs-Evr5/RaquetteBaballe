@@ -125,7 +125,7 @@ void Ball::collide(const Bounceable &bounceable) {
                           std::string{"dirvec afterBounce: "}
                               + std::string{getDirvec()});
 
-    // Add back the distance that the ball should have travelled instead of
+    // Add back the distance that the ball should have traveled instead of
     // going inside the Bounceable
     center_ += dirVec_ * bidirectionalPenetrationVec.getModule();
 }

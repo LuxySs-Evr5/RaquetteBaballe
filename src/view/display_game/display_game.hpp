@@ -44,7 +44,7 @@ class DisplayGame {
     void initialize_allegro();
 
     /**
-     * @brief Draw the hearts for the remaining lifes
+     * @brief Draw the hearts for the remaining lives
      *
      */
     void drawLife();

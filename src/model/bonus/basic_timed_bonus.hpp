@@ -5,7 +5,7 @@
 
 class BasicTimedBonus final : public AbstractTimedBonus {
   private:
-    double remaningTime_;
+    double remainingTime_;
 
   public:
     BasicTimedBonus(BonusType bonusType);

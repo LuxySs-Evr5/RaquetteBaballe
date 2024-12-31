@@ -15,7 +15,7 @@ using namespace std;
 
 class LifeCounter final {
   private:
-    unsigned numLifes_;
+    unsigned numLives_;
 
   public:
     /**
@@ -29,38 +29,38 @@ class LifeCounter final {
     LifeCounter &operator=(LifeCounter &&) = default;
 
     /**
-     * @brief Constructs a new LifeCounter with numLifes lifes remaining.
+     * @brief Constructs a new LifeCounter with numLives lives remaining.
      *
-     * @param numLifes The number of remaining lifes.
+     * @param numLives The number of remaining lives.
      */
-    LifeCounter(unsigned numLifes);
+    LifeCounter(unsigned numLives);
 
     virtual ~LifeCounter();
 
     /**
-     * @brief Resets the number of lifes to the initial number of lifes.
+     * @brief Resets the number of lives to the initial number of lives.
      */
     void reset();
 
     /**
-     * @brief Decrements the number of lifes.
+     * @brief Decrements the number of lives.
      */
     const LifeCounter &operator--();
 
     /**
-     * @brief Increments the number of lifes.
+     * @brief Increments the number of lives.
      */
     const LifeCounter &operator++();
 
     /**
-     * @brief Adds numLife lifes to the counter.
+     * @brief Adds numLife lives to the counter.
      */
     const LifeCounter &operator+=(unsigned numLife);
 
     /**
-     * @brief Sets the number of lifes to numLifes.
+     * @brief Sets the number of lives to numLives.
      */
-    void setNumLifes(uint8_t numLifes);
+    void setNumLives(uint8_t numLives);
 
     /**
      * @brief Converts the lifeCounter to an unsigned.

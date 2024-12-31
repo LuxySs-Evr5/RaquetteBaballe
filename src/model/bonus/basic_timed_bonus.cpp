@@ -5,10 +5,10 @@ BasicTimedBonus::BasicTimedBonus(BonusType bonusType)
     : AbstractTimedBonus(bonusType) {
     switch (bonusType) {
     case BonusType::WideRacket:
-        remaningTime_ = WIDE_RACKET_DURATION;
+        remainingTime_ = WIDE_RACKET_DURATION;
         break;
     case BonusType::Lazer:
-        remaningTime_ = LAZER_DURATION;
+        remainingTime_ = LAZER_DURATION;
         break;
     default:
         break;
@@ -16,6 +16,6 @@ BasicTimedBonus::BasicTimedBonus(BonusType bonusType)
 }
 
 bool BasicTimedBonus::update(double deltaT) {
-    remaningTime_ -= deltaT;
-    return (remaningTime_ > 0);
+    remainingTime_ -= deltaT;
+    return (remainingTime_ > 0);
 }

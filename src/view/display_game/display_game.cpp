@@ -64,7 +64,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
 
 DisplayGame::~DisplayGame() {
     /**
-     * @brief Destroy evrything created for allegro
+     * @brief Destroy everything created for allegro
      *
      */
     al_destroy_display(display_);
@@ -158,7 +158,7 @@ void DisplayGame::draw() {
         ALLEGRO_ALIGN_CENTER,
         to_string(gameBoard_->getBestScore()).c_str()); // draw the best score
 
-    drawLife(); // draw the hearts for the remaining lifes
+    drawLife(); // draw the hearts for the remaining lives
 
     canvas_->draw(); // draw the pieces of the game
 

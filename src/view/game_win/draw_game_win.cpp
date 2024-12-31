@@ -1,7 +1,7 @@
 /**
  * @file draw_game_win.cpp
  * @author Ethan Van Ruyskensvelde (Main developper)
- * @brief Decalre drawGameOver that draws the game win message with the score
+ * @brief Declare drawGameOver that draws the game win message with the score
  * @date 26/11/2024
  *
  */

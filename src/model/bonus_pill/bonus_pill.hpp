@@ -23,7 +23,7 @@ class BonusPill : public RectangleShape {
     BonusType getBonusType() const;
 
     /**
-     * @brief Updates the BonusPill's position as if it had travelled for a
+     * @brief Updates the BonusPill's position as if it had traveled for a
      * deltaTime duration (seconds).
      * @param deltaTime The duration (seconds).
      */

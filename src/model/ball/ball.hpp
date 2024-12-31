@@ -104,7 +104,7 @@ class Ball final {
     void collide(const Bounceable &bounceable);
 
     /**
-     * @brief Updates the ball's position as if it had travelled for a deltaTime
+     * @brief Updates the ball's position as if it had traveled for a deltaTime
      * duration (seconds).
      * @param deltaTime The duration (seconds).
      */

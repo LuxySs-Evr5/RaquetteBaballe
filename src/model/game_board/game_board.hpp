@@ -144,7 +144,7 @@ class GameBoard final {
      *
      * @param deltaTime The time elapsed since the last update.
      */
-    void handleDescendingBonusses(double deltaTime);
+    void handleDescendingBonuses(double deltaTime);
 
     /**
      * @brief Handles and updates the active bonus.

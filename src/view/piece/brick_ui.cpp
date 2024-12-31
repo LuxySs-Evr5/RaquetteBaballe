@@ -53,7 +53,7 @@ void BrickUi::draw(const AbstractBrick &brick, const ALLEGRO_FONT *fontBrick) {
     if (brick.hasBonus()) {
         float y = center_.y
                   - static_cast<float>(BRICK_HEIGHT
-                                       / 2.0); // Sart at the top of the brick
+                                       / 2.0); // Start at the top of the brick
         string letter = BonusTypeToLetter(brick.getBonusType());
         if (letter != "") {
             al_draw_text(fontBrick, COLOR_BLACK, center_.x, y,
