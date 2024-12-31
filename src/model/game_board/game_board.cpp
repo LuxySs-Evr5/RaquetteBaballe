@@ -61,9 +61,7 @@ GameBoard::findNextCollision(Ball &ball) {
     return closestCollision;
 }
 
-size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
-    size_t pointsEarned = 0;
-
+void GameBoard::handleBallBrickCollision(Ball &ball, BrickIt brickIt) {
     ball.collide(*brickIt->get());
     BonusType bonusType =
         (*brickIt)->hit(); // decrement its durability and extract bonus
@@ -73,18 +71,15 @@ size_t GameBoard::handleBrickCollision(Ball &ball, BrickIt brickIt) {
                                   + string{(*brickIt)->getCenter()});
 
         if (bonusType != BonusType::None && numBalls() == 1) {
-            Vec2 bonusPillCenter{(*brickIt)->getCenter().x,
-                                 (*brickIt)->getBottom()
-                                     - (BONUS_PILL_HEIGHT / 2)};
-            descendingBonuses_.emplace_back(
-                std::make_shared<BonusPill>(bonusPillCenter, bonusType));
+            addDescendingBonus(
+                {(*brickIt)->getCenter().x,
+                 (*brickIt)->getBottom() - (BONUS_PILL_HEIGHT / 2)},
+                bonusType);
         }
 
-        pointsEarned += (*brickIt)->getScore();
+        scoreManager_.increaseScore((*brickIt)->getScore());
         bricks_.erase(brickIt);
     }
-
-    return pointsEarned;
 }
 
 void GameBoard::handleDescendingBonusses(double deltaTime) {
@@ -104,10 +99,32 @@ void GameBoard::handleDescendingBonusses(double deltaTime) {
     removeSharedPointers(descendingBonuses_, bonusesToRemove);
 }
 
-size_t GameBoard::handleLazers(double deltaTime) {
+void GameBoard::handleActiveBonus(double deltaTime) {
+    if (activeBonus_ != nullptr) {
+        bool isActive = activeBonus_->update(deltaTime);
+        BonusType bonusType = activeBonus_->getBonusType();
+        if (bonusType == BonusType::SlowDown) {
+            double slowDownFactor =
+                static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
+
+            for (auto &ball : balls_) {
+                ball->setSpeed(
+                    static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
+            }
+        } else if (bonusType == BonusType::Lazer) {
+            handleLazers(deltaTime);
+        }
+
+        if (!isActive) {
+            undoBonusEffect(bonusType);
+            activeBonus_.reset();
+        }
+    }
+}
+
+void GameBoard::handleLazers(double deltaTime) {
     vector<shared_ptr<Lazer>> lazersToRemove;
     vector<shared_ptr<Brick>> bricksToRemove;
-    size_t pointsEarned = 0;
 
     for (shared_ptr<Lazer> lazer : lazers_) {
         lazer->update(deltaTime);
@@ -118,7 +135,7 @@ size_t GameBoard::handleLazers(double deltaTime) {
             if (lazer->isOverlapping(*brick)) {
                 if (brick->getColor() != Color::gold) {
                     bricksToRemove.push_back(brick);
-                    pointsEarned += brick->getScore();
+                    scoreManager_.increaseScore(brick->getScore());
                 }
                 break;
             }
@@ -127,12 +144,35 @@ size_t GameBoard::handleLazers(double deltaTime) {
 
     removeSharedPointers(lazers_, lazersToRemove);
     removeSharedPointers(bricks_, bricksToRemove);
-
-    return pointsEarned;
 }
 
-size_t GameBoard::solveBallCollisions(Ball &ball) {
-    size_t pointsEarned = 0;
+void GameBoard::handleBalls(double deltaTime) {
+    vector<shared_ptr<Ball>> ballsToRemove;
+    for (shared_ptr<Ball> ball : balls_) {
+        ball->update(deltaTime);
+
+        Log::get().addMessage(Log::LogType::BallPos, ball->getCenter());
+
+        solveBallCollisions(*ball);
+
+        if (ball->getCenter().y < -ball->getRadius()) {
+            ballsToRemove.push_back(ball);
+        }
+    }
+
+    removeSharedPointers(balls_, ballsToRemove);
+}
+
+void GameBoard::updateLifeCounter() {
+    if (balls_.empty()) {
+        --lifeCounter_;
+        if (lifeCounter_ > 0) {
+            balls_.emplace_back(createBall());
+        }
+    }
+}
+
+void GameBoard::solveBallCollisions(Ball &ball) {
     bool collided = true;
     std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
         collidingObject, prevCollidingObject;
@@ -153,6 +193,8 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
             consecutiveCollisions = 1;
         }
 
+        // Prevent the ball from getting stuck inside of the collided
+        // object.
         if (consecutiveCollisions > MAX_CONSECUTIVE_COLLISION) {
             break;
         }
@@ -166,7 +208,7 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         } else if (std::holds_alternative<BrickIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "brick");
             BrickIt brickIt = std::get<BrickIt>(*collidingObject);
-            pointsEarned += handleBrickCollision(ball, brickIt);
+            handleBallBrickCollision(ball, brickIt);
         } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "border");
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);
@@ -176,8 +218,6 @@ size_t GameBoard::solveBallCollisions(Ball &ball) {
         prevCollidingObject = collidingObject;
 
     } while (collided);
-
-    return pointsEarned;
 }
 
 size_t GameBoard::numBalls() { return balls_.size(); }
@@ -252,6 +292,10 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
     activeBonus_.reset();
 }
 
+void GameBoard::addDescendingBonus(const Vec2 &center, BonusType bonusType) {
+    descendingBonuses_.emplace_back(make_shared<BonusPill>(center, bonusType));
+}
+
 shared_ptr<Ball> GameBoard::createBall() {
     double ballSpawnYPos = RACKET_Y_POSITION + BALL_RADIUS + RACKET_WIDTH;
 
@@ -291,49 +335,11 @@ void GameBoard::update(double deltaTime) {
 
     handleDescendingBonusses(deltaTime);
 
-    if (activeBonus_ != nullptr) {
-        bool isActive = activeBonus_->update(deltaTime);
-        BonusType bonusType = activeBonus_->getBonusType();
-        if (bonusType == BonusType::SlowDown) {
-            double slowDownFactor =
-                static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
+    handleActiveBonus(deltaTime);
 
-            for (auto &ball : balls_) {
-                ball->setSpeed(
-                    static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
-            }
-        } else if (bonusType == BonusType::Lazer) {
-            handleLazers(deltaTime);
-        }
+    handleBalls(deltaTime);
 
-        if (!isActive) {
-            undoBonusEffect(bonusType);
-            activeBonus_.reset();
-        }
-    }
-
-    vector<shared_ptr<Ball>> ballsToRemove;
-    for (shared_ptr<Ball> ball : balls_) {
-        Log::get().addMessage(Log::LogType::BallPos, ball->getCenter());
-
-        size_t scoreToAdd = solveBallCollisions(*ball);
-        scoreManager_.increaseScore(scoreToAdd);
-
-        ball->update(deltaTime);
-
-        if (ball->getCenter().y < -ball->getRadius()) {
-            ballsToRemove.push_back(ball);
-        }
-    }
-
-    removeSharedPointers(balls_, ballsToRemove);
-
-    if (balls_.empty()) {
-        --lifeCounter_;
-        if (lifeCounter_ > 0) {
-            balls_.emplace_back(createBall());
-        }
-    }
+    updateLifeCounter();
 }
 
 void GameBoard::saveBestScore() { scoreManager_.saveScore(); }

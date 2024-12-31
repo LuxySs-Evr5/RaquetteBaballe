@@ -52,29 +52,38 @@ class GameBoard final {
     findNextCollision(Ball &ball);
 
     /**
-     * @brief Resolves collisions involving the specified ball and
-     * calculates the points earned from this collision resolution.
+     * @brief Resolves collisions for the specified ball.
      *
      * @param ball Reference to the ball involved in the collision.
-     * @return The number of points earned as a result of resolving the
-     * collisions.
      */
-    size_t solveBallCollisions(Ball &ball);
+    void solveBallCollisions(Ball &ball);
 
     /**
-     * @brief Creates a new ball.
+     * @brief Creates a new ball and returns the pointer to it.
      */
     shared_ptr<Ball> createBall();
 
     /**
      * @brief Applies the given bonus.
+     *
+     * @param bonusType The bonusType.
      */
     void applyBonus(BonusType bonusType);
 
     /**
      * @brief Undoes the effects of the given bonus.
+     *
+     * @param bonusType The bonusType.
      */
     void undoBonusEffect(BonusType bonusType);
+
+    /**
+     * @brief Adds a new descending bonus.
+     *
+     * @param center The center coordinate.
+     * @param bonusType The BonusType.
+     */
+    void addDescendingBonus(const Vec2 &center, BonusType bonusType);
 
     /**
      * @brief Returns the number of balls currently active.
@@ -84,6 +93,8 @@ class GameBoard final {
     /**
      * @brief Adds the 2 newly created balls when the given ball gets split into
      * three.
+     * @param originalBall The ball that gets split.
+     * @param newBalls Contains the 2 newly created balls.
      */
     void splitBallIntoThree(const Ball &originalBall,
                             std::vector<shared_ptr<Ball>> &newBalls);
@@ -114,30 +125,47 @@ class GameBoard final {
     void clearBricks();
 
     /**
-     * @brief Handles the Brick collision and returns the number of points
-     * earned from hitting the brick.
+     * @brief Handles the collision between the given Ball and Brick and updates
+     * to the brick's color.
      *
      * @param ball The ball.
      * @param brickIt A brick Iterator on the brick on which the collision is
      * happening.
-     * @return The number of points earned from hitting the brick.
      */
-    size_t handleBrickCollision(Ball &ball, BrickIt brickIt);
+    void handleBallBrickCollision(Ball &ball, BrickIt brickIt);
 
     /**
-     * @brief Handles and updates the descending bonus pills.
+     * @brief Handles and updates the descending BonusPills.
      *
      * @param deltaTime The time elapsed since the last update.
      */
     void handleDescendingBonusses(double deltaTime);
 
     /**
-     * @brief Handles and updates the moving lazers.
+     * @brief Handles and updates the active bonus.
      *
      * @param deltaTime The time elapsed since the last update.
-     * @return The number of points earned from hitting the brick.
      */
-    size_t handleLazers(double deltaTime);
+    void handleActiveBonus(double deltaTime);
+
+    /**
+     * @brief Handles and updates the moving lazers and the score accordingly.
+     *
+     * @param deltaTime The time elapsed since the last update.
+     */
+    void handleLazers(double deltaTime);
+
+    /**
+     * @brief Handles and updates the balls.
+     *
+     * @param deltaTime The time elapsed since the last update.
+     */
+    void handleBalls(double deltaTime);
+
+    /**
+     * @brief Updates the life counter. (Removes remaining life if necessary).
+     */
+    void updateLifeCounter();
 
   public:
     GameBoard() = default;
