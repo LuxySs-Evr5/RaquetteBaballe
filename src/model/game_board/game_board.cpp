@@ -131,7 +131,7 @@ void GameBoard::handleLazers(double deltaTime) {
         }
         for (shared_ptr<AbstractBrick> brick : bricks_) {
             if (lazer->isOverlapping(*brick)) {
-                if (brick->getColor() != Color::gold) {
+                if (brick->getColor() != AbstractBrick::Color::gold) {
                     bricksToRemove.push_back(brick);
                     scoreManager_.increaseScore(brick->getScore());
                 }
@@ -377,7 +377,7 @@ const std::vector<std::shared_ptr<Lazer>> &GameBoard::getLazers() const {
 
 unsigned long GameBoard::getNumBricks() const {
     return std::count_if(bricks_.begin(), bricks_.end(), [](const auto &brick) {
-        return brick->getColor() != Color::gold;
+        return brick->getColor() != AbstractBrick::Color::gold;
     });
 }
 

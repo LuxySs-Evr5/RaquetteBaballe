@@ -34,7 +34,9 @@ BonusType AbstractBrick::hit() { // this is default behavior
     return BonusType::None;
 }
 
-Color AbstractBrick::getColor() const { return color_; }
+AbstractBrick::Color AbstractBrick::getColor() const {
+    return AbstractBrick::color_;
+}
 
 size_t AbstractBrick::getScore() const { return static_cast<unsigned>(color_); }
 

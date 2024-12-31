@@ -38,25 +38,25 @@ LevelManager::LevelManager() {
     loadBricks();
 }
 
-Color convertColorFromString(const string &colorName) {
+AbstractBrick::Color convertColorFromString(const string &colorName) {
     /**
-     * @brief Translate the color name to the corresponding Color
+     * @brief Translate the color name to the corresponding AbstractBrick::Color
      *
-     * @param colorName The name of the color
+     * @param colorName The color name
      * @return The corresponding Color
      */
-    static const unordered_map<string, Color> colorMap = {
-        {"defaultBrick", Color::defaultBrick},
-        {"white", Color::white},
-        {"orange", Color::orange},
-        {"cyan", Color::cyan},
-        {"green", Color::green},
-        {"red", Color::red},
-        {"blue", Color::blue},
-        {"magenta", Color::magenta},
-        {"yellow", Color::yellow},
-        {"silver", Color::silver},
-        {"gold", Color::gold}};
+    static const unordered_map<string, AbstractBrick::Color> colorMap = {
+        {"defaultBrick", AbstractBrick::Color::defaultBrick},
+        {"white", AbstractBrick::Color::white},
+        {"orange", AbstractBrick::Color::orange},
+        {"cyan", AbstractBrick::Color::cyan},
+        {"green", AbstractBrick::Color::green},
+        {"red", AbstractBrick::Color::red},
+        {"blue", AbstractBrick::Color::blue},
+        {"magenta", AbstractBrick::Color::magenta},
+        {"yellow", AbstractBrick::Color::yellow},
+        {"silver", AbstractBrick::Color::silver},
+        {"gold", AbstractBrick::Color::gold}};
     auto it = colorMap.find(colorName);
     if (it != colorMap.end()) {
         return it->second;

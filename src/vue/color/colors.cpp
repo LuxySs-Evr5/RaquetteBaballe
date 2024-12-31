@@ -1,41 +1,41 @@
 #include "colors.hpp"
 #include <allegro5/color.h>
 
-ALLEGRO_COLOR colorToAllegroColor(Color color) {
+ALLEGRO_COLOR colorToAllegroColor(AbstractBrick::Color color) {
     ALLEGRO_COLOR alColor;
 
     switch (color) {
-    case Color::white:
+    case AbstractBrick::Color::white:
         alColor = COLOR_WHITE;
         break;
-    case Color::orange:
+    case AbstractBrick::Color::orange:
         alColor = COLOR_ORANGE;
         break;
-    case Color::cyan:
+    case AbstractBrick::Color::cyan:
         alColor = COLOR_CYAN;
         break;
-    case Color::green:
+    case AbstractBrick::Color::green:
         alColor = COLOR_GREEN;
         break;
-    case Color::red:
+    case AbstractBrick::Color::red:
         alColor = COLOR_RED;
         break;
-    case Color::blue:
+    case AbstractBrick::Color::blue:
         alColor = COLOR_BLUE;
         break;
-    case Color::magenta:
+    case AbstractBrick::Color::magenta:
         alColor = COLOR_MAGENTA;
         break;
-    case Color::yellow:
+    case AbstractBrick::Color::yellow:
         alColor = COLOR_YELLOW;
         break;
-    case Color::silver:
+    case AbstractBrick::Color::silver:
         alColor = COLOR_SILVER;
         break;
-    case Color::gold:
+    case AbstractBrick::Color::gold:
         alColor = COLOR_GOLD;
         break;
-    case Color::defaultBrick:
+    case AbstractBrick::Color::defaultBrick:
         alColor = COLOR_RED; // We chose red as the default color
         break;
     default:

@@ -38,6 +38,6 @@ const ALLEGRO_COLOR COLOR_GOLD = al_map_rgb(255, 215, 0);
  * @param color
  * @return ALLEGRO_COLOR
  */
-ALLEGRO_COLOR colorToAllegroColor(Color color);
+ALLEGRO_COLOR colorToAllegroColor(AbstractBrick::Color color);
 
 #endif // COLORS_HPP

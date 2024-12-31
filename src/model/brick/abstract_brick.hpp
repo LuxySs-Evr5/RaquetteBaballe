@@ -6,25 +6,26 @@
 #include "../bounceable/bounceable.hpp"
 #include <memory>
 
-/**
- * @brief Contains all the brick colors and its score associated.
- */
-enum class Color : size_t { // Score/Points is always positive
-    defaultBrick = 1,
-    white = 50,
-    orange = 60,
-    cyan = 70,
-    green = 80,
-    red = 90,
-    blue = 100,
-    magenta = 110,
-    yellow = 120,
-    silver = 200,
-    gold = 0,
-};
-
 class AbstractBrick : public Bounceable {
-  protected:
+  public:
+    /**
+     * @brief Contains all the brick colors and its associated score.
+     */
+    enum class Color : size_t {
+        defaultBrick = 1,
+        white = 50,
+        orange = 60,
+        cyan = 70,
+        green = 80,
+        red = 90,
+        blue = 100,
+        magenta = 110,
+        yellow = 120,
+        silver = 200,
+        gold = 0,
+    };
+
+  private:
     Color color_;
     uint8_t durability_;
     BonusType bonusType_;
@@ -52,7 +53,8 @@ class AbstractBrick : public Bounceable {
     virtual ~AbstractBrick();
 
     /**
-     * @brief Brick factory. Returns a unique pointer to a new AbstractBrick.
+     * @brief Brick factory. Returns a unique pointer to a new
+     * AbstractBrick.
      * @param center The brick's center.
      * @param width The brick's width.
      * @param height The brick's height.
@@ -64,8 +66,8 @@ class AbstractBrick : public Bounceable {
               BonusType bonusType = BonusType::None);
 
     /**
-     * @brief Hit the brick. Returns the type of bonus held inside of the brick
-     * is destroyed.
+     * @brief Hit the brick. Returns the type of bonus held inside of the
+     * brick is destroyed.
      */
     virtual BonusType hit();
 
