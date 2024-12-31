@@ -42,10 +42,9 @@ void Canvas::draw() {
     }
 
     for (auto &lazer : lazers_) {
-        LazerUi lazerUi{
-            lazer->getPos(),
-            static_cast<float>(lazer->getBoundingBox().getWidth()),
-            static_cast<float>(lazer->getBoundingBox().getHeight())};
+        LazerUi lazerUi{lazer->getCenter(),
+                        static_cast<float>(lazer->getWidth()),
+                        static_cast<float>(lazer->getHeight())};
         lazerUi.draw();
     }
 
