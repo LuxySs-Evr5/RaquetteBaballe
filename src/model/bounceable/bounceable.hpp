@@ -4,15 +4,10 @@
 #include "../rectangle_shape/rectangle_shape.hpp"
 #include "../vec2/vec2.hpp"
 
-enum class BounceType { Vertical, Horizontal, Corner };
-
-/**
- * @brief Converts the given bounceType into the according string.
- * @note This is essentially for logging purpose.
- */
-std::string bounceTypeToString(BounceType bounceType);
-
 class Bounceable : public RectangleShape {
+  public:
+    enum class BounceType { Vertical, Horizontal, Corner };
+
   protected:
     /**
      * @brief Constructs a new Bounceable.
@@ -56,6 +51,12 @@ class Bounceable : public RectangleShape {
      * @param point The closest point of contact on the rectangle.
      */
     virtual BounceType getBounceType(const Vec2 &point) const final;
+
+    /**
+     * @brief Converts the given bounceType into the according string.
+     * @note This is essentially for logging purpose.
+     */
+    static std::string bounceTypeToString(BounceType bounceType);
 };
 
 #endif

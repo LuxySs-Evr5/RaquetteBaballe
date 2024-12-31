@@ -3,15 +3,15 @@
 
 #include <stdexcept>
 
-std::string bounceTypeToString(BounceType bounceType) {
+std::string Bounceable::bounceTypeToString(Bounceable::BounceType bounceType) {
     switch (bounceType) {
-    case BounceType::Vertical:
+    case Bounceable::BounceType::Vertical:
         return "Vertical";
         break;
-    case BounceType::Horizontal:
+    case Bounceable::BounceType::Horizontal:
         return "Horizontal";
         break;
-    case BounceType::Corner:
+    case Bounceable::BounceType::Corner:
         return "Corner";
         break;
     default:
@@ -28,7 +28,7 @@ Bounceable::Bounceable(const Vec2 &topLeft, const Vec2 &bottomRight)
 
 Bounceable::~Bounceable() = default;
 
-BounceType Bounceable::getBounceType(const Vec2 &point) const {
+Bounceable::BounceType Bounceable::getBounceType(const Vec2 &point) const {
     if (point == getTopLeft() or point == getTopRight()
         or point == getBottomLeft() or point == getBottomRight()) {
 

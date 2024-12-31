@@ -92,21 +92,21 @@ void Ball::collide(const Bounceable &bounceable) {
     Log::get().addMessage(Log::LogType::ClosestPoint,
                           std::string{closestPoint});
 
-    BounceType bounceType = bounceable.getBounceType(closestPoint);
+    Bounceable::BounceType bounceType = bounceable.getBounceType(closestPoint);
     Log::get().addMessage(Log::LogType::BounceType,
-                          bounceTypeToString(bounceType));
+                          Bounceable::bounceTypeToString(bounceType));
 
     Vec2 changeBetweenLastUpdate{center_ - prevCenter_};
     Log::get().addMessage(Log::LogType::ChangeBetweenLastUpdate,
                           changeBetweenLastUpdate);
 
     double penetrationRate = 1; // Default to 1 to prevent 0-division
-    if (((bounceType == BounceType::Horizontal)
-         || (bounceType == BounceType::Corner))
+    if (((bounceType == Bounceable::BounceType::Horizontal)
+         || (bounceType == Bounceable::BounceType::Corner))
         && (changeBetweenLastUpdate.y != 0)) {
         penetrationRate = simplePenetrationvec.y / changeBetweenLastUpdate.y;
 
-    } else if ((bounceType == BounceType::Vertical)
+    } else if ((bounceType == Bounceable::BounceType::Vertical)
                && (changeBetweenLastUpdate.x != 0)) {
         penetrationRate = simplePenetrationvec.x / changeBetweenLastUpdate.x;
     }
