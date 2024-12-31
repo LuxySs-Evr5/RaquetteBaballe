@@ -1,7 +1,6 @@
 #ifndef SLOWDOWN_BONUS_HPP
 #define SLOWDOWN_BONUS_HPP
 
-#include "../../global_variables.hpp"
 #include "abstract_timed_bonus.hpp"
 
 #include <vector>

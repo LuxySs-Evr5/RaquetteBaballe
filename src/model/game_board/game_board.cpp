@@ -4,6 +4,7 @@
 #include "../bonus/slowdown_bonus.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <iterator>
 #include <memory>
 #include <vector>
@@ -86,6 +87,39 @@ void GameBoard::handleDescendingBonusses(double deltaTime) {
     }
 }
 
+size_t GameBoard::handleLazers(double deltaTime) {
+    size_t pointsEarned = 0;
+
+    for (auto lazerIt = lazers_.begin(); lazerIt != lazers_.end();) {
+        (*lazerIt)->update(deltaTime);
+        bool erased = false;
+        if ((*lazerIt)->getCenter().y < 0) {
+            lazerIt = lazers_.erase(lazerIt);
+            erased = true;
+        } else {
+            for (BrickIt brickIt = bricks_.begin(); brickIt != bricks_.end();) {
+                bool isGold = (*brickIt)->getColor() == Color::gold;
+                if ((*lazerIt)->isOverlapping(**brickIt)) {
+                    if (!isGold) {
+                        pointsEarned += (*brickIt)->getScore();
+                        brickIt = bricks_.erase(brickIt);
+                    }
+                    lazerIt = lazers_.erase(lazerIt);
+                    erased = true;
+                    break;
+                } else {
+                    brickIt++;
+                }
+            }
+        }
+        if (!erased) {
+            lazerIt++;
+        }
+    }
+
+    return pointsEarned;
+}
+
 size_t GameBoard::solveBallCollisions(Ball &ball) {
     size_t pointsEarned = 0;
     bool collided = true;
@@ -160,6 +194,9 @@ void GameBoard::applyBonus(BonusType bonusType) {
         activeBonus_ = make_unique<BasicTimedBonus>(BonusType::WideRacket);
         racket_->setWidth(WIDE_RACKET_WIDTH);
         break;
+    case BonusType::Lazer:
+        activeBonus_ = make_unique<BasicTimedBonus>(BonusType::Lazer);
+        break;
     case BonusType::SplitBall: {
         vector<shared_ptr<Ball>> newBalls;
         for (const std::shared_ptr<Ball> &ball : balls_) {
@@ -187,6 +224,9 @@ void GameBoard::undoBonusEffect(BonusType bonusType) {
         break;
     case BonusType::WideRacket:
         racket_->setWidth(RACKET_WIDTH);
+        break;
+    case BonusType::Lazer:
+        lazers_.clear();
         break;
     case BonusType::SplitBall:
         break;
@@ -225,6 +265,14 @@ void GameBoard::splitBallIntoThree(const Ball &originalBall,
     }
 }
 
+void GameBoard::shootLazer() {
+    if (activeBonus_ != nullptr
+        && activeBonus_->getBonusType() == BonusType::Lazer) {
+        lazers_.emplace_back(make_shared<Lazer>(Vec2{
+            racket_->getCenter().x, racket_->getTop() + LAZER_HEIGHT / 2}));
+    }
+}
+
 void GameBoard::update(double deltaTime) {
     if (deltaTime == 0) {
         return;
@@ -243,6 +291,8 @@ void GameBoard::update(double deltaTime) {
                 ball->setSpeed(
                     static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
             }
+        } else if (bonusType == BonusType::Lazer) {
+            handleLazers(deltaTime);
         }
 
         if (!isActive) {

@@ -3,10 +3,6 @@
 
 #include "abstract_timed_bonus.hpp"
 
-// WideRacket
-constexpr double WIDE_RACKET_WIDTH = 200;
-constexpr double WIDE_RACKET_DURATION = 10;
-
 class BasicTimedBonus final : public AbstractTimedBonus {
   private:
     double remaningTime_;

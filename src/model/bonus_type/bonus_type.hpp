@@ -10,6 +10,7 @@ enum class BonusType {
     ExtraLife,
     WideRacket,
     SplitBall,
+    Lazer
 };
 
 #endif // BONUS_TYPE_HPP

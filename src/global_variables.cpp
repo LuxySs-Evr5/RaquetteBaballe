@@ -42,14 +42,24 @@ const double BALL_RADIUS = 10;
 const double BALL_SPEED = 500;
 const Vec2 BALL_INITIAL_DIRECTION = Vec2{0, 1};
 
-// SlowDown Bonus
-const double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
-const double SLOW_DOWN_DURATION = 10;
-
 // ### Bonus Pill ###
 const double BONUS_PILL_WIDTH = 10;
 const double BONUS_PILL_HEIGHT = 10;
 const double BONUS_PILL_DESCENT_SPEED = 200;
+
+// WideRacket
+const double WIDE_RACKET_WIDTH = 200;
+const double WIDE_RACKET_DURATION = 10;
+
+// Lazer Bonus
+extern const double LAZER_WIDTH = 5;
+extern const double LAZER_HEIGHT = 30;
+extern const double LAZER_SPEED = 800;
+extern const double LAZER_DURATION = 10;
+
+// SlowDown Bonus
+const double SLOW_DOWN_PROPORTIAL_CONST = 0.2;
+const double SLOW_DOWN_DURATION = 10;
 
 // ### Walls ###
 const double WALL_THICKNESS = 20;

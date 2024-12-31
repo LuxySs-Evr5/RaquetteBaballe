@@ -14,6 +14,7 @@ class Lazer : public RectangleShape {
      * @param center The initial center position.
      */
     Lazer(const Vec2 &center);
+
     Lazer(const Lazer &) = default;
     Lazer(Lazer &&) = default;
 

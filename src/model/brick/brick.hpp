@@ -20,7 +20,7 @@ enum class Color : size_t { // Score/Points is always positive
     magenta = 110,
     yellow = 120,
     silver = 200,
-    gold
+    gold = 0,
 };
 
 class Brick : public Bounceable {

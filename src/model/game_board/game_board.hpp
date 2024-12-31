@@ -7,6 +7,7 @@
 #include "../bonus_type/bonus_type.hpp"
 #include "../border/border.hpp"
 #include "../brick/brick.hpp"
+#include "../lazer/lazer.hpp"
 #include "../life_counter/life_counter.hpp"
 #include "../racket/racket.hpp"
 #include "../score_manager/score_manager.hpp"
@@ -27,6 +28,7 @@ class GameBoard final {
     LifeCounter lifeCounter_;
     unique_ptr<AbstractTimedBonus> activeBonus_;
     std::vector<unique_ptr<BonusPill>> descendingBonuses_;
+    std::vector<std::shared_ptr<Lazer>> lazers_;
 
     std::shared_ptr<Racket> racket_;
     std::vector<std::shared_ptr<Border>> borders_;
@@ -80,6 +82,10 @@ class GameBoard final {
      */
     void splitBallIntoThree(const Ball &originalBall,
                             std::vector<shared_ptr<Ball>> &newBalls);
+    /**
+     * @brief Shoots a lazer.
+     */
+    void shootLazer();
 
     /**
      * @brief Clears and sets up the ball vector for the next game.
@@ -123,6 +129,14 @@ class GameBoard final {
      * @param deltaTime The time elapsed since the last update.
      */
     void handleDescendingBonusses(double deltaTime);
+
+    /**
+     * @brief Handles and updates the moving lazers.
+     *
+     * @param deltaTime The time elapsed since the last update.
+     * @return The number of points earned from hitting the brick.
+     */
+    size_t handleLazers(double deltaTime);
 
   public:
     GameBoard() = default;

@@ -51,6 +51,16 @@ extern const double BONUS_PILL_WIDTH;
 extern const double BONUS_PILL_HEIGHT;
 extern const double BONUS_PILL_DESCENT_SPEED;
 
+// WideRacket
+extern const double WIDE_RACKET_WIDTH;
+extern const double WIDE_RACKET_DURATION;
+
+// Lazer Bonus
+extern const double LAZER_WIDTH;
+extern const double LAZER_HEIGHT;
+extern const double LAZER_SPEED;
+extern const double LAZER_DURATION;
+
 // SlowDown Bonus
 extern const double SLOW_DOWN_PROPORTIAL_CONST;
 extern const double SLOW_DOWN_DURATION;
