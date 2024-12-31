@@ -136,9 +136,8 @@ Nous avons également effectué ces différentes tâches additionnelles :
 \section{Interface des différentes classes, leurs rôles et liens avec les
 autres classes}
 
-% TODO: toutes les classes de view et le controller
 % TODO: Log
-% TODO: Vec2
+
 \subsection{Modèle}
 \subsubsection{GameBoard}
 
@@ -146,8 +145,6 @@ La classe GameBoard est l'élément central du modèle. Elle coordonne et fait
 évoluer les autres composants du modèle au fil du temps. Le tableau
 \ref{tab:responsabilites} détaille ces composants ainsi que les classes
 associées à chacun :
-
-% TODO: lazer
 
 \begin{table}[h!]
     \centering
@@ -168,13 +165,12 @@ associées à chacun :
     \label{tab:responsabilites}
 \end{table}
 
-%TODO: change controller
-Le contrôleur qui possède l'horloge du jeu doit pouvoir signaler à la
-GameBoard de mettre à jour les composants du modèle et combien de temps s'est
-écoulé entre cette mise à jour et la précédente. Cela est implémenté via la
-méthode \texttt{update}. Chaque fois que celle-ci est appelée à un instant $T$,
-avec un paramètre $deltaT$, \texttt{GameBoard} met à jour tous les composants
-du modèle à l'état correspondant à l'instant \(T + deltaT\).
+Le contrôleur qui possède l'horloge du jeu doit pouvoir signaler à la GameBoard
+de mettre à jour les composants du modèle et combien de temps s'est écoulé
+entre cette mise à jour et la précédente. Cela est implémenté via la méthode
+\texttt{update}. Chaque fois que celle-ci est appelée à un instant $T$, avec un
+paramètre $deltaT$, \texttt{GameBoard} met à jour tous les composants du modèle
+à l'état correspondant à l'instant \(T + deltaT\).
 
 \subsubsection{Vec2}
 
@@ -287,12 +283,12 @@ proportionnelle à son attribut vitesse, en gardant le vecteur directeur toujour
 normalisé, c'est-à-dire que son module vaut 1. Le scalaire vitesse est donc le
 seul pouvant influencer la vitesse de déplacement de la balle.
 
-La méthode \texttt{checkCollision} permet de vérifier si la balle est rentrée en
-collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
+La méthode \texttt{checkCollision} permet de vérifier si la balle est rentrée
+en collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
 \texttt{GameBoard} au moment de trouver les collisions qui ont eu lieu à un
 instant $T$. La méthode \texttt{collide} également appelée par
-\texttt{GameBoard} permet ensuite de resoudre la collision (\ref{lexique:resoudre_collisions}) avec un
-\texttt{RectangleShape}.
+\texttt{GameBoard} permet ensuite de resoudre la collision
+(\ref{lexique:resoudre_collisions}) avec un \texttt{RectangleShape}.
 
 La méthode \texttt{update} prenant un paramètre représentant une durée
 $deltaTime$ permet de mettre à jour la position de la balle à l'instant $T +
@@ -378,38 +374,81 @@ autre \texttt{RectangleShape}. La méthode \texttt{update} permet de faire
 monter le bonus de la distance qu'il aurait parcouru après \texttt{deltaTime}
 secondes.
 
-\subsection{Vue}
-\subsubsection{DisplayGame}
-La classe \texttt{DisplayGame} gère l'affichage global du jeu. Elle utilise la classe \texttt{Canvas} pour dessiner les éléments et dépend de \texttt{GameBoard} pour accéder aux données du jeu. Cette classe utilise des ressources graphiques Allegro (\texttt{ALLEGRO\_DISPLAY}, \texttt{ALLEGRO\_BITMAP}) et des polices (\texttt{ALLEGRO\_FONT}). Mais d'abord, elle  initialise Allegro et vérifie les erreurs d'initialisation.
+\subsection{Vue} \subsubsection{DisplayGame} La classe \texttt{DisplayGame}
+gère l'affichage global du jeu. Elle utilise la classe \texttt{Canvas} pour
+dessiner les éléments et dépend de \texttt{GameBoard} pour accéder aux données
+du jeu. Cette classe utilise des ressources graphiques Allegro
+(\texttt{ALLEGRO\_DISPLAY}, \texttt{ALLEGRO\_BITMAP}) et des polices
+(\texttt{ALLEGRO\_FONT}). Mais d'abord, elle  initialise Allegro et vérifie les
+erreurs d'initialisation.
 
-\subsubsection{Canvas}
-Cette classe est une plateforme centrale pour dessiner toutes les pièces et éléments du jeu. Elle travaille avec \texttt{GameBoard} pour accéder aux entités comme la raquette, les balles, les briques, etc. Elle intègre des objets comme \texttt{RacketUi}, \texttt{BallUi}, \texttt{BrickUi}, et autres pour traduire l'élément modèle en élément vue qui pourra être dessiné par Allegro. Cette classe permet de centraliser les appels de dessin pour tous les éléments du jeu.
+\subsubsection{Canvas} Cette classe est une plateforme centrale pour dessiner
+toutes les pièces et éléments du jeu. Elle travaille avec \texttt{GameBoard}
+pour accéder aux entités comme la raquette, les balles, les briques, etc. Elle
+intègre des objets comme \texttt{RacketUi}, \texttt{BallUi}, \texttt{BrickUi},
+et autres pour traduire l'élément modèle en élément vue qui pourra être dessiné
+par Allegro. Cette classe permet de centraliser les appels de dessin pour tous
+les éléments du jeu.
 
 \subsubsection{Formes Géométriques}
 \begin{itemize}
-    \item \textbf{Rectangle} : Classe de base pour les objets comme \texttt{WallUi}, \texttt{RacketUi}, et autres.
-    \item \textbf{Circle} : Classe de base pour les objets comme \texttt{BallUi}.
+
+    \item \textbf{Rectangle} : Classe de base pour les objets comme
+        \texttt{WallUi}, \texttt{RacketUi}, et autres.
+
+    \item \textbf{Circle} : Classe de base pour les objets comme
+        \texttt{BallUi}.
+
     \item \textbf{Responsabilités} :
+
     \begin{itemize}
-        \item Gérer les attributs géométriques (position, dimensions, couleurs).
+
+        \item Gérer les attributs géométriques (position, dimensions,
+            couleurs).
+
         \item Fournir une méthode \texttt{draw()} pour dessiner la forme.
+
     \end{itemize}
+
 \end{itemize}
 
 \subsubsection{Autres Classes}
 \begin{itemize}
-    \item \textbf{WallUi} : Représente les murs dans l'interface utilisateur, hérite de \texttt{Rectangle}.
-    \item \textbf{RacketUi} : Représente la raquette du joueur, hérite de \texttt{Rectangle}.
-    \item \textbf{LazerUi} : Représente les lasers, hérite de \texttt{Rectangle}.
-    \item \textbf{BrickUi} : Gère l'affichage des briques, hérite de \texttt{Rectangle} et travaille avec \texttt{AbstractBrick}.
-    \item \textbf{BonusPillUi} : Affiche les bonus tombants, hérite de \texttt{Rectangle}.
-    \item \textbf{BallUi} : Représente les balles dans le jeu, hérite de \texttt{Circle}.
+
+    \item \textbf{WallUi} : Représente les murs dans l'interface utilisateur,
+        hérite de \texttt{Rectangle}.
+
+    \item \textbf{RacketUi} : Représente la raquette du joueur, hérite de
+        \texttt{Rectangle}.
+
+    \item \textbf{LazerUi} : Représente les lasers, hérite de
+        \texttt{Rectangle}.
+
+    \item \textbf{BrickUi} : Gère l'affichage des briques, hérite de
+        \texttt{Rectangle} et travaille avec \texttt{AbstractBrick}.
+
+    \item \textbf{BonusPillUi} : Affiche les bonus tombants, hérite de
+        \texttt{Rectangle}.
+
+    \item \textbf{BallUi} : Représente les balles dans le jeu, hérite de
+        \texttt{Circle}.
+
 \end{itemize}
 
 \subsection{Contrôleur}
-La classe \texttt{ControllerGame} gère la logique principale du jeu, y compris les événements, la progression des niveaux et l'interaction entre les éléments du jeu. Il dépend de \texttt{GameBoard} pour toute la logique du jeu, et interagit avec \texttt{DisplayGame} pour l'affichage. Il utilise également \texttt{LevelManager} pour gérer les niveaux et charger leurs données. \newline
 
-Il est responsable de gérer la boucle principale du jeu, de gérer les événements d'entrée comme le clavier, de charger les niveaux via le \texttt{LevelManager}, de contrôler les transitions de victoire et de défaite, et d'interagir avec Allegro pour la gestion des événements, du timer, et de l'affichage, tout en appelant \texttt{DisplayGame} pour dessiner l'état du jeu en cours.
+La classe \texttt{ControllerGame} gère la logique principale du jeu, y compris
+les événements, la progression des niveaux et l'interaction entre les éléments
+du jeu. Il dépend de \texttt{GameBoard} pour toute la logique du jeu, et
+interagit avec \texttt{DisplayGame} pour l'affichage. Il utilise également
+\texttt{LevelManager} pour gérer les niveaux et charger leurs données. \newline
+
+Il est responsable de gérer la boucle principale du jeu, de gérer les
+événements d'entrée comme le clavier, de charger les niveaux via le
+\texttt{LevelManager}, de contrôler les transitions de victoire et de défaite,
+et d'interagir avec Allegro pour la gestion des événements, du timer, et de
+l'affichage, tout en appelant \texttt{DisplayGame} pour dessiner l'état du jeu
+en cours.
 
 \section{Logique du jeu}
 
@@ -434,13 +473,13 @@ l'afficher. \\
 
 Une fois que ces différents objets sont créés, le programme installe le
 nécessaire pour pouvoir utiliser le clavier et la souris dans le jeu. Puis,
-\textit{ControllerGame} initialise le \textit{ALLEGRO\_TIMER} qui permet d'avoir
-un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de mettre à jour
-la grille du jeu ainsi que pour afficher l'état du jeu à l'écran. Nous séparons
-la vitesse de mise à jour de la grille du nombre d'images affichées par Allegro
-à chaque seconde pour des raisons de performance. La grille sera mise à jour
-500 fois par seconde tandis qu' Allegro affichera une image à l'écran 125 fois
-par seconde. \\
+\textit{ControllerGame} initialise le \textit{ALLEGRO\_TIMER} qui permet
+d'avoir un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de
+mettre à jour la grille du jeu ainsi que pour afficher l'état du jeu à l'écran.
+Nous séparons la vitesse de mise à jour de la grille du nombre d'images
+affichées par Allegro à chaque seconde pour des raisons de performance. La
+grille sera mise à jour 500 fois par seconde tandis qu' Allegro affichera une
+image à l'écran 125 fois par seconde. \\
 
 Ensuite, le \textit{ControllerGame} démarre le \textit{ALLEGRO\_TIMER} et à
 chaque "tick" du timer, la \textit{GameBoard} et tous les objets qu'elle
@@ -536,18 +575,16 @@ travail d'équipe.
 
 \begin{description}
 
-\item[Résoudre les collisions]
-\label{lexique:resoudre_collisions}
-    Dû à notre approche pour la physique du jeu dite
-    "discrète" (\ref{lexique:physique_discrete}), certains objets se retrouvent en superposition au lieu de
-    collisionner (et rebondir). Résoudre les collisions consiste à replacer les
-    objets à l'endroit où ils étaient juste avant la collision, et appliquer
-    l'effet de rebond si nécessaire.
+\item[Résoudre les collisions] \label{lexique:resoudre_collisions} Dû à notre
+    approche pour la physique du jeu dite "discrète"
+    (\ref{lexique:physique_discrete}), certains objets se retrouvent en
+    superposition au lieu de collisionner (et rebondir). Résoudre les
+    collisions consiste à replacer les objets à l'endroit où ils étaient juste
+    avant la collision, et appliquer l'effet de rebond si nécessaire.
 
-\item[Physique discrète]
-\label{lexique:physique_discrete}
-    Simulation où le temps avance par étapes, ce qui peut
-    parfois entraîner des imprécisions ou des chevauchements entre objets.
+\item[Physique discrète] \label{lexique:physique_discrete} Simulation où le
+    temps avance par étapes, ce qui peut parfois entraîner des imprécisions ou
+    des chevauchements entre objets.
 
 \end{description}
 
