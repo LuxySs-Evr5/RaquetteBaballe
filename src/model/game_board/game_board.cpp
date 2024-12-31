@@ -85,7 +85,7 @@ void GameBoard::handleBallBrickCollision(Ball &ball, BrickIt brickIt) {
 void GameBoard::handleDescendingBonuses(double deltaTime) {
     std::vector<shared_ptr<BonusPill>> bonusesToRemove;
 
-    for (shared_ptr<BonusPill> &descendingBonus : descendingBonuses_) {
+    for (std::shared_ptr<BonusPill> &descendingBonus : descendingBonuses_) {
         descendingBonus->update(deltaTime);
         if (descendingBonus->getCenter().y < 0) {
             bonusesToRemove.push_back(descendingBonus);
@@ -365,7 +365,7 @@ GameBoard::getDescendingBonuses() const {
     return descendingBonuses_;
 }
 
-const std::shared_ptr<Racket> &GameBoard::getRacket() const { return racket_; }
+const std::shared_ptr<Racket> GameBoard::getRacket() const { return racket_; }
 
 const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;

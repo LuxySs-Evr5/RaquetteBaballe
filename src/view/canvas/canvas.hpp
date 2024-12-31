@@ -21,7 +21,7 @@ using namespace std;
 class Canvas {
   private:
     shared_ptr<GameBoard> gameBoard_;
-    const shared_ptr<Racket> &racket_ = gameBoard_->getRacket();
+    const shared_ptr<Racket> racket_ = gameBoard_->getRacket();
     const vector<shared_ptr<AbstractBrick>> &bricks_ = gameBoard_->getBricks();
     const vector<shared_ptr<BonusPill>> &bonusPills_ =
         gameBoard_->getDescendingBonuses();

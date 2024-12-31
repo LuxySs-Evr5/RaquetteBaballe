@@ -121,7 +121,6 @@ struct Vec2 {
      *
      * @param os The output stream to write to.
      * @param p The vector to output.
-     * @return A reference to the output stream after the operation.
      */
     friend std::ostream &operator<<(std::ostream &os, const Vec2 &p);
 };

@@ -155,7 +155,7 @@ const vector<shared_ptr<AbstractBrick>> &LevelManager::getBricks() {
     return bricksPerLevel_[currentLevel_];
 }
 
-const shared_ptr<Racket> &LevelManager::getRacket() const { return racket_; }
+const shared_ptr<Racket> LevelManager::getRacket() const { return racket_; }
 
 const vector<shared_ptr<Border>> &LevelManager::getBorders() const {
     return borders_;

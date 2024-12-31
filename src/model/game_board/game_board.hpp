@@ -43,7 +43,7 @@ class GameBoard final {
     /**
      * @brief Finds the next collision involving the specified ball.
      *
-     * @param ball Reference to the ball involved in the collision.
+     * @param ball The ball involved in the collision.
      * @return An optional variant containing either Brick-iterator or a
      * Border-iterator or a shared_ptr<Racket> corresponding to the next
      * Colliding object. The optional has no value if no collisions were found.
@@ -238,9 +238,9 @@ class GameBoard final {
     /**
      * @brief Returns the racket.
      *
-     * @return A reference to the racket pointer.
+     * @return A pointer to the racket.
      */
-    const std::shared_ptr<Racket> &getRacket() const;
+    const std::shared_ptr<Racket> getRacket() const;
 
     /**
      * @brief Returns the map borders.
@@ -252,7 +252,7 @@ class GameBoard final {
     /**
      * @brief Returns the lazers vector.
      *
-     * @return A reference to the vector of lazers.
+     * @return A reference to the vector of lazer pointers.
      */
     const std::vector<std::shared_ptr<Lazer>> &getLazers() const;
 
@@ -273,7 +273,7 @@ class GameBoard final {
     /**
      * @brief Sets the racket.
      *
-     * @param bricks A reference to the racket pointer.
+     * @param racket A racket pointer.
      */
     void setRacket(const std::shared_ptr<Racket> racket);
 

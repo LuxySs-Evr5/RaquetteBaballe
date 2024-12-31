@@ -65,7 +65,7 @@ class LevelManager {
      *
      * @return const shared_ptr<Racket>
      */
-    const shared_ptr<Racket> &getRacket() const;
+    const shared_ptr<Racket> getRacket() const;
 
     /**
      * @brief Get the borders of the current level
