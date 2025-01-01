@@ -365,7 +365,7 @@ GameBoard::getDescendingBonuses() const {
     return descendingBonuses_;
 }
 
-const std::shared_ptr<Racket> GameBoard::getRacket() const { return racket_; }
+const Racket &GameBoard::getRacket() const { return *racket_; }
 
 const std::vector<std::shared_ptr<Border>> &GameBoard::getBorders() const {
     return borders_;

@@ -19,14 +19,14 @@ Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
     : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
 
 void Canvas::draw() {
-    for (auto &border : borders_) {
+    for (auto &border : gameBoard_->getBorders()) {
         WallUi wallUi{border->getCenter(),
                       static_cast<float>(border->getWidth()),
                       static_cast<float>(border->getHeight()), COLOR_WHITE};
         wallUi.draw();
     }
 
-    for (auto &brick : bricks_) {
+    for (auto &brick : gameBoard_->getBricks()) {
         BrickUi brickUi{brick->getCenter(),
                         static_cast<float>(brick->getWidth()),
                         static_cast<float>(brick->getHeight()),
@@ -34,27 +34,28 @@ void Canvas::draw() {
         brickUi.draw(*brick, fontBrick_);
     }
 
-    for (auto &bonusPill : bonusPills_) {
+    for (auto &bonusPill : gameBoard_->getDescendingBonuses()) {
         BonusPillUi bonusPillUi{
             bonusPill->getCenter(), static_cast<float>(bonusPill->getWidth()),
             static_cast<float>(bonusPill->getHeight()), *bonusPill};
         bonusPillUi.draw();
     }
 
-    for (auto &lazer : lazers_) {
+    for (auto &lazer : gameBoard_->getLazers()) {
         LazerUi lazerUi{lazer->getCenter(),
                         static_cast<float>(lazer->getWidth()),
                         static_cast<float>(lazer->getHeight())};
         lazerUi.draw();
     }
 
-    for (auto &ball : balls_) {
+    for (auto &ball : gameBoard_->getBalls()) {
         BallUi ballUi{ball->getCenter(), static_cast<float>(ball->getRadius())};
         ballUi.draw();
     }
 
-    RacketUi racketUi{racket_->getCenter(),
-                      static_cast<float>(racket_->getWidth()),
-                      static_cast<float>(racket_->getHeight()), COLOR_RED};
+    RacketUi racketUi{gameBoard_->getRacket().getCenter(),
+                      static_cast<float>(gameBoard_->getRacket().getWidth()),
+                      static_cast<float>(gameBoard_->getRacket().getHeight()),
+                      COLOR_RED};
     racketUi.draw();
 }

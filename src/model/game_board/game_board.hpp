@@ -238,9 +238,9 @@ class GameBoard final {
     /**
      * @brief Returns the racket.
      *
-     * @return A pointer to the racket.
+     * @return A reference to the racket.
      */
-    const std::shared_ptr<Racket> getRacket() const;
+    const Racket &getRacket() const;
 
     /**
      * @brief Returns the map borders.
