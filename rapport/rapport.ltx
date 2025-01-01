@@ -12,8 +12,6 @@
 \title{Rapport sur le projet de Langage de Programmation : Arkanoïd}
 \date{5 janvier 2025}
 
-
-%TODO: \textit -> \texttt
 %TODO: plateau de jeu -> grille de jeu
 
 \begin{document}
@@ -131,14 +129,14 @@ Nous avons également effectué ces différentes tâches additionnelles :
 
 \end{itemize}
 
-
-
 \section{Interface des différentes classes, leurs rôles et liens avec les
 autres classes}
 
-% TODO: Log
-
 \subsection{Modèle}
+
+Toutes les classes utilisées pour le modèle se trouvent dans le dossier
+\texttt{src/model}.
+
 \subsubsection{GameBoard}
 
 La classe GameBoard est l'élément central du modèle. Elle coordonne et fait
@@ -374,30 +372,48 @@ autre \texttt{RectangleShape}. La méthode \texttt{update} permet de faire
 monter le bonus de la distance qu'il aurait parcouru après \texttt{deltaTime}
 secondes.
 
-\subsection{Vue} \subsubsection{DisplayGame} La classe \texttt{DisplayGame}
-gère l'affichage global du jeu. Elle utilise la classe \texttt{Canvas} pour
-dessiner les éléments et dépend de \texttt{GameBoard} pour accéder aux données
-du jeu. Cette classe utilise des ressources graphiques Allegro
-(\texttt{ALLEGRO\_DISPLAY}, \texttt{ALLEGRO\_BITMAP}) et des polices
-(\texttt{ALLEGRO\_FONT}). Mais d'abord, elle  initialise Allegro et vérifie les
-erreurs d'initialisation.
+\subsection{Vue}
 
-\subsubsection{Canvas} Cette classe est une plateforme centrale pour dessiner
-toutes les pièces et éléments du jeu. Elle travaille avec \texttt{GameBoard}
-pour accéder aux entités comme la raquette, les balles, les briques, etc. Elle
-intègre des objets comme \texttt{RacketUi}, \texttt{BallUi}, \texttt{BrickUi},
-et autres pour traduire l'élément modèle en élément vue qui pourra être dessiné
-par Allegro. Cette classe permet de centraliser les appels de dessin pour tous
-les éléments du jeu.
+Toutes les classes utilisées pour la vue se trouvent dans le dossier
+\texttt{src/view}.
+
+\subsubsection{DisplayGame}
+
+La classe \texttt{DisplayGame} gère l'affichage global du jeu. Elle utilise la
+classe \texttt{Canvas} pour dessiner les éléments et dépend de
+\texttt{GameBoard} pour accéder aux données du jeu. Cette classe utilise des
+ressources graphiques Allegro (\texttt{ALLEGRO\_DISPLAY},
+\texttt{ALLEGRO\_BITMAP}) et des polices (\texttt{ALLEGRO\_FONT}). Mais
+d'abord, elle  initialise Allegro et vérifie les erreurs d'initialisation.
+
+\subsubsection{Canvas}
+
+La classe \texttt{Canvas} permet d'afficher tous les éléments du jeu. Celle-ci
+utilise les getters de \texttt{GameBoard} pour accéder aux entités de la partie
+modèle, e.g. la raquette, les balles, les briques. 
+
+Afin de diminuer le couplage entre la vue et le modèle, notre affichage est
+découpé en 2 étapes se répétant pour chaque élément du jeu à afficher:
+
+\begin{enumerate}
+
+    \item \textbf{Traduction} : Le \texttt{Canvas} traduit l'entité de la
+        \texttt{GameBoard} à afficher en son élément correspondant pour
+        l'affichage. Par exemple, nous traduisons la \texttt{Racket} du
+        \texttt{GameBoard} en une \texttt{RacketUi}.
+
+    \item \textbf{Traduction} : Le \texttt{Canvas} dessine la \texttt{RacketUi}.
+
+\end{enumerate}
 
 \subsubsection{Formes Géométriques}
 \begin{itemize}
 
-    \item \textbf{Rectangle} : Classe de base pour les objets comme
-        \texttt{WallUi}, \texttt{RacketUi}, et autres.
+    \item \textbf{Circle} : Classe de base pour les objets de forme circulaire,
+        e.g. \texttt{BallUi}.
 
-    \item \textbf{Circle} : Classe de base pour les objets comme
-        \texttt{BallUi}.
+    \item \textbf{Rectangle} : Classe de base pour les objets rectangulaires,
+        e.g. \texttt{WallUi}, \texttt{RacketUi}.
 
     \item \textbf{Responsabilités} :
 
@@ -437,6 +453,9 @@ les éléments du jeu.
 
 \subsection{Contrôleur}
 
+Toutes les classes utilisées pour le contrôleur se trouvent dans le dossier
+\texttt{src/controller}.
+
 La classe \texttt{ControllerGame} gère la logique principale du jeu, y compris
 les événements, la progression des niveaux et l'interaction entre les éléments
 du jeu. Il dépend de \texttt{GameBoard} pour toute la logique du jeu, et
@@ -452,6 +471,9 @@ en cours.
 
 \subsection{Log}
 
+Les fichiers de la classe \texttt{Log} se trouvent dans le dossier
+\texttt{src/log}.
+
 Dans l'optique de faciliter le débogage, essentiellement pour les collisions,
 nous ajoutons le singleton \texttt{Log}, permettant d'enregistrer des
 évènements classés par catégories lors de l'éxécution. Nous pouvons activer ou
@@ -465,22 +487,22 @@ touche une brique pour la première fois. \\
 
 Au lancement du jeu, le programme commence par initialiser les différentes
 classes nécessaires : En premier lieu, nous instancions un objet
-\textit{ControllerGame}. Celui-ci permet de contrôler la grille du jeu et la
-vue. Lors de sa création, \textit{ControllerGame} crée l'objet
-\textit{GameBoard} représentant la grille de jeu, la partie "modèle". L'objet
-\textit{LevelManager} sera également créé. Il permet de charger tous les
+\texttt{ControllerGame}. Celui-ci permet de contrôler la grille du jeu et la
+vue. Lors de sa création, \texttt{ControllerGame} crée l'objet
+\texttt{GameBoard} représentant la grille de jeu, la partie "modèle". L'objet
+\texttt{LevelManager} sera également créé. Il permet de charger tous les
 différents niveaux en une fois, avec les murs, la raquette et les briques. Afin
-de préparer la \textit{GameBoard} pour le niveau choisi, le
-\textit{LevelManager} lui passe une copie de ces différents objets à l'aide des
-setters. Ensuite, il crée aussi l'objet \textit{DisplayGame} qui gère la partie
+de préparer la \texttt{GameBoard} pour le niveau choisi, le
+\texttt{LevelManager} lui passe une copie de ces différents objets à l'aide des
+setters. Ensuite, il crée aussi l'objet \texttt{DisplayGame} qui gère la partie
 graphique du jeu. Il initialise \texttt{Allegro} pour pouvoir afficher une
 fenêtre. À chaque fois que nous avons besoin d'afficher l'état du jeu,
-\textit{DisplayGame} demande à \textit{GameBoard} l'état de la grille pour
+\texttt{DisplayGame} demande à \texttt{GameBoard} l'état de la grille pour
 l'afficher. \\
 
 Une fois que ces différents objets sont créés, le programme installe le
 nécessaire pour pouvoir utiliser le clavier et la souris dans le jeu. Puis,
-\textit{ControllerGame} initialise le \textit{ALLEGRO\_TIMER} qui permet
+\texttt{ControllerGame} initialise le \texttt{ALLEGRO\_TIMER} qui permet
 d'avoir un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de
 mettre à jour la grille du jeu ainsi que pour afficher l'état du jeu à l'écran.
 Nous séparons la vitesse de mise à jour de la grille du nombre d'images
@@ -488,9 +510,9 @@ affichées par Allegro à chaque seconde pour des raisons de performance. La
 grille sera mise à jour 500 fois par seconde tandis qu' Allegro affichera une
 image à l'écran 125 fois par seconde. \\
 
-Ensuite, le \textit{ControllerGame} démarre le \textit{ALLEGRO\_TIMER} et à
-chaque "tick" du timer, la \textit{GameBoard} et tous les objets qu'elle
-possèdent sont mis à jour. A chaque mis à jour, la \textit{GameBoard} vérifie
+Ensuite, le \texttt{ControllerGame} démarre le \texttt{ALLEGRO\_TIMER} et à
+chaque "tick" du timer, la \texttt{GameBoard} et tous les objets qu'elle
+possèdent sont mis à jour. A chaque mis à jour, la \texttt{GameBoard} vérifie
 si la balle est entrée en collision est un ou plusieurs objets. Si c'est le
 cas, elle résout les collisions (\ref{lexique:resoudre_collisions}), ajuste le
 score et fait apparaitre les pillules de bonus si nécessaire en les ajouttant
@@ -499,11 +521,11 @@ brique que celle-ci est touchée. Si la durabilité de la brique est 0, celle-ci
 est supprimée. Pour les pillules de bonus et les lasers, il n'y pas de
 collision à résoudre, simplement faire disparaitre l'objet suffit.
 
-A la fin de chaque mis-a-jour du \textit{ControllerGame}, le programme vérifie
+A la fin de chaque mis-a-jour du \texttt{ControllerGame}, le programme vérifie
 s'il y a encore au moins une balle en jeu. Si ce n'est pas le cas, il retire
 une vie. 
 
-Enfin, le \textit{ControllerGame} demande au \texttt{GameBoard} le nombre de
+Enfin, le \texttt{ControllerGame} demande au \texttt{GameBoard} le nombre de
 vies et de briques non-dorées restantes. S'il n'y a plus de briques non-dorées,
 le joueur a gagné. S'il ne reste aucune vie, le joueur a perdu.
 
@@ -532,7 +554,7 @@ Cette partie contient toute la logique pour la grille du jeu. Elle permet
 d'avoir l'état de la grille et de la modifier. Elle ne possède donc rien qui
 est lié à l'affichage comme Allegro. Elle permet de ne devoir uniquement gérer
 la partie logique du jeu, sans devoir s'occuper d'afficher en plus l'état du
-jeu. La classe \textit{GameBoard} représente l'état du jeu et possède une
+jeu. La classe \texttt{GameBoard} représente l'état du jeu et possède une
 méthode pour pouvoir être mise à jour.
 
 \subsection{Vue}
@@ -541,9 +563,9 @@ La partie vue permet seulement d'afficher l'état de la grille à un moment
 donné. La vue va demander au modèle son état pour l'afficher à l'écran à l'aide
 de la bibliothèque Allegro. Elle ne peut donc en aucun cas modifier l'état du
 jeu, donc le modèle. Toutes les méthodes de modification du modèle dans la
-classe \textit{GameBoard} sont privées, ce qui garantit que la classe
-\textit{DisplayGame} n'a aucun moyen de modifier \textit{GameBoard}. Les seules
-méthodes publiques de \textit{GameBoard} sont des getters constants qui
+classe \texttt{GameBoard} sont privées, ce qui garantit que la classe
+\texttt{DisplayGame} n'a aucun moyen de modifier \texttt{GameBoard}. Les seules
+méthodes publiques de \texttt{GameBoard} sont des getters constants qui
 assurent qu'aucune modification du modèle n'est possible.
 
 \subsection{Contrôleur}
@@ -553,10 +575,10 @@ certaines choses, ou en lui demandant de lui donner quelque chose. Le
 contrôleur permet aussi de dire à la vue quand afficher quelque chose. Grâce à
 lui, nous pouvons gérer le modèle et la vue en les séparant et les faire
 fonctionner tous les deux, avec la garantie que la vue ne saura pas modifier le
-modèle. C'est la classe \textit{ControllerGame} qui joue ce rôle. Elle possède
-un \textit{shared pointer} vers \textit{GameBoard} pour lui demander de se
-mettre à jour, et un \textit{shared pointer} vers \textit{DisplayGame} pour lui
-demander d'afficher l'état du jeu.
+modèle. C'est la classe \texttt{ControllerGame} qui joue ce rôle. Elle possède
+un \texttt{shared pointer} vers \textit{GameBoard} pour lui demander de se
+mettre à jour, et un \textit{DisplayGame} pour lui demander d'afficher l'état
+du jeu.
 
 
 \section{Conclusion}
