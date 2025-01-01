@@ -8,6 +8,25 @@
 \usepackage[T1]{fontenc}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    stringstyle=\color{green}
+    commentstyle=\color{gray},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    captionpos=b,
+    frame=single,
+}
 
 \title{Rapport sur le projet de Langage de Programmation : Arkanoïd}
 \date{5 janvier 2025}
@@ -614,14 +633,763 @@ responsabilités entre la logique du jeu, l’affichage du jeu, et le contrôle 
 
 Le fait que ce projet soit un jeu avec une interface graphique nous a également
 permis de prendre du plaisir à le réaliser tout en approfondissant notre
-connaissance du langage \texttt{C++}.  \\
+connaissance du langage \texttt{C++}. \\
 
 Cette expérience nous a non seulement permis de développer un programme abouti,
 mais également d’affiner nos compétences en conception, en programmation et en
 travail d'équipe.
 
+\section{Interfaces des classes}
+
+\subsection{Contrôleur}
+
+% ControllerGame
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    ControllerGame();
+
+    virtual ~ControllerGame();
+
+    void process();
+\end{lstlisting}
+  \caption{Interface de ControllerGame}
+\end{figure}
+
+% LevelManager
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    LevelManager();
+
+    virtual ~LevelManager() = default;
+
+    void nextLevel();
+
+    void previousLevel();
+
+    const vector<shared_ptr<AbstractBrick>> &getBricks();
+
+    const shared_ptr<Racket> getRacket() const;
+
+    const vector<shared_ptr<Border>> &getBorders() const;
+\end{lstlisting}
+  \caption{Interface de LevelManager}
+\end{figure}
+
+\subsection{Modèle}
+
+% Ball
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Ball(const Vec2 &center, Vec2 directionVec, double radius = BALL_RADIUS,
+         double speed = BALL_SPEED);
+
+    Ball(const Ball &other) = default;
+
+    Ball(Ball &&) = default;
+
+    Ball &operator=(const Ball &) = default;
+
+    Ball &operator=(Ball &&) = default;
+
+    virtual ~Ball() = default;
+
+    double getRadius() const noexcept;
+
+    const Vec2 &getCenter() const noexcept;
+
+    const Vec2 &getDirvec() const noexcept;
+
+    void setSpeed(unsigned speed);
+
+    void setDirVec(const Vec2 &vec);
+
+    Vec2 getSimplePenetrationVec(const RectangleShape &rectangleShape) const;
+
+    bool checkCollision(const RectangleShape &rectangleShape) const;
+
+    void collide(const Bounceable &bounceable);
+
+    void update(double deltaTime);
+\end{lstlisting}
+  \caption{Interface de Ball}
+\end{figure}
+
+% AbstractTimedBonus
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    virtual ~AbstractTimedBonus() = default;
+
+    BonusType getBonusType() const;
+
+    virtual bool update(double deltaT) = 0;
+
+    virtual void reapply(){};
+\end{lstlisting}
+  \caption{Interface de AbstractTimedBonus}
+\end{figure}
+
+% BasicTimedBonus
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BasicTimedBonus(BonusType bonusType);
+
+    BasicTimedBonus(const BasicTimedBonus &) = default;
+
+    BasicTimedBonus(BasicTimedBonus &&) = default;
+
+    BasicTimedBonus &operator=(const BasicTimedBonus &) = default;
+
+    BasicTimedBonus &operator=(BasicTimedBonus &&) = default;
+
+    virtual ~BasicTimedBonus() = default;
+
+    virtual bool update(double deltaT);
+\end{lstlisting}
+  \caption{Interface de BasicTimedBonus}
+\end{figure}
+
+% SlowDownBonus
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    SlowDownBonus();
+
+    SlowDownBonus(const SlowDownBonus &) = default;
+
+    SlowDownBonus(SlowDownBonus &&) = default;
+
+    SlowDownBonus &operator=(const SlowDownBonus &) = default;
+
+    SlowDownBonus &operator=(SlowDownBonus &&) = default;
+
+    virtual ~SlowDownBonus() = default;
+
+    virtual void reapply() override;
+
+    virtual bool update(double deltaT) override;
+
+    virtual double getSlowDownFactor() const;
+\end{lstlisting}
+  \caption{Interface de SlowDownBonus}
+\end{figure}
+
+% BonusPill
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BonusPill(const Vec2 &center, BonusType bonusType);
+
+    BonusPill(const BonusPill &) = default;
+
+    BonusPill(BonusPill &&) = default;
+
+    BonusPill &operator=(const BonusPill &) = default;
+
+    BonusPill &operator=(BonusPill &&) = default;
+
+    BonusType getBonusType() const;
+
+    void update(double deltaTime);
+\end{lstlisting}
+  \caption{Interface de BonusPill}
+\end{figure}
+
+% BonusType
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+enum class BonusType {
+    None,
+    SlowDown,
+    ExtraLife,
+    WideRacket,
+    SplitBall,
+    Lazer
+};
+\end{lstlisting}
+  \caption{Enuméré BonusType}
+\end{figure}
+
+% Border
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Border(const Vec2 &center, double width, double height);
+
+    Border(const Vec2 &topLeft, const Vec2 &bottomRight);
+
+    Border(const Border &other) = default;
+
+    Border(Border &&) = default;
+
+    Border &operator=(const Border &) = default;
+
+    Border &operator=(Border &&) = default;
+
+    virtual ~Border() = default;
+\end{lstlisting}
+  \caption{Interface de Border}
+\end{figure}
+
+% Bounceable
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    enum class BounceType { Vertical, Horizontal, Corner };
+
+    virtual ~Bounceable();
+
+    virtual Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
+                                      const Vec2 &dirVec) const;
+
+    virtual BounceType getBounceType(const Vec2 &point) const final;
+
+    static std::string bounceTypeToString(BounceType bounceType);
+\end{lstlisting}
+  \caption{Interface de Bounceable}
+\end{figure}
+
+% AbstractBrick
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    enum class Color : size_t {
+        defaultBrick = 1,
+        white = 50,
+        orange = 60,
+        cyan = 70,
+        green = 80,
+        red = 90,
+        blue = 100,
+        magenta = 110,
+        yellow = 120,
+        silver = 200,
+        gold = 0,
+    };
+
+    virtual ~AbstractBrick();
+
+    static std::unique_ptr<AbstractBrick>
+    makeBrick(const Vec2 &center, double width, double height, Color color,
+              BonusType bonusType = BonusType::None);
+
+    virtual BonusType hit();
+
+    virtual Color getColor() const;
+
+    virtual size_t getScore() const;
+
+    virtual uint8_t getDurability() const;
+
+    virtual bool isDestroyed() const;
+
+    virtual BonusType getBonusType() const;
+
+    virtual bool hasBonus() const;
+
+    virtual std::shared_ptr<AbstractBrick> clone() = 0;
+\end{lstlisting}
+  \caption{Interface de AbstractBrick}
+\end{figure}
+
+% BasicBrick
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BasicBrick(const Vec2 &center, double width, double height, Color color,
+               uint8_t durability, BonusType bonusType = BonusType::None);
+
+    virtual ~BasicBrick() = default;
+
+    virtual std::shared_ptr<AbstractBrick> clone() override;
+\end{lstlisting}
+  \caption{Interface de BasicBrick}
+\end{figure}
+
+% GoldBrick
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    GoldBrick(const Vec2 &center, double width, double height);
+
+    virtual ~GoldBrick() = default;
+
+    virtual BonusType hit() override; // Gold bricks are never destroyed
+
+    virtual std::shared_ptr<AbstractBrick> clone() override;
+\end{lstlisting}
+  \caption{Interface de GoldBrick}
+\end{figure}
+
+% GameBoard
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    GameBoard() = default;
+
+    virtual ~GameBoard() = default;
+
+    void update(double deltaTime);
+
+    void shootLazer();
+
+    unsigned long getScore() const;
+
+    const LifeCounter &getLife() const;
+
+    unsigned long getNumBricks() const;
+
+    const std::vector<std::shared_ptr<Ball>> &getBalls() const;
+
+    const std::vector<std::shared_ptr<AbstractBrick>> &getBricks() const;
+
+    const std::vector<std::shared_ptr<BonusPill>> &getDescendingBonuses() const;
+
+    const Racket &getRacket() const;
+
+    const std::vector<std::shared_ptr<Border>> &getBorders() const;
+
+    const std::vector<std::shared_ptr<Lazer>> &getLazers() const;
+
+    void setRacketAtX(double centerX);
+
+    void setBricks(const std::vector<std::shared_ptr<AbstractBrick>> &bricks);
+
+    void setRacket(const std::shared_ptr<Racket> racket);
+
+    void setBorders(const std::vector<std::shared_ptr<Border>> &borders);
+
+    void resetLifeCounter();
+
+    void resetScore();
+
+    void saveBestScore();
+
+    unsigned long getBestScore() const;
+
+    void resetBestScore();
+
+    void clear();
+\end{lstlisting}
+  \caption{Interface de GameBoard}
+\end{figure}
+
+% Lazer
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Lazer(const Vec2 &center);
+
+    Lazer(const Lazer &) = default;
+
+    Lazer(Lazer &&) = default;
+
+    Lazer &operator=(const Lazer &) = default;
+
+    Lazer &operator=(Lazer &&) = default;
+
+    void update(double deltaTime);
+\end{lstlisting}
+  \caption{Interface de Lazer}
+\end{figure}
+
+% LifeCounter
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+
+    LifeCounter();
+
+    LifeCounter(const LifeCounter &) = default;
+
+    LifeCounter(LifeCounter &&) = default;
+
+    LifeCounter &operator=(const LifeCounter &) = default;
+
+    LifeCounter &operator=(LifeCounter &&) = default;
+
+    LifeCounter(unsigned numLives);
+
+    virtual ~LifeCounter();
+
+    void reset();
+
+    const LifeCounter &operator--();
+
+    const LifeCounter &operator++();
+
+    const LifeCounter &operator+=(unsigned numLife);
+
+    void setNumLives(uint8_t numLives);
+
+    operator unsigned() const;
+\end{lstlisting}
+  \caption{Interface de LifeCounter}
+\end{figure}
+
+% Racket
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Racket(const Vec2 &center, double width, double height);
+
+    Racket(const Racket &other) = default;
+
+    Racket(Racket &&) = default;
+
+    Racket &operator=(const Racket &) = default;
+
+    Racket &operator=(Racket &&) = default;
+
+    virtual ~Racket() = default;
+
+    void setCenterX(double centerX);
+
+    Vec2 getDirVecAfterBounce(const Vec2 &closestPoint,
+                              const Vec2 &dirVec) const override;
+\end{lstlisting}
+  \caption{Interface de Racket}
+\end{figure}
+
+% RectangleShape
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    RectangleShape(const Vec2 &center, double width, double height);
+
+    RectangleShape(const Vec2 &topLeft, const Vec2 &bottomRight);
+
+    RectangleShape(const RectangleShape &other) = default;
+
+    RectangleShape(RectangleShape &&) = default;
+
+    RectangleShape &operator=(const RectangleShape &) = default;
+
+    RectangleShape &operator=(RectangleShape &&) = default;
+
+    virtual ~RectangleShape() = default;
+
+    void setCenter(const Vec2 &centerPos);
+
+    void setWidth(double newWidth);
+
+    void setHeight(double newWidth);
+
+    const Vec2 &getCenter() const noexcept;
+
+    double getWidth() const noexcept;
+
+    double getHeight() const noexcept;
+
+    double getLeft() const noexcept;
+
+    double getRight() const noexcept;
+
+    double getBottom() const noexcept;
+
+    double getTop() const noexcept;
+
+    Vec2 getTopLeft() const noexcept;
+
+    Vec2 getTopRight() const noexcept;
+
+    Vec2 getBottomLeft() const noexcept;
+
+    Vec2 getBottomRight() const noexcept;
+
+    bool isOverlapping(const RectangleShape &other);
+\end{lstlisting}
+  \caption{Interface de RectangleShape}
+\end{figure}
+
+% ScoreManager
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    ScoreManager();
+
+    ScoreManager(const ScoreManager &) = default;
+
+    ScoreManager(ScoreManager &&) = default;
+
+    ScoreManager &operator=(const ScoreManager &) = default;
+
+    ScoreManager &operator=(ScoreManager &&) = default;
+
+    ScoreManager(unsigned long currentScore, unsigned long bestScore)
+        : currentScore_(currentScore), bestScore_(bestScore) {}
+
+    virtual ~ScoreManager() = default;
+
+    void increaseScore(unsigned long value);
+
+    void resetScore();
+
+    void saveScore();
+
+    unsigned long getCurrentScore() const;
+
+    unsigned long getBestScore() const;
+
+    void resetBestScore();
+\end{lstlisting}
+  \caption{Interface de ScoreManager}
+\end{figure}
+
+% Vec2
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    double x;
+    double y;
+
+    Vec2();
+
+    Vec2(double xComponent, double yComponent);
+
+    Vec2(const Vec2 &) = default;
+
+    Vec2(Vec2 &&) = default;
+
+    Vec2 &operator=(const Vec2 &) = default;
+
+    Vec2 &operator=(Vec2 &&) = default;
+
+    virtual ~Vec2() = default;
+
+    double getModule() const;
+
+    const Vec2 &normalize();
+
+    Vec2 normalized() const;
+
+    Vec2 clamped(const Vec2 &min, const Vec2 &max) const;
+
+    bool operator==(const Vec2 &other) const;
+
+    Vec2 operator+(const Vec2 &vec) const;
+
+    Vec2 &operator+=(const Vec2 &vec);
+
+    Vec2 operator-(const Vec2 &vec) const;
+
+    Vec2 &operator-=(const Vec2 &vec);
+
+    Vec2 operator-() const;
+
+    Vec2 operator*(double scalar) const;
+
+    Vec2 &operator*=(double scalar);
+
+    operator Point() const;
+
+    operator std::string() const;
+\end{lstlisting}
+  \caption{Interface de Vec2}
+\end{figure}
+
+\subsection{Vue}
+
+% Canvas
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick);
+
+    virtual ~Canvas() = default;
+
+    void draw();
+\end{lstlisting}
+  \caption{Interface de Canvas}
+\end{figure}
+
+% DisplayGame
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    DisplayGame(shared_ptr<GameBoard> gameBoard);
+
+    virtual ~DisplayGame();
+
+    void draw();
+
+    void gameOver();
+
+    void gameWin();
+
+    ALLEGRO_DISPLAY *getDisplay() const;
+\end{lstlisting}
+  \caption{Interface de DisplayGame}
+\end{figure}
+
+% Rectangle
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Rectangle(Point center, float width, float height,
+              ALLEGRO_COLOR fillColor = COLOR_BLACK,
+              ALLEGRO_COLOR frameColor = COLOR_WHITE);
+
+    virtual ~Rectangle() = default;
+
+    virtual void draw();
+\end{lstlisting}
+  \caption{Interface de Rectangel}
+\end{figure}
+
+% Circle
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    Circle(Point center, float radius, ALLEGRO_COLOR fillColor = COLOR_WHITE,
+           ALLEGRO_COLOR frameColor = COLOR_BLACK);
+
+    virtual ~Circle() = default;
+
+    virtual void draw();
+\end{lstlisting}
+  \caption{Interface de Circle}
+\end{figure}
+
+% Point
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    float x = 0, y = 0; // Coordinates of the point
+
+    Point(float valX, float valY);
+
+    virtual ~Point() = default;
+\end{lstlisting}
+  \caption{Interface de Point}
+\end{figure}
+
+% BallUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BallUi(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLUE);
+
+    virtual ~BallUi() = default;
+
+    virtual void draw() override;
+\end{lstlisting}
+  \caption{Interface de BallUi}
+\end{figure}
+
+
+% BonusPillUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BonusPillUi(Point center, float width, float height, BonusType bonusType);
+
+    virtual ~BonusPillUi() = default;
+
+    virtual void draw() override;
+
+\end{lstlisting}
+  \caption{Interface de BonusPillUi}
+\end{figure}
+
+
+% BrickUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
+            size_t durability, BonusType bonusType,
+            const ALLEGRO_FONT *fontBrick);
+
+    virtual ~BrickUi() = default;
+
+    virtual void draw() override;
+\end{lstlisting}
+  \caption{Interface de BrickUi}
+\end{figure}
+
+
+% LazerUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    LazerUi(Point center, float width, float height, ALLEGRO_COLOR = COLOR_RED);
+
+    virtual ~LazerUi() = default;
+
+    virtual void draw() override;
+\end{lstlisting}
+  \caption{Interface de LazerUi}
+\end{figure}
+
+% RacketUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    RacketUi(Point center, float width, float height,
+             ALLEGRO_COLOR = COLOR_WHITE);
+
+    virtual ~RacketUi() = default;
+
+    virtual void draw() override;
+\end{lstlisting}
+  \caption{Interface de RacketUi}
+\end{figure}
+
+% WallUi
+
+\begin{figure}[h]
+  \centering
+\begin{lstlisting}
+    WallUi(Point center, float width, float height,
+           ALLEGRO_COLOR = COLOR_WHITE);
+
+    virtual ~WallUi() = default;
+
+    virtual void draw() override;
+\end{lstlisting}
+  \caption{Interface de WallUi}
+\end{figure}
+
+\clearpage
 
 \section*{Lexique}
+
 
 \begin{description}
 
@@ -637,7 +1405,6 @@ travail d'équipe.
     des chevauchements entre objets.
 
 \end{description}
-
 
 
 \end{document}
