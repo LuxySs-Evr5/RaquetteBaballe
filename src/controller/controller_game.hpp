@@ -24,10 +24,9 @@ class ControllerGame {
     bool draw_ = false;        // if we need to draw the game
     u_int8_t numberOfTick = 0; // number of ticks
 
-    // Model, LevelManager and View
     shared_ptr<GameBoard> gameBoard_;
-    shared_ptr<LevelManager> levelManager_;
-    shared_ptr<DisplayGame> displayGame_;
+    LevelManager levelManager_;
+    DisplayGame displayGame_;
 
     // Allegro variables
     ALLEGRO_TIMER *timer_;
