@@ -34,6 +34,11 @@ const Vec2 &Vec2::normalize() {
     return *this;
 }
 
+Vec2 Vec2::normalized() const {
+    Vec2 copy = *this;
+    return copy.normalize();
+}
+
 Vec2 Vec2::clamped(const Vec2 &min, const Vec2 &max) const {
     return Vec2{clampedNum(x, min.x, max.x), clampedNum(y, min.y, max.y)};
 }

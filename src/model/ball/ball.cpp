@@ -35,7 +35,7 @@ bool Ball::hasReached(const Vec2 &point) const {
 }
 
 Ball::Ball(const Vec2 &center, Vec2 directionVec, double radius, double speed)
-    : center_{center}, dirVec_{directionVec.normalize()}, radius_{radius},
+    : center_{center}, dirVec_{directionVec.normalized()}, radius_{radius},
       speed_{speed} {}
 
 double Ball::getRadius() const noexcept { return radius_; }
@@ -46,7 +46,7 @@ const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
 void Ball::setSpeed(unsigned speed) { speed_ = speed; };
 
-void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec; }
+void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec.normalized(); }
 
 Vec2 Ball::getSimplePenetrationVec(const RectangleShape &rectangleShape) const {
     Vec2 closestPoint =

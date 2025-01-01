@@ -40,6 +40,11 @@ struct Vec2 {
     const Vec2 &normalize();
 
     /**
+     * @brief Returns the normalized vector.
+     */
+    Vec2 normalized() const;
+
+    /**
      * @brief Returns a new vector where each component is clamped within the
      * specified ranges.
      *
