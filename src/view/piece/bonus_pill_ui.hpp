@@ -35,7 +35,7 @@ class BonusPillUi final : public Rectangle {
      * @brief Draw the racket
      *
      */
-    void draw();
+    virtual void draw() override;
 };
 
 #endif // BONUS_PILL_UI_HPP

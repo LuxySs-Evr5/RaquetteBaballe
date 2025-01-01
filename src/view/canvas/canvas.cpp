@@ -32,8 +32,9 @@ void Canvas::draw() {
                         static_cast<float>(brick->getHeight()),
                         colorToAllegroColor(brick->getColor()),
                         brick->getDurability(),
-                        brick->getBonusType()};
-        brickUi.draw(fontBrick_);
+                        brick->getBonusType(),
+                        fontBrick_};
+        brickUi.draw();
     }
 
     for (auto &bonusPill : gameBoard_->getDescendingBonuses()) {

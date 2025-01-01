@@ -34,11 +34,12 @@ string BonusTypeToLetter(const BonusType bonusType) {
 }
 
 BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
-                 size_t durability, BonusType bonusType)
+                 size_t durability, BonusType bonusType,
+                 const ALLEGRO_FONT *fontBrick)
     : Rectangle(center, width, height, color), durability_(durability),
-      bonusType_(bonusType) {}
+      bonusType_(bonusType), fontBrick_(fontBrick) {}
 
-void BrickUi::draw(const ALLEGRO_FONT *fontBrick) {
+void BrickUi::draw() {
     center_.y =
         SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
@@ -56,7 +57,7 @@ void BrickUi::draw(const ALLEGRO_FONT *fontBrick) {
                                    / 2.0); // Start at the top of the brick
     string letter = BonusTypeToLetter(bonusType_);
     if (letter != "") {
-        al_draw_text(fontBrick, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
-                     letter.c_str());
+        al_draw_text(fontBrick_, COLOR_BLACK, center_.x, y,
+                     ALLEGRO_ALIGN_CENTER, letter.c_str());
     }
 }

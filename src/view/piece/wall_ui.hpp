@@ -33,7 +33,7 @@ class WallUi final : public Rectangle {
     /**
      * @brief Draw the wall
      */
-    void draw() override;
+    virtual void draw() override;
 };
 
 #endif // WALL_UI_HPP

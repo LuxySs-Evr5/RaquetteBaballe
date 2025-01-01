@@ -33,7 +33,7 @@ class RacketUi final : public Rectangle {
     /**
      * @brief Draw the racket
      */
-    void draw() override;
+    virtual void draw() override;
 };
 
 #endif // RACKET_UI_HPP

@@ -40,7 +40,7 @@ class LazerUi final : public Rectangle {
     /**
      * @brief Draw the racket
      */
-    void draw() override;
+    virtual void draw() override;
 };
 
 #endif // LAZER_UI_HPP
