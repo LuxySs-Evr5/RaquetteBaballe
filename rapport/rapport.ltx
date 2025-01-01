@@ -641,11 +641,9 @@ travail d'équipe.
 
 \section{Interfaces des classes}
 
-\subsection{Contrôleur}
-
 % ControllerGame
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     ControllerGame();
@@ -659,12 +657,12 @@ travail d'équipe.
 
 % LevelManager
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     LevelManager();
 
-    virtual ~LevelManager() = default;
+    virtual ~LevelManager();
 
     void nextLevel();
 
@@ -679,25 +677,23 @@ travail d'équipe.
   \caption{Interface de LevelManager}
 \end{figure}
 
-\subsection{Modèle}
-
 % Ball
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Ball(const Vec2 &center, Vec2 directionVec, double radius = BALL_RADIUS,
          double speed = BALL_SPEED);
 
-    Ball(const Ball &other) = default;
+    Ball(const Ball &other);
 
-    Ball(Ball &&) = default;
+    Ball(Ball &&);
 
-    Ball &operator=(const Ball &) = default;
+    Ball &operator=(const Ball &);
 
-    Ball &operator=(Ball &&) = default;
+    Ball &operator=(Ball &&);
 
-    virtual ~Ball() = default;
+    virtual ~Ball();
 
     double getRadius() const noexcept;
 
@@ -722,10 +718,10 @@ travail d'équipe.
 
 % AbstractTimedBonus
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
-    virtual ~AbstractTimedBonus() = default;
+    virtual ~AbstractTimedBonus();
 
     BonusType getBonusType() const;
 
@@ -738,20 +734,20 @@ travail d'équipe.
 
 % BasicTimedBonus
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BasicTimedBonus(BonusType bonusType);
 
-    BasicTimedBonus(const BasicTimedBonus &) = default;
+    BasicTimedBonus(const BasicTimedBonus &);
 
-    BasicTimedBonus(BasicTimedBonus &&) = default;
+    BasicTimedBonus(BasicTimedBonus &&);
 
-    BasicTimedBonus &operator=(const BasicTimedBonus &) = default;
+    BasicTimedBonus &operator=(const BasicTimedBonus &);
 
-    BasicTimedBonus &operator=(BasicTimedBonus &&) = default;
+    BasicTimedBonus &operator=(BasicTimedBonus &&);
 
-    virtual ~BasicTimedBonus() = default;
+    virtual ~BasicTimedBonus();
 
     virtual bool update(double deltaT);
 \end{lstlisting}
@@ -760,20 +756,20 @@ travail d'équipe.
 
 % SlowDownBonus
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     SlowDownBonus();
 
-    SlowDownBonus(const SlowDownBonus &) = default;
+    SlowDownBonus(const SlowDownBonus &);
 
-    SlowDownBonus(SlowDownBonus &&) = default;
+    SlowDownBonus(SlowDownBonus &&);
 
-    SlowDownBonus &operator=(const SlowDownBonus &) = default;
+    SlowDownBonus &operator=(const SlowDownBonus &);
 
-    SlowDownBonus &operator=(SlowDownBonus &&) = default;
+    SlowDownBonus &operator=(SlowDownBonus &&);
 
-    virtual ~SlowDownBonus() = default;
+    virtual ~SlowDownBonus();
 
     virtual void reapply() override;
 
@@ -786,18 +782,18 @@ travail d'équipe.
 
 % BonusPill
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BonusPill(const Vec2 &center, BonusType bonusType);
 
-    BonusPill(const BonusPill &) = default;
+    BonusPill(const BonusPill &);
 
-    BonusPill(BonusPill &&) = default;
+    BonusPill(BonusPill &&);
 
-    BonusPill &operator=(const BonusPill &) = default;
+    BonusPill &operator=(const BonusPill &);
 
-    BonusPill &operator=(BonusPill &&) = default;
+    BonusPill &operator=(BonusPill &&);
 
     BonusType getBonusType() const;
 
@@ -808,7 +804,7 @@ travail d'équipe.
 
 % BonusType
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
 enum class BonusType {
@@ -825,29 +821,29 @@ enum class BonusType {
 
 % Border
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Border(const Vec2 &center, double width, double height);
 
     Border(const Vec2 &topLeft, const Vec2 &bottomRight);
 
-    Border(const Border &other) = default;
+    Border(const Border &other);
 
-    Border(Border &&) = default;
+    Border(Border &&);
 
-    Border &operator=(const Border &) = default;
+    Border &operator=(const Border &);
 
-    Border &operator=(Border &&) = default;
+    Border &operator=(Border &&);
 
-    virtual ~Border() = default;
+    virtual ~Border();
 \end{lstlisting}
   \caption{Interface de Border}
 \end{figure}
 
 % Bounceable
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     enum class BounceType { Vertical, Horizontal, Corner };
@@ -866,7 +862,7 @@ enum class BonusType {
 
 % AbstractBrick
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     enum class Color : size_t {
@@ -910,13 +906,13 @@ enum class BonusType {
 
 % BasicBrick
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BasicBrick(const Vec2 &center, double width, double height, Color color,
                uint8_t durability, BonusType bonusType = BonusType::None);
 
-    virtual ~BasicBrick() = default;
+    virtual ~BasicBrick();
 
     virtual std::shared_ptr<AbstractBrick> clone() override;
 \end{lstlisting}
@@ -925,14 +921,14 @@ enum class BonusType {
 
 % GoldBrick
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     GoldBrick(const Vec2 &center, double width, double height);
 
-    virtual ~GoldBrick() = default;
+    virtual ~GoldBrick();
 
-    virtual BonusType hit() override; // Gold bricks are never destroyed
+    virtual BonusType hit() override;
 
     virtual std::shared_ptr<AbstractBrick> clone() override;
 \end{lstlisting}
@@ -941,12 +937,12 @@ enum class BonusType {
 
 % GameBoard
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
-    GameBoard() = default;
+    GameBoard();
 
-    virtual ~GameBoard() = default;
+    virtual ~GameBoard();
 
     void update(double deltaTime);
 
@@ -995,18 +991,18 @@ enum class BonusType {
 
 % Lazer
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Lazer(const Vec2 &center);
 
-    Lazer(const Lazer &) = default;
+    Lazer(const Lazer &);
 
-    Lazer(Lazer &&) = default;
+    Lazer(Lazer &&);
 
-    Lazer &operator=(const Lazer &) = default;
+    Lazer &operator=(const Lazer &);
 
-    Lazer &operator=(Lazer &&) = default;
+    Lazer &operator=(Lazer &&);
 
     void update(double deltaTime);
 \end{lstlisting}
@@ -1015,19 +1011,19 @@ enum class BonusType {
 
 % LifeCounter
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
 
     LifeCounter();
 
-    LifeCounter(const LifeCounter &) = default;
+    LifeCounter(const LifeCounter &);
 
-    LifeCounter(LifeCounter &&) = default;
+    LifeCounter(LifeCounter &&);
 
-    LifeCounter &operator=(const LifeCounter &) = default;
+    LifeCounter &operator=(const LifeCounter &);
 
-    LifeCounter &operator=(LifeCounter &&) = default;
+    LifeCounter &operator=(LifeCounter &&);
 
     LifeCounter(unsigned numLives);
 
@@ -1050,20 +1046,20 @@ enum class BonusType {
 
 % Racket
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Racket(const Vec2 &center, double width, double height);
 
-    Racket(const Racket &other) = default;
+    Racket(const Racket &other);
 
-    Racket(Racket &&) = default;
+    Racket(Racket &&);
 
-    Racket &operator=(const Racket &) = default;
+    Racket &operator=(const Racket &);
 
-    Racket &operator=(Racket &&) = default;
+    Racket &operator=(Racket &&);
 
-    virtual ~Racket() = default;
+    virtual ~Racket();
 
     void setCenterX(double centerX);
 
@@ -1075,22 +1071,22 @@ enum class BonusType {
 
 % RectangleShape
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     RectangleShape(const Vec2 &center, double width, double height);
 
     RectangleShape(const Vec2 &topLeft, const Vec2 &bottomRight);
 
-    RectangleShape(const RectangleShape &other) = default;
+    RectangleShape(const RectangleShape &other);
 
-    RectangleShape(RectangleShape &&) = default;
+    RectangleShape(RectangleShape &&);
 
-    RectangleShape &operator=(const RectangleShape &) = default;
+    RectangleShape &operator=(const RectangleShape &);
 
-    RectangleShape &operator=(RectangleShape &&) = default;
+    RectangleShape &operator=(RectangleShape &&);
 
-    virtual ~RectangleShape() = default;
+    virtual ~RectangleShape();
 
     void setCenter(const Vec2 &centerPos);
 
@@ -1127,23 +1123,23 @@ enum class BonusType {
 
 % ScoreManager
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     ScoreManager();
 
-    ScoreManager(const ScoreManager &) = default;
+    ScoreManager(const ScoreManager &);
 
-    ScoreManager(ScoreManager &&) = default;
+    ScoreManager(ScoreManager &&);
 
-    ScoreManager &operator=(const ScoreManager &) = default;
+    ScoreManager &operator=(const ScoreManager &);
 
-    ScoreManager &operator=(ScoreManager &&) = default;
+    ScoreManager &operator=(ScoreManager &&);
 
     ScoreManager(unsigned long currentScore, unsigned long bestScore)
         : currentScore_(currentScore), bestScore_(bestScore) {}
 
-    virtual ~ScoreManager() = default;
+    virtual ~ScoreManager();
 
     void increaseScore(unsigned long value);
 
@@ -1162,7 +1158,7 @@ enum class BonusType {
 
 % Vec2
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     double x;
@@ -1172,15 +1168,15 @@ enum class BonusType {
 
     Vec2(double xComponent, double yComponent);
 
-    Vec2(const Vec2 &) = default;
+    Vec2(const Vec2 &);
 
-    Vec2(Vec2 &&) = default;
+    Vec2(Vec2 &&);
 
-    Vec2 &operator=(const Vec2 &) = default;
+    Vec2 &operator=(const Vec2 &);
 
-    Vec2 &operator=(Vec2 &&) = default;
+    Vec2 &operator=(Vec2 &&);
 
-    virtual ~Vec2() = default;
+    virtual ~Vec2();
 
     double getModule() const;
 
@@ -1213,16 +1209,14 @@ enum class BonusType {
   \caption{Interface de Vec2}
 \end{figure}
 
-\subsection{Vue}
-
 % Canvas
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick);
 
-    virtual ~Canvas() = default;
+    virtual ~Canvas();
 
     void draw();
 \end{lstlisting}
@@ -1231,7 +1225,7 @@ enum class BonusType {
 
 % DisplayGame
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     DisplayGame(shared_ptr<GameBoard> gameBoard);
@@ -1251,14 +1245,14 @@ enum class BonusType {
 
 % Rectangle
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Rectangle(Point center, float width, float height,
               ALLEGRO_COLOR fillColor = COLOR_BLACK,
               ALLEGRO_COLOR frameColor = COLOR_WHITE);
 
-    virtual ~Rectangle() = default;
+    virtual ~Rectangle();
 
     virtual void draw();
 \end{lstlisting}
@@ -1267,13 +1261,13 @@ enum class BonusType {
 
 % Circle
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     Circle(Point center, float radius, ALLEGRO_COLOR fillColor = COLOR_WHITE,
            ALLEGRO_COLOR frameColor = COLOR_BLACK);
 
-    virtual ~Circle() = default;
+    virtual ~Circle();
 
     virtual void draw();
 \end{lstlisting}
@@ -1282,26 +1276,26 @@ enum class BonusType {
 
 % Point
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     float x = 0, y = 0; // Coordinates of the point
 
     Point(float valX, float valY);
 
-    virtual ~Point() = default;
+    virtual ~Point();
 \end{lstlisting}
   \caption{Interface de Point}
 \end{figure}
 
 % BallUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BallUi(Point center, float radius, ALLEGRO_COLOR color = COLOR_BLUE);
 
-    virtual ~BallUi() = default;
+    virtual ~BallUi();
 
     virtual void draw() override;
 \end{lstlisting}
@@ -1311,12 +1305,12 @@ enum class BonusType {
 
 % BonusPillUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BonusPillUi(Point center, float width, float height, BonusType bonusType);
 
-    virtual ~BonusPillUi() = default;
+    virtual ~BonusPillUi();
 
     virtual void draw() override;
 
@@ -1327,14 +1321,14 @@ enum class BonusType {
 
 % BrickUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
             size_t durability, BonusType bonusType,
             const ALLEGRO_FONT *fontBrick);
 
-    virtual ~BrickUi() = default;
+    virtual ~BrickUi();
 
     virtual void draw() override;
 \end{lstlisting}
@@ -1344,12 +1338,12 @@ enum class BonusType {
 
 % LazerUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     LazerUi(Point center, float width, float height, ALLEGRO_COLOR = COLOR_RED);
 
-    virtual ~LazerUi() = default;
+    virtual ~LazerUi();
 
     virtual void draw() override;
 \end{lstlisting}
@@ -1358,13 +1352,13 @@ enum class BonusType {
 
 % RacketUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     RacketUi(Point center, float width, float height,
              ALLEGRO_COLOR = COLOR_WHITE);
 
-    virtual ~RacketUi() = default;
+    virtual ~RacketUi();
 
     virtual void draw() override;
 \end{lstlisting}
@@ -1373,13 +1367,13 @@ enum class BonusType {
 
 % WallUi
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
 \begin{lstlisting}
     WallUi(Point center, float width, float height,
            ALLEGRO_COLOR = COLOR_WHITE);
 
-    virtual ~WallUi() = default;
+    virtual ~WallUi();
 
     virtual void draw() override;
 \end{lstlisting}
