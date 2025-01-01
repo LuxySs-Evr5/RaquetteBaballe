@@ -1,8 +1,6 @@
 #include "bounceable.hpp"
 #include "../vec2/vec2.hpp"
 
-#include <stdexcept>
-
 std::string Bounceable::bounceTypeToString(Bounceable::BounceType bounceType) {
     switch (bounceType) {
     case Bounceable::BounceType::Vertical:
@@ -31,15 +29,11 @@ Bounceable::~Bounceable() = default;
 Bounceable::BounceType Bounceable::getBounceType(const Vec2 &point) const {
     if (point == getTopLeft() or point == getTopRight()
         or point == getBottomLeft() or point == getBottomRight()) {
-
         return BounceType::Corner;
-    } else if (point.x == getLeft() or point.x == getRight()) {
-        return BounceType::Vertical;
     } else if (point.y == getBottom() or point.y == getTop()) {
         return BounceType::Horizontal;
     } else {
-        throw std::runtime_error{
-            "point is not on a the Bounceable's perimeter"};
+        return BounceType::Vertical;
     }
 }
 
