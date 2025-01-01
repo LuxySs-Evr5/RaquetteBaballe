@@ -10,6 +10,7 @@
 #define WALL_UI_HPP
 
 #include "../figures/forme.hpp"
+
 #include <allegro5/color.h>
 
 class WallUi final : public Rectangle {

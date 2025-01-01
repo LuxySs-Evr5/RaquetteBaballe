@@ -7,7 +7,6 @@
  */
 
 #include "brick_ui.hpp"
-#include "../../model/brick/abstract_brick.hpp"
 
 string BonusTypeToLetter(const BonusType bonusType) {
     /**
@@ -34,15 +33,17 @@ string BonusTypeToLetter(const BonusType bonusType) {
     }
 }
 
-BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color)
-    : Rectangle(center, width, height, color) {}
+BrickUi::BrickUi(Point center, float width, float height, ALLEGRO_COLOR color,
+                 size_t durability, BonusType bonusType)
+    : Rectangle(center, width, height, color), durability_(durability),
+      bonusType_(bonusType) {}
 
-void BrickUi::draw(const AbstractBrick &brick, const ALLEGRO_FONT *fontBrick) {
+void BrickUi::draw(const ALLEGRO_FONT *fontBrick) {
     center_.y =
         SCREEN_HEIGHT
         - center_.y; // Invert the y axis to match the screen with the backend
 
-    if (brick.getDurability() == 2) {
+    if (durability_ == 2) {
         frameColor_ =
             COLOR_BLACK; // for silver bricks change frame color for if
                          // durability is 2, if it's 1, it's default white
@@ -50,16 +51,12 @@ void BrickUi::draw(const AbstractBrick &brick, const ALLEGRO_FONT *fontBrick) {
 
     Rectangle::draw();
 
-    if (brick.hasBonus()) {
-        float y = center_.y
-                  - static_cast<float>(BRICK_HEIGHT
-                                       / 2.0); // Start at the top of the brick
-        string letter = BonusTypeToLetter(brick.getBonusType());
-        if (letter != "") {
-            al_draw_text(fontBrick, COLOR_BLACK, center_.x, y,
-                         ALLEGRO_ALIGN_CENTER,
-                         letter.c_str()); // draw a B in the center of the brick
-                                          // if it has a bonus
-        }
+    float y = center_.y
+              - static_cast<float>(BRICK_HEIGHT
+                                   / 2.0); // Start at the top of the brick
+    string letter = BonusTypeToLetter(bonusType_);
+    if (letter != "") {
+        al_draw_text(fontBrick, COLOR_BLACK, center_.x, y, ALLEGRO_ALIGN_CENTER,
+                     letter.c_str());
     }
 }

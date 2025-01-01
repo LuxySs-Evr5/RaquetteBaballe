@@ -18,6 +18,7 @@
 #define LAZER_UI_HPP
 
 #include "../figures/forme.hpp"
+
 #include <allegro5/color.h>
 
 class LazerUi final : public Rectangle {
@@ -29,8 +30,7 @@ class LazerUi final : public Rectangle {
      * @param width The width of the Lazer
      * @param height The height of the Lazer
      */
-    LazerUi(Point center, float width, float height,
-             ALLEGRO_COLOR = COLOR_RED);
+    LazerUi(Point center, float width, float height, ALLEGRO_COLOR = COLOR_RED);
 
     /**
      * @brief Destroy the Racket Ui object

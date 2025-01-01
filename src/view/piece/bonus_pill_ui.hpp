@@ -9,8 +9,8 @@
 #ifndef BONUS_PILL_UI_HPP
 #define BONUS_PILL_UI_HPP
 
-#include "../../model/bonus_pill/bonus_pill.hpp"
 #include "../figures/forme.hpp"
+
 #include <allegro5/color.h>
 
 class BonusPillUi final : public Rectangle {
@@ -21,8 +21,9 @@ class BonusPillUi final : public Rectangle {
      * @param center The center of the racket
      * @param width The width of the racket
      * @param height The height of the racket
+     * @param BonusType The bonus type
      */
-    BonusPillUi(Point center, float width, float height, BonusPill &bonusPill);
+    BonusPillUi(Point center, float width, float height, BonusType bonusType);
 
     /**
      * @brief Destroy the Racket Ui object

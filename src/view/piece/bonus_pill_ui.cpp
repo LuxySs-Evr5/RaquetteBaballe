@@ -7,21 +7,22 @@
  */
 
 #include "bonus_pill_ui.hpp"
+
 #include <allegro5/color.h>
 
 BonusPillUi::BonusPillUi(Point center, float width, float height,
-                         BonusPill &bonusPill)
+                         BonusType bonusType)
     : Rectangle(center, width, height) {
-    
-    if (bonusPill.getBonusType() == BonusType::ExtraLife) {
+
+    if (bonusType == BonusType::ExtraLife) {
         fillColor_ = COLOR_GREY;
-    } else if (bonusPill.getBonusType() == BonusType::SlowDown) {
+    } else if (bonusType == BonusType::SlowDown) {
         fillColor_ = COLOR_ORANGE;
-    } else if (bonusPill.getBonusType() == BonusType::WideRacket) {
+    } else if (bonusType == BonusType::WideRacket) {
         fillColor_ = COLOR_BLUE;
-    } else if (bonusPill.getBonusType() == BonusType::SplitBall) {
+    } else if (bonusType == BonusType::SplitBall) {
         fillColor_ = COLOR_CYAN;
-    } else if (bonusPill.getBonusType() == BonusType::Lazer) {
+    } else if (bonusType == BonusType::Lazer) {
         fillColor_ = COLOR_MAGENTA;
     }
     frameColor_ = COLOR_BLACK; // Black frame color for all bonus pills

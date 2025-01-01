@@ -7,6 +7,7 @@
  */
 
 #include "wall_ui.hpp"
+
 #include <allegro5/color.h>
 
 WallUi::WallUi(Point center, float width, float height, ALLEGRO_COLOR color)

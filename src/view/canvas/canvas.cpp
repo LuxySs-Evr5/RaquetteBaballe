@@ -30,14 +30,17 @@ void Canvas::draw() {
         BrickUi brickUi{brick->getCenter(),
                         static_cast<float>(brick->getWidth()),
                         static_cast<float>(brick->getHeight()),
-                        colorToAllegroColor(brick->getColor())};
-        brickUi.draw(*brick, fontBrick_);
+                        colorToAllegroColor(brick->getColor()),
+                        brick->getDurability(),
+                        brick->getBonusType()};
+        brickUi.draw(fontBrick_);
     }
 
     for (auto &bonusPill : gameBoard_->getDescendingBonuses()) {
-        BonusPillUi bonusPillUi{
-            bonusPill->getCenter(), static_cast<float>(bonusPill->getWidth()),
-            static_cast<float>(bonusPill->getHeight()), *bonusPill};
+        BonusPillUi bonusPillUi{bonusPill->getCenter(),
+                                static_cast<float>(bonusPill->getWidth()),
+                                static_cast<float>(bonusPill->getHeight()),
+                                bonusPill->getBonusType()};
         bonusPillUi.draw();
     }
 

@@ -10,6 +10,7 @@
 #define FORME_HPP
 
 #include "../color/colors.hpp"
+
 #include "point.hpp"
 
 class Rectangle {

@@ -10,6 +10,7 @@
 #define RACKET_UI_HPP
 
 #include "../figures/forme.hpp"
+
 #include <allegro5/color.h>
 
 class RacketUi final : public Rectangle {
