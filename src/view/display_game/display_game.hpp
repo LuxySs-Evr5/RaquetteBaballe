@@ -49,6 +49,11 @@ class DisplayGame {
      */
     void drawLife();
 
+    /**
+     * @brief Draws the message showing the score in the middle of the screen.
+     */
+    void drawFinalScore();
+
   public:
     /**
      * @brief Construct a new Display Game object

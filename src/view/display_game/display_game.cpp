@@ -163,31 +163,32 @@ void DisplayGame::draw() {
     al_flip_display(); // update the window display
 }
 
-void DisplayGame::gameOver() {
+void DisplayGame::drawFinalScore() {
     string scoreString = "Your score is " + to_string(gameBoard_->getScore());
+    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
+                 scoreString.c_str()); // Draw the score
+}
+
+void DisplayGame::gameOver() {
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                              COLOR_WHITE); // Set the background to white
     al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                  ALLEGRO_ALIGN_CENTER,
                  "GAME OVER"); // Draw the game over message
-    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2,
-                 SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
-                 scoreString.c_str()); // Draw the score
+    drawFinalScore();
 
     al_flip_display();
 }
 
 void DisplayGame::gameWin() {
-    std::string scoreString =
-        "Your score is " + to_string(gameBoard_->getScore());
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                              COLOR_WHITE); // Set the background to white
     al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                  ALLEGRO_ALIGN_CENTER,
                  "YOU WIN"); // Draw the game win message
-    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2,
-                 SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
-                 scoreString.c_str()); // Draw the score
+    drawFinalScore();
+
     al_flip_display();
 }
 
