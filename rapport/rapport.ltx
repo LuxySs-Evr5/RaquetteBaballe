@@ -12,8 +12,6 @@
 \title{Rapport sur le projet de Langage de Programmation : Arkanoïd}
 \date{5 janvier 2025}
 
-%TODO: plateau de jeu -> grille de jeu
-
 \begin{document}
 
 \maketitle
@@ -35,35 +33,36 @@
 
 \section{Introduction}
 
-Dans le cadre de ce projet, nous avons dû réaliser une version fonctionnelle
-avec une interface graphique du célèbre jeu \texttt{Arkanoid} en utilisant les
-principes de la programmation orientée objet. \\
+Ce projet consiste à implémenter une version fonctionnelle du célèbre jeu
+\texttt{Arkanoid} en utilisant les principes de la programmation orientée
+objet. \\
 
-Le développement a été réalisé en \texttt{C++} avec l'utilisation de la
-bibliothèque \texttt{Allegro} pour l'interface graphique. Le projet a été
-réalisé à l'aide du \texttt{Modèle-Vue-Contrôleur} (MVC) afin de séparer
-clairement les différentes responsabilités du code. \\
+Pour ce faire, nous utilisons le langage de programmation \texttt{C++} et la
+bibliothèque \texttt{Allegro} pour l'interface graphique. Nous structurons le
+projet en suivant les principes de l'architecture
+\texttt{Modèle-Vue-Contrôleur} (MVC), afin de séparer clairement les
+différentes responsabilités du code. \\
 
 L’objectif principal est d’implémenter un niveau fonctionnel avec les
-différentes mécaniques de jeu :
+mécaniques de jeu suivantes :
 
 \begin{itemize}
 
-    \item Déplacement de la raquette,
+    \item Déplacement de la raquette
 
-    \item Rebonds de la balle,
+    \item Rebonds de la balle
 
-    \item Gestion des briques,
+    \item Gestion des briques
 
-    \item Gestion des vies,
+    \item Gestion des vies
 
-    \item Gestion du score,
+    \item Gestion du score
 
-    \item Niveaux multiples,
+    \item Niveaux multiples
 
-    \item Briques colorées,
+    \item Briques colorées
 
-    \item Bonus.
+    \item Bonus
 
 \end{itemize}
 
@@ -74,27 +73,27 @@ programme robuste, modulaire et bien documenté.
 
 \section{Tâches accomplies}
 
-Pour ce projet, nous avons réalisé toutes les tâches de base, c'est-à-dire :
+Nous avons réalisé toutes les tâches de base, c'est-à-dire :
 
 \begin{itemize}
 
     \item Rebond correct de la balle sur les différentes surfaces comme les
-        briques, les murs et la raquette,
+        briques, les murs et la raquette
 
-    \item Déplacement de la raquette,
+    \item Déplacement de la raquette
 
-    \item Un niveau comportant 8 lignes de 14 briques,
+    \item Un niveau comportant 8 lignes de 14 briques
 
     \item Un affichage du score qui est mit à jour en gagnant 1 point par
         brique cassée. Si le joueur a cassé toutes les briques, un message de
-        victoire est affiché,
+        victoire est affiché
 
     \item Un système de vie où le joueur a 3 vies maximum par partie. S'il les
-        perd toutes, un message de défaite est affiché.
+        perd toutes, un message de défaite est affiché
 
 \end{itemize}
 
-Nous avons également effectué ces différentes tâches additionnelles :
+Nous avons également effectué les tâches additionnelles suivantes :
 
 \begin{itemize}
 
@@ -165,20 +164,23 @@ associées à chacun :
 
 Le contrôleur qui possède l'horloge du jeu doit pouvoir signaler à la GameBoard
 de mettre à jour les composants du modèle et combien de temps s'est écoulé
-entre cette mise à jour et la précédente. Cela est implémenté via la méthode
-\texttt{update}. Chaque fois que celle-ci est appelée à un instant $T$, avec un
-paramètre $deltaT$, \texttt{GameBoard} met à jour tous les composants du modèle
-à l'état correspondant à l'instant \(T + deltaT\).
+entre cette mise à jour et la précédente. Nous implémentons cela via la méthode
+\texttt{update} de \texttt{GameBoard}: Chaque fois que celle-ci est appelée à
+un instant $T$, avec en paramètre une durée $deltaT$, \texttt{GameBoard} met à
+jour tous les composants du modèle à l'état correspondant à l'instant \(T +
+deltaT\).
 
 \subsubsection{Vec2}
 
 La classe \texttt{Vec2} représente un vecteur à deux dimensions. Celle-ci
-implémente les opérateurs usuels des vecteurs, e.g. l'addition, la soustraction.
+implémente les opérateurs usuels des vecteurs, e.g. l'addition, la
+soustraction. Cette classe ne représente pas un élément du jeu directemment.
+Nous l'utilisons pour représenter des points et des vecteurs dans le plan.
 
 \subsubsection{RectangleShape}
 
 La classe \texttt{RectangleShape} est utilisée pour représenter n'importe quel
-objet rectangulaire, tel qu'une brique ou la raquette.
+objet rectangulaire, e.g. une brique, la raquette.
 
 Son interface permet de :
 \begin{itemize}
@@ -196,7 +198,7 @@ Son interface permet de :
 
 La classe \texttt{Bounceable} représente un objet rectangulaire sur lequel la
 balle peut rebondir. Puisque toutes les instances de cette classes sont
-rectangulaires, celle-ci hérite de \texttt{RectangularShape}. 
+rectangulaires, celle-ci hérite de \texttt{RectangularShape}.  \\
 
 Par défaut, l'effet de rebond des \texttt{Bounceable}'s consiste simplement à
 inverser l'axe $x$ et/ou $y$ du vecteur directeur de la balle en fonction du
@@ -232,7 +234,7 @@ destruction, nous utilisons l'énuméré \texttt{AbstractBrick::Color}. \\
 Lorsque la \texttt{GameBoard} détecte qu'une balle rebondit sur la brique, elle
 doit signaler à la brique qu'elle a été touchée. Ceci est implémenté via la
 méthode \texttt{hit} servant à décrémenter la durabilité et, si celle-ci est
-détruite, renvoyer le type de bonus que la brique contenait.
+détruite, renvoyer le type de bonus que la brique contenait. \\
 
 Les briques dorées ne pouvant pas être détruites contrairement aux autres, nous
 avons créé deux classes héritant de \texttt{brick}:
@@ -247,10 +249,9 @@ avons créé deux classes héritant de \texttt{brick}:
 \end{itemize}
 
 L'interface qu'offrent \texttt{BasicBrick} et \texttt{GoldBrick} est exactement
-la même interface que celle de \texttt{AbstractBrick}. Afin de pouvoir profiter du
-polymorphisme, nous implémentons une "méthode-usine" ("factory") renvoyant un
-pointeur de brique pouvant pointer vers une \texttt{BasicBrick} ou une
-\texttt{GoldBrick}.
+la même interface que celle de \texttt{AbstractBrick}. Nous implémentons une
+"méthode-usine" ("factory") renvoyant un pointeur de brique pouvant pointer
+vers une \texttt{BasicBrick} ou une \texttt{GoldBrick}.
 
 \subsubsection{Border}
 
@@ -262,35 +263,37 @@ particulière.
 \subsubsection{Racket}
 
 La classe \texttt{Racket} représente la raquette. Puisque les balles peuvent rebondir
-dessus, celle-ci hérite de \texttt{Bounceable}.
+dessus, celle-ci hérite de \texttt{Bounceable}. \\
 
-Puisque dans le jeu, la raquette doit être déplacée uniquement latéralement,
-nous fournissons le setter \texttt{setCenterX}, spécifiquement dédié à cela.
+Afin de déplacer la raquette lattéralement, la classe \texttt{Racket} possède
+le setter \texttt{setCenterX}. \\
 
 La classe \texttt{Racket} modifie l'effet de rebond par défaut de
 \texttt{Bounceable} en surchargeant la méthode \texttt{getDirVecAfterBounce}.
 Cela permet d'ajouter l'effet de variation de l'angle entre la balle et
-l'horizontale en fonction de la distance par rapport au centre de la raquette.
+l'horizontale en fonction de la distance entre le centre de la raquette et le
+point d'impact de la balle.
 
 \subsubsection{Ball}
 
 La classe \texttt{Ball} représente une balle du jeu. Celle-ci possède
-essentiellement une position, un rayon, et une vitesse, un vecteur directeur.
+essentiellement une position, un rayon, une vitesse et un vecteur directeur.
 Nous nous assurons que la balle garde une vitesse de déplacement directement
-proportionnelle à son attribut vitesse, en gardant le vecteur directeur toujours
-normalisé, c'est-à-dire que son module vaut 1. Le scalaire vitesse est donc le
-seul pouvant influencer la vitesse de déplacement de la balle.
+proportionnelle à son attribut vitesse, en gardant le vecteur directeur
+toujours normé, c'est-à-dire que son module vaut 1. Ceci est assuré par la
+méthode permettant de changer le vecteur directeur et le constructeur de
+\texttt{Ball}. Le scalaire vitesse est donc le seul pouvant influencer la
+vitesse de déplacement de la balle. \\
 
 La méthode \texttt{checkCollision} permet de vérifier si la balle est rentrée
 en collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
 \texttt{GameBoard} au moment de trouver les collisions qui ont eu lieu à un
 instant $T$. La méthode \texttt{collide} également appelée par
 \texttt{GameBoard} permet ensuite de resoudre la collision
-(\ref{lexique:resoudre_collisions}) avec un \texttt{RectangleShape}.
+(\ref{lexique:resoudre_collisions}) avec un \texttt{RectangleShape}. \\
 
-La méthode \texttt{update} prenant un paramètre représentant une durée
-$deltaTime$ permet de mettre à jour la position de la balle à l'instant $T +
-deltaTime$.
+La méthode \texttt{update} prenant un paramètre représentant une durée $deltaT$
+permet de mettre à jour la position de la balle à l'instant $T + deltaT$.
 
 \subsubsection{BonusType}
 
@@ -307,7 +310,7 @@ interface pour notifier le bonus de :
 
 \begin{itemize}
 
-    \item L'écoulement d'une durée \texttt{deltaT}
+    \item L'écoulement d'une durée $deltaT$
 
     \item Réappliquer le bonus (Ceci est nécessaire uniquement pour les bonus
         "SlowDown" car les effets sont cumulables).
@@ -318,23 +321,23 @@ La classe \texttt{BasicTimedBonus} hérite de \texttt{AbstractTimedBonus} et
 gère le temps d'activité de celui-ci. Elle implémente la méthode
 \texttt{update} de l'interface de \texttt{AbstractTimedBonus}, permettant de
 diminuer le temps restant du bonus d'une durée donnée. Nous l'utilisons pour
-les bonus suivants: "WideRacket" et "Lazer". Nous avions l'intention de
+les bonus suivants: "WideRacket" et "Lazer". (Nous avions l'intention de
 l'utiliser également pour le bonus "Attraper" mais nous ne sommes pas
-parvenus à implémenter celui-ci dans les délais du projet. \\
+parvenus à implémenter celui-ci dans les délais du projet.) \\
 
 Le bonus "SlowDown" est cumulable, contrairement aux autres. Cela signifie que
 si le joueur attrape un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
-déjà actifs, la balle doit encore plus ralentir.
-La méthode \texttt{getSlowDownFactor} est spécifique à celui-ci et permet d'obtenir la
+déjà actifs, la balle doit ralentir davantage. La méthode
+\texttt{getSlowDownFactor} est spécifique à celui-ci et permet d'obtenir la
 valeur par laquelle la vitesse de base de la balle doit être divisée pour
 obtenir sa vitesse avec cette configuration de bonus "SlowDown". Cette valeur
 est proportionnelle à la somme des temps restants pour tous les "SlowDown"
 actifs.
 
-Le fait qu'il soit cumulable contrairement aux autres bonus, est la raison pour
-laquelle nous choisissons d'implémenter les bonus à l'aide de 3 classes dont
-une classe abstraite permettant d'unifier le comportement commun des deux
-autres.
+Le fait que seul le bonus "SlowDown" soit cumulable contrairement aux autres,
+est la raison pour laquelle nous choisissons d'implémenter les bonus à l'aide
+de 3 classes dont une classe abstraite permettant d'unifier le comportement
+commun des deux autres.
 
 \subsubsection{BonusPill}
 
@@ -346,31 +349,31 @@ possède également une vitesse de descente. La méthode isOverlapping, hérité
 collision avec un autre \texttt{RectangleShape}. Nous utilisons cette méthode
 sur la raquette afin de savoir si la raquette a attrapé la \texttt{BonusPill}.
 La méthode \texttt{update} permet de faire descendre le bonus de la distance
-qu'il aurait parcouru après \texttt{deltaTime} secondes.
+qu'il aurait parcouru après un nombre de secondes donné en paramètre.
 
 \subsubsection{ScoreManager}
 
 La classe \texttt{ScoreManager} gère et centralise les informations concernant
-le score, c'est-à-dire le meilleur score et le score du joueur à un instant T.
+le score, c'est-à-dire le meilleur score et le score du joueur à un instant
+donné.
 
 \subsubsection{LifeCounter}
 
-La classe \texttt{LifeCounter} gère le nombre de vies du joueur. Toutefois, la
-responsabilité de notifier les pertes et gains de vie au \texttt{LifeCounter}
-revient à la \texttt{GameBoard}. Par exemple, lorsque le joueur n'a plus de
-balle en jeu, \texttt{GameBoard} doit envoyer un message \texttt{LifeCounter}
-pour décrémenter le nombre de vies.
+La classe \texttt{LifeCounter} s'occupe de gérer le nombre de vies du joueur.
+Cependant, c'est la \texttt{GameBoard} qui doit lui notifier les pertes et les
+gains de vie. Par exemple, lorsque le joueur n'a plus de balle en jeu,
+\texttt{GameBoard} doit envoyer un message au \texttt{LifeCounter} pour que
+celui-ci décrémente le nombre de vies.
 
 \subsubsection{Lazer}
 
 La classe \texttt{Lazer} représente un laser tiré vers le haut et provenant de
 la raquette. Celui-ci est de forme rectangulaire et ne fait pas rebondir la
 balle, il hérite donc uniquement de \texttt{RectangleShape}. Celui-ci possède
-une vitesse. Nous utilisons la méthode isOlverapping héritée de
+une vitesse. Nous utilisons la méthode \texttt{isOlverapping} héritée de
 \texttt{RectangleShape} afin de vérifier si le laser a collisionné avec un
-autre \texttt{RectangleShape}. La méthode \texttt{update} permet de faire
-monter le bonus de la distance qu'il aurait parcouru après \texttt{deltaTime}
-secondes.
+autre \texttt{RectangleShape}, plus précisément: une brique. La méthode \texttt{update} permet de faire
+monter le bonus de la distance qu'il aurait parcouru après $deltaT$ secondes.
 
 \subsection{Vue}
 
@@ -397,12 +400,14 @@ découpé en 2 étapes se répétant pour chaque élément du jeu à afficher:
 
 \begin{enumerate}
 
-    \item \textbf{Traduction} : Le \texttt{Canvas} traduit l'entité de la
-        \texttt{GameBoard} à afficher en son élément correspondant pour
-        l'affichage. Par exemple, nous traduisons la \texttt{Racket} du
-        \texttt{GameBoard} en une \texttt{RacketUi}.
+    \item \textbf{Traduction} : Le \texttt{Canvas} construit l'élément servant
+        à l'affichage correspondant à l'entité de la \texttt{GameBoard} à
+        afficher. Par exemple, pour afficher la raquette, nous construisons
+        l'objet \texttt{RacketUi} sur base de la \texttt{Racket} du
+        \texttt{GameBoard}.
 
-    \item \textbf{Traduction} : Le \texttt{Canvas} dessine la \texttt{RacketUi}.
+    \item \textbf{Affichage} : Le \texttt{Canvas} appelle la méthode
+        \texttt{draw} de l'élément à dessiner pour afficher celui-ci.
 
 \end{enumerate}
 
@@ -454,89 +459,113 @@ découpé en 2 étapes se répétant pour chaque élément du jeu à afficher:
 \subsection{Contrôleur}
 
 Toutes les classes utilisées pour le contrôleur se trouvent dans le dossier
-\texttt{src/controller}.
+\texttt{src/controller}. \\
 
 La classe \texttt{ControllerGame} gère la logique principale du jeu, y compris
 les événements, la progression des niveaux et l'interaction entre les éléments
-du jeu. Il dépend de \texttt{GameBoard} pour toute la logique du jeu, et
-interagit avec \texttt{DisplayGame} pour l'affichage. Il utilise également
-\texttt{LevelManager} pour gérer les niveaux et charger leurs données. \newline
+du jeu. Celle-ci dépend de \texttt{GameBoard} pour toute la logique du jeu, et
+interagit avec \texttt{DisplayGame} pour l'affichage. Elle utilise également
+\texttt{LevelManager} pour gérer les niveaux et charger leurs données. \\
 
-Il est responsable de gérer la boucle principale du jeu, de gérer les
-événements d'entrée comme le clavier, de charger les niveaux via le
-\texttt{LevelManager}, de contrôler les transitions de victoire et de défaite,
-et d'interagir avec Allegro pour la gestion des événements, du timer, et de
-l'affichage, tout en appelant \texttt{DisplayGame} pour dessiner l'état du jeu
-en cours.
+\texttt{ControllerGame} est responsable de :
+
+\begin{itemize}
+
+    \item Gérer la boucle principale du jeu.
+
+    \item Gérer les événements d'entrée comme le clavier.
+
+    \item Charger les niveaux via le \texttt{LevelManager}.
+
+    \item Contrôler les transitions de victoire et de défaite.
+
+    \item Interagir avec Allegro pour la gestion des événements du timer et de
+        l'affichage.
+
+    \item Demander à \texttt{DisplayGame} d'afficher l'état du jeu en cours
+        lorsque nécessaire.
+
+\end{itemize}
+
 
 \subsection{Log}
 
 Les fichiers de la classe \texttt{Log} se trouvent dans le dossier
-\texttt{src/log}.
+\texttt{src/log}. \\
 
 Dans l'optique de faciliter le débogage, essentiellement pour les collisions,
-nous ajoutons le singleton \texttt{Log}, permettant d'enregistrer des
-évènements classés par catégories lors de l'éxécution. Nous pouvons activer ou
-désactiver des catégories à la compilation en modifiant le code.
+nous ajoutons le singleton \texttt{Log}, qui permet d'enregistrer des
+évènements classés par catégories lors de l'éxécution. Nous pouvons
+activer/désactiver des catégories et ajouter des évènements dans des
+catégories. Toutefois, cela nécessite de modifier le code source et de
+recompiler.
 
 \section{Logique du jeu}
 
-Nous allons maintenant décrire en détail ce qui se passe dans notre code à
-partir du moment où l'utilisateur lance le programme, et le moment où la balle
-touche une brique pour la première fois. \\
+Dans cette section, nous détaillons le fonctionnement du programme entre son
+lancement et la première fois que la balle collisionne avec une brique. \\
 
 Au lancement du jeu, le programme commence par initialiser les différentes
 classes nécessaires : En premier lieu, nous instancions un objet
-\texttt{ControllerGame}. Celui-ci permet de contrôler la grille du jeu et la
+\texttt{ControllerGame}. Celui-ci permet de contrôler le plateau de jeu et la
 vue. Lors de sa création, \texttt{ControllerGame} crée l'objet
-\texttt{GameBoard} représentant la grille de jeu, la partie "modèle". L'objet
-\texttt{LevelManager} sera également créé. Il permet de charger tous les
-différents niveaux en une fois, avec les murs, la raquette et les briques. Afin
-de préparer la \texttt{GameBoard} pour le niveau choisi, le
-\texttt{LevelManager} lui passe une copie de ces différents objets à l'aide des
-setters. Ensuite, il crée aussi l'objet \texttt{DisplayGame} qui gère la partie
-graphique du jeu. Il initialise \texttt{Allegro} pour pouvoir afficher une
-fenêtre. À chaque fois que nous avons besoin d'afficher l'état du jeu,
-\texttt{DisplayGame} demande à \texttt{GameBoard} l'état de la grille pour
-l'afficher. \\
+\texttt{GameBoard} dans un \texttt{shared\_ptr} représentant le plateau de jeu,
+la partie "modèle". Il construit également un objet \texttt{LevelManager}. Ce
+dernier permet de charger tous les différents niveaux en une fois, avec les
+murs, la raquette et les briques. \\
+
+Afin de préparer la \texttt{GameBoard} pour le niveau choisi, le
+\texttt{ControllerGame} passe une copie de tous les éléments du jeu obtenus par
+les getters du \texttt{LevelManager} à la \texttt{GameBoard} à l'aide des
+setters. Ensuite, il crée aussi l'objet \texttt{DisplayGame} en lui passant le
+\texttt{shared\_ptr} pointant ver la \texttt{GameBoard} afin que celui-ci
+affiche le jeu. Lors de sa construction, \texttt{DisplayGame} initialise
+\texttt{Allegro} pour pouvoir afficher une fenêtre. À chaque fois que nous
+avons besoin d'afficher l'état du jeu, \texttt{DisplayGame} demande à
+\texttt{GameBoard} l'état du plateau de jeu pour l'afficher. \\
 
 Une fois que ces différents objets sont créés, le programme installe le
 nécessaire pour pouvoir utiliser le clavier et la souris dans le jeu. Puis,
 \texttt{ControllerGame} initialise le \texttt{ALLEGRO\_TIMER} qui permet
 d'avoir un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de
-mettre à jour la grille du jeu ainsi que pour afficher l'état du jeu à l'écran.
-Nous séparons la vitesse de mise à jour de la grille du nombre d'images
-affichées par Allegro à chaque seconde pour des raisons de performance. La
-grille sera mise à jour 500 fois par seconde tandis qu' Allegro affichera une
-image à l'écran 125 fois par seconde. \\
+mettre à jour \texttt{GameBoard} ainsi que pour afficher l'état du jeu à
+l'écran. Nous séparons la vitesse de mise à jour de \texttt{GameBoard} du
+nombre d'images affichées par Allegro à chaque seconde afin d'obtenir de
+meilleurs performances. Le plateau de jeu est mise à jour 500 fois par seconde
+tandis qu'Allegro affichera une image à l'écran 125 fois par seconde. \\
 
-Ensuite, le \texttt{ControllerGame} démarre le \texttt{ALLEGRO\_TIMER} et à
-chaque "tick" du timer, la \texttt{GameBoard} et tous les objets qu'elle
-possèdent sont mis à jour. A chaque mis à jour, la \texttt{GameBoard} vérifie
-si la balle est entrée en collision est un ou plusieurs objets. Si c'est le
-cas, elle résout les collisions (\ref{lexique:resoudre_collisions}), ajuste le
-score et fait apparaitre les pillules de bonus si nécessaire en les ajouttant
-au vecteur prévu à cet effet. Pour les briques, elle signale également à la
-brique que celle-ci est touchée. Si la durabilité de la brique est 0, celle-ci
-est supprimée. Pour les pillules de bonus et les lasers, il n'y pas de
-collision à résoudre, simplement faire disparaitre l'objet suffit.
+Ensuite, le \texttt{ControllerGame} démarre le \texttt{ALLEGRO\_TIMER}. A
+chaque "tick" du timer, le \texttt{ControllerGame} récupère la position de la
+souris, notifie la \texttt{GameBoard} de la nouvelle position de la raquette
+(en fonction de la position de la souris), et demande à la \texttt{GameBoard}
+de se mettre à jour. A chaque mis à jour, la \texttt{GameBoard} met à jour tous
+ses composants et vérifie si la balle est entrée en collision avec un ou
+plusieurs objets. Si c'est le cas, elle résout les collisions
+(\ref{lexique:resoudre_collisions}), ajuste le score et fait apparaitre les
+pillules de bonus si nécessaire en les ajouttant au vecteur prévu à cet effet.
+Pour les briques, elle signale également à la brique que celle-ci est touchée.
+Si la durabilité de la brique est 0, \texttt{GameBoard} supprime celle-ci de
+son vecteur de briques. Pour les pillules de bonus et les lasers, il n'y pas de
+collision à résoudre: \texttt{GameBoard} applique l'effet correspondant
+(i.e. destruction de brique, enregistrer le bonus comme bonus actif) et supprime
+simplement l'objet du vecteur correspondant. \\
 
-A la fin de chaque mis-a-jour du \texttt{ControllerGame}, le programme vérifie
-s'il y a encore au moins une balle en jeu. Si ce n'est pas le cas, il retire
-une vie. 
-
-Enfin, le \texttt{ControllerGame} demande au \texttt{GameBoard} le nombre de
-vies et de briques non-dorées restantes. S'il n'y a plus de briques non-dorées,
-le joueur a gagné. S'il ne reste aucune vie, le joueur a perdu.
+A chaque mise-a-jour, le \texttt{GameBoard} vérifie s'il y a encore au moins
+une balle en jeu. Si ce n'est pas le cas, il retire une vie. Le
+\texttt{ControllerGame} demande à \texttt{GameBoard} le nombre de vies et de
+briques non-dorées restantes. S'il n'y a plus de briques non-dorées, le joueur
+a gagné. S'il ne reste aucune vie, le joueur a perdu. Ensuite si un de ces deux
+évènements survient, le controleur demande l'affichage de l'écran de fin
+approprié (victoire ou défaite).  \\
 
 Si des événements arrivent dans la \textit{queue} d'Allegro, ils seront traités
 avant d'afficher le jeu à l'écran. \\
 
 \section{Modèle-Vue-Contrôleur}
 
-Tout au long du développement du programme, nous avons essayé le plus possible
-de respecter le modèle de conception \texttt{'Modèle-Vue-Contrôleur'}. Cela
-implique que notre programme soit divisé en trois parties distinctes : 
+Notre imlémentation suivant les principes de l'architecture
+\texttt{'Modèle-Vue-Contrôleur'} implique que notre programme soit divisé en
+trois parties distinctes : 
 
 \begin{itemize}
 
@@ -550,33 +579,25 @@ implique que notre programme soit divisé en trois parties distinctes :
 
 \subsection{Modèle}
 
-Cette partie contient toute la logique pour la grille du jeu. Elle permet
-d'avoir l'état de la grille et de la modifier. Elle ne possède donc rien qui
-est lié à l'affichage comme Allegro. Elle permet de ne devoir uniquement gérer
-la partie logique du jeu, sans devoir s'occuper d'afficher en plus l'état du
-jeu. La classe \texttt{GameBoard} représente l'état du jeu et possède une
-méthode pour pouvoir être mise à jour.
+Cette partie contient toute la logique pour le plateau du jeu. Elle permet
+d'avoir l'état du plateau de jeu et de le modifier. Celle-ci est donc
+indépendante des composants servant pour la partie Vue et Contrôleur. La classe
+\texttt{GameBoard} représente l'état du jeu et possède une méthode pour pouvoir
+être mise à jour. C'est à l'aide de cette méthode que le contrôleur intéragit
+avec \texttt{GameBoard}.
 
 \subsection{Vue}
 
-La partie vue permet seulement d'afficher l'état de la grille à un moment
-donné. La vue va demander au modèle son état pour l'afficher à l'écran à l'aide
-de la bibliothèque Allegro. Elle ne peut donc en aucun cas modifier l'état du
-jeu, donc le modèle. Toutes les méthodes de modification du modèle dans la
-classe \texttt{GameBoard} sont privées, ce qui garantit que la classe
-\texttt{DisplayGame} n'a aucun moyen de modifier \texttt{GameBoard}. Les seules
-méthodes publiques de \texttt{GameBoard} sont des getters constants qui
-assurent qu'aucune modification du modèle n'est possible.
+La partie vue permet seulement d'afficher l'état du plateau de jeu à un moment
+donné. La vue demande au modèle son état pour l'afficher à l'écran, à l'aide de
+la bibliothèque Allegro. 
 
 \subsection{Contrôleur}
 
-Cette troisième partie permet de contrôler le modèle en lui demandant de faire
-certaines choses, ou en lui demandant de lui donner quelque chose. Le
-contrôleur permet aussi de dire à la vue quand afficher quelque chose. Grâce à
-lui, nous pouvons gérer le modèle et la vue en les séparant et les faire
-fonctionner tous les deux, avec la garantie que la vue ne saura pas modifier le
-modèle. C'est la classe \texttt{ControllerGame} qui joue ce rôle. Elle possède
-un \texttt{shared pointer} vers \textit{GameBoard} pour lui demander de se
+Cette troisième partie permet de contrôler le modèle et de notifier la vue
+lorsqu'il est nécessaire d'afficher l'état du jeu. Grâce à ce celui-ci, nous
+pouvons gérer le modèle et la vue indépendamment. Le contrôleur possède un
+\texttt{shared\_ptr} vers l'objet \textit{GameBoard} pour lui demander de se
 mettre à jour, et un \textit{DisplayGame} pour lui demander d'afficher l'état
 du jeu.
 
@@ -585,11 +606,11 @@ du jeu.
 
 Pour conclure ce rapport, nous dirons que ce projet nous a permis de développer
 nos compétences en programmation orientée objet grâce au développement d'une
-version fonctionnelle du jeu \texttt{Arkanoid}. L’utilisation du modèle
+version fonctionnelle du jeu \texttt{Arkanoid}. Le respect de l'architecture
 \texttt{Modèle-Vue-Contrôleur} a été essentielle pour nous répartir les tâches
-entre nous deux, et pour structurer notre code et garantir une séparation
-claire des responsabilités entre la logique du jeu, l’affichage du jeu, et le
-contrôle des événements. \\
+entre nous, et pour structurer notre code et garantir une séparation claire des
+responsabilités entre la logique du jeu, l’affichage du jeu, et le contrôle des
+événements. \\
 
 Le fait que ce projet soit un jeu avec une interface graphique nous a également
 permis de prendre du plaisir à le réaliser tout en approfondissant notre
