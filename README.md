@@ -132,4 +132,4 @@ brick to be placed on the map, using the following format:
 - `Lazer`
 
 ## Documentation
-For detailed documentation, visit the [Arkanoid Wiki](https://github.com/your-username/your-repository/wiki).
+For detailed documentation, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
