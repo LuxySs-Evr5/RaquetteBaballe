@@ -103,12 +103,12 @@ Nous avons réalisé toutes les tâches de base, c'est-à-dire :
 
     \item Un niveau comportant 8 lignes de 14 briques
 
-    \item Un affichage du score qui est mit à jour en gagnant 1 point par
+    \item Un affichage du score qui est mis à jour en gagnant 1 point par
         brique cassée. Si le joueur a cassé toutes les briques, un message de
-        victoire est affiché
+        victoire est affiché.
 
     \item Un système de vie où le joueur a 3 vies maximum par partie. S'il les
-        perd toutes, un message de défaite est affiché
+        perd toutes, un message de défaite est affiché.
 
 \end{itemize}
 
@@ -121,11 +121,11 @@ Nous avons également effectué les tâches additionnelles suivantes :
 
     \item Déplacement de la raquette avec la souris.
 
-    \item Des briques avec différentes couleurs et où chaque couleur fait
-        remporté des points différents. De plus, nous sauvegardons après chaque
+    \item Des briques avec différentes couleurs, chacune d'elles rapportant un
+        nombre de points différents. De plus, nous sauvegardons après chaque
         partie le meilleur score dans un fichier 'score.txt' et le meilleur
-        score est affiché en cours de partie. Nous avons également implémenté
-        une touche qui permet de réinitialiser le meilleur score.
+        score s'affiche en cours de partie. Nous avons également implémenté une
+        touche qui permet de réinitialiser le meilleur score.
 
     \item L'ajout de briques argentées et dorées. Une brique dorée ne peut
         jamais être cassée et une brique argentée a besoin d'être touchée deux
@@ -142,11 +142,11 @@ Nous avons également effectué les tâches additionnelles suivantes :
     \item Le bonus qui permet de tirer un laser en attrapant la capsule
         magenta.
 
-    \item Le bonus qui permet d'attrapper et coller la balle sur la raquette en
+    \item Le bonus qui permet d'attraper et de coller la balle sur la raquette en
         attrapant la capsule vert.
 
-    \item Le bonus qui permet de diviser la balle en trois instances d'elle
-        même si le joueur attrape la capsule cyan.
+    \item Le bonus qui permet de diviser la balle en trois instances
+        d'elle-même si le joueur attrape la capsule cyan.
 
 \end{itemize}
 
@@ -183,19 +183,19 @@ associées à chacun :
     \label{tab:responsabilites}
 \end{table}
 
-Le contrôleur qui possède l'horloge du jeu doit pouvoir signaler à la GameBoard
-de mettre à jour les composants du modèle et combien de temps s'est écoulé
-entre cette mise à jour et la précédente. Nous implémentons cela via la méthode
-\texttt{update} de \texttt{GameBoard}: Chaque fois que celle-ci est appelée à
-un instant $T$, avec en paramètre une durée $deltaT$, \texttt{GameBoard} met à
-jour tous les composants du modèle à l'état correspondant à l'instant \(T +
-deltaT\).
+Le contrôleur chargé de l'horloge du jeu doit envoyer un message à la GameBoard
+pour signaler le temps écoulé depuis la dernière mise à jour, afin qu’elle
+déclenche la mise à jour des composants du modèle. Nous implémentons cela via
+la méthode \texttt{update} de \texttt{GameBoard}: Chaque fois que celle-ci est
+appelée à un instant $T$, avec en paramètre une durée $deltaT$,
+\texttt{GameBoard} met à jour tous les composants du modèle à l'état
+correspondant à l'instant \(T + deltaT\).
 
 \subsubsection{Vec2}
 
 La classe \texttt{Vec2} représente un vecteur à deux dimensions. Celle-ci
 implémente les opérateurs usuels des vecteurs, e.g. l'addition, la
-soustraction. Cette classe ne représente pas un élément du jeu directemment.
+soustraction. Cette classe ne représente pas un élément du jeu directement.
 Nous l'utilisons pour représenter des points et des vecteurs dans le plan.
 
 \subsubsection{RectangleShape}
@@ -218,16 +218,16 @@ Son interface permet de :
 \subsubsection{Bounceable}
 
 La classe \texttt{Bounceable} représente un objet rectangulaire sur lequel la
-balle peut rebondir. Puisque toutes les instances de cette classes sont
+balle peut rebondir. Puisque toutes les instances de cette classe sont
 rectangulaires, celle-ci hérite de \texttt{RectangularShape}.  \\
 
 Par défaut, l'effet de rebond des \texttt{Bounceable}'s consiste simplement à
 inverser l'axe $x$ et/ou $y$ du vecteur directeur de la balle en fonction du
 type de rebond (rebond sur un coin, une surface verticale ou horizontale). Le
 type de rebond s'obtient via la méthode \texttt{getBounceType} renvoyant un
-enuméré \texttt{BounceType} représentant ces trois types de rebond. Cependant,
+énuméré \texttt{BounceType} représentant ces trois types de rebond. Cependant,
 chaque \texttt{Bounceable}'s peut modifier l'effet de rebond par défaut, qui
-est donné à tous les \texttt{Bounceable}'s, et ce en "overridant" la méthode
+est donné à tous les \texttt{Bounceable}'s, et ce, en "overridant" la méthode
 \texttt{getDirVecAfterBounce}.
 
 \subsubsection{Briques}
@@ -239,13 +239,13 @@ balle peut rebondir sur les briques, \texttt{AbstractBrick} hérite de
 
 \begin{itemize}
 
-    \item Une couleur, directemment liée au nombre de points qu'elle rapporte
+    \item Une couleur, directement liée au nombre de points qu'elle rapporte
         au joueur, une fois que celui-ci la détruit.
 
-    \item Une durabilité, représentant le nombre de coup que celle-ci peut
+    \item Une durabilité, représentant le nombre de coups que celle-ci peut
         encore subir avant d'être détruite.
 
-    \item Le type type de bonus qu'elle contient.
+    \item Le type de bonus qu'elle contient.
 
 \end{itemize}
 
@@ -262,10 +262,10 @@ avons créé deux classes héritant de \texttt{brick}:
 
 \begin{itemize}
 
-    \item \texttt{BasicBrick} Pour les briques implémentant les caractérstiques
+    \item \texttt{BasicBrick} : Pour les briques implémentant les caractérstiques
         d'une brique simple, i.e. qui peut être détruite.
 
-    \item \texttt{GoldBrick} Pour les briques dorées qui ne peuvent pas être détruite.
+    \item \texttt{GoldBrick} : Pour les briques dorées qui ne peuvent pas être détruite.
 
 \end{itemize}
 
@@ -276,7 +276,7 @@ vers une \texttt{BasicBrick} ou une \texttt{GoldBrick}.
 
 \subsubsection{Border}
 
-La classe \texttt{Border} représente les trois bordures du plateau de jeu sur
+La classe \texttt{Border} représente les trois bordures du plateau de jeu, sur
 lesquelles les balles rebondissent (en haut, à gauche et à droite).
 \texttt{Border} hérite de \texttt{Bounceable} et n'implémente aucune méthode
 particulière. 
@@ -286,13 +286,13 @@ particulière.
 La classe \texttt{Racket} représente la raquette. Puisque les balles peuvent rebondir
 dessus, celle-ci hérite de \texttt{Bounceable}. \\
 
-Afin de déplacer la raquette lattéralement, la classe \texttt{Racket} possède
+Afin de déplacer la raquette latéralement, la classe \texttt{Racket} possède
 le setter \texttt{setCenterX}. \\
 
 La classe \texttt{Racket} modifie l'effet de rebond par défaut de
 \texttt{Bounceable} en surchargeant la méthode \texttt{getDirVecAfterBounce}.
-Cela permet d'ajouter l'effet de variation de l'angle entre la balle et
-l'horizontale en fonction de la distance entre le centre de la raquette et le
+Cela permet d'ajouter l'effet de variation de l'angle, entre la balle et
+l'horizontale, en fonction de la distance entre le centre de la raquette et le
 point d'impact de la balle.
 
 \subsubsection{Ball}
@@ -310,7 +310,7 @@ La méthode \texttt{checkCollision} permet de vérifier si la balle est rentrée
 en collision avec un \texttt{RectangleShape}. Cette méthode est utilisée par la
 \texttt{GameBoard} au moment de trouver les collisions qui ont eu lieu à un
 instant $T$. La méthode \texttt{collide} également appelée par
-\texttt{GameBoard} permet ensuite de resoudre la collision
+\texttt{GameBoard} permet ensuite de résoudre la collision
 (\ref{lexique:resoudre_collisions}) avec un \texttt{RectangleShape}. \\
 
 La méthode \texttt{update} prenant un paramètre représentant une durée $deltaT$
@@ -333,8 +333,8 @@ interface pour notifier le bonus de :
 
     \item L'écoulement d'une durée $deltaT$
 
-    \item Réappliquer le bonus (Ceci est nécessaire uniquement pour les bonus
-        "SlowDown" car les effets sont cumulables).
+    \item Appliquer à nouveau le bonus (Ceci est nécessaire uniquement pour les bonus
+        "SlowDown", car les effets sont cumulables.).
 
 \end{itemize}
 
@@ -355,16 +355,16 @@ actifs. \\
 
 Le fait que seul le bonus "SlowDown" soit cumulable contrairement aux autres,
 est la raison pour laquelle nous choisissons d'implémenter les bonus à l'aide
-de 3 classes dont une classe abstraite permettant d'unifier le comportement
+de 3 classes, dont une classe abstraite permettant d'unifier le comportement
 commun des deux autres.
 
 \subsubsection{BonusPill}
 
-La classe \texttt{BonusPill} représente une capsule/pillule de bonus contenant
-un \texttt{BonusType}. Celle-ci étant rectangulaire mais ne laissant pas la
+La classe \texttt{BonusPill} représente une capsule/pilule de bonus contenant
+un \texttt{BonusType}. Celle-ci étant rectangulaire, mais ne laissant pas la
 balle rebondir dessus, elle hérite seulement de \texttt{RectangleShape}. Elle
 possède également une vitesse de descente. La méthode isOverlapping, héritée de
-\texttt{RectangleShape} permet de vérifier si la pillule est rentrée en
+\texttt{RectangleShape} permet de vérifier si la pilule est rentrée en
 collision avec un autre \texttt{RectangleShape}. Nous utilisons cette méthode
 sur la raquette afin de savoir si la raquette a attrapé la \texttt{BonusPill}.
 La méthode \texttt{update} permet de faire descendre le bonus de la distance
@@ -373,7 +373,7 @@ qu'il aurait parcouru après un nombre de secondes donné en paramètre.
 \subsubsection{ScoreManager}
 
 La classe \texttt{ScoreManager} gère et centralise les informations concernant
-le score, c'est-à-dire le meilleur score et le score du joueur à un instant
+le score, i.e. le meilleur score et le score du joueur à un instant
 donné.
 
 \subsubsection{LifeCounter}
@@ -502,8 +502,8 @@ interagit avec \texttt{DisplayGame} pour l'affichage. Elle utilise également
     \item Interagir avec Allegro pour la gestion des événements du timer et de
         l'affichage.
 
-    \item Demander à \texttt{DisplayGame} d'afficher l'état du jeu en cours
-        lorsque nécessaire.
+    \item Demander à \texttt{DisplayGame} d'afficher l'état du jeu en cours si
+        nécessaire.
 
 \end{itemize}
 
@@ -515,8 +515,8 @@ Les fichiers de la classe \texttt{Log} se trouvent dans le dossier
 
 Dans l'optique de faciliter le débogage, essentiellement pour les collisions,
 nous ajoutons le singleton \texttt{Log}, qui permet d'enregistrer des
-évènements classés par catégories lors de l'éxécution. Nous pouvons
-activer/désactiver des catégories et ajouter des évènements dans des
+événements classés par catégories lors de l'exécution. Nous pouvons
+activer/désactiver des catégories et ajouter des événements dans des
 catégories. Toutefois, cela nécessite de modifier le code source et de
 recompiler.
 
@@ -538,7 +538,7 @@ Afin de préparer la \texttt{GameBoard} pour le niveau choisi, le
 \texttt{ControllerGame} passe une copie de tous les éléments du jeu obtenus par
 les getters du \texttt{LevelManager} à la \texttt{GameBoard} à l'aide des
 setters. Ensuite, il crée aussi l'objet \texttt{DisplayGame} en lui passant le
-\texttt{shared\_ptr} pointant ver la \texttt{GameBoard} afin que celui-ci
+\texttt{shared\_ptr} pointant vers la \texttt{GameBoard} afin que celui-ci
 affiche le jeu. Lors de sa construction, \texttt{DisplayGame} initialise
 \texttt{Allegro} pour pouvoir afficher une fenêtre. À chaque fois que nous
 avons besoin d'afficher l'état du jeu, \texttt{DisplayGame} demande à
@@ -551,31 +551,31 @@ d'avoir un "tick" à une fréquence donnée. Nous utilisons celui-ci afin de
 mettre à jour \texttt{GameBoard} ainsi que pour afficher l'état du jeu à
 l'écran. Nous séparons la vitesse de mise à jour de \texttt{GameBoard} du
 nombre d'images affichées par Allegro à chaque seconde afin d'obtenir de
-meilleurs performances. Le plateau de jeu est mise à jour 500 fois par seconde
+meilleurs performances. Le plateau de jeu est mis à jour 500 fois par seconde
 tandis qu'Allegro affichera une image à l'écran 125 fois par seconde. \\
 
 Ensuite, le \texttt{ControllerGame} démarre le \texttt{ALLEGRO\_TIMER}. A
 chaque "tick" du timer, le \texttt{ControllerGame} récupère la position de la
 souris, notifie la \texttt{GameBoard} de la nouvelle position de la raquette
 (en fonction de la position de la souris), et demande à la \texttt{GameBoard}
-de se mettre à jour. A chaque mis à jour, la \texttt{GameBoard} met à jour tous
+de se mettre à jour. À chaque mis à jour, la \texttt{GameBoard} met à jour tous
 ses composants et vérifie si la balle est entrée en collision avec un ou
 plusieurs objets. Si c'est le cas, elle résout les collisions
-(\ref{lexique:resoudre_collisions}), ajuste le score et fait apparaitre les
-pillules de bonus si nécessaire en les ajouttant au vecteur prévu à cet effet.
+(\ref{lexique:resoudre_collisions}), ajuste le score et fait apparaître les
+pilules de bonus si nécessaire, en les ajoutant au vecteur prévu à cet effet.
 Pour les briques, elle signale également à la brique que celle-ci est touchée.
 Si la durabilité de la brique est 0, \texttt{GameBoard} supprime celle-ci de
-son vecteur de briques. Pour les pillules de bonus et les lasers, il n'y pas de
-collision à résoudre: \texttt{GameBoard} applique l'effet correspondant (i.e.
+son vecteur de briques. Pour les pilules de bonus et les lasers, il n'y pas de
+collisions à résoudre: \texttt{GameBoard} applique l'effet correspondant, (i.e.
 destruction de brique, enregistrer le bonus comme bonus actif) et supprime
 simplement l'objet du vecteur correspondant. \\
 
-A chaque mise-a-jour, le \texttt{GameBoard} vérifie s'il y a encore au moins
+À chaque mise à jour, le \texttt{GameBoard} vérifie s'il y a encore au moins
 une balle en jeu. Si ce n'est pas le cas, il retire une vie. Le
 \texttt{ControllerGame} demande à \texttt{GameBoard} le nombre de vies et de
 briques non-dorées restantes. S'il n'y a plus de briques non-dorées, le joueur
-a gagné. S'il ne reste aucune vie, le joueur a perdu. Ensuite si un de ces deux
-évènements survient, le controleur demande l'affichage de l'écran de fin
+a gagné. S'il ne reste aucune vie, le joueur a perdu. Ensuite, si un de ces
+deux événements survient, le contrôleur demande l'affichage de l'écran de fin
 approprié (victoire ou défaite).  \\
 
 Si des événements arrivent dans la \textit{queue} d'Allegro, ils seront traités
@@ -583,7 +583,7 @@ avant d'afficher le jeu à l'écran. \\
 
 \section{Modèle-Vue-Contrôleur}
 
-Notre imlémentation suivant les principes de l'architecture
+Notre implémentation suivant les principes de l'architecture
 \texttt{'Modèle-Vue-Contrôleur'} implique que notre programme soit divisé en
 trois parties distinctes : 
 
@@ -603,7 +603,7 @@ Cette partie contient toute la logique pour le plateau du jeu. Elle permet
 d'avoir l'état du plateau de jeu et de le modifier. Celle-ci est donc
 indépendante des composants servant pour la partie Vue et Contrôleur. La classe
 \texttt{GameBoard} représente l'état du jeu et possède une méthode pour pouvoir
-être mise à jour. C'est à l'aide de cette méthode que le contrôleur intéragit
+être mise à jour. C'est à l'aide de cette méthode que le contrôleur interagit
 avec \texttt{GameBoard}.
 
 \subsection{Vue}
@@ -615,7 +615,7 @@ la bibliothèque Allegro.
 \subsection{Contrôleur}
 
 Cette troisième partie permet de contrôler le modèle et de notifier la vue
-lorsqu'il est nécessaire d'afficher l'état du jeu. Grâce à ce celui-ci, nous
+lorsqu'il est nécessaire d'afficher l'état du jeu. Grâce à celui-ci, nous
 pouvons gérer le modèle et la vue indépendamment. Le contrôleur possède un
 \texttt{shared\_ptr} vers l'objet \textit{GameBoard} pour lui demander de se
 mettre à jour, et un \textit{DisplayGame} pour lui demander d'afficher l'état
@@ -627,7 +627,7 @@ du jeu.
 Pour conclure ce rapport, nous dirons que ce projet nous a permis de développer
 nos compétences en programmation orientée objet grâce au développement d'une
 version fonctionnelle du jeu \texttt{Arkanoid}. Le respect de l'architecture
-\texttt{Modèle-Vue-Contrôleur} a été essentielle pour nous répartir les tâches
+\texttt{Modèle-Vue-Contrôleur} a été essentiel pour nous répartir les tâches
 entre nous, et pour structurer notre code et garantir une séparation claire des
 responsabilités entre la logique du jeu, l’affichage du jeu, et le contrôle des
 événements. \\
