@@ -1,14 +1,13 @@
-490 550 gold
-420 550 gold
-560 550 gold
-630 550 gold
-350 550 gold
-700 550 gold
-280 550 gold
-770 550 gold
-210 550 gold
-840 550 gold
-140 550 gold
-910 550 gold
-70 550 gold
-490 600 defaultBrick
+490 550 defaultBrick SlowDown
+420 550 defaultBrick
+560 550 defaultBrick
+630 550 defaultBrick
+350 550 defaultBrick
+700 550 defaultBrick
+280 550 defaultBrick
+770 550 defaultBrick
+210 550 defaultBrick
+840 550 defaultBrick
+140 550 defaultBrick
+910 550 defaultBrick
+70 550 defaultBrick

@@ -25,7 +25,7 @@ BonusPillUi::BonusPillUi(Point center, float width, float height,
     } else if (bonusType == BonusType::Lazer) {
         fillColor_ = COLOR_MAGENTA;
     } else if (bonusType == BonusType::StickyRacket) {
-        fillColor_ = COLOR_PINK;
+        fillColor_ = COLOR_GREEN;
     }
     frameColor_ = COLOR_BLACK; // Black frame color for all bonus pills
 }

@@ -89,6 +89,34 @@ BonusType convertBonusFromString(const string &bonusName) {
     exit(1);
 }
 
+/**
+ * @brief Extract the number from a string
+ *
+ * @param filename The string to extract the number from
+ * @return The number extracted from the string
+ */
+int extractNumber(const string& filename) {
+    string num;
+    for (char c : filename) {
+        if (isdigit(c)) {
+            num += c;
+        }
+    }
+    return stoi(num); // Convert the string to an int
+}
+
+/**
+ * @brief Compare two files by their number
+ * 
+ * @param a String of the first file
+ * @param b String of the second file
+ * @return true if a < b
+ * @return false if a >= b
+ */
+bool compareFiles(const string& a, const string& b) {
+    return extractNumber(a) < extractNumber(b);
+}
+
 void LevelManager::loadBricks() {
     string mainPath = PATH_TO_LEVELS;
     vector<string> levelFiles; // Store the paths of the level files
@@ -101,7 +129,7 @@ void LevelManager::loadBricks() {
     }
 
     // Sort the files by name (level number)
-    sort(levelFiles.begin(), levelFiles.end());
+    sort(levelFiles.begin(), levelFiles.end(), compareFiles);
 
     for (const auto &filename : levelFiles) {
         ifstream file(filename);
