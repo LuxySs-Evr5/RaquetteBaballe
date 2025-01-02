@@ -137,6 +137,7 @@ void GameBoard::handleLazers(double deltaTime) {
                     bricksToRemove.push_back(brick);
                     scoreManager_.increaseScore(brick->getScore());
                 }
+                lazersToRemove.push_back(lazer);
                 break;
             }
         }
