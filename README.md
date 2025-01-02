@@ -90,15 +90,18 @@ active, no other bonuses will drop
 
 ## Create a Level
 
-You can create as many levels as you want. They must be placed in the `ressources/levels` folder and saved in `.txt` format. Each line of the file represents a brick to be added to the map.
-
-### File Structure
+You can create as many levels as you want. Each level file must be placed in
+the `ressources/levels` directory, saved in `.txt` format, and named with a
+numeric filename (e.g., `1.txt`, `2.txt`). Each line in the file specifies a
+brick to be placed on the map, using the following format:
 
 - **Columns**:  
   1. **X-coordinate**: Position of the brick's center on the x-axis.  
   2. **Y-coordinate**: Position of the brick's center on the y-axis.  
-  3. **Color**: Specify the color of the brick (see available options below).  
-  4. *(Optional)* **Bonus**: Define a bonus that drops when the brick is destroyed (see available options below).
+  3. **Color**: Specify the color of the brick (see available options
+      below).  
+  4. *(Optional)* **Bonus**: Define a bonus that drops when the brick
+      is destroyed (see available options below).
 
 ---
 
