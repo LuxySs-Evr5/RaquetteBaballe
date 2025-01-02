@@ -344,6 +344,7 @@ void GameBoard::shootLazerOrReleaseBall() {
             break;
         case BonusType::StickyRacket:
             balls_.at(0)->setIsStuck(false);
+            activeBonus_.reset();
             break;
         default:
             break;
