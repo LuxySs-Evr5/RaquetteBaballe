@@ -1,8 +1,15 @@
+490 200 defaultBrick SlowDown
+490 250 defaultBrick SlowDown
+490 300 defaultBrick SlowDown
+490 350 defaultBrick SlowDown
+490 400 defaultBrick SlowDown
+490 450 defaultBrick SlowDown
+490 500 defaultBrick SlowDown
 490 550 defaultBrick SlowDown
-420 550 defaultBrick
-560 550 defaultBrick
-630 550 defaultBrick
-350 550 defaultBrick
+420 550 defaultBrick SlowDown
+560 550 defaultBrick SlowDown
+630 550 defaultBrick SlowDown
+350 550 defaultBrick SlowDown
 700 550 defaultBrick
 280 550 defaultBrick
 770 550 defaultBrick
