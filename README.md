@@ -130,3 +130,6 @@ brick to be placed on the map, using the following format:
 - `StickyRacket`
 - `SplitBall`
 - `Lazer`
+
+## Documentation
+For detailed documentation, visit the [Arkanoid Wiki](https://github.com/your-username/your-repository/wiki).
