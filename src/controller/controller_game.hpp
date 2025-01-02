@@ -12,6 +12,7 @@
 #include "level_manager/level_manager.hpp"
 
 #include <allegro5/allegro.h>
+#include <allegro5/keyboard.h>
 #include <bitset>
 #include <sys/types.h>
 
@@ -79,6 +80,12 @@ class ControllerGame {
      *
      */
     void handleTick();
+
+    /**
+     * @brief Wait for the player to press enter to start the game and display the launchGame screen
+     *
+     */
+    void startingGame();
 
   public:
     /**

@@ -15,7 +15,6 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-#include <memory>
 
 DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     : gameBoard_(gameBoard) {
@@ -163,31 +162,59 @@ void DisplayGame::draw() {
     al_flip_display(); // update the window display
 }
 
-void DisplayGame::drawFinalScore() {
-    string scoreString = "Your score is " + to_string(gameBoard_->getScore());
-    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2,
-                 SCREEN_HEIGHT / 2 + 100, ALLEGRO_ALIGN_CENTER,
-                 scoreString.c_str()); // Draw the score
+void DisplayGame::displayScore() {
+    const string score = "Your score is " + to_string(gameBoard_->getScore());
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER, score.c_str());
+}
+
+float DisplayGame::getTextHeight(ALLEGRO_FONT *font) const {
+    return static_cast<float>(al_get_font_line_height(font));
 }
 
 void DisplayGame::gameOver() {
+    const char line1[] = "GAME OVER";
+    const char line3[] = "Press a key to restart the level";
+
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-                             COLOR_WHITE); // Set the background to white
-    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                 ALLEGRO_ALIGN_CENTER,
-                 "GAME OVER"); // Draw the game over message
-    drawFinalScore();
+                             COLOR_BLACK); // Set the background to white
+                            
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER,
+                 line1); // Draw the game win message
+
+    displayScore();
+    
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line3);
 
     al_flip_display();
 }
 
 void DisplayGame::gameWin() {
+    const char line1[] = "YOU WIN !";
+    const char line3[] = "Press a key to start a new level";
+
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-                             COLOR_WHITE); // Set the background to white
-    al_draw_text(font50_, COLOR_BLACK, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                 ALLEGRO_ALIGN_CENTER,
-                 "YOU WIN"); // Draw the game win message
-    drawFinalScore();
+                             COLOR_BLACK); // Set the background to white
+    
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER,
+                 line1); // Draw the game win message
+
+    displayScore();
+    
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line3);
+    
+    al_flip_display();
+}
+
+void DisplayGame::gameLaunch() {
+    const char line1[] = "Welcome in the Arkanoid Game!";
+    const char line2[] = "Press a key to start the game";
+
+    al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
+                             COLOR_BLACK); // Set the background to white
+
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line1);
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER,
+                 line2);
 
     al_flip_display();
 }

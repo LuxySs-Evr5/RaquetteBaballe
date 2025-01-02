@@ -8,6 +8,7 @@
 #include "level_manager/level_manager.hpp"
 
 #include <allegro5/display.h>
+#include <allegro5/keycodes.h>
 #include <allegro5/timer.h>
 #include <memory>
 #include <vector>
@@ -16,7 +17,7 @@ ControllerGame::ControllerGame()
     : gameBoard_{make_shared<GameBoard>()},
       displayGame_(DisplayGame(gameBoard_)) {
     setupAllegro();
-    loadLevel();
+    startingGame();
 }
 
 ControllerGame::~ControllerGame() {
@@ -113,6 +114,7 @@ void ControllerGame::checkEventType() {
 }
 
 void ControllerGame::waitKeyToRestart() {
+
     while (!(event_.type
              == ALLEGRO_EVENT_KEY_DOWN)) { // wait for a key to be pressed
         al_get_next_event(queue_, &event_);
@@ -210,4 +212,10 @@ void ControllerGame::handleTick() {
     } else {
         numberOfTick++;
     }
+}
+
+void ControllerGame::startingGame() {
+    displayGame_.gameLaunch();
+    waitKeyToRestart();
+    loadLevel();
 }

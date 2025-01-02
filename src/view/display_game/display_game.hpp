@@ -50,9 +50,18 @@ class DisplayGame {
     void drawLife();
 
     /**
-     * @brief Draws the message showing the score in the middle of the screen.
+     * @brief Display the score of the player
+     *
      */
-    void drawFinalScore();
+    void displayScore();
+
+    /**
+     * @brief Get the height of the text
+     *
+     * @param font the font of the text
+     * @return float the height of the text
+     */
+    float getTextHeight(ALLEGRO_FONT *font) const;
 
   public:
     /**
@@ -85,6 +94,12 @@ class DisplayGame {
      *
      */
     void gameWin();
+
+    /**
+     * @brief Draw the start screen at the start of the game
+     *
+     */
+    void gameLaunch();
 
     /**
      * @brief Get the ALLLEGRO_DISPLAY
