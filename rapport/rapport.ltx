@@ -117,30 +117,33 @@ Nous avons également effectué les tâches additionnelles suivantes :
 \begin{itemize}
 
     \item Un système de niveau où chaque niveau est encodé dans un fichier
-        '.txt', avec la possibilité d'encoder un bonus pour une brique,
+        '.txt', avec la possibilité d'encoder un bonus pour une brique.
 
-    \item Déplacement de la raquette avec la souris,
+    \item Déplacement de la raquette avec la souris.
 
     \item Des briques avec différentes couleurs et où chaque couleur fait
         remporté des points différents. De plus, nous sauvegardons après chaque
         partie le meilleur score dans un fichier 'score.txt' et le meilleur
         score est affiché en cours de partie. Nous avons également implémenté
-        une touche qui permet de réinitialiser le meilleur score,
+        une touche qui permet de réinitialiser le meilleur score.
 
     \item L'ajout de briques argentées et dorées. Une brique dorée ne peut
-        jamais être cassée et une brique argentée a besoin d'être touché deux
-        fois par la balle pour pouvoir être cassée, 
+        jamais être cassée et une brique argentée a besoin d'être touchée deux
+        fois par la balle pour pouvoir être cassée.
 
     \item Le bonus qui permet d'agrandir la raquette lorsque le joueur attrape
-        la capsule bleue,
+        la capsule bleue.
 
     \item Le bonus qui permet de ralentir la vitesse de la balle lorsque le
-        joueur attrape la capsule orange,
+        joueur attrape la capsule orange.
 
-    \item Le bonus qui permet de gagner une vie en attrapant la capsule grise,
+    \item Le bonus qui permet de gagner une vie en attrapant la capsule grise.
 
     \item Le bonus qui permet de tirer un laser en attrapant la capsule
-        magenta,
+        magenta.
+
+    \item Le bonus qui permet d'attrapper et coller la balle sur la raquette en
+        attrapant la capsule vert.
 
     \item Le bonus qui permet de diviser la balle en trois instances d'elle
         même si le joueur attrape la capsule cyan.
@@ -340,9 +343,7 @@ La classe \texttt{BasicTimedBonus} hérite de \texttt{AbstractTimedBonus} et
 gère le temps d'activité de celui-ci. Elle implémente la méthode
 \texttt{update} de l'interface de \texttt{AbstractTimedBonus}, permettant de
 diminuer le temps restant du bonus d'une durée donnée. Nous l'utilisons pour
-les bonus suivants: "WideRacket" et "Lazer". (Nous avions l'intention de
-l'utiliser également pour le bonus "Attraper" mais nous ne sommes pas
-parvenus à implémenter celui-ci dans les délais du projet.) \\
+les bonus suivants: "WideRacket", "Lazer" et "StickyRacket". \\
 
 Le bonus "SlowDown" est cumulable, contrairement aux autres. Cela signifie que
 si le joueur attrape un "SlowDown" alors qu'un ou plusieurs "SlowDown" étaient
@@ -351,7 +352,7 @@ déjà actifs, la balle doit ralentir davantage. La méthode
 valeur par laquelle la vitesse de base de la balle doit être divisée pour
 obtenir sa vitesse avec cette configuration de bonus "SlowDown". Cette valeur
 est proportionnelle à la somme des temps restants pour tous les "SlowDown"
-actifs.
+actifs. \\
 
 Le fait que seul le bonus "SlowDown" soit cumulable contrairement aux autres,
 est la raison pour laquelle nous choisissons d'implémenter les bonus à l'aide
@@ -391,8 +392,9 @@ la raquette. Celui-ci est de forme rectangulaire et ne fait pas rebondir la
 balle, il hérite donc uniquement de \texttt{RectangleShape}. Celui-ci possède
 une vitesse. Nous utilisons la méthode \texttt{isOlverapping} héritée de
 \texttt{RectangleShape} afin de vérifier si le laser a collisionné avec un
-autre \texttt{RectangleShape}, plus précisément: une brique. La méthode \texttt{update} permet de faire
-monter le bonus de la distance qu'il aurait parcouru après $deltaT$ secondes.
+autre \texttt{RectangleShape}, plus précisément: une brique. La méthode
+\texttt{update} permet de faire monter le bonus de la distance qu'il aurait
+parcouru après $deltaT$ secondes.
 
 \subsection{Vue}
 
@@ -565,8 +567,8 @@ pillules de bonus si nécessaire en les ajouttant au vecteur prévu à cet effet
 Pour les briques, elle signale également à la brique que celle-ci est touchée.
 Si la durabilité de la brique est 0, \texttt{GameBoard} supprime celle-ci de
 son vecteur de briques. Pour les pillules de bonus et les lasers, il n'y pas de
-collision à résoudre: \texttt{GameBoard} applique l'effet correspondant
-(i.e. destruction de brique, enregistrer le bonus comme bonus actif) et supprime
+collision à résoudre: \texttt{GameBoard} applique l'effet correspondant (i.e.
+destruction de brique, enregistrer le bonus comme bonus actif) et supprime
 simplement l'objet du vecteur correspondant. \\
 
 A chaque mise-a-jour, le \texttt{GameBoard} vérifie s'il y a encore au moins
@@ -683,7 +685,7 @@ travail d'équipe.
   \centering
 \begin{lstlisting}
     Ball(const Vec2 &center, Vec2 directionVec, double radius = BALL_RADIUS,
-         double speed = BALL_SPEED);
+         double speed = BALL_SPEED, isStuck = false);
 
     Ball(const Ball &other);
 
@@ -700,6 +702,16 @@ travail d'équipe.
     const Vec2 &getCenter() const noexcept;
 
     const Vec2 &getDirvec() const noexcept;
+
+    bool isStuck() const noexcept;
+
+    void setSpeed(double speed);
+
+    void setIsStuck(bool isStuck);
+    
+    void setCenter(const Vec2 &center);
+    
+    void setCenterX(double centerX);
 
     void setSpeed(unsigned speed);
 
@@ -946,7 +958,7 @@ enum class BonusType {
 
     void update(double deltaTime);
 
-    void shootLazer();
+    void shootLazerOrReleaseBall();
 
     unsigned long getScore() const;
 
