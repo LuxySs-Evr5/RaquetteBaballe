@@ -2,7 +2,7 @@
 #define BRICK_HPP
 
 #include "../../global_variables.hpp"
-#include "../bonus_type/bonus_type.hpp"
+#include "../bonus/bonus_type.hpp"
 #include "../bounceable/bounceable.hpp"
 #include <memory>
 

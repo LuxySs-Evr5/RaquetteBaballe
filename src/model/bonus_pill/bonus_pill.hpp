@@ -1,7 +1,7 @@
 #ifndef BONUS_PILL_HPP
 #define BONUS_PILL_HPP
 
-#include "../bonus_type/bonus_type.hpp"
+#include "../bonus/bonus_type.hpp"
 #include "../rectangle_shape/rectangle_shape.hpp"
 
 class BonusPill : public RectangleShape {

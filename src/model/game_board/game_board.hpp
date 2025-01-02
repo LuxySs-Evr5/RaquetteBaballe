@@ -3,8 +3,8 @@
 
 #include "../ball/ball.hpp"
 #include "../bonus/abstract_timed_bonus.hpp"
+#include "../bonus/bonus_type.hpp"
 #include "../bonus_pill/bonus_pill.hpp"
-#include "../bonus_type/bonus_type.hpp"
 #include "../border/border.hpp"
 #include "../brick/abstract_brick.hpp"
 #include "../lazer/lazer.hpp"

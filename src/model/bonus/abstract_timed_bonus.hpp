@@ -1,7 +1,7 @@
 #ifndef ABSTRACT_TIMED_BONUS_HPP
 #define ABSTRACT_TIMED_BONUS_HPP
 
-#include "../bonus_type/bonus_type.hpp"
+#include "../bonus/bonus_type.hpp"
 
 class AbstractTimedBonus {
   private:
@@ -31,7 +31,7 @@ class AbstractTimedBonus {
     /**
      * @brief Reapplies the bonus one more time.
      */
-    virtual void reapply(){};
+    virtual void reapply() {};
 };
 
 #endif
