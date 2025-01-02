@@ -69,6 +69,7 @@ To start the game, run the following command:
 - `a` : Reset the current level
 - `q` : Quit the game
 - `spacebar` : shoot a lazer when available
+- `spacebar` : Release the ball when it is stuck to the racket
 
 ## Game Bonus
 
@@ -80,5 +81,6 @@ bonus with the racket. Here is a list of the different bonuses :
 - Expand the racket's width
 - Gain an extra life
 - shoot a lazer
+- catch the ball to the racket
 - Split the ball into three instances of itself. When this bonus is
 active, no other bonuses will drop
