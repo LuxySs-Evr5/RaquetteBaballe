@@ -95,7 +95,7 @@ BonusType convertBonusFromString(const string &bonusName) {
  * @param filename The string to extract the number from
  * @return The number extracted from the string
  */
-int extractNumber(const string& filename) {
+int extractNumber(const string &filename) {
     string num;
     for (char c : filename) {
         if (isdigit(c)) {
@@ -107,13 +107,13 @@ int extractNumber(const string& filename) {
 
 /**
  * @brief Compare two files by their number
- * 
+ *
  * @param a String of the first file
  * @param b String of the second file
  * @return true if a < b
  * @return false if a >= b
  */
-bool compareFiles(const string& a, const string& b) {
+bool compareFiles(const string &a, const string &b) {
     return extractNumber(a) < extractNumber(b);
 }
 

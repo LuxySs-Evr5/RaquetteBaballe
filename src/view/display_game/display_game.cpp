@@ -26,15 +26,16 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
     checkInit(display_, "display");
 
     ALLEGRO_DISPLAY_MODE displayMode;
-    al_get_display_mode(0, &displayMode); // get the display mode 
+    al_get_display_mode(0, &displayMode); // get the display mode
     int userScreenWidth = displayMode.width;
     int userScreenHeight = displayMode.height;
 
-    // Calculate the window size and position 
+    // Calculate the window size and position
     int x = (userScreenWidth - SCREEN_WIDTH) / 2;
     int y = (userScreenHeight - SCREEN_HEIGHT) / 2;
 
-    al_set_window_position(display_, x, y); // set the window position at the center of the screen  
+    al_set_window_position(
+        display_, x, y); // set the window position at the center of the screen
 
     font24_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_24, 0);
     checkInit(font24_, "font24");
@@ -175,7 +176,8 @@ void DisplayGame::draw() {
 
 void DisplayGame::displayScore() {
     const string score = "Your score is " + to_string(gameBoard_->getScore());
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER, score.c_str());
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                 ALLEGRO_ALIGN_CENTER, score.c_str());
 }
 
 float DisplayGame::getTextHeight(ALLEGRO_FONT *font) const {
@@ -188,13 +190,17 @@ void DisplayGame::gameOver() {
 
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                              COLOR_BLACK); // Set the background to white
-                            
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER,
+
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 - getTextHeight(font50_),
+                 ALLEGRO_ALIGN_CENTER,
                  line1); // Draw the game win message
 
     displayScore();
-    
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line3);
+
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 + getTextHeight(font50_),
+                 ALLEGRO_ALIGN_CENTER, line3);
 
     al_flip_display();
 }
@@ -205,14 +211,18 @@ void DisplayGame::gameWin() {
 
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                              COLOR_BLACK); // Set the background to white
-    
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER,
+
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 - getTextHeight(font50_),
+                 ALLEGRO_ALIGN_CENTER,
                  line1); // Draw the game win message
 
     displayScore();
-    
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line3);
-    
+
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 + getTextHeight(font50_),
+                 ALLEGRO_ALIGN_CENTER, line3);
+
     al_flip_display();
 }
 
@@ -223,9 +233,11 @@ void DisplayGame::gameLaunch() {
     al_draw_filled_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                              COLOR_BLACK); // Set the background to white
 
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - getTextHeight(font50_), ALLEGRO_ALIGN_CENTER, line1);
-    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER,
-                 line2);
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2,
+                 SCREEN_HEIGHT / 2 - getTextHeight(font50_),
+                 ALLEGRO_ALIGN_CENTER, line1);
+    al_draw_text(font50_, COLOR_WHITE, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                 ALLEGRO_ALIGN_CENTER, line2);
 
     al_flip_display();
 }

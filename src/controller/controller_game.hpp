@@ -82,7 +82,8 @@ class ControllerGame {
     void handleTick();
 
     /**
-     * @brief Wait for the player to press enter to start the game and display the launchGame screen
+     * @brief Wait for the player to press enter to start the game and display
+     * the launchGame screen
      *
      */
     void startingGame();

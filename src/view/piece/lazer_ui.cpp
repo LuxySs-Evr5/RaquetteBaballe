@@ -9,7 +9,8 @@
 #include "lazer_ui.hpp"
 
 LazerUi::LazerUi(Point center, float width, float height, ALLEGRO_COLOR color)
-    : Rectangle(center, width, height, color, COLOR_BLACK) {} // Set the frame color to black for the lazer
+    : Rectangle(center, width, height, color, COLOR_BLACK) {
+} // Set the frame color to black for the lazer
 
 void LazerUi::draw() {
     center_.y =
