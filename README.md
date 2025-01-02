@@ -87,3 +87,43 @@ bonus with the racket. Here is a list of the different bonuses :
 - Make the ball stick to the racket and release it later
 - Split the ball into three instances of itself. When this bonus is
 active, no other bonuses will drop
+
+## Create a Level
+
+You can create as many levels as you want. They must be placed in the `ressources/levels` folder and saved in `.txt` format. Each line of the file represents a brick to be added to the map.
+
+### File Structure
+
+- **Columns**:  
+  1. **X-coordinate**: Position of the brick's center on the x-axis.  
+  2. **Y-coordinate**: Position of the brick's center on the y-axis.  
+  3. **Color**: Specify the color of the brick (see available options below).  
+  4. *(Optional)* **Bonus**: Define a bonus that drops when the brick is destroyed (see available options below).
+
+---
+
+### Available Colors
+
+- `defaultBrick`
+- `white`
+- `orange`
+- `cyan`
+- `green`
+- `red`
+- `blue`
+- `magenta`
+- `yellow`
+- `silver`
+- `gold`
+
+---
+
+### Available Bonuses
+
+- `None`
+- `SlowDown`
+- `ExtraLife`
+- `WideRacket`
+- `StickyRacket`
+- `SplitBall`
+- `Lazer`
