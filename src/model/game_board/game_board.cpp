@@ -114,6 +114,7 @@ void GameBoard::handleActiveBonus(double deltaTime) {
             for (shared_ptr<Ball> ball : balls_) {
                 if (ball->getSpeed() == 0) {
                     ball->setCenterX(racket_->getCenter().x);
+                    ball->setDirVec(BALL_INITIAL_DIRECTION);
                 }
             }
         }
