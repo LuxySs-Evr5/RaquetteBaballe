@@ -34,9 +34,10 @@ bool Ball::hasReached(const Vec2 &point) const {
     return Vec2{deltaX, deltaY}.getModule() < radius_;
 }
 
-Ball::Ball(const Vec2 &center, Vec2 directionVec, double radius, double speed)
+Ball::Ball(const Vec2 &center, Vec2 directionVec, double radius, double speed,
+           bool isStuck)
     : center_{center}, dirVec_{directionVec.normalized()}, radius_{radius},
-      speed_{speed} {}
+      speed_{speed}, isStuck_{isStuck} {}
 
 double Ball::getRadius() const noexcept { return radius_; }
 
@@ -46,6 +47,8 @@ const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
 double Ball::getSpeed() const noexcept { return speed_; }
 
+bool Ball::isStuck() const noexcept { return isStuck_; }
+
 void Ball::setSpeed(double speed) { speed_ = speed; };
 
 void Ball::setCenter(const Vec2 &center) { center_ = center; }
@@ -53,6 +56,8 @@ void Ball::setCenter(const Vec2 &center) { center_ = center; }
 void Ball::setCenterX(double centerX) { center_.x = centerX; }
 
 void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec.normalized(); }
+
+void Ball::setIsStuck(bool isStuck) { isStuck_ = isStuck; }
 
 Vec2 Ball::getSimplePenetrationVec(const RectangleShape &rectangleShape) const {
     Vec2 closestPoint =
@@ -137,6 +142,10 @@ void Ball::collide(const Bounceable &bounceable) {
 }
 
 void Ball::update(double deltaTime) {
+    if (isStuck()) {
+        return;
+    }
+
     prevCenter_ = center_;
     center_ += (dirVec_ * speed_ * deltaTime);
 }

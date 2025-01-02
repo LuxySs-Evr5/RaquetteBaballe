@@ -107,15 +107,11 @@ void GameBoard::handleActiveBonus(double deltaTime) {
             double slowDownFactor =
                 static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
 
-            for (auto &ball : balls_) {
-                ball->setSpeed(BALL_SPEED / slowDownFactor);
-            }
+            balls_.at(0)->setSpeed(BALL_SPEED / slowDownFactor);
         } else if (bonusType == BonusType::StickyRacket) {
-            for (shared_ptr<Ball> ball : balls_) {
-                if (ball->getSpeed() == 0) {
-                    ball->setCenterX(racket_->getCenter().x);
-                    ball->setDirVec(BALL_INITIAL_DIRECTION);
-                }
+            if (balls_.at(0)->isStuck()) {
+                balls_.at(0)->setCenterX(racket_->getCenter().x);
+                balls_.at(0)->setDirVec(BALL_INITIAL_DIRECTION);
             }
         }
 
@@ -176,12 +172,6 @@ void GameBoard::updateLifeCounter() {
     }
 }
 
-void GameBoard::resetBallsSpeed() {
-    for (shared_ptr<Ball> &ball : balls_) {
-        ball->setSpeed(BALL_SPEED);
-    }
-}
-
 void GameBoard::solveBallCollisions(Ball &ball) {
     bool collided = true;
     std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
@@ -201,7 +191,7 @@ void GameBoard::solveBallCollisions(Ball &ball) {
             && activeBonus_->getBonusType() == BonusType::StickyRacket) {
             for (shared_ptr<Ball> &ball : balls_) {
                 if (ball->checkCollision(*racket_)) {
-                    ball->setSpeed(0);
+                    ball->setIsStuck(true);
                 }
             }
         }
@@ -292,13 +282,13 @@ void GameBoard::applyBonus(BonusType bonusType) {
 void GameBoard::undoBonusEffect(BonusType bonusType) {
     switch (bonusType) {
     case BonusType::SlowDown:
-        resetBallsSpeed();
+        balls_.at(0)->setSpeed(BALL_SPEED);
         break;
     case BonusType::WideRacket:
         racket_->setWidth(RACKET_WIDTH);
         break;
     case BonusType::StickyRacket:
-        resetBallsSpeed();
+        balls_.at(0)->setIsStuck(false);
         break;
     case BonusType::Lazer:
         break;
@@ -343,11 +333,20 @@ void GameBoard::splitBallIntoThree(const Ball &originalBall,
     }
 }
 
-void GameBoard::shootLazer() {
-    if (activeBonus_ != nullptr
-        && activeBonus_->getBonusType() == BonusType::Lazer) {
-        lazers_.emplace_back(make_shared<Lazer>(Vec2{
-            racket_->getCenter().x, racket_->getTop() + LAZER_HEIGHT / 2}));
+void GameBoard::shootLazerOrReleaseBall() {
+    if (activeBonus_ != nullptr) {
+        BonusType bonusType = activeBonus_->getBonusType();
+        switch (bonusType) {
+        case (BonusType::Lazer):
+            lazers_.emplace_back(make_shared<Lazer>(Vec2{
+                racket_->getCenter().x, racket_->getTop() + LAZER_HEIGHT / 2}));
+            break;
+        case BonusType::StickyRacket:
+            balls_.at(0)->setIsStuck(false);
+            break;
+        default:
+            break;
+        }
     }
 }
 

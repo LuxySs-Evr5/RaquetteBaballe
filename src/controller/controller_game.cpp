@@ -101,7 +101,7 @@ void ControllerGame::checkEventType() {
             loadLevel(); // restart the level
         }
         if (key_[ALLEGRO_KEY_SPACE]) {
-            gameBoard_->shootLazer();
+            gameBoard_->shootLazerOrReleaseBall();
         }
     }
 

@@ -172,11 +172,6 @@ class GameBoard final {
      */
     void updateLifeCounter();
 
-    /**
-     * @brief Resets each ball's speed.
-     */
-    void resetBallsSpeed();
-
   public:
     GameBoard() = default;
     GameBoard(const GameBoard &) = delete;
@@ -194,9 +189,9 @@ class GameBoard final {
     void update(double deltaTime);
 
     /**
-     * @brief Shoots a lazer.
+     * @brief Shoots a lazer or release the ball depending on active bonus.
      */
-    void shootLazer();
+    void shootLazerOrReleaseBall();
 
     /**
      * @brief Returns the current Score.

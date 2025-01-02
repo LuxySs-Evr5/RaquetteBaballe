@@ -15,6 +15,7 @@ class Ball final {
     Vec2 dirVec_;     // direction vector (always normalized)
     double radius_;
     double speed_;
+    bool isStuck_;
 
     /**
      * @brief returns true if the ball has reached the given point, meaning the
@@ -44,7 +45,7 @@ class Ball final {
      * @param speed The speed.
      */
     Ball(const Vec2 &center, Vec2 directionVec, double radius = BALL_RADIUS,
-         double speed = BALL_SPEED);
+         double speed = BALL_SPEED, bool isStuck = false);
 
     Ball(const Ball &other) = default;
 
@@ -77,6 +78,11 @@ class Ball final {
     double getSpeed() const noexcept;
 
     /**
+     * @brief Returns true if the ball is stuck.
+     */
+    bool isStuck() const noexcept;
+
+    /**
      * @brief Sets the ball's speed.
      * @param speed The speed.
      */
@@ -99,6 +105,12 @@ class Ball final {
      * @param vec The direction vector.
      */
     void setDirVec(const Vec2 &vec);
+
+    /**
+     * @brief Makes the ball freeze or unfreeze.
+     * @param isStuck Whether to stuck or unstuck the ball.
+     */
+    void setIsStuck(bool isStuck);
 
     /**
      * @brief Returns the simple-penetration-vector corresponding to the
