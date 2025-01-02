@@ -1,0 +1,13 @@
+490 550 defaultBrick ExtraLife
+420 550 defaultBrick
+560 550 defaultBrick
+630 550 defaultBrick
+350 550 defaultBrick
+700 550 defaultBrick
+280 550 defaultBrick
+770 550 defaultBrick
+210 550 defaultBrick
+840 550 defaultBrick
+140 550 defaultBrick
+910 550 defaultBrick
+70 550 defaultBrick
