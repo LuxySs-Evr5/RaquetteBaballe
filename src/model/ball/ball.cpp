@@ -44,7 +44,13 @@ const Vec2 &Ball::getCenter() const noexcept { return center_; }
 
 const Vec2 &Ball::getDirvec() const noexcept { return dirVec_; }
 
-void Ball::setSpeed(unsigned speed) { speed_ = speed; };
+double Ball::getSpeed() const noexcept { return speed_; }
+
+void Ball::setSpeed(double speed) { speed_ = speed; };
+
+void Ball::setCenter(const Vec2 &center) { center_ = center; }
+
+void Ball::setCenterX(double centerX) { center_.x = centerX; }
 
 void Ball::setDirVec(const Vec2 &vec) { dirVec_ = vec.normalized(); }
 

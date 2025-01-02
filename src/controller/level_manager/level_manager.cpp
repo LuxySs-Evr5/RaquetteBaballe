@@ -77,6 +77,7 @@ BonusType convertBonusFromString(const string &bonusName) {
         {"SlowDown", BonusType::SlowDown},
         {"ExtraLife", BonusType::ExtraLife},
         {"WideRacket", BonusType::WideRacket},
+        {"StickyRacket", BonusType::StickyRacket},
         {"SplitBall", BonusType::SplitBall},
         {"Lazer", BonusType::Lazer},
     };

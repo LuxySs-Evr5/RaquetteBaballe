@@ -17,7 +17,7 @@ constexpr char PATH_TO_FONT[] =
     "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
 constexpr char PATH_TO_MUSIC[] = "ressources/music/arkanoid.wav";
 constexpr char PATH_TO_HEART_IMAGE[] = "ressources/images/heart.png";
-constexpr char PATH_TO_LEVELS [] = "ressources/levels/";
+constexpr char PATH_TO_LEVELS[] = "ressources/levels/";
 
 // ### Screen ###
 constexpr float SCREEN_WIDTH = 1020;
@@ -51,6 +51,9 @@ constexpr double BONUS_PILL_DESCENT_SPEED = 200;
 // WideRacket
 constexpr double WIDE_RACKET_WIDTH = 200;
 constexpr double WIDE_RACKET_DURATION = 10;
+
+// StickyRacket
+constexpr double STICKY_RACKET_DURATION = 10;
 
 // Lazer Bonus
 constexpr double LAZER_WIDTH = 5;

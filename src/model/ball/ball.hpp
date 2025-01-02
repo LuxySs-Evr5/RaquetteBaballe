@@ -72,10 +72,27 @@ class Ball final {
     const Vec2 &getDirvec() const noexcept;
 
     /**
+     * @brief Returns the ball's speed.
+     */
+    double getSpeed() const noexcept;
+
+    /**
      * @brief Sets the ball's speed.
      * @param speed The speed.
      */
-    void setSpeed(unsigned speed);
+    void setSpeed(double speed);
+
+    /**
+     * @brief Sets the ball's position.
+     * @param center The new center's position.
+     */
+    void setCenter(const Vec2 &center);
+
+    /**
+     * @brief Sets the ball's x position.
+     * @param center The new center's x coordinate.
+     */
+    void setCenterX(double centerX);
 
     /**
      * @brief Returns the ball's speed.

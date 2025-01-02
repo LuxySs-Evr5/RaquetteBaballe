@@ -10,6 +10,9 @@ BasicTimedBonus::BasicTimedBonus(BonusType bonusType)
     case BonusType::Lazer:
         remainingTime_ = LAZER_DURATION;
         break;
+    case BonusType::StickyRacket:
+        remainingTime_ = STICKY_RACKET_DURATION;
+        break;
     default:
         break;
     }

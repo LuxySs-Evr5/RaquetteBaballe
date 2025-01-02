@@ -9,6 +9,7 @@ enum class BonusType {
     SlowDown,
     ExtraLife,
     WideRacket,
+    StickyRacket,
     SplitBall,
     Lazer
 };

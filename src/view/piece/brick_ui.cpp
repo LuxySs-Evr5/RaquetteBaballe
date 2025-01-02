@@ -22,6 +22,8 @@ string BonusTypeToLetter(const BonusType bonusType) {
         return "S";
     case BonusType::WideRacket:
         return "W";
+    case BonusType::StickyRacket:
+        return "C";
     case BonusType::SplitBall:
         return "B";
     case BonusType::Lazer:

@@ -108,8 +108,13 @@ void GameBoard::handleActiveBonus(double deltaTime) {
                 static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
 
             for (auto &ball : balls_) {
-                ball->setSpeed(
-                    static_cast<unsigned int>(BALL_SPEED / slowDownFactor));
+                ball->setSpeed(BALL_SPEED / slowDownFactor);
+            }
+        } else if (bonusType == BonusType::StickyRacket) {
+            for (shared_ptr<Ball> ball : balls_) {
+                if (ball->getSpeed() == 0) {
+                    ball->setCenterX(racket_->getCenter().x);
+                }
             }
         }
 
@@ -170,6 +175,12 @@ void GameBoard::updateLifeCounter() {
     }
 }
 
+void GameBoard::resetBallsSpeed() {
+    for (shared_ptr<Ball> &ball : balls_) {
+        ball->setSpeed(BALL_SPEED);
+    }
+}
+
 void GameBoard::solveBallCollisions(Ball &ball) {
     bool collided = true;
     std::optional<std::variant<BrickIt, BorderIt, shared_ptr<Racket>>>
@@ -182,6 +193,16 @@ void GameBoard::solveBallCollisions(Ball &ball) {
         collided = collidingObject.has_value();
         if (!collided) {
             break;
+        }
+
+        // apply the sticky racket if necessary
+        if (activeBonus_ != nullptr
+            && activeBonus_->getBonusType() == BonusType::StickyRacket) {
+            for (shared_ptr<Ball> &ball : balls_) {
+                if (ball->checkCollision(*racket_)) {
+                    ball->setSpeed(0);
+                }
+            }
         }
 
         if (prevCollidingObject.has_value()
@@ -243,6 +264,9 @@ void GameBoard::applyBonus(BonusType bonusType) {
         activeBonus_ = make_unique<BasicTimedBonus>(BonusType::WideRacket);
         racket_->setWidth(WIDE_RACKET_WIDTH);
         break;
+    case BonusType::StickyRacket:
+        activeBonus_ = make_unique<BasicTimedBonus>(BonusType::StickyRacket);
+        break;
     case BonusType::Lazer:
         activeBonus_ = make_unique<BasicTimedBonus>(BonusType::Lazer);
         break;
@@ -267,12 +291,13 @@ void GameBoard::applyBonus(BonusType bonusType) {
 void GameBoard::undoBonusEffect(BonusType bonusType) {
     switch (bonusType) {
     case BonusType::SlowDown:
-        for (auto &ball : balls_) {
-            ball->setSpeed(static_cast<unsigned int>(BALL_SPEED));
-        }
+        resetBallsSpeed();
         break;
     case BonusType::WideRacket:
         racket_->setWidth(RACKET_WIDTH);
+        break;
+    case BonusType::StickyRacket:
+        resetBallsSpeed();
         break;
     case BonusType::Lazer:
         break;

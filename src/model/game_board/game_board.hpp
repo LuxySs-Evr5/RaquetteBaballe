@@ -172,6 +172,11 @@ class GameBoard final {
      */
     void updateLifeCounter();
 
+    /**
+     * @brief Resets each ball's speed.
+     */
+    void resetBallsSpeed();
+
   public:
     GameBoard() = default;
     GameBoard(const GameBoard &) = delete;
