@@ -14,7 +14,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/keyboard.h>
 #include <bitset>
-#include <sys/types.h>
 
 using namespace std;
 
@@ -23,7 +22,7 @@ class ControllerGame {
     // Game variables
     bool done_ = false;        // if the game is done
     bool draw_ = false;        // if we need to draw the game
-    u_int8_t numberOfTick = 0; // number of ticks
+    uint8_t numberOfTick = 0; // number of ticks
 
     shared_ptr<GameBoard> gameBoard_;
     LevelManager levelManager_;

@@ -25,17 +25,16 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
-    ALLEGRO_DISPLAY_MODE displayMode;
-    al_get_display_mode(0, &displayMode); // get the display mode
-    int userScreenWidth = displayMode.width;
-    int userScreenHeight = displayMode.height;
+    ALLEGRO_MONITOR_INFO monitorInfo;
+    al_get_monitor_info(0, &monitorInfo); // get the monitor info
 
-    // Calculate the window size and position
+    int userScreenWidth = monitorInfo.x2 - monitorInfo.x1;
+    int userScreenHeight = monitorInfo.y2 - monitorInfo.y1;
+
     int x = (userScreenWidth - SCREEN_WIDTH) / 2;
     int y = (userScreenHeight - SCREEN_HEIGHT) / 2;
 
-    al_set_window_position(
-        display_, x, y); // set the window position at the center of the screen
+    al_set_window_position(display_, x, y);
 
     font24_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_24, 0);
     checkInit(font24_, "font24");

@@ -2,6 +2,7 @@
 #include "../../global_variables.hpp"
 #include "../vec2/vec2.hpp"
 #include <cmath>
+#include <numbers>
 
 Racket::Racket(const Vec2 &center, double width, double height)
     : Bounceable{center, width, height} {}
@@ -38,7 +39,7 @@ Vec2 Racket::getDirVecAfterBounce(const Vec2 &closestPoint,
         double bounceAngle = 30 + 120 * (1 - (distFromLeftSide / getWidth()));
 
         // Convert bounceAngle to radians
-        double bounceAngleRad = bounceAngle * M_PI / 180.0;
+        double bounceAngleRad = bounceAngle * std::numbers::pi / 180.0;
 
         double verticalComponent = sin(bounceAngleRad);
         double horizontalComponent = cos(bounceAngleRad);

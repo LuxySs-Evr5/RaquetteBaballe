@@ -8,6 +8,7 @@
 #include <iterator>
 #include <memory>
 #include <vector>
+#include <numbers>
 
 template <typename T>
 void GameBoard::removeSharedPointers(
@@ -322,7 +323,7 @@ void GameBoard::splitBallIntoThree(const Ball &originalBall,
                                    std::vector<shared_ptr<Ball>> &newBalls) {
     Vec2 originalDir = originalBall.getDirvec();
     double angle = std::atan2(originalDir.y, originalDir.x);
-    double spread = M_PI / 8;
+    double spread = std::numbers::pi / 8;
 
     for (int i = 0; i < 2; ++i) {
         double newAngle = angle + (i == 0 ? -spread : spread);

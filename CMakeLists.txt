@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.10)
 
 project(arkanoid)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("Debug build.")
-    add_compile_options(-std=c++17 -g -pedantic -Wall -Wextra)
+    add_compile_options(-std=c++20 -g -pedantic -Wall -Wextra)
 else(CMAKE_BUILD_TYPE STREQUAL "Release")
     message("Release build.")
-    add_compile_options(-std=c++17 -O2 -pedantic -Wall -Wextra)
+    add_compile_options(-std=c++20 -O2 -pedantic -Wall -Wextra)
 endif()
 
 project(arkanoid)
@@ -35,7 +35,11 @@ endif()
 
 file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
+else()
+    add_executable(${PROJECT_NAME} ${SOURCES})
+endif()
 
 # Include directories and link libraries
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
