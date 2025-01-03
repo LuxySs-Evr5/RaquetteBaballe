@@ -20,7 +20,7 @@ rendering, and event control.
 
 ## Prerequisites
 
-- C++17
+- C++20
 - Allegro 5
 - g++
 - make
