@@ -26,7 +26,7 @@ rendering, and event control.
 - make
 - cmake
 
-## Installation and Execution
+## Installation
 
 ### On Debian-based systems
 
