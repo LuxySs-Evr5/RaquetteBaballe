@@ -10,6 +10,7 @@
 #include <vector>
 #include <numbers>
 
+
 template <typename T>
 void GameBoard::removeSharedPointers(
     std::vector<std::shared_ptr<T>> &mainVector,

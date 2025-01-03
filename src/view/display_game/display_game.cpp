@@ -25,6 +25,7 @@ DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
                                  static_cast<int>(SCREEN_HEIGHT));
     checkInit(display_, "display");
 
+<<<<<<< HEAD
     ALLEGRO_MONITOR_INFO monitorInfo;
     al_get_monitor_info(0, &monitorInfo); // get the monitor info
 

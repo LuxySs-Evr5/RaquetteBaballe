@@ -47,7 +47,6 @@ clean:
 	$(RM_DIR) $(CLEAN_DIR)
 	$(RM_FILE) $(CLEAN_FILE)
 
-
 re: clean all
 
 re_debug: clean debug

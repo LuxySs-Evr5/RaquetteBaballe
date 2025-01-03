@@ -162,3 +162,4 @@ brick to be placed on the map, using the following format:
 ## Documentation
 
 For detailed documentation, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
+

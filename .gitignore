@@ -19,6 +19,9 @@ build/
 .vscode
 .cache
 
+
 CMakeCache.txt
 cmake_install.cmake
 arkanoid.exe
+
+

@@ -2,7 +2,9 @@
 #include "../../global_variables.hpp"
 #include "../vec2/vec2.hpp"
 #include <cmath>
+
 #include <numbers>
+
 
 Racket::Racket(const Vec2 &center, double width, double height)
     : Bounceable{center, width, height} {}
