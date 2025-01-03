@@ -34,7 +34,7 @@ endif()
 file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    add_executable(${PROJECT_NAME} WIN32 ${SOURCES} resources/resources.rc)
+    add_executable(${PROJECT_NAME} WIN32 ${SOURCES} ressources/resources.rc)
 else()
     add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
@@ -48,14 +48,7 @@ else()
 endif()
 
 # Set runtime output directory to the root of the project
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
-
-# Installation paths
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib/static
-)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
 # Messages for compatibility confirmation
 message("Building for platform: ${CMAKE_SYSTEM_NAME}")
