@@ -26,7 +26,7 @@ rendering, and event control.
 - make
 - cmake
 
-## Installation
+## Installation and Execution
 
 ### On Debian-based systems
 
@@ -56,12 +56,40 @@ rendering, and event control.
     make
     ```
 
+### On Windows
+
+1. **Install MinGW**:
+   - Download MinGW from [MinGW-w64](https://www.mingw-w64.org/) or use a package manager like [MSYS2](https://www.msys2.org/).
+   - Ensure that `g++`, `make`, and `cmake` are installed and added to your system `PATH`.
+
+2. **Install Allegro**:
+   - Using MSYS2, install Allegro with the following command:
+
+    ```sh
+     pacman -S mingw-w64-x86_64-allegro 
+    ```
+
+    - Verify that the necessary files are in the correct locations (`include` for headers, `lib` for libraries).
+
+3. **Compile the Project**:
+   - Open the MSYS2 MinGW terminal or CMD (if the `PATH` is set correctly), navigate to the project directory, and run:
+    
+    ```sh
+     make
+    ```
+
 ## Usage
 
-To start the game, run the following command:
+After compilation, the executable will be available in the project root directory. For `Linux`, run the game with:
 
 ```sh
 ./arkanoid
+```
+
+For `Windows`, run the game with:
+
+```cmd
+arkanoid.exe
 ```
 
 ## Game Controls
@@ -132,4 +160,5 @@ brick to be placed on the map, using the following format:
 - `Lazer`
 
 ## Documentation
+
 For detailed documentation, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
