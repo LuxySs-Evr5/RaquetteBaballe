@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Arkanoid - Download</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="game-guide.html">Guide</a></li>
+            <li><a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-banner">
+        <h1>Download Arkanoid</h1>
+        <p>Get the game for your platform and start playing now!</p>
+        <a href="#downloads" class="cta-button">Go to Downloads</a>
+    </header>
+
+    <main>
+        <section id="downloads" class="download-section">
+            <h2>Choose Your Platform</h2>
+            <div class="download-cards">
+                <div class="card">
+                    <h3>Windows</h3>
+                    <p>Download the game for Windows systems.</p>
+                    <a href="download/arkanoid_windows.zip" class="cta-button">Download for Windows</a>
+                </div>
+                <div class="card">
+                    <h3>Linux</h3>
+                    <p>Compile the source code on Linux systems.</p>
+                    <pre class="code-block">
+# For Debian-based systems:
+sudo apt install g++ make cmake liballegro5-dev
+# For Arch Linux:
+sudo pacman -S gcc make cmake allegro</pre>
+                    <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank" class="cta-button">
+                        Get Source Code</a>
+                </div>
+                <div class="card">
+                    <h3>macOS</h3>
+                    <p>Install required tools and build the game on macOS.</p>
+                    <pre class="code-block">
+brew install gcc make cmake allegro</pre>
+                    <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank" class="cta-button">
+                        Get Source Code</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <h2>Preview Screenshots</h2>
+            <div class="gallery">
+                <a href="images/preview1.png">
+                    <img src="images/preview1.png" alt="Game Screenshot 1">
+                </a>
+                <a href="images/preview2.png">
+                    <img src="images/preview2.png" alt="Game Screenshot 2">
+                </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

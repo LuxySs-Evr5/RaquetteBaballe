@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Game Guide</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="game-guide.html">Guide</a></li>
+            <li><a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-banner">
+        <h1>Game Guide</h1>
+        <p>Learn the rules, controls, and how to create your own levels!</p>
+    </header>
+
+    <main>
+        <section id="rules" class="card">
+            <h2><i class="fas fa-book"></i> Game Rules</h2>
+            <p>The goal of the game is to destroy all the bricks on the screen by bouncing the ball off the racket and hitting them.</p>
+            <ul>
+                <li>Each level contains bricks of various colors that award different points.</li>
+                <li>Some bricks may contain bonuses that help you progress through the game.</li>
+                <li>You start with 3 lives, and the game ends when you lose all your lives.</li>
+            </ul>
+        </section>
+
+        <section id="controls" class="card">
+            <h2><i class="fas fa-keyboard"></i> Game Controls</h2>
+            <ul>
+                <li><kbd>r</kbd>: Reset the best score and current score to 0</li>
+                <li><kbd>&larr;</kbd>: Move to the previous level</li>
+                <li><kbd>&rarr;</kbd>: Move to the next level</li>
+                <li><kbd>a</kbd>: Replay the current level</li>
+                <li><kbd>q</kbd>: Quit the game</li>
+                <li><kbd>spacebar</kbd>: Shoot a lazer when available</li>
+                <li><kbd>spacebar</kbd>: Release the ball when it is stuck to the racket</li>
+            </ul>
+        </section>
+
+        <section id="level-creation" class="card">
+            <h2><i class="fas fa-tools"></i> Create Your Own Levels</h2>
+            <p>You can create custom levels by adding text files to the <code>ressources/levels</code> directory.</p>
+            <ol>
+                <li>Save the file in <code>.txt</code> format with a numeric name (e.g., <code>1.txt</code>, <code>2.txt</code>).</li>
+                <li>Each line in the file represents a brick, using the format:</li>
+            </ol>
+            <pre class="code-block">
+X-coordinate Y-coordinate Color [Bonus]</pre>
+            <p>Available colors:</p>
+            <ul>
+                <li>defaultBrick</li>
+                <li>white</li>
+                <li>orange</li>
+                <li>cyan</li>
+                <li>green</li>
+                <li>red</li>
+                <li>blue</li>
+                <li>magenta</li>
+                <li>yellow</li>
+                <li>silver</li>
+                <li>gold</li>
+            </ul>
+            <p>Available bonuses:</p>
+            <ul>
+                <li>None</li>
+                <li>SlowDown</li>
+                <li>ExtraLife</li>
+                <li>WideRacket</li>
+                <li>StickyRacket</li>
+                <li>SplitBall</li>
+                <li>Lazer</li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+
+</html>
