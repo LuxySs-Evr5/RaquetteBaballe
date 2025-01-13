@@ -12,11 +12,12 @@ html, body {
     background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
     background-size:auto;
     background-attachment: fixed;
+    scroll-behavior: smooth;
 }
 
 body {
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -85,7 +86,18 @@ section {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    animation: fadeInUp 1s ease forwards;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
+    
+section:target {
+    animation: fadeInUp 1s ease forwards;
+}
+
 
 h1, h2 {
     color: #FFD700;
@@ -142,6 +154,13 @@ ul, ol {
     border: 1px solid #FFD700;
 }
 
+button, a {
+    transition: all 0.3s ease-in-out;
+}
+button:hover, a:hover {
+    transform: scale(1.1);
+}
+
 .contact form button {
     background: #8A2BE2;
     color: white;
@@ -196,6 +215,18 @@ ul, ol {
 .hero-banner h1 {
     font-size: 3rem;
     margin-bottom: 10px;
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .hero-banner p {
@@ -253,15 +284,8 @@ ul, ol {
 }
 
 .gallery img:hover {
-    transform: scale(1.1);
-}
-
-/* Footer */
-footer {
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+    transform: scale(1.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -446,6 +470,9 @@ nav {
     width: 90%;
     padding: 10px 20px;
     overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 /* List of elements*/
@@ -497,5 +524,13 @@ nav ul li a:hover {
     }
 }
 
-
-
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
