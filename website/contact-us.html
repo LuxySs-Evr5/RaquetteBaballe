@@ -28,18 +28,12 @@
 
     <main>
         <section class="contact">
-            <form action="mailto:ethanvr3@gmail.com" method="post" aria-labelledby="form-title">
-                <h2 id="form-title">Contact Form</h2>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true">
-                
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" placeholder="Your Message" rows="5" required aria-required="true"></textarea>
-                
-                <button type="submit" aria-label="Send your message">Send</button>
+        <h2>Get in Touch</h2>
+            <form action="mailto:ethanvr3@gmail.com" method="post" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send</button>
             </form>
             
         </section>
