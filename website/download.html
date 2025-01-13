@@ -29,34 +29,76 @@
     </header>
 
     <main>
+        <section id="Instructions before installing">
+            <h2>Instructions before installing</h2>
+            <p>Before installing the game, make sure you have the following dependencies installed on your system:</p>
+            <ul>
+                <li>g++</li>
+                <li>make</li>
+                <li>cmake</li>
+                <li>Allegro 5</li>
+            </ul>
+            <p></p>
+            <p>For macOS users, you can install the dependencies using Homebrew:</p>
+            <pre class="code-block
+            ">
+brew install gcc make cmake allegro</pre>
+            <p>For Linux users, you can install the dependencies using the package manager of your distribution:</p>
+            <pre class="code-block">
+# For Debian-based systems:
+sudo apt install g++ make cmake liballegro5-dev
+# For Arch Linux:
+sudo pacman -S gcc make cmake allegro</pre>
+        </section>
+
         <section id="downloads" class="download-section">
             <h2>Choose Your Platform</h2>
             <div class="download-cards">
+
+                <div class="card">
+                    <h3>Linux & macOS</h3>
+                    <p>Install required tools, clone the <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank"><i class="fab fa-github"></i> GitHub</a> repo and build the game by doing</p>
+                    <pre class="code-block">
+cd arkanoid
+make</pre>
+                    <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank" class="cta-button">
+                        Get Source Code</a>
+                </div>
+
                 <div class="card">
                     <h3>Windows</h3>
                     <p>Download the game for Windows systems.</p>
                     <a href="download/arkanoid_windows.zip" class="cta-button">Download for Windows</a>
                 </div>
-                <div class="card">
-                    <h3>Linux</h3>
-                    <p>Compile the source code on Linux systems.</p>
-                    <pre class="code-block">
-# For Debian-based systems:
-sudo apt install g++ make cmake liballegro5-dev
-# For Arch Linux:
-sudo pacman -S gcc make cmake allegro</pre>
-                    <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank" class="cta-button">
-                        Get Source Code</a>
-                </div>
-                <div class="card">
-                    <h3>macOS</h3>
-                    <p>Install required tools and build the game on macOS.</p>
-                    <pre class="code-block">
-brew install gcc make cmake allegro</pre>
-                    <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank" class="cta-button">
-                        Get Source Code</a>
-                </div>
+
             </div>
+        </section>
+
+        <section>
+            <h2>Launch the Game</h2>
+            <div class="card">
+                <h3>For Linux & macOS</h3>
+                <p>After building the game, you can run the following command in the terminal to start the game:</p>
+                <pre class="code-block">
+./arkanoid</pre>
+            </div>
+            <div class="card">
+                <h3>For Windows</h3>
+                <p>After downloading the game, extract the files to a folder on your system. To launch the game, run the .exe file.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>More Information</h2>
+            <h3>Download</h3>
+            <p>If you want more information on how to install the game, download the <a href="https://github.com/LuxySs-Evr5/arkanoid/blob/main/README.md">README</a> or simply check the <a href="https://github.com/LuxySs-Evr5/arkanoid" target="_blank"><i class="fab fa-github"></i> GitHub</a> repo.</p>
+            <h3>Game Control</h3>
+            <p>For information on how to play the game, check the <a href="game-guide.html">Game Guide</a> page.</p>
+        </section>
+
+        <section>
+            <h2>Feedback</h2>
+            <p>If you have any feedback or questions about the game, feel free to <a href="contact-us.html">contact us</a>. We'd love to hear from you!</p>
         </section>
 
         <section>
