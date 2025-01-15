@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 -->
 
-<h1 align=center style="font-size: 3em; margin-bottom: 10px;">Arkanoid</h1>
+<h1 align=center style="font-size: 3em; margin-bottom: 10px;">Raquette Baballe</h1>
 
 <div align=center>
 <img src="other/arkanoid.png" alt="Logo Arkanoid" width="200" style="margin: 20px 0;">
