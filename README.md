@@ -1,179 +1,163 @@
 # Arkanoid
 
-## Description
+<div align="center">
 
-This project is a game inspired by the classic Arkanoid game, developed in C++
-using the Allegro graphics library. The game follows the Model-View-Controller
-(MVC) design pattern to separate responsibilities between game logic,
-rendering, and event control.
+<img src="other/arkanoid.webp" alt="Logo Arkanoid" width="400">
+
+**A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.**
+
+[![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge)](https://github.com/Evr5/arkanoid)
+
+</div>
+
+---
+
+## 📜 Description
+
+**Arkanoid** is a game inspired by the classic brick-breaking arcade game. Developed in **C++** using the **Allegro graphics library**, it adheres to the **Model-View-Controller (MVC)** design pattern for clear separation of logic, rendering, and control. The project is fully **open-source**.
+
+---
 
 ## 🌟 Supported Platforms
 
 <div align="center">
-    
-  <table align="center">
-    <tr>
-        <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
-        <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" />
-        <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
-    </tr>
-  </table>
-  
+  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
+  <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" />
+  <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
 </div>
 
-## Features
+---
 
-- Racket movement using the mouse
-- Ball bouncing on various surfaces (bricks, walls, racket)
-- Life management (3 lives at the start of each game)
-- Score tracking with best score saving to a file
-- Multiple levels encoded in `.txt` files
-- Bricks of different colors awarding varying points
-- Special bricks (silver and gold) with unique behaviors
-- Game bonus in some bricks
+## 🎮 Features
 
-## Prerequisites
+- **Dynamic Gameplay**: Racket movement using the mouse, with responsive ball physics.
+- **Challenging Levels**: Multiple levels loaded from `.txt` files, featuring unique designs.
+- **Score Tracking**: Tracks your score and saves the best score locally.
+- **Diverse Bricks**: Various brick colors with different point values.
+- **Special Bricks**: Silver and gold bricks with unique properties.
+- **Game Bonuses**: Collect bonuses to gain extra lives, expand the racket, and more.
 
-- C++20
-- Allegro 5
-- g++
-- make
-- cmake
+---
 
-## Installation
+## 🔧 Prerequisites
 
-### On Debian-based systems
+- **C++20**
+- **Allegro 5**
+- **g++**
+- **make**
+- **cmake**
 
-1. Install the required dependencies (g++, make, cmake, and Allegro)
+---
 
+## 🚀 Installation
+
+### 🐧 Linux (Debian-based)
+
+1. Install dependencies:
     ```sh
     sudo apt install g++ make cmake liballegro5-dev
     ```
-
-2. Compile the project
-
+2. Compile the project:
     ```sh
     make
     ```
 
-### On Arch Linux
+### 🐧 Linux (Arch Linux)
 
-1. Install the required dependencies (g++, make, cmake, and Allegro)
-
+1. Install dependencies:
     ```sh
     sudo pacman -S gcc make cmake allegro
     ```
-
-2. Compile the project
-
+2. Compile the project:
     ```sh
     make
     ```
 
-### On Windows
+### 🍎 macOS
 
-1. **Install MinGW**:
-   - Download MinGW from [MinGW-w64](https://www.mingw-w64.org/) or use a package manager like [MSYS2](https://www.msys2.org/).
-   - Ensure that `g++`, `make`, and `cmake` are installed and added to your system `PATH`.
-
-2. **Install Allegro**:
-   - Using MSYS2, install Allegro with the following command:
-
+1. Install Allegro using Homebrew:
     ```sh
-     pacman -S mingw-w64-x86_64-allegro 
+    brew install allegro
+    ```
+2. Compile the project:
+    ```sh
+    make
     ```
 
-    - Verify that the necessary files are in the correct locations (`include` for headers, `lib` for libraries).
+### 🪟 Windows
 
-3. **Compile the Project**:
-   - Open the MSYS2 MinGW terminal or CMD (if the `PATH` is set correctly), navigate to the project directory, and run:
-    
+1. Install MinGW:
+    - Download from [MinGW-w64](https://www.mingw-w64.org/) or use [MSYS2](https://www.msys2.org/).
+    - Ensure `g++`, `make`, and `cmake` are installed and in your system PATH.
+2. Install Allegro:
+    - Using MSYS2:
+      ```sh
+      pacman -S mingw-w64-x86_64-allegro
+      ```
+3. Compile the project:
     ```sh
-     make
+    make
     ```
-
-## Usage
-
-After compilation, the executable will be available in the project root directory. For `Linux`, run the game with:
-
-```sh
-./arkanoid
-```
-
-For `Windows`, run the game with:
-
-```cmd
-arkanoid.exe
-```
-
-## Game Controls
-
-- `r` : Reset the best score and current score to 0
-- `←` : Move to the previous level
-- `→` : Move to the next level
-- `a` : Replay the current level
-- `q` : Quit the game
-- `spacebar` : Shoot a lazer when available
-- `spacebar` : Release the ball when it is stuck to the racket
-
-## Game Bonus
-
-There are several bonuses available in the game. They will be displayed with
-a letter inside the brick containing the bonus. You have to collect the
-bonus with the racket. Here is a list of the different bonuses :
-
-- Reduce the ball's speed
-- Expand the racket's width
-- Gain an extra life
-- Shoot a lazer
-- Make the ball stick to the racket and release it later
-- Split the ball into three instances of itself. When this bonus is
-active, no other bonuses will drop
-
-## Create a Level
-
-You can create as many levels as you want. Each level file must be placed in
-the `ressources/levels` directory, saved in `.txt` format, and named with a
-numeric filename (e.g., `1.txt`, `2.txt`). Each line in the file specifies a
-brick to be placed on the map, using the following format:
-
-- **Columns**:  
-  1. **X-coordinate**: Position of the brick's center on the x-axis.  
-  2. **Y-coordinate**: Position of the brick's center on the y-axis.  
-  3. **Color**: Specify the color of the brick (see available options
-      below).  
-  4. *(Optional)* **Bonus**: Define a bonus that drops when the brick
-      is destroyed (see available options below).
 
 ---
 
-### Available Colors
+## 🎲 Usage
 
-- `defaultBrick`
-- `white`
-- `orange`
-- `cyan`
-- `green`
-- `red`
-- `blue`
-- `magenta`
-- `yellow`
-- `silver`
-- `gold`
+After compiling, run the game:
+
+- **Linux/macOS**:
+  ```sh
+  ./arkanoid
+  ```
+- **Windows**:
+  ```cmd
+  arkanoid.exe
+  ```
 
 ---
 
-### Available Bonuses
+## 🎮 Controls
 
-- `None`
-- `SlowDown`
-- `ExtraLife`
-- `WideRacket`
-- `StickyRacket`
-- `SplitBall`
-- `Lazer`
+- `r` : Reset the best score and current score.
+- `←` : Move to the previous level.
+- `→` : Move to the next level.
+- `a` : Replay the current level.
+- `q` : Quit the game.
+- `Spacebar` : Shoot lasers or release the ball when stuck to the racket.
 
-## Documentation
+---
 
-For detailed documentation, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
+## 🎁 Bonuses
+
+Collect bonuses by catching them with your racket. Each bonus is marked with a letter inside the corresponding brick:
+
+- **S**: Slow down the ball.
+- **E**: Gain an extra life.
+- **W**: Expand the racket width.
+- **L**: Shoot lasers.
+- **T**: Make the ball stick to the racket.
+- **B**: Split the ball into three.
+
+---
+
+## 🛠️ Create Your Levels
+
+Design custom levels in the `ressources/levels` directory using `.txt` files. Name your files numerically (e.g., `1.txt`, `2.txt`). Format each line as follows:
+
+- **X-coordinate**: Horizontal position of the brick.
+- **Y-coordinate**: Vertical position of the brick.
+- **Color**: Brick color (e.g., `red`, `blue`).
+- **Bonus**: (Optional) Specify a bonus (`SlowDown`, `ExtraLife`, etc.).
+
+---
+
+## 📖 Documentation
+
+For detailed guides and insights, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
+
+---
+
+_Developed with ❤️ by [LuxySs](https://github.com/LuxySs) and [Evr5](https://github.com/Evr5)._  
+
+</div>
 
