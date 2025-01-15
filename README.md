@@ -176,7 +176,7 @@ Design custom levels in the `ressources/levels` directory using `.txt` files. Na
 
 <h2 align=center>📖 Documentation</h2>
 
-For detailed guides and insights, visit the [Raquette Baballe Wiki](https://github.com/Evr5/RaquetteBaballe/wiki).
+For detailed guides and insights, visit the [Raquette Baballe Wiki](https://github.com/LuxySs-Evr5/RaquetteBaballe/wiki).
 
 ---
 
