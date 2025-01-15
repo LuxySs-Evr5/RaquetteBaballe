@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="other/arkanoid.webp" alt="Logo Arkanoid" width="400">
+<img src="other/arkanoid.png" alt="Logo Arkanoid" width="400">
 
 **A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.**
 
