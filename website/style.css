@@ -600,9 +600,8 @@ nav ul li a {
 nav ul li a:hover {
     background: #FFFFFF;
     color: #8A2BE2;
-    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
 }
-
 
 
 /* Better for phones */
