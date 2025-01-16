@@ -67,7 +67,7 @@ footer {
 }
 
 
-a {
+a.basic-link {
     color: #FFD700;
     text-decoration: none;
     font-weight: bold;
@@ -76,7 +76,7 @@ a {
     transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
-a:before {
+a.basic-link:before {
     content: "";
     position: absolute;
     top: 0;
@@ -88,11 +88,11 @@ a:before {
     transition: width 0.4s ease;
 }
 
-a:hover:before {
+a.basic-link:hover:before {
     width: 100%;
 }
 
-a:after {
+a.basic-link:after {
     content: "";
     position: absolute;
     left: 0;
@@ -104,16 +104,16 @@ a:after {
     transition: width 0.4s ease-in-out;
 }
 
-a:hover:after {
+a.basic-link:hover:after {
     width: 100%;
 }
 
-a:not(:hover):after {
+a.basic-link:not(:hover):after {
     width: 0;
     transition: width 0.4s ease-in-out;
 }
 
-a:hover {
+a.basic-link:hover {
     transform: scale(1.1); /* Zoom 10% */
 }
 
