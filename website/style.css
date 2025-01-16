@@ -50,6 +50,16 @@ body {
     transform: scale(1.1);
 }
 
+.gallery a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.gallery a:focus {
+    outline: none;
+}
+
+
 pre.code-block {
     background: #1e1e1e;
     color: #C6C6C6;
