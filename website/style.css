@@ -31,6 +31,7 @@ body {
     width: 80%;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gallery {
@@ -69,12 +70,53 @@ footer {
 a {
     color: #FFD700;
     text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+a.basic-link:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 5px;
+    z-index: -1;
+    transition: width 0.4s ease;
+}
+
+a:hover:before {
+    width: 100%;
+}
+
+a:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #8A2BE2;
+    transform-origin: left;
+    transition: width 0.4s ease-in-out;
+}
+
+a:hover:after {
+    width: 100%;
+}
+
+a:not(:hover):after {
+    width: 0;
+    transition: width 0.4s ease-in-out;
 }
 
 a:hover {
-    color: #8A2BE2;
-    text-decoration: underline;
+    transform: scale(1.1); /* Zoom 10% */
 }
+
 
 main {
     padding: 20px;
@@ -200,12 +242,6 @@ button:active, .cta-button:active {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-button:hover, a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4);
-}
-
 .contact form button {
     background: #8A2BE2;
     color: white;
@@ -309,6 +345,11 @@ button:hover, a:hover {
     text-align: center;
 }
 
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
 .card h2 i {
     margin-right: 10px;
 }
@@ -337,21 +378,26 @@ button:hover, a:hover {
 
 .cta-button {
     display: inline-block;
-    padding: 10px 20px;
-    background: #FFD700;
+    padding: 15px 25px;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
     color: black;
     font-size: 1.2rem;
+    border: none;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     text-align: center;
 }
 
 .cta-button:hover {
     background: #8A2BE2;
-    color: white;
-    transform: scale(1.05);
+    transform: scale(1.1);
+}
+
+.cta-button:active {
+    transform: scale(1);
+    box-shadow: none;
 }
 
 /* Download Section */
@@ -547,15 +593,16 @@ nav ul li a {
     transition: all 0.3s ease-in-out;
     border: 2px solid transparent;
     white-space: nowrap; 
+    position: relative;
 }
 
 /* Hover effect */
 nav ul li a:hover {
     background: #FFFFFF;
     color: #8A2BE2;
-    border-color: #FFFFFF;
     box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.3);
 }
+
 
 
 /* Better for phones */
