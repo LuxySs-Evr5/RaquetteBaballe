@@ -76,7 +76,7 @@ a {
     transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
-a.basic-link:before {
+a:before {
     content: "";
     position: absolute;
     top: 0;
