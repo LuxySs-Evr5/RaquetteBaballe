@@ -1,6 +1,6 @@
-# Arkanoid
-
 <div align="center">
+
+<h1>Arkanoid</h1>
 
 <img src="other/arkanoid.png" alt="Logo Arkanoid" width="400">
 
@@ -10,8 +10,9 @@
 
 </div>
 
----
+<div align="center">
 
+---
 ## 📜 Description
 
 **Arkanoid** is a game inspired by the classic brick-breaking arcade game. Developed in **C++** using the **Allegro graphics library**, it adheres to the **Model-View-Controller (MVC)** design pattern for clear separation of logic, rendering, and control. The project is fully **open-source**.
@@ -161,3 +162,4 @@ _Developed with ❤️ by [LuxySs](https://github.com/LuxySs) and [Evr5](https:/
 
 </div>
 
+</div>
