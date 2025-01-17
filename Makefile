@@ -6,7 +6,7 @@ ifeq ($(OS),Windows_NT)
 	RM_FILE := del /Q
 	GENERATOR := "MinGW Makefiles"
 	CLEAN_DIR := build
-	CLEAN_FILE := arkanoid.exe
+	CLEAN_FILE := raquette-baballe.exe
 else
     IS_WINDOWS := 0
     SHELL := /bin/bash
@@ -15,7 +15,7 @@ else
 	RM_FILE := rm -f
 	GENERATOR := "Unix Makefiles"
 	CLEAN_DIR := build
-	CLEAN_FILE := arkanoid
+	CLEAN_FILE := raquette-baballe
     CORES := $(shell nproc 2>/dev/null || echo 1)
 endif
 

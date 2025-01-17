@@ -3,9 +3,9 @@
 <h1 align=center style="font-size: 3em; margin-bottom: 10px;">Raquette Baballe</h1>
 
 <div align=center>
-<img src="other/arkanoid.png" alt="Logo Arkanoid" width="200" style="margin: 20px 0;">
+<img src="other/arkanoid.png" alt="Logo Raquette Baballe" width="200" style="margin: 20px 0;">
 <p><strong>A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.</strong></p>
-<a href="https://github.com/Evr5/arkanoid">
+<a href="https://github.com/Evr5/RaquetteBaballe">
 <img src="https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge" alt="Open Source">
 </a>
 </div>
@@ -15,7 +15,7 @@
 <h2 align=center>📜 Description</h2>
 
 <p style="max-width: 600px; text-align: justify;">
-<strong>Arkanoid</strong> is a game inspired by the classic brick-breaking arcade game. Developed in <strong>C++</strong> using the <strong>Allegro graphics library</strong>, it adheres to the <strong>Model-View-Controller (MVC)</strong> design pattern for clear separation of logic, rendering, and control. The project is fully <strong>open-source</strong>.
+<strong>Raquette Baballe</strong> is a game inspired by the classic brick-breaking arcade game Arkanoid. Developed in <strong>C++</strong> using the <strong>Allegro graphics library</strong>, it adheres to the <strong>Model-View-Controller (MVC)</strong> design pattern for clear separation of logic, rendering, and control. The project is fully <strong>open-source</strong>.
 </p>
 
 ---
@@ -128,13 +128,13 @@ After compiling, run the game:
 - **Linux/macOS**:
 
     ```sh
-    ./arkanoid
+    ./raquette-baballe
     ```
 
 - **Windows**:
 
     ```cmd
-    arkanoid.exe
+    raquette-baballe.exe
     ```
 
 ---
@@ -176,7 +176,7 @@ Design custom levels in the `ressources/levels` directory using `.txt` files. Na
 
 <h2 align=center>📖 Documentation</h2>
 
-For detailed guides and insights, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
+For detailed guides and insights, visit the [Raquette Baballe Wiki](https://github.com/Evr5/RaquetteBaballe/wiki).
 
 ---
 
