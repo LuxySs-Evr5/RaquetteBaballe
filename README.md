@@ -14,29 +14,28 @@
 
 ---
 
-## 📜 Description
+<h2 align=center>📜 Description</h2>
 
-<div align="center">
 <p style="max-width: 600px; text-align: justify;">
 <strong>Arkanoid</strong> is a game inspired by the classic brick-breaking arcade game. Developed in <strong>C++</strong> using the <strong>Allegro graphics library</strong>, it adheres to the <strong>Model-View-Controller (MVC)</strong> design pattern for clear separation of logic, rendering, and control. The project is fully <strong>open-source</strong>.
 </p>
-</div>
 
 ---
-
-## 🌟 Supported Platforms
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
-  <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" />
-  <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
+
+<h2>🌟 Supported Platforms</h2>
+
+<img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
+<img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" />
+<img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
+
 </div>
 
 ---
 
-## 🎮 Features
+<h2 align=center>🎮 Features</h2>
 
-<div align="left">
 <ul style="list-style-type: none; text-align: left; display: inline-block;">
   <li>✅ <strong>Dynamic Gameplay:</strong> Racket movement using the mouse, with responsive ball physics.</li>
   <li>✅ <strong>Challenging Levels:</strong> Multiple levels loaded from `.txt` files, featuring unique designs.</li>
@@ -45,13 +44,11 @@
   <li>✅ <strong>Special Bricks:</strong> Silver and gold bricks with unique properties.</li>
   <li>✅ <strong>Game Bonuses:</strong> Collect bonuses to gain extra lives, expand the racket, and more.</li>
 </ul>
-</div>
 
 ---
 
-## 🔧 Prerequisites
+<h2 align=center>🔧 Prerequisites</h2>
 
-<div align="left">
 <ul style="list-style-type: none; text-align: left; display: inline-block;">
   <li>🔹 <strong>C++20</strong></li>
   <li>🔹 <strong>Allegro 5</strong></li>
@@ -59,11 +56,10 @@
   <li>🔹 <strong>make</strong></li>
   <li>🔹 <strong>cmake</strong></li>
 </ul>
-</div>
 
 ---
 
-## 🚀 Installation
+<h2 align=center>🚀 Installation</h2>
 
 ### 🐧 Linux (Debian-based)
 
@@ -127,7 +123,7 @@
 
 ---
 
-## 🎲 Usage
+<h2 align=center>🎲 Usage</h2>
 
 After compiling, run the game:
 
@@ -142,7 +138,7 @@ After compiling, run the game:
 
 ---
 
-## 🎮 Controls
+<h2 align=center>🎮 Controls</h2>
 
 - `r` : Reset the best score and current score.
 - `←` : Move to the previous level.
@@ -153,7 +149,7 @@ After compiling, run the game:
 
 ---
 
-## 🎁 Bonuses
+<h2 align=center>🎁 Bonuses </h2>
 
 Collect bonuses by catching them with your racket. Each bonus is marked with a letter inside the corresponding brick:
 
@@ -166,7 +162,7 @@ Collect bonuses by catching them with your racket. Each bonus is marked with a l
 
 ---
 
-## 🛠️ Create Your Levels
+<h2 align=center>🛠️ Create Your Levels</h2>
 
 Design custom levels in the `ressources/levels` directory using `.txt` files. Name your files numerically (e.g., `1.txt`, `2.txt`). Format each line as follows:
 
@@ -177,7 +173,7 @@ Design custom levels in the `ressources/levels` directory using `.txt` files. Na
 
 ---
 
-## 📖 Documentation
+<h2 align=center>📖 Documentation</h2>
 
 For detailed guides and insights, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
 
