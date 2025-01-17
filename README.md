@@ -1,21 +1,26 @@
 <div align="center">
 
-<h1>Arkanoid</h1>
+<h1 style="font-size: 3em; margin-bottom: 10px;">Arkanoid</h1>
 
-<img src="other/arkanoid.png" alt="Logo Arkanoid" width="400">
+<img src="other/arkanoid.png" alt="Logo Arkanoid" width="200" style="margin: 20px 0;">
 
-**A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.**
+<p><strong>A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.</strong></p>
 
-[![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge)](https://github.com/Evr5/arkanoid)
+<a href="https://github.com/Evr5/arkanoid">
+  <img src="https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge" alt="Open Source">
+</a>
 
 </div>
 
-<div align="center">
-
 ---
+
 ## 📜 Description
 
-**Arkanoid** is a game inspired by the classic brick-breaking arcade game. Developed in **C++** using the **Allegro graphics library**, it adheres to the **Model-View-Controller (MVC)** design pattern for clear separation of logic, rendering, and control. The project is fully **open-source**.
+<div align="center">
+<p style="max-width: 600px; text-align: justify;">
+<strong>Arkanoid</strong> is a game inspired by the classic brick-breaking arcade game. Developed in <strong>C++</strong> using the <strong>Allegro graphics library</strong>, it adheres to the <strong>Model-View-Controller (MVC)</strong> design pattern for clear separation of logic, rendering, and control. The project is fully <strong>open-source</strong>.
+</p>
+</div>
 
 ---
 
@@ -31,22 +36,30 @@
 
 ## 🎮 Features
 
-- **Dynamic Gameplay**: Racket movement using the mouse, with responsive ball physics.
-- **Challenging Levels**: Multiple levels loaded from `.txt` files, featuring unique designs.
-- **Score Tracking**: Tracks your score and saves the best score locally.
-- **Diverse Bricks**: Various brick colors with different point values.
-- **Special Bricks**: Silver and gold bricks with unique properties.
-- **Game Bonuses**: Collect bonuses to gain extra lives, expand the racket, and more.
+<div align="left">
+<ul style="list-style-type: none; text-align: left; display: inline-block;">
+  <li>✅ <strong>Dynamic Gameplay:</strong> Racket movement using the mouse, with responsive ball physics.</li>
+  <li>✅ <strong>Challenging Levels:</strong> Multiple levels loaded from `.txt` files, featuring unique designs.</li>
+  <li>✅ <strong>Score Tracking:</strong> Tracks your score and saves the best score locally.</li>
+  <li>✅ <strong>Diverse Bricks:</strong> Various brick colors with different point values.</li>
+  <li>✅ <strong>Special Bricks:</strong> Silver and gold bricks with unique properties.</li>
+  <li>✅ <strong>Game Bonuses:</strong> Collect bonuses to gain extra lives, expand the racket, and more.</li>
+</ul>
+</div>
 
 ---
 
 ## 🔧 Prerequisites
 
-- **C++20**
-- **Allegro 5**
-- **g++**
-- **make**
-- **cmake**
+<div align="left">
+<ul style="list-style-type: none; text-align: left; display: inline-block;">
+  <li>🔹 <strong>C++20</strong></li>
+  <li>🔹 <strong>Allegro 5</strong></li>
+  <li>🔹 <strong>g++</strong></li>
+  <li>🔹 <strong>make</strong></li>
+  <li>🔹 <strong>cmake</strong></li>
+</ul>
+</div>
 
 ---
 
@@ -55,10 +68,13 @@
 ### 🐧 Linux (Debian-based)
 
 1. Install dependencies:
+
     ```sh
     sudo apt install g++ make cmake liballegro5-dev
     ```
+
 2. Compile the project:
+
     ```sh
     make
     ```
@@ -66,10 +82,13 @@
 ### 🐧 Linux (Arch Linux)
 
 1. Install dependencies:
+
     ```sh
     sudo pacman -S gcc make cmake allegro
     ```
+
 2. Compile the project:
+
     ```sh
     make
     ```
@@ -77,10 +96,13 @@
 ### 🍎 macOS
 
 1. Install Allegro using Homebrew:
+
     ```sh
     brew install allegro
     ```
+
 2. Compile the project:
+
     ```sh
     make
     ```
@@ -92,10 +114,13 @@
     - Ensure `g++`, `make`, and `cmake` are installed and in your system PATH.
 2. Install Allegro:
     - Using MSYS2:
+
       ```sh
       pacman -S mingw-w64-x86_64-allegro
       ```
+
 3. Compile the project:
+
     ```sh
     make
     ```
@@ -157,6 +182,10 @@ Design custom levels in the `ressources/levels` directory using `.txt` files. Na
 For detailed guides and insights, visit the [Arkanoid Wiki](https://github.com/Evr5/arkanoid/wiki).
 
 ---
+
+<p></p>
+
+<div align=center>
 
 _Developed with ❤️ by [LuxySs](https://github.com/LuxySs) and [Evr5](https://github.com/Evr5)._  
 
