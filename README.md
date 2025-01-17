@@ -3,7 +3,7 @@
 <h1 align=center style="font-size: 3em; margin-bottom: 10px;">Raquette Baballe</h1>
 
 <div align=center>
-<img src="other/arkanoid.png" alt="Logo Raquette Baballe" width="200" style="margin: 20px 0;">
+<img src="other/logo.png" alt="Logo Raquette Baballe" width="200" style="margin: 20px 0;">
 <p><strong>A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.</strong></p>
 <a href="https://github.com/Evr5/RaquetteBaballe">
 <img src="https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge" alt="Open Source">
