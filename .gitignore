@@ -1,5 +1,5 @@
 allegro
-arkanoid
+raquette-baballe
 score.txt
 CMakeFiles
 
@@ -22,6 +22,6 @@ build/
 
 CMakeCache.txt
 cmake_install.cmake
-arkanoid.exe
+raquette-baballe.exe
 
 
