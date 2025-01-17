@@ -126,13 +126,16 @@
 After compiling, run the game:
 
 - **Linux/macOS**:
-  ```sh
-  ./arkanoid
-  ```
+
+    ```sh
+    ./arkanoid
+    ```
+
 - **Windows**:
-  ```cmd
-  arkanoid.exe
-  ```
+
+    ```cmd
+    arkanoid.exe
+    ```
 
 ---
 
