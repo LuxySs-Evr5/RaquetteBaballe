@@ -15,7 +15,7 @@
 // ### Different paths ###
 constexpr char PATH_TO_FONT[] =
     "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
-constexpr char PATH_TO_MUSIC[] = "ressources/music/arkanoid.wav";
+constexpr char PATH_TO_MUSIC[] = "ressources/music/music.wav";
 constexpr char PATH_TO_HEART_IMAGE[] = "ressources/images/heart.png";
 constexpr char PATH_TO_LEVELS[] = "ressources/levels/";
 
