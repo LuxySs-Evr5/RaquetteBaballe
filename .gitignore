@@ -14,7 +14,7 @@ res
 test.cpp
 tmp.cpp
 build/
-
+build
 
 .vscode
 .cache

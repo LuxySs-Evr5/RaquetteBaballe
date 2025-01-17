@@ -5,7 +5,7 @@
 <div align=center>
 <img src="other/logo.png" alt="Logo Raquette Baballe" width="200" style="margin: 20px 0;">
 <p><strong>A modern twist on the classic Arkanoid game, crafted with C++ and Allegro.</strong></p>
-<a href="https://github.com/Evr5/RaquetteBaballe">
+<a href="https://github.com/LuxySs-Evr5/RaquetteBaballe">
 <img src="https://img.shields.io/badge/Open%20Source-%E2%9C%94-blue?style=for-the-badge" alt="Open Source">
 </a>
 </div>
