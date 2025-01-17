@@ -145,10 +145,12 @@ void DisplayGame::initialize_allegro() {
 }
 
 void DisplayGame::draw() {
+    const char gameTitle[] = "Raquette Baballe";
+
     al_clear_to_color(COLOR_BLACK); // set the color of the window to black
 
-    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2, 30,
-                 ALLEGRO_ALIGN_CENTER, "Raquette Baballe"); // draw the title
+    al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 2 - getTextHeight(font24_), 30,
+                 ALLEGRO_ALIGN_CENTER, gameTitle); // draw the title
     al_draw_text(font24_, COLOR_WHITE, SCREEN_WIDTH / 6, 50,
                  ALLEGRO_ALIGN_CENTER,
                  "Life : "); // draw the text "Life : ", the hearts will be
