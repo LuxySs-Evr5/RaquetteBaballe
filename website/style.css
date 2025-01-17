@@ -61,13 +61,18 @@ body {
 
 
 pre.code-block {
-    background: #1e1e1e;
-    color: #C6C6C6;
-    padding: 15px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #1e1e2f, #3c3c5c);
+    color: #FFD700;
+    padding: 20px;
+    border-radius: 8px;
     font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
     overflow-x: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
 }
+
 
 footer {
     background: rgba(0, 0, 0, 0.9);

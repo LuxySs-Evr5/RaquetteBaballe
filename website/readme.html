@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+</head>
+
+<body>
+    <header class="hero-banner">
+        <h1>README Viewer</h1>
+        <p>View the detailed content of the README file.</p>
+    </header>
+    <main>
+        <section id="readme-content" class="card">
+            <h2><i class="fas fa-file-alt"></i> README Content</h2>
+            <div id="readme-container">Loading...</div>
+        </section>
+    </main>
+    <script>
+        fetch('README.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const converter = new showdown.Converter();
+                const html = converter.makeHtml(markdown);
+                document.getElementById('readme-container').innerHTML = html;
+            })
+            .catch(error => {
+                document.getElementById('readme-container').innerHTML = 'Error loading README file.';
+                console.error('Error loading README:', error);
+            });
+    </script>
+</body>
+
+</html>
