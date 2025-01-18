@@ -64,7 +64,7 @@ GameBoard::findNextCollision(Ball &ball) {
 }
 
 void GameBoard::handleBallBrickCollision(Ball &ball, BrickIt brickIt) {
-    ball.collide(*brickIt->get());
+    ball.collide(**brickIt);
     BonusType bonusType =
         (*brickIt)->hit(); // decrement its durability and extract bonus
     if ((*brickIt)->isDestroyed()) {
@@ -106,13 +106,22 @@ void GameBoard::handleActiveBonus(double deltaTime) {
         bool isActive = activeBonus_->update(deltaTime);
         BonusType bonusType = activeBonus_->getBonusType();
         if (bonusType == BonusType::SlowDown) {
-            double slowDownFactor =
-                static_cast<SlowDownBonus &>(*activeBonus_).getSlowDownFactor();
-
-            balls_.at(0)->setSpeed(BALL_SPEED / slowDownFactor);
+            SlowDownBonus *slowDownBonus =
+                dynamic_cast<SlowDownBonus *>(activeBonus_.get());
+            if (slowDownBonus) {
+                double slowDownFactor = slowDownBonus->getSlowDownFactor();
+                balls_.at(0)->setSpeed(BALL_SPEED / slowDownFactor);
+            } else {
+                Log::get().addMessage(
+                    Log::LogType::Error,
+                    "activeBonus_ was expected to be of type SlowDownBonus "
+                    "based on its BonusType, but it is not.");
+            }
         } else if (bonusType == BonusType::StickyRacket) {
             if (balls_.at(0)->isStuck()) {
-                balls_.at(0)->setCenterX(racket_->getCenter().x);
+                balls_.at(0)->setCenter(
+                    {racket_->getCenter().x,
+                     racket_->getTop() + balls_.at(0)->getRadius()});
                 balls_.at(0)->setDirVec(BALL_INITIAL_DIRECTION);
             }
         }
@@ -128,12 +137,12 @@ void GameBoard::handleLazers(double deltaTime) {
     vector<shared_ptr<Lazer>> lazersToRemove;
     vector<shared_ptr<AbstractBrick>> bricksToRemove;
 
-    for (shared_ptr<Lazer> lazer : lazers_) {
+    for (shared_ptr<Lazer> &lazer : lazers_) {
         lazer->update(deltaTime);
         if (lazer->getTop() > BOARD_HEIGHT - WALL_THICKNESS) {
             lazersToRemove.push_back(lazer);
         }
-        for (shared_ptr<AbstractBrick> brick : bricks_) {
+        for (shared_ptr<AbstractBrick> &brick : bricks_) {
             if (lazer->isOverlapping(*brick)) {
                 if (brick->getColor() != AbstractBrick::Color::gold) {
                     bricksToRemove.push_back(brick);
@@ -151,7 +160,7 @@ void GameBoard::handleLazers(double deltaTime) {
 
 void GameBoard::handleBalls(double deltaTime) {
     vector<shared_ptr<Ball>> ballsToRemove;
-    for (shared_ptr<Ball> ball : balls_) {
+    for (shared_ptr<Ball> &ball : balls_) {
         ball->update(deltaTime);
 
         Log::get().addMessage(Log::LogType::BallPos, ball->getCenter());
@@ -225,7 +234,7 @@ void GameBoard::solveBallCollisions(Ball &ball) {
         } else if (std::holds_alternative<BorderIt>(collidingObject.value())) {
             Log::get().addMessage(Log::LogType::CollidingObject, "border");
             BorderIt borderIt = std::get<BorderIt>(*collidingObject);
-            ball.collide(*borderIt->get());
+            ball.collide(**borderIt);
         }
 
         prevCollidingObject = collidingObject;
@@ -425,7 +434,7 @@ void GameBoard::setBricks(
     bricks_ = bricks;
 }
 
-void GameBoard::setRacket(const std::shared_ptr<Racket> racket) {
+void GameBoard::setRacket(const std::shared_ptr<Racket> &racket) {
     racket_ = racket;
 }
 

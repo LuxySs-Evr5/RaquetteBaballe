@@ -15,8 +15,8 @@
 #include "../piece/racket_ui.hpp"
 #include "../piece/wall_ui.hpp"
 
-Canvas::Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick)
-    : gameBoard_(gameBoard), fontBrick_(fontBrick){};
+Canvas::Canvas(const shared_ptr<GameBoard> &gameBoard, ALLEGRO_FONT *fontBrick)
+    : gameBoard_(gameBoard), fontBrick_(fontBrick) {};
 
 void Canvas::draw() {
     for (auto &border : gameBoard_->getBorders()) {

@@ -18,7 +18,7 @@
 
 class DisplayGame {
   private:
-    shared_ptr<GameBoard> gameBoard_;
+    const shared_ptr<GameBoard> gameBoard_;
     shared_ptr<Canvas> canvas_;
 
     ALLEGRO_DISPLAY *display_;
@@ -69,7 +69,7 @@ class DisplayGame {
      *
      * @param gameBoard the game board
      */
-    DisplayGame(shared_ptr<GameBoard> gameBoard);
+    DisplayGame(const shared_ptr<GameBoard> &gameBoard);
 
     /**
      * @brief Destroy the Display Game object

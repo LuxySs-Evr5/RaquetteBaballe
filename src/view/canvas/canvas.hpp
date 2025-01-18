@@ -19,7 +19,7 @@ using namespace std;
 
 class Canvas {
   private:
-    shared_ptr<GameBoard> gameBoard_;
+    const shared_ptr<GameBoard> gameBoard_;
     ALLEGRO_FONT *fontBrick_;
 
   public:
@@ -29,7 +29,7 @@ class Canvas {
      * @param gameBoard
      * @param fontBrick the font for the bricks bonus
      */
-    Canvas(shared_ptr<GameBoard> gameBoard, ALLEGRO_FONT *fontBrick);
+    Canvas(const shared_ptr<GameBoard> &gameBoard, ALLEGRO_FONT *fontBrick);
 
     /**
      * @brief Destroy the Canvas object

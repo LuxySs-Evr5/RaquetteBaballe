@@ -275,7 +275,7 @@ class GameBoard final {
      *
      * @param racket A racket pointer.
      */
-    void setRacket(const std::shared_ptr<Racket> racket);
+    void setRacket(const std::shared_ptr<Racket> &racket);
 
     /**
      * @brief Sets the borders.

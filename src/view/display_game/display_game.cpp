@@ -16,7 +16,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 
-DisplayGame::DisplayGame(shared_ptr<GameBoard> gameBoard)
+DisplayGame::DisplayGame(const shared_ptr<GameBoard> &gameBoard)
     : gameBoard_(gameBoard) {
 
     initialize_allegro();

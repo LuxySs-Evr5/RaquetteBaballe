@@ -38,7 +38,7 @@ AbstractBrick::Color AbstractBrick::getColor() const {
     return AbstractBrick::color_;
 }
 
-size_t AbstractBrick::getScore() const { return static_cast<unsigned>(color_); }
+size_t AbstractBrick::getScore() const { return static_cast<size_t>(color_); }
 
 uint8_t AbstractBrick::getDurability() const { return durability_; }
 
