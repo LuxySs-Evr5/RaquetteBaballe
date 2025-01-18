@@ -1,38 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README</title>
+    <meta name="description" content="Raquette Baballe is a modern twist on the classic Arkanoid game, crafted with C++ and Allegro.">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>README</title>
+    <link rel="icon" type="image/x-icon" href="images/readme.ico">
+    
 </head>
-
 <body>
-    <header class="hero-banner">
-        <h1>README Viewer</h1>
-        <p>View the detailed content of the README file.</p>
-    </header>
-    <main>
-        <section id="readme-content" class="card">
-            <h2><i class="fas fa-file-alt"></i> README Content</h2>
-            <div id="readme-container">Loading...</div>
-        </section>
-    </main>
-    <script>
-        fetch('README.md')
-            .then(response => response.text())
-            .then(markdown => {
-                const converter = new showdown.Converter();
-                const html = converter.makeHtml(markdown);
-                document.getElementById('readme-container').innerHTML = html;
-            })
-            .catch(error => {
-                document.getElementById('readme-container').innerHTML = 'Error loading README file.';
-                console.error('Error loading README:', error);
-            });
-    </script>
-</body>
+    <nav aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" aria-current="page">Home</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="game-guide.html">Guide</a></li>
+            <li><a href="https://github.com/LuxySs-Evr5/RaquetteBaballe" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+    </nav>
 
+    <div class="hero-banner">
+        <h1>README</h1>
+        <p>Discover the game's description, features, installation instructions, and more. Get ready to play Raquette Baballe!</p>
+    </div>
+
+    <main>
+        <section id="description">
+            <h2>📜 Description</h2>
+            <p><strong>Raquette Baballe</strong> is a game inspired by the classic brick-breaking arcade game Arkanoid. Developed in <strong>C++</strong> using the <strong>Allegro graphics library</strong>, it adheres to the <strong>Model-View-Controller (MVC)</strong> design pattern for clear separation of logic, rendering, and control. The project is fully <strong>open-source</strong>.
+                </p>
+        </section>
+
+        <section id="platforms">
+            <h2>🌟 Supported Platforms</h2>
+            <div class="gallery">
+                <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
+                <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS">
+                <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>🎮 Features</h2>
+            <ul>
+                <li>✅ <strong>Dynamic Gameplay:</strong> Racket movement using the mouse, with responsive ball physics.</li>
+                <li>✅ <strong>Challenging Levels:</strong> Multiple levels loaded from `.txt` files, featuring unique designs.</li>
+                <li>✅ <strong>Score Tracking:</strong> Tracks your score and saves the best score locally.</li>
+                <li>✅ <strong>Diverse Bricks:</strong> Various brick colors with different point values.</li>
+                <li>✅ <strong>Special Bricks:</strong> Silver and gold bricks with unique properties.</li>
+                <li>✅ <strong>Game Bonuses:</strong> Collect bonuses to gain extra lives, expand the racket, and more.</li>
+              </ul>
+        </section>
+
+        <section id="prerequisites">
+            <h2>📦 Prerequisites</h2>
+            <ul>
+                <li><strong>C++20</strong></li>
+                <li><strong>Allegro 5</strong></li>
+                <li><strong>g++</strong></li>
+                <li><strong>make</strong></li>
+                <li><strong>cmake</strong></li>
+            </ul>
+        </section>
+
+        <section id="installation">
+            <h2>🚀 Installation</h2>
+        
+            <h3>🐧 Linux (Debian-based)</h3>
+            <p></p>
+            <ol>
+                <li>Install dependencies:</li>
+                <p></p>
+                <pre class="code-block">
+sudo apt install g++ make cmake liballegro5-dev</pre>
+                <p></p>
+                <li>Compile the project:</li>
+                <p></p>
+                <pre class="code-block">
+make</pre>
+            </ol>
+                <p></p>
+        
+            <h3>🐧 Linux (Arch Linux)</h3>
+            <p></p>
+            <ol>
+                <li>Install dependencies:</li>
+                <p></p>
+                <pre class="code-block">
+sudo pacman -S gcc make cmake allegro</pre>
+                <p></p>
+                <li>Compile the project:</li>
+                <p></p>
+                <pre class="code-block">
+make</pre>
+                <p></p>
+            </ol>
+            <p></p>
+        
+            <h3>🍎 macOS</h3>
+            <p></p>
+            <ol>
+                <li>Install Allegro using Homebrew:</li>
+                <p></p>
+                <pre class="code-block">
+brew install allegro</pre>
+                <p></p>
+                <li>Compile the project:</li>
+                <p></p>
+                <pre class="code-block">
+make</pre>
+                <p></p>
+            </ol>
+            <p></p>
+        
+            <h3>🪟 Windows</h3>
+            <p></p>
+            <ol>
+                <li>Install MinGW:</li>
+                <p></p>
+                <ul>
+                    <li>Download from <a href="https://www.mingw-w64.org/" target="_blank" class="basic-link">MinGW-w64</a> or use <a href="https://www.msys2.org/" target="_blank" class="basic-link">MSYS2</a>.</li>
+                    <li>Ensure <strong>g++</strong>, <strong>make</strong>, and <strong>cmake</strong> are installed and in your system PATH.</li>
+                </ul>
+                <p></p>
+                <li>Install Allegro:</li>
+                <p></p>
+                <pre class="code-block">
+pacman -S mingw-w64-x86_64-allegro</pre>
+                <p></p>
+                <li>Compile the project:</li>
+                <p></p>
+                <pre class="code-block">
+make</pre>
+                <p></p>
+            </ol>
+        </section>
+        
+
+        <section id="usage">
+            <h2>🎲 Usage</h2>
+            <h3>After compiling, run the game:</h3>
+            <p></p>
+            <h4>Linux/macOS</h4>
+            <p></p>
+            <pre class="code-block">./raquette-baballe</pre>
+            <p></p>
+            <h4>Windows</h4>
+            <p></p>
+            <pre class="code-block">raquette-baballe.exe</pre>
+        </section>
+
+        <section id="controls">
+            <h2>🎮 Controls</h2>
+            <ul>
+                <li>`r` : Reset the best score and current score.
+                <li>`←` : Move to the previous level.
+                <li>`→` : Move to the next level.
+                <li>`a` : Replay the current level.
+                <li>`q` : Quit the game.
+                <li>`Spacebar` : Shoot lasers or release the ball when stuck to the racket.
+            </ul>
+        </section>
+
+        <section id="bonuses">
+            <h2>🎁 Bonuses</h2>
+            <ul>
+                <li><strong>S</strong> : Slow down the ball.
+                <li><strong>E</strong> : Gain an extra life.
+                <li><strong>W</strong> : Expand the racket width.
+                <li><strong>L</strong> : Shoot lasers.
+                <li><strong>T</strong> : Make the ball stick to the racket.
+                <li><strong>B</strong> : Split the ball into three.
+        </section>
+
+        <section id="levels">
+            <h2>🛠️ Create Your Levels</h2>
+            <p></p>
+            <p>Design custom levels in the `ressources/levels` directory using `.txt` files. Name your files numerically (e.g., `1.txt`, `2.txt`). Format each line as follows:</p>
+            <ul>
+                <li><strong>X-coordinate</strong> : Horizontal position of the brick.
+                <li><strong>Y-coordinate</strong> : Vertical position of the brick.
+                <li><strong>Color</strong> : Brick color (e.g., `red`, `blue`).
+                <li><strong>Bonus</strong> : (Optional) Specify a bonus (`SlowDown`, `ExtraLife`, etc.).
+            </ul>
+        </section>
+
+        <section id="documentation">
+            <h2>📖 Documentation</h2>
+            <p>For detailed guides and insights, visit the <a href="https://github.com/LuxySs-Evr5/RaquetteBaballe/wiki" target="_blank" class="basic-link">Raquette Baballe Wiki</a>.</p>
+        </section>
+
+    <section>
+        Developed with ❤️ by <a href="https://github.com/LuxySs" class="basic-link" target="_blank">LuxySs</a> and <a href="https://github.com/Evr5" class="basic-link" target="_blank">Evr5</a>
+    </section>
+
+</main>
+
+    <footer>
+        <a href="https://github.com/LuxySs-Evr5/RaquetteBaballe" class="basic-link" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="contact-us.html" class="basic-link"><i class="fas fa-envelope"></i></a>
+    </footer>
+
+</body>
 </html>
