@@ -22,7 +22,7 @@ jobs:
 
     # 2. Set up CMake
     - name: Set up CMake
-      uses: lukka/get-cmake@v3
+      uses: lukka/get-cmake@v2
 
     # 3. Install dependencies
     - name: Install dependencies (Linux)
