@@ -41,7 +41,13 @@ else
 endif
 
 setup:
-	$(MKDIR) $(BUILD_DIR)
+ifeq ($(IS_WINDOWS), 1)
+	@if not exist "$(BUILD_DIR)" mkdir "$(BUILD_DIR)"
+else
+	@if [ ! -d "$(BUILD_DIR)" ]; then \
+		mkdir -p "$(BUILD_DIR)"; \
+	fi
+endif
 
 clean:
 	$(RM_DIR) $(CLEAN_DIR)
