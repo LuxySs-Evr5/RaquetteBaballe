@@ -2,9 +2,9 @@ name: C++ RaquetteBaballe Build (with Make + Cache)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "**" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "**" ]
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt install liballegro5-dev
+        sudo apt install -y liballegro5-dev
 
     - name: Build with Make
       run: |
