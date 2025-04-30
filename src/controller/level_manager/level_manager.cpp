@@ -118,7 +118,6 @@ bool compareFiles(const string &a, const string &b) {
 }
 
 void LevelManager::loadBricks() {
-    string mainPath = PATH_TO_LEVELS;
     vector<string> levelFiles; // Store the paths of the level files
 
     // Get all the files in the levels directory and store them in the vector

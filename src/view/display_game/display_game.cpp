@@ -15,6 +15,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <string>
 
 DisplayGame::DisplayGame(const shared_ptr<GameBoard> &gameBoard)
     : gameBoard_(gameBoard) {
@@ -36,19 +37,19 @@ DisplayGame::DisplayGame(const shared_ptr<GameBoard> &gameBoard)
 
     al_set_window_position(display_, x, y);
 
-    font24_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_24, 0);
+    font24_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_24, 0);
     checkInit(font24_, "font24");
 
-    font50_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_50, 0);
+    font50_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_50, 0);
     checkInit(font50_, "font50");
 
-    fontBrick_ = al_load_ttf_font(PATH_TO_FONT, FONT_SIZE_BRICK, 0);
+    fontBrick_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_BRICK, 0);
     checkInit(fontBrick_, "fontBrick");
 
-    heartImage_ = al_load_bitmap(PATH_TO_HEART_IMAGE);
+    heartImage_ = al_load_bitmap(PATH_TO_HEART_IMAGE.cend());
     checkInit(heartImage_, "heart image");
 
-    music_ = al_load_sample(PATH_TO_MUSIC);
+    music_ = al_load_sample(PATH_TO_MUSIC.cend());
     checkInit(music_, "music");
 
     instanceMusic_ = al_create_sample_instance(music_);
