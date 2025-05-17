@@ -7,6 +7,7 @@
  */
 
 #include "level_manager.hpp"
+
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
@@ -15,6 +16,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include "../../global_variables.hpp"
 
 LevelManager::LevelManager() {
     // Create the racket
@@ -121,7 +123,7 @@ void LevelManager::loadBricks() {
     vector<string> levelFiles; // Store the paths of the level files
 
     // Get all the files in the levels directory and store them in the vector
-    for (const auto &entry : filesystem::directory_iterator(PATH_TO_LEVELS)) {
+    for (const auto &entry : filesystem::directory_iterator(getPathToLevels())) {
         if (entry.is_regular_file() && entry.path().extension() == ".txt") {
             levelFiles.push_back(entry.path().string());
         }

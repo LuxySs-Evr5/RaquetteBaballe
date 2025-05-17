@@ -11,14 +11,13 @@
 
 #include "model/vec2/vec2.hpp"
 #include <cstdint>
-#include <string_view>
+#include <string>
 
 // ### Different paths ###
-inline constexpr std::string_view PATH_TO_FONT =
-    "ressources/fonts/CaskaydiaCoveNerdFontMono-Regular.ttf";
-inline constexpr std::string_view PATH_TO_MUSIC = "ressources/music/music.wav";
-inline constexpr std::string_view PATH_TO_HEART_IMAGE = "ressources/images/heart.png";
-inline constexpr std::string_view PATH_TO_LEVELS = "ressources/levels/";
+std::string getPathToFont();
+std::string getPathToMusic();
+std::string getPathToHeartImage();
+std::string getPathToLevels();
 
 // ### Screen ###
 inline constexpr float SCREEN_WIDTH = 1020;

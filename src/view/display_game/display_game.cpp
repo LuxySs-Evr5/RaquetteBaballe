@@ -37,19 +37,19 @@ DisplayGame::DisplayGame(const shared_ptr<GameBoard> &gameBoard)
 
     al_set_window_position(display_, x, y);
 
-    font24_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_24, 0);
+    font24_ = al_load_ttf_font(getPathToFont().c_str(), FONT_SIZE_24, 0);
     checkInit(font24_, "font24");
 
-    font50_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_50, 0);
+    font50_ = al_load_ttf_font(getPathToFont().c_str(), FONT_SIZE_50, 0);
     checkInit(font50_, "font50");
 
-    fontBrick_ = al_load_ttf_font(PATH_TO_FONT.cend(), FONT_SIZE_BRICK, 0);
+    fontBrick_ = al_load_ttf_font(getPathToFont().c_str(), FONT_SIZE_BRICK, 0);
     checkInit(fontBrick_, "fontBrick");
 
-    heartImage_ = al_load_bitmap(PATH_TO_HEART_IMAGE.cend());
+    heartImage_ = al_load_bitmap(getPathToHeartImage().c_str());
     checkInit(heartImage_, "heart image");
 
-    music_ = al_load_sample(PATH_TO_MUSIC.cend());
+    music_ = al_load_sample(getPathToMusic().c_str());
     checkInit(music_, "music");
 
     instanceMusic_ = al_create_sample_instance(music_);
@@ -67,6 +67,8 @@ DisplayGame::DisplayGame(const shared_ptr<GameBoard> &gameBoard)
     al_set_sample_instance_playmode(
         instanceMusic_, ALLEGRO_PLAYMODE_LOOP); // read the music in loop
     al_play_sample_instance(instanceMusic_);    // play the music
+
+    al_set_sample_instance_gain(instanceMusic_, 0.5f);
 
     canvas_ = make_shared<Canvas>(gameBoard_, fontBrick_);
 }

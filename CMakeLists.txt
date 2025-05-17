@@ -49,7 +49,3 @@ endif()
 
 # Set runtime output directory to the root of the project
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")
-
-# Messages for compatibility confirmation
-message("Building for platform: ${CMAKE_SYSTEM_NAME}")
-message("C++ Standard: ${CMAKE_CXX_STANDARD}")
