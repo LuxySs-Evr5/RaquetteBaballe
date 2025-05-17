@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Raquette Baballe
+Comment=A homemade arkanoid game
+Exec=raquette-baballe
+Icon=raquette-baballe
+Terminal=false
+Type=Application
+Categories=Game;ArcadeGame;

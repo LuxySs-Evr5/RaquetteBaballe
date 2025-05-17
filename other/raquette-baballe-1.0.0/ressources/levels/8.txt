@@ -1,0 +1,14 @@
+490 550 defaultBrick SplitBall
+490 600 defaultBrick SlowDown
+420 600 defaultBrick ExtraLife
+560 600 defaultBrick WideRacket
+350 600 defaultBrick
+630 600 defaultBrick
+700 600 defaultBrick
+280 600 defaultBrick
+770 600 defaultBrick
+210 600 defaultBrick
+840 600 defaultBrick
+140 600 defaultBrick
+910 600 defaultBrick
+70 600 defaultBrick
