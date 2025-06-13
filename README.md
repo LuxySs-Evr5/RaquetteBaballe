@@ -49,7 +49,6 @@
 
 <ul style="list-style-type: none; text-align: left; display: inline-block;">
   <li>🔹 <strong>C++20</strong></li>
-  <li>🔹 <strong>Allegro 5</strong></li>
   <li>🔹 <strong>g++</strong></li>
   <li>🔹 <strong>make</strong></li>
   <li>🔹 <strong>cmake</strong></li>
@@ -64,7 +63,7 @@
 1. Install dependencies:
 
     ```sh
-    sudo apt install g++ make cmake liballegro5-dev
+    sudo apt install g++ make cmake
     ```
 
 2. Compile the project:
@@ -78,21 +77,7 @@
 1. Install dependencies:
 
     ```sh
-    sudo pacman -S gcc make cmake allegro
-    ```
-
-2. Compile the project:
-
-    ```sh
-    make
-    ```
-
-### 🍎 macOS
-
-1. Install Allegro using Homebrew:
-
-    ```sh
-    brew install allegro
+    sudo pacman -S gcc make cmake
     ```
 
 2. Compile the project:
@@ -106,14 +91,7 @@
 1. Install MinGW:
     - Download from [MinGW-w64](https://www.mingw-w64.org/) or use [MSYS2](https://www.msys2.org/).
     - Ensure `g++`, `make`, and `cmake` are installed and in your system PATH.
-2. Install Allegro:
-    - Using MSYS2:
-
-      ```sh
-      pacman -S mingw-w64-x86_64-allegro
-      ```
-
-3. Compile the project:
+2. Compile the project:
 
     ```sh
     make
