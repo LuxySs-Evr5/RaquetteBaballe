@@ -174,6 +174,12 @@ Design custom levels in the `ressources/levels` directory using `.txt` files. Na
 
 ---
 
+<h2 align=center>🔧 Project used in</h2>
+
+This project use [cpp-make-cmake-template](https://github.com/Evr5/cpp-make-cmake-template) (by [@Evr5](https://github.com/Evr5)) that provides a cross-platform CMake + Make integration, a support for static and dynamic linking and a modular structure.
+
+---
+
 <h2 align=center>📖 Documentation</h2>
 
 For detailed guides and insights, visit the [Raquette Baballe Wiki](https://github.com/LuxySs-Evr5/RaquetteBaballe/wiki).
